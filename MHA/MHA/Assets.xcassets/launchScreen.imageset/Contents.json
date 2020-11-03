@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "selfDiscoveryBackgroundImage.jpg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "selfDiscoveryBackgroundImage@2x.jpg",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "selfDiscoveryBackgroundImage@3x.jpg",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

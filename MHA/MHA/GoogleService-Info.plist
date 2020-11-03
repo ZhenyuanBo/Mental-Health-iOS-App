@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1099322937092-q7msfg1d0etpo2k454a2ca0gdlmgr0cl.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1099322937092-q7msfg1d0etpo2k454a2ca0gdlmgr0cl</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDWhuao1XgRvLPhmHz8b5HLWcFhrNAvEfE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1099322937092</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.zybo.MHA</string>
+	<key>PROJECT_ID</key>
+	<string>mental-health-ios-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mental-health-ios-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1099322937092:ios:24f4f6c8dce93826f4ca51</string>
+	<key>DATABASE_URL</key>
+	<string>https://mental-health-ios-app.firebaseio.com</string>
+</dict>
+</plist>
