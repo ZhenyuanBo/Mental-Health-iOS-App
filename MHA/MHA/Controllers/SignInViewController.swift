@@ -22,7 +22,13 @@ class SignInViewController: UIViewController {
     
     @IBAction func signinPressed(_ sender: UIButton) {
         if let email = emailTextField.text, let password = pwdTextField.text{
-            
+            Auth.auth().signIn(withEmail: email, password: password) { (authResult,  error) in
+                if let e = error{
+                    print(e)
+                }else{
+                    self.performSegue(withIdentifier: K.signinSegue, sender: self)
+                }
+            }
         }
     }
 

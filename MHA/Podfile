@@ -7,6 +7,8 @@ target 'MHA' do
   # Pods for MHA
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
+  pod 'RealmSwift'
+  pod 'SwipeCellKit'
 
   target 'MHATests' do
     inherit! :search_paths
