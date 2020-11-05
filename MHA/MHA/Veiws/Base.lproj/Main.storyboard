@@ -242,30 +242,41 @@
             </objects>
             <point key="canvasLocation" x="2349" y="-143"/>
         </scene>
-        <!--User Input View Controller-->
+        <!--Note Details-->
         <scene sceneID="tNt-yi-xy6">
             <objects>
                 <viewController id="6Ty-gB-ZSs" customClass="UserInputViewController" customModule="MHA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Rlm-ZA-wyb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1Cm-9O-cn8">
+                                <rect key="frame" x="24" y="114" width="367" height="668"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="gUT-j0-tY5"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
-                    <navigationItem key="navigationItem" id="sEZ-uE-9sq">
-                        <barButtonItem key="rightBarButtonItem" title="Sign Out" id="H7I-hx-b3d">
+                    <navigationItem key="navigationItem" title="Note Details" id="sEZ-uE-9sq">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="H7I-hx-b3d">
                             <connections>
                                 <action selector="signoutPressed:" destination="6Ty-gB-ZSs" id="YnQ-dg-KYw"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="0B2-i3-efl" kind="show" id="bih-Bj-eE8"/>
+                        <outlet property="textBody" destination="1Cm-9O-cn8" id="l9r-V3-3ZH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OLJ-0H-SW2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3336" y="-143"/>
+            <point key="canvasLocation" x="3334.7826086956525" y="-143.30357142857142"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="VJf-AF-bEV">
@@ -382,6 +393,9 @@
     <resources>
         <image name="textfield" width="298" height="93"/>
         <image name="yourself" width="176" height="233"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -307,12 +307,14 @@ PODS:
   - RealmSwift (10.1.1):
     - Realm (= 10.1.1)
   - SwipeCellKit (2.7.1)
+  - WDFlashCard (1.0.6)
 
 DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Firestore
   - RealmSwift
   - SwipeCellKit
+  - WDFlashCard
 
 SPEC REPOS:
   trunk:
@@ -334,6 +336,7 @@ SPEC REPOS:
     - Realm
     - RealmSwift
     - SwipeCellKit
+    - WDFlashCard
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
@@ -354,7 +357,8 @@ SPEC CHECKSUMS:
   Realm: 784ca1da1453e31a9c9adc14445421a81f316119
   RealmSwift: cc52fe0dcea56387274dff36e19219e055a3bb84
   SwipeCellKit: 3972254a826da74609926daf59b08d6c72e619ea
+  WDFlashCard: 9ad847730f3ef177b9943df1f120b655c880941a
 
-PODFILE CHECKSUM: 8ce4c82660185a48592b53d05220b4d7d013d8bd
+PODFILE CHECKSUM: 9147a94b8c5a197f4f0036d62f54f175e487cc7f
 
 COCOAPODS: 1.10.0
