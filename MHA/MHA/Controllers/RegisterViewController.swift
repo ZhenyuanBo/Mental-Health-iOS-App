@@ -26,7 +26,7 @@ class RegisterViewController: UIViewController {
                 if let e = error{
                     print("Failed to create user!, \(e)")
                 }else{
-                    self.performSegue(withIdentifier: K.registerSegue, sender: self)
+                    self.performSegue(withIdentifier: Utils.registerSegue, sender: self)
                 }
             }
         }

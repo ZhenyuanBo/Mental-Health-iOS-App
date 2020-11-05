@@ -21,12 +21,16 @@
 		6E184DC02550F9790066EBC1 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E184DBF2550F9790066EBC1 /* SignInViewController.swift */; };
 		6E184DC5255116770066EBC1 /* UserInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E184DC4255116770066EBC1 /* UserInputViewController.swift */; };
 		6E2939632551EA7700D7991D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E2939622551EA7600D7991D /* GoogleService-Info.plist */; };
-		6E29397E2551EDDB00D7991D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E29397D2551EDDB00D7991D /* Constants.swift */; };
 		6E2939AB2552256700D7991D /* HistoryNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2939AA2552256700D7991D /* HistoryNote.swift */; };
 		6E2939B62552258100D7991D /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2939B52552258100D7991D /* Note.swift */; };
 		6E2939C1255239A900D7991D /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2939C0255239A800D7991D /* HistoryTableViewController.swift */; };
-		6E293A11255301CD00D7991D /* NoteCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E293A0F255301CD00D7991D /* NoteCustomCell.swift */; };
-		6E293A12255301CD00D7991D /* NoteCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E293A10255301CD00D7991D /* NoteCustomCell.xib */; };
+		6E293A12255301CD00D7991D /* NoteActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E293A10255301CD00D7991D /* NoteActivityCell.xib */; };
+		6EF7BDC7255452E800280738 /* NotesListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF7BDC6255452E800280738 /* NotesListTableViewController.swift */; };
+		6EF7BDCC2554552200280738 /* WeekCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF7BDCB2554552200280738 /* WeekCell.swift */; };
+		6EF7BDD42554565200280738 /* MonthCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF7BDD32554565200280738 /* MonthCell.swift */; };
+		6EF7BE2625546D1500280738 /* NoteActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF7BE2525546D1500280738 /* NoteActivityCell.swift */; };
+		6EF7BE2C25547CD400280738 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF7BE2B25547CD400280738 /* Utils.swift */; };
+		6EF7BE34255491BE00280738 /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF7BE33255491BE00280738 /* NoteCell.swift */; };
 		94FC146E167BF2F1D30C3470 /* Pods_MHATests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13A23000716A2A40A3E4C14F /* Pods_MHATests.framework */; };
 		D397B2508FB565F065BE0EDD /* Pods_MHA_MHAUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2441BEC56B3BD9F3CECD7CBE /* Pods_MHA_MHAUITests.framework */; };
 /* End PBXBuildFile section */
@@ -74,12 +78,16 @@
 		6E184DBF2550F9790066EBC1 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		6E184DC4255116770066EBC1 /* UserInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputViewController.swift; sourceTree = "<group>"; };
 		6E2939622551EA7600D7991D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		6E29397D2551EDDB00D7991D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		6E2939AA2552256700D7991D /* HistoryNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryNote.swift; sourceTree = "<group>"; };
 		6E2939B52552258100D7991D /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		6E2939C0255239A800D7991D /* HistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
-		6E293A0F255301CD00D7991D /* NoteCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCustomCell.swift; sourceTree = "<group>"; };
-		6E293A10255301CD00D7991D /* NoteCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteCustomCell.xib; sourceTree = "<group>"; };
+		6E293A10255301CD00D7991D /* NoteActivityCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteActivityCell.xib; sourceTree = "<group>"; };
+		6EF7BDC6255452E800280738 /* NotesListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesListTableViewController.swift; sourceTree = "<group>"; };
+		6EF7BDCB2554552200280738 /* WeekCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekCell.swift; sourceTree = "<group>"; };
+		6EF7BDD32554565200280738 /* MonthCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCell.swift; sourceTree = "<group>"; };
+		6EF7BE2525546D1500280738 /* NoteActivityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteActivityCell.swift; sourceTree = "<group>"; };
+		6EF7BE2B25547CD400280738 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		6EF7BE33255491BE00280738 /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
 		954FC1E411D6C6FB07DC3A8F /* Pods-MHA-MHAUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MHA-MHAUITests.debug.xcconfig"; path = "Target Support Files/Pods-MHA-MHAUITests/Pods-MHA-MHAUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C88933F4A865AACA17E57391 /* Pods-MHATests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MHATests.release.xcconfig"; path = "Target Support Files/Pods-MHATests/Pods-MHATests.release.xcconfig"; sourceTree = "<group>"; };
 		CF89F68AFF3EB5538800AFD6 /* Pods-MHA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MHA.release.xcconfig"; path = "Target Support Files/Pods-MHA/Pods-MHA.release.xcconfig"; sourceTree = "<group>"; };
@@ -140,12 +148,12 @@
 			children = (
 				6E184D802550F7890066EBC1 /* AppDelegate.swift */,
 				6E184D822550F7890066EBC1 /* SceneDelegate.swift */,
+				6EF7BE2A25547C9D00280738 /* Utils */,
 				6E2939A92552254100D7991D /* Models */,
 				6E184DB62550F94D0066EBC1 /* Controllers */,
-				6E2939EF2552FC7A00D7991D /* Veiws */,
+				6E2939EF2552FC7A00D7991D /* Views */,
 				6E184D8C2550F78C0066EBC1 /* Assets.xcassets */,
 				6E184D8E2550F78D0066EBC1 /* LaunchScreen.storyboard */,
-				6E29397D2551EDDB00D7991D /* Constants.swift */,
 				6E184D912550F78D0066EBC1 /* Info.plist */,
 				6E2939622551EA7600D7991D /* GoogleService-Info.plist */,
 				6E184D892550F7890066EBC1 /* MHA.xcdatamodeld */,
@@ -178,6 +186,7 @@
 				6E184DB72550F9690066EBC1 /* RegisterViewController.swift */,
 				6E184DBF2550F9790066EBC1 /* SignInViewController.swift */,
 				6E2939C0255239A800D7991D /* HistoryTableViewController.swift */,
+				6EF7BDC6255452E800280738 /* NotesListTableViewController.swift */,
 				6E184DC4255116770066EBC1 /* UserInputViewController.swift */,
 			);
 			path = Controllers;
@@ -187,19 +196,30 @@
 			isa = PBXGroup;
 			children = (
 				6E2939AA2552256700D7991D /* HistoryNote.swift */,
+				6EF7BE33255491BE00280738 /* NoteCell.swift */,
 				6E2939B52552258100D7991D /* Note.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		6E2939EF2552FC7A00D7991D /* Veiws */ = {
+		6E2939EF2552FC7A00D7991D /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				6E184D862550F7890066EBC1 /* Main.storyboard */,
-				6E293A0F255301CD00D7991D /* NoteCustomCell.swift */,
-				6E293A10255301CD00D7991D /* NoteCustomCell.xib */,
+				6EF7BDCB2554552200280738 /* WeekCell.swift */,
+				6EF7BDD32554565200280738 /* MonthCell.swift */,
+				6E293A10255301CD00D7991D /* NoteActivityCell.xib */,
+				6EF7BE2525546D1500280738 /* NoteActivityCell.swift */,
 			);
-			path = Veiws;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		6EF7BE2A25547C9D00280738 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				6EF7BE2B25547CD400280738 /* Utils.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		8A44FBA630A7498551603F33 /* Frameworks */ = {
@@ -333,7 +353,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E293A12255301CD00D7991D /* NoteCustomCell.xib in Resources */,
+				6E293A12255301CD00D7991D /* NoteActivityCell.xib in Resources */,
 				6E184D902550F78D0066EBC1 /* LaunchScreen.storyboard in Resources */,
 				6E2939632551EA7700D7991D /* GoogleService-Info.plist in Resources */,
 				6E184D8D2550F78C0066EBC1 /* Assets.xcassets in Resources */,
@@ -465,18 +485,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EF7BDD42554565200280738 /* MonthCell.swift in Sources */,
 				6E184DC02550F9790066EBC1 /* SignInViewController.swift in Sources */,
 				6E184D852550F7890066EBC1 /* WelcomeViewController.swift in Sources */,
 				6E184DB82550F9690066EBC1 /* RegisterViewController.swift in Sources */,
+				6EF7BDCC2554552200280738 /* WeekCell.swift in Sources */,
 				6E184D812550F7890066EBC1 /* AppDelegate.swift in Sources */,
-				6E293A11255301CD00D7991D /* NoteCustomCell.swift in Sources */,
+				6EF7BDC7255452E800280738 /* NotesListTableViewController.swift in Sources */,
+				6EF7BE2C25547CD400280738 /* Utils.swift in Sources */,
 				6E184D8B2550F7890066EBC1 /* MHA.xcdatamodeld in Sources */,
 				6E184DC5255116770066EBC1 /* UserInputViewController.swift in Sources */,
 				6E184D832550F7890066EBC1 /* SceneDelegate.swift in Sources */,
 				6E2939C1255239A900D7991D /* HistoryTableViewController.swift in Sources */,
 				6E2939AB2552256700D7991D /* HistoryNote.swift in Sources */,
-				6E29397E2551EDDB00D7991D /* Constants.swift in Sources */,
+				6EF7BE2625546D1500280738 /* NoteActivityCell.swift in Sources */,
 				6E2939B62552258100D7991D /* Note.swift in Sources */,
+				6EF7BE34255491BE00280738 /* NoteCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

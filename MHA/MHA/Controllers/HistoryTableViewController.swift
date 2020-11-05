@@ -22,7 +22,7 @@ class HistoryTableViewController: UITableViewController {
         navigationItem.hidesBackButton = true
         tableView.separatorStyle = .none
         tableView.rowHeight = 60.0
-        tableView.register(UINib(nibName: K.cellNibName, bundle: nil), forCellReuseIdentifier:K.cellIdentifier )
+        tableView.register(UINib(nibName: Utils.cellNibName, bundle: nil), forCellReuseIdentifier: Utils.cellNibName )
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,8 +35,8 @@ class HistoryTableViewController: UITableViewController {
         var textField = UITextField()
         
         //create alert
-        let alert = UIAlertController(title: K.addNoteMsg, message: "", preferredStyle: .alert)
-        let action = UIAlertAction(title: K.alertAddAction, style: .default) { (alertAction) in
+        let alert = UIAlertController(title: Utils.addNoteMsg, message: "", preferredStyle: .alert)
+        let action = UIAlertAction(title: Utils.alertAddAction, style: .default) { (alertAction) in
             
             let newHistoryNote = HistoryNote()
             newHistoryNote.subjectTitle = textField.text!
@@ -80,30 +80,30 @@ class HistoryTableViewController: UITableViewController {
         return headerView
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell =
-            tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as!
-            NoteCustomCell
-            cell.layer.cornerRadius = 10
-            cell.layer.borderWidth = 2
-            cell.clipsToBounds = true
-        
-        if let historyNote = historyNotes?[indexPath.section]{
-            cell.noteLabel.text = historyNote.subjectTitle
-            cell.numberLabel.text = String(indexPath.section+1)
-        }
-        
-        return cell
-    }
-    
+//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//
+//        let cell =
+//            tableView.dequeueReusableCell(withIdentifier: Utils., for: indexPath) as!
+//            NoteCustomCell
+//            cell.layer.cornerRadius = 10
+//            cell.layer.borderWidth = 2
+//            cell.clipsToBounds = true
+//
+//        if let historyNote = historyNotes?[indexPath.section]{
+//            cell.noteLabel.text = historyNote.subjectTitle
+//            cell.numberLabel.text = String(indexPath.section+1)
+//        }
+//
+//        return cell
+//    }
+//
     
     
     //MARK: - TableView Delegate Methods
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: K.userInputSegue, sender: self)
-    }
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        performSegue(withIdentifier: K.userInputSegue, sender: self)
+//    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! UserInputViewController
