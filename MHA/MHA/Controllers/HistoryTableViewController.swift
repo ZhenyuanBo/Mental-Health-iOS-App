@@ -22,6 +22,7 @@ class HistoryTableViewController: UITableViewController {
         navigationItem.hidesBackButton = true
         tableView.separatorStyle = .none
         tableView.rowHeight = 60.0
+        tableView.register(UINib(nibName: K.cellNibName, bundle: nil), forCellReuseIdentifier:K.cellIdentifier )
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,11 +38,8 @@ class HistoryTableViewController: UITableViewController {
         let alert = UIAlertController(title: K.addNoteMsg, message: "", preferredStyle: .alert)
         let action = UIAlertAction(title: K.alertAddAction, style: .default) { (alertAction) in
             
-            var currentValue = self.historyNotes?.count ?? 0
-            currentValue = currentValue + 1
-            
             let newHistoryNote = HistoryNote()
-            newHistoryNote.subjectTitle = "\(currentValue): " + textField.text!
+            newHistoryNote.subjectTitle = textField.text!
             newHistoryNote.dateCreated = Date()
             
             self.saveNote(historyNote: newHistoryNote)
@@ -53,7 +51,7 @@ class HistoryTableViewController: UITableViewController {
             let formatter = DateFormatter()
             formatter.timeStyle = .none
             formatter.dateStyle = .long
-            field.text = "Note for: " + formatter.string(from: currentDateTime)
+            field.text = "Note on: " + formatter.string(from: currentDateTime)
             textField = field
         }
         
@@ -62,7 +60,7 @@ class HistoryTableViewController: UITableViewController {
         present(alert, animated: true, completion: nil)
         
     }
-
+    
     // MARK: - TableView Datasource Methods
     override func numberOfSections(in tableView: UITableView) -> Int {
         return historyNotes?.count ?? 1
@@ -83,19 +81,44 @@ class HistoryTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath)
-        cell.layer.cornerRadius = 10
-        cell.layer.borderWidth = 2
-        cell.clipsToBounds = true
+        
+        let cell =
+            tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as!
+            NoteCustomCell
+            cell.layer.cornerRadius = 10
+            cell.layer.borderWidth = 2
+            cell.clipsToBounds = true
         
         if let historyNote = historyNotes?[indexPath.section]{
-            cell.textLabel?.text = historyNote.subjectTitle
-        }else{
-            cell.textLabel?.text = "No Notes Added Yet"
+            cell.noteLabel.text = historyNote.subjectTitle
+            cell.numberLabel.text = String(indexPath.section+1)
         }
         
         return cell
+    }
+    
+    
+    
+    //MARK: - TableView Delegate Methods
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: K.userInputSegue, sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! UserInputViewController
+        
+        if let indexPath = tableView.indexPathForSelectedRow{
+            
+        }
+    }
+    
+    //swipe the cell to delete
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            updateModel(at: indexPath)
+            tableView.reloadData()
+        }
     }
     
     // MARK: - Data Manipulation Methods
@@ -117,13 +140,20 @@ class HistoryTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    func updateModel(at indexPath: IndexPath){
+        //update our data model
+        if let noteForDeletion = self.historyNotes?[indexPath.section]{
+            do{
+                try self.realm.write{
+                    self.realm.delete(noteForDeletion)
+                }
+            }catch{
+                print("Error deleting category, \(error)")
+            }
+        }
+    } 
     
 }
 
 
-//MARK: - SwipeTableViewCell Delegate Methods
-//extension HistoryTableViewController: SwipeTableViewCellDelegate{
-//    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-//
-//    }
-//}
+

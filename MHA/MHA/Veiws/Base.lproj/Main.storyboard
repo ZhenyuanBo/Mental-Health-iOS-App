@@ -235,7 +235,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="6Ty-gB-ZSs" kind="show" id="oul-bl-e6J"/>
+                        <segue destination="6Ty-gB-ZSs" kind="show" identifier="NotesToUserInput" id="oul-bl-e6J"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HU9-4o-myV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
