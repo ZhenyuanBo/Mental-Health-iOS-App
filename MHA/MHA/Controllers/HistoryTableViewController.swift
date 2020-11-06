@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwipeCellKit
 import RealmSwift
 
 class HistoryTableViewController: UITableViewController {

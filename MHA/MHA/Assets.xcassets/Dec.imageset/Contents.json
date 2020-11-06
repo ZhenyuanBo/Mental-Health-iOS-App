@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "December.jpg",
+      "filename" : "Dec.jpg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "December@2x.jpg",
+      "filename" : "Dec@2x.jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "December@3x.jpg",
+      "filename" : "Dec@3x.jpg",
       "idiom" : "universal",
       "scale" : "3x"
     }

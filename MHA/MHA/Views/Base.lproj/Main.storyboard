@@ -228,6 +228,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="weekLabel" destination="yTP-eh-B4r" id="CkP-Yk-34x"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MonthCell" rowHeight="125" id="UsX-s1-mhI" customClass="MonthCell" customModule="MHA" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="71.5" width="414" height="125"/>

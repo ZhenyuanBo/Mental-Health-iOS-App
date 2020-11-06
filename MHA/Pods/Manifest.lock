@@ -307,14 +307,12 @@ PODS:
   - Realm/Headers (10.1.1)
   - RealmSwift (10.1.1):
     - Realm (= 10.1.1)
-  - SwipeCellKit (2.7.1)
 
 DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Firestore
   - MJRefresh
   - RealmSwift
-  - SwipeCellKit
 
 SPEC REPOS:
   trunk:
@@ -336,7 +334,6 @@ SPEC REPOS:
     - PromisesObjC
     - Realm
     - RealmSwift
-    - SwipeCellKit
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
@@ -357,8 +354,7 @@ SPEC CHECKSUMS:
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   Realm: 784ca1da1453e31a9c9adc14445421a81f316119
   RealmSwift: cc52fe0dcea56387274dff36e19219e055a3bb84
-  SwipeCellKit: 3972254a826da74609926daf59b08d6c72e619ea
 
-PODFILE CHECKSUM: fea4f011ee5ddd43b4fb51c6ca9d956d00c4ef2e
+PODFILE CHECKSUM: 96a7088d31304907e5b58f21dae94ab11a9c9120
 
 COCOAPODS: 1.10.0

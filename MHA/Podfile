@@ -8,7 +8,6 @@ target 'MHA' do
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'RealmSwift'
-  pod 'SwipeCellKit'
   pod 'MJRefresh'
 
   target 'MHATests' do
