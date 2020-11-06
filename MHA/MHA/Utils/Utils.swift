@@ -23,20 +23,9 @@ class Utils{
     
     //MARK: - WEEK & Month
     public static let weekDayMap = [ 1:"Sun", 2:"Mon", 3:"Tue", 4:"Wed", 5:"Thur", 6:"Fri", 7:"Sat" ]
-    public static let monthImageMap = [
-        1: UIImage(named: "Jan")!,
-        2: UIImage(named: "Feb")!,
-        3: UIImage(named: "Mar")!,
-        4: UIImage(named: "Apr")!,
-        5: UIImage(named: "May")!,
-        6: UIImage(named: "Jun")!,
-        7: UIImage(named: "Jul")!,
-        8: UIImage(named: "Aug")!,
-        9: UIImage(named: "Sept")!,
-        10: UIImage(named: "Oct")!,
-        11: UIImage(named: "Nov")!,
-        12: UIImage(named: "Dec")!
-    ]
+    public static let monthMap = [1:"Jan", 2: "Feb", 3: "Mar", 4:"Apr",
+                                  5:"May", 6:"Jun", 7:"Jul",
+                                  8:"Aug", 9: "Sept", 10: "Oct", 11: "Nov", 12: "Dec"]
 }
 
 enum Month: Int{
@@ -58,7 +47,7 @@ enum CellContent{
 //MARK: - Date Extension
 
 extension Date {
-
+    
     func firstDayOfMonth() -> Date {
         let calendar = Calendar.current
         let components = calendar.dateComponents([.year,.month], from: self)

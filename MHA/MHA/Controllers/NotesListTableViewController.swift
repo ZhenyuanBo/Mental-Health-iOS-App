@@ -70,16 +70,17 @@ class NotesListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
-        if tableData[indexPath.row].cellType == CellType.week{
+        if tableData[indexPath.row].cellType == .week{
             let weekCell = tableView.dequeueReusableCell(withIdentifier: Utils.weekCell, for: indexPath) as! WeekCell
             switch tableData[indexPath.row].cellContent {
                 case .weekRange(let start, let end, _, _):
+                    print(tableData[indexPath.row].cellContent)
                     weekCell.weekLabel.text = "\(start) - \(end)"
                 default:
                     fatalError("Table data type incompatible!")
             }
             cell = weekCell
-        }else if tableData[indexPath.row].cellType == CellType.month{
+        }else if tableData[indexPath.row].cellType == .month{
             let monCell = tableView.dequeueReusableCell(withIdentifier: Utils.monthCell, for: indexPath) as! MonthCell
             switch tableData[indexPath.row].cellContent {
                 case .monthImg(let img):
@@ -95,14 +96,14 @@ class NotesListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
         var cellHeight: CGFloat = 0
-        
-        if tableData[indexPath.row].cellType == CellType.week {
+
+        if tableData[indexPath.row].cellType == .week {
             let cellId = tableData[indexPath.row].cellId
             guard let height = cellHeightMap[cellId] else {
                 fatalError("Cell height not set, id = \(cellId)")
             }
             cellHeight = height
-        }else if tableData[indexPath.row].cellType == CellType.month{
+        }else if tableData[indexPath.row].cellType == .month{
             cellHeight = imageCellHeight
         }
         return cellHeight
@@ -130,19 +131,23 @@ class NotesListTableViewController: UITableViewController {
         updateYearButton()
     }
     
+    private func populateTableData(cellId: String, cellType: CellType, cellContent: CellContent){
+        tableData.append(NoteCell(cellId: cellId, cellType: cellType, cellContent: cellContent))
+    }
+    
     private func loadRefresh(number: Int, direction: String){
         if direction == "down" {
             for i in (endIndex ..< (endIndex + number)){
                 let date = Date().daysOffset(by: 7 * i)
                 let firstDay = date.firstDayOfWeek()
                 let lastDay = date.lastDayOfWeek()
-                let monStart = firstDay.getAsFormat(format: "M")
-                let monEnd = lastDay.getAsFormat(format: "M")
-                
+                let monStart = Utils.monthMap[Int(firstDay.getAsFormat(format: "M"))!]!
+                let monEnd = Utils.monthMap[Int(lastDay.getAsFormat(format: "M"))!]!
+
                 let id = firstDay.getAsFormat(format: dateFormat)
                 
                 if monStart == monEnd {
-                    tableData.append(NoteCell(cellId: id, cellType: CellType.week, cellContent: CellContent.weekRange("\(monStart) \(firstDay.getAsFormat(format:"d"))", "\(lastDay.getAsFormat(format: "d"))", firstDay, lastDay)))
+                    tableData.append(NoteCell(cellId: id, cellType:.week, cellContent: CellContent.weekRange("\(monStart) \(firstDay.getAsFormat(format:"d"))", "\(lastDay.getAsFormat(format: "d"))", firstDay, lastDay)))
                     endIndex += 1
                     
                     if !cellHeightMap.keys.contains(id){
@@ -152,16 +157,18 @@ class NotesListTableViewController: UITableViewController {
                     if lastDay.getAsFormat(format: "yyyyMMdd") == date.lastDayOfMonth().getAsFormat(format: "yyyyMMdd") {
                         var index = Int(monEnd)! + 1
                         if index == 12 { index = 1 }
-                        populateTableData(cellId: "\(id)-mon", cellType: CellType.month, cellContent: CellContent.monthImg(Utils.monthImageMap[Int(monEnd)!]!))
+                        populateTableData(cellId: "\(id)-mon", cellType:.month, cellContent: CellContent.monthImg(UIImage(named: monStart)!))
                         endIndex += 1
                     }
                 }else {
-                    populateTableData(cellId: "\(id)-wk", cellType: CellType.week, cellContent: CellContent.weekRange("\(monStart) \(firstDay.getAsFormat(format:"d"))", "\(lastDay.getAsFormat(format: "d"))", firstDay, lastDay))
+                    print(monStart)
+                    print(monEnd)
+                    populateTableData(cellId: id, cellType: CellType.week, cellContent: CellContent.weekRange("\(monStart) \(firstDay.getAsFormat(format:"d"))", "\(lastDay.getAsFormat(format: "d"))", firstDay, lastDay))
                     endIndex += 1
                     if !cellHeightMap.keys.contains(id) {
                         cellHeightMap[id] = weekCellHeight
                     }
-                    populateTableData(cellId: "\(id)-mon", cellType: CellType.month, cellContent: CellContent.monthImg(Utils.monthImageMap[Int(monEnd)!]!))
+                    populateTableData(cellId: "\(id)-mon", cellType:.month, cellContent: CellContent.monthImg(UIImage(named: monEnd)!))
                     endIndex += 1
                 }
             }
@@ -220,8 +227,6 @@ class NotesListTableViewController: UITableViewController {
 //        tableView.scrollToRow(at: findToday(), at: .middle, animated: true)
     }
     
-    
-    // 滑动tableView事件
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //        updateLeftBarButtonItemTitle()
     }
@@ -242,8 +247,5 @@ class NotesListTableViewController: UITableViewController {
 //        return 0
 //    }
     
-    private func populateTableData(cellId: String, cellType: CellType, cellContent: CellContent){
-        tableData.append(NoteCell(cellId: cellId, cellType: cellType, cellContent: cellContent))
-    }
  
 }

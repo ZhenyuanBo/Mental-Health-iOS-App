@@ -213,36 +213,24 @@
                         <color key="backgroundColor" red="0.23198598619999999" green="0.39672940969999998" blue="0.593927443" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="WeekCell" id="F90-eV-ATm" userLabel="WeekCell" customClass="WeekCell" customModule="MHA" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="46"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="F90-eV-ATm" id="lJk-UV-oMV">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="46"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jan 1 - 7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e0y-bR-9J6" userLabel="week">
-                                            <rect key="frame" x="69" y="13" width="84" height="21.5"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="21" id="EOF-2b-Fpj"/>
-                                                <constraint firstAttribute="width" constant="130" id="GV9-K5-eDE"/>
-                                            </constraints>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Jan 1 - 7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yTP-eh-B4r" userLabel="weekRange">
+                                            <rect key="frame" x="58" y="0.0" width="275" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <constraints>
-                                        <constraint firstItem="e0y-bR-9J6" firstAttribute="top" secondItem="lJk-UV-oMV" secondAttribute="topMargin" constant="2" id="FR8-Mm-QTL"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="e0y-bR-9J6" secondAttribute="trailing" constant="241" id="MeO-cC-M3T"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="e0y-bR-9J6" secondAttribute="bottom" constant="0.5" id="pF6-Iv-Q4U"/>
-                                        <constraint firstItem="e0y-bR-9J6" firstAttribute="leading" secondItem="lJk-UV-oMV" secondAttribute="leadingMargin" constant="49" id="s1j-2V-Nhg"/>
-                                    </constraints>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="weekLabel" destination="e0y-bR-9J6" id="Mpy-hV-uJy"/>
-                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MonthCell" rowHeight="125" id="UsX-s1-mhI" customClass="MonthCell" customModule="MHA" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="74" width="414" height="125"/>
+                                <rect key="frame" x="0.0" y="71.5" width="414" height="125"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UsX-s1-mhI" id="xye-tu-UzP">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="125"/>
