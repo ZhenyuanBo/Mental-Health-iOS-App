@@ -11,7 +11,7 @@ class NotesListTableViewController: UITableViewController {
     
     let dateFormat = "yyyy-MM-dd"
 
-    let weekCellHeight: CGFloat = 40
+    let weekCellHeight: CGFloat = 38
     let eventCellHeight: CGFloat = 55
     let imageCellHeight: CGFloat = 120
     
@@ -50,13 +50,13 @@ class NotesListTableViewController: UITableViewController {
             loadRefresh(number: pageSize, direction: true)
         }
         if isFirstTimeLoading{
-            let weekIndex = Date().firstDayOfWeek().getAsFormat(format: dateFormat)
+            let weekIndex = Date().firstDayOfWeek().dateFormatter(format: dateFormat)
             if !cellHeightMap.keys.contains(weekIndex){
                 cellHeightMap[weekIndex] = weekCellHeight
             }
             cellHeightMap[weekIndex]! += (eventCellHeight+1)
             isFirstTimeLoading = false
-            self.navigationItem.leftBarButtonItem?.title = Date().getAsFormat(format: "yyyy/MM")
+            self.navigationItem.leftBarButtonItem?.title = Date().dateFormatter(format: "yyyy/MM")
         }
     }
 
@@ -74,9 +74,12 @@ class NotesListTableViewController: UITableViewController {
             let weekCell = tableView.dequeueReusableCell(withIdentifier: Utils.weekCell, for: indexPath) as! WeekCell
             switch tableData[indexPath.row].cellContent {
                 case .weekRange(let start, let end, _, _):
-                    weekCell.weekLabel.text = "\(start) - \(end)"
+                    let monWKStartDate = start.components(separatedBy: " ")
+                    weekCell.monthLabel.text = monWKStartDate[0]
+                    weekCell.monthView.backgroundColor = hexStringToUIColor(hex: Utils.monthColourMap[monWKStartDate[0]]!)
+                    weekCell.dateRangeLabel.text = "\(monWKStartDate[1]) - \(end)"
                 default:
-                    fatalError("Table data type incompatible!")
+                    fatalError("The current cell is not a week cell!")
             }
             cell = weekCell
         }else if tableData[indexPath.row].cellType == .month{
@@ -85,7 +88,7 @@ class NotesListTableViewController: UITableViewController {
                 case .monthImg(let img):
                     monCell.monthImgView.image = img
                 default:
-                    fatalError("Table data type incompatible!")
+                    fatalError("The current cell is not a month cell!")
             }
             cell = monCell
         }
@@ -162,20 +165,20 @@ class NotesListTableViewController: UITableViewController {
                 print(i)
                 let firstDay = date.firstDayOfWeek()
                 let lastDay = date.lastDayOfWeek()
-                let monStart = Utils.monthMap[Int(firstDay.getAsFormat(format: "M"))!]!
-                let monEnd = Utils.monthMap[Int(lastDay.getAsFormat(format: "M"))!]!
+                let monStart = Utils.monthMap[Int(firstDay.dateFormatter(format: "M"))!]!
+                let monEnd = Utils.monthMap[Int(lastDay.dateFormatter(format: "M"))!]!
 
-                let id = firstDay.getAsFormat(format: dateFormat)
+                let id = firstDay.dateFormatter(format: dateFormat)
                 
                 if monStart == monEnd {
-                    populateTableData(cellId: id, cellType: .week, cellContent: CellContent.weekRange("\(monStart) \(firstDay.getAsFormat(format:"d"))", "\(lastDay.getAsFormat(format: "d"))", firstDay, lastDay), dir: direction)
+                    populateTableData(cellId: id, cellType: .week, cellContent: CellContent.weekRange("\(monStart) \(firstDay.dateFormatter(format:"d"))", "\(lastDay.dateFormatter(format: "d"))", firstDay, lastDay), dir: direction)
                     endIndex += 1
                     
                     if !cellHeightMap.keys.contains(id){
                         cellHeightMap[id] = weekCellHeight
                     }
 
-                    if lastDay.getAsFormat(format: "yyyyMMdd") == date.lastDayOfMonth().getAsFormat(format: "yyyyMMdd") {
+                    if lastDay.dateFormatter(format: "yyyyMMdd") == date.lastDayOfMonth().dateFormatter(format: "yyyyMMdd") {
                         var index = Int(monEnd)! + 1
                         if index == 12 { index = 1 }
                         populateTableData(cellId: "\(id)-mon", cellType:.month, cellContent: CellContent.monthImg(UIImage(named: monStart)!), dir: direction)
@@ -183,7 +186,7 @@ class NotesListTableViewController: UITableViewController {
                     }
                     print(endIndex)
                 }else {
-                    populateTableData(cellId: id, cellType: .week, cellContent: CellContent.weekRange("\(monStart) \(firstDay.getAsFormat(format:"d"))", "\(lastDay.getAsFormat(format: "d"))", firstDay, lastDay), dir:direction)
+                    populateTableData(cellId: id, cellType: .week, cellContent: CellContent.weekRange("\(monStart) \(firstDay.dateFormatter(format:"d"))", "\(lastDay.dateFormatter(format: "d"))", firstDay, lastDay), dir:direction)
                     endIndex += 1
                     if !cellHeightMap.keys.contains(id) {
                         cellHeightMap[id] = weekCellHeight
@@ -199,24 +202,24 @@ class NotesListTableViewController: UITableViewController {
                 let date = Date().daysOffset(by: 7 * i)
                 let firstDay = date.firstDayOfWeek()
                 let lastDay = date.lastDayOfWeek()
-                let monStart = Utils.monthMap[Int(firstDay.getAsFormat(format: "M"))!]!
-                let monEnd = Utils.monthMap[Int(lastDay.getAsFormat(format: "M"))!]!
+                let monStart = Utils.monthMap[Int(firstDay.dateFormatter(format: "M"))!]!
+                let monEnd = Utils.monthMap[Int(lastDay.dateFormatter(format: "M"))!]!
 
-                let id = firstDay.getAsFormat(format: dateFormat)
+                let id = firstDay.dateFormatter(format: dateFormat)
 
                 if monStart == monEnd {
-                    populateTableData(cellId: id, cellType: .week, cellContent: CellContent.weekRange("\(monStart) \(firstDay.getAsFormat(format:"d"))", "\(lastDay.getAsFormat(format: "d"))", firstDay, lastDay), dir: direction)
+                    populateTableData(cellId: id, cellType: .week, cellContent: CellContent.weekRange("\(monStart) \(firstDay.dateFormatter(format:"d"))", "\(lastDay.dateFormatter(format: "d"))", firstDay, lastDay), dir: direction)
                     startIndex -= 1
                     if !cellHeightMap.keys.contains(id) {
                         cellHeightMap[id] = weekCellHeight
                     }
-                    if firstDay.getAsFormat(format: "yyyyMMdd") == date.firstDayOfMonth().getAsFormat(format: "yyyyMMdd") {
+                    if firstDay.dateFormatter(format: "yyyyMMdd") == date.firstDayOfMonth().dateFormatter(format: "yyyyMMdd") {
                         populateTableData(cellId: "\(id)-mon", cellType: .month, cellContent: CellContent.monthImg(UIImage(named: monStart)!), dir: direction)
                         startIndex -= 1
                     }
                 } else {
                     populateTableData(cellId: "\(id)-mon", cellType: .month, cellContent: CellContent.monthImg(UIImage(named: monEnd)!), dir: direction)
-                    populateTableData(cellId: id, cellType: .week, cellContent: CellContent.weekRange("\(monStart) \(firstDay.getAsFormat(format:"d"))", "\(lastDay.getAsFormat(format: "d"))", firstDay, lastDay), dir: direction)
+                    populateTableData(cellId: id, cellType: .week, cellContent: CellContent.weekRange("\(monStart) \(firstDay.dateFormatter(format:"d"))", "\(lastDay.dateFormatter(format: "d"))", firstDay, lastDay), dir: direction)
                     startIndex -= 2
                     if !cellHeightMap.keys.contains(id) {
                         cellHeightMap[id] = weekCellHeight

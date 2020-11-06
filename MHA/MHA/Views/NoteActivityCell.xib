@@ -22,17 +22,10 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gYV-ig-h4e" userLabel="DateView">
                                 <rect key="frame" x="0.0" y="0.0" width="61" height="38"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Thur" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="94V-UB-XAb" userLabel="weekDay">
-                                        <rect key="frame" x="17" y="4" width="27" height="15"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rh2-i3-bFW">
-                                        <rect key="frame" x="26" y="21" width="9" height="17"/>
+                                        <rect key="frame" x="8" y="0.0" width="45" height="38"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -76,8 +69,6 @@
                 <outlet property="messageBubble" destination="9vn-75-JSn" id="P9X-1y-1Ep"/>
                 <outlet property="noteLabel" destination="2qg-wO-PMe" id="DJH-gq-yDO"/>
                 <outlet property="noteTitleLabel" destination="2qg-wO-PMe" id="LfA-cz-dcy"/>
-                <outlet property="numberLabel" destination="94V-UB-XAb" id="nMV-rs-Ibz"/>
-                <outlet property="weekDayLabel" destination="94V-UB-XAb" id="EPI-bW-CXa"/>
             </connections>
             <point key="canvasLocation" x="140.57971014492756" y="81.696428571428569"/>
         </tableViewCell>

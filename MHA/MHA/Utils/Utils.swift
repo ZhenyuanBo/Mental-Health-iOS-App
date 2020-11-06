@@ -26,12 +26,15 @@ class Utils{
     public static let monthMap = [1:"Jan", 2: "Feb", 3: "Mar", 4:"Apr",
                                   5:"May", 6:"Jun", 7:"Jul",
                                   8:"Aug", 9: "Sept", 10: "Oct", 11: "Nov", 12: "Dec"]
+    public static let monthColourMap = ["Jan": "006EAC", "Feb":"E1E0E5",
+                                        "Mar":"61D200", "Apr": "4CB0B2",
+                                        "May":"F4736E", "Jun":"FFA800",
+                                        "Jul":"FFFFFF", "Aug":"BA9389",
+                                        "Sept":"CAA301", "Oct":"F45F22",
+                                        "Nov":"DCAF9F", "Dec":"949BA5"]
 }
 
-enum Month: Int{
-    case Jan = 1, Feb, Mar, Apr, May, Jun, Jul, Aug,
-         Sept, Oct, Nov, Dec
-}
+
 
 enum CellType: String{
     case week
@@ -100,10 +103,33 @@ extension Date {
         return count
     }
     
-    func getAsFormat(format: String) -> String {
+    func dateFormatter(format: String) -> String {
         let f = DateFormatter()
         f.timeZone = .autoupdatingCurrent
         f.dateFormat = format
         return f.string(from: self)
     }
+}
+
+//MARK: - Hex to UIColor
+func hexStringToUIColor (hex:String) -> UIColor {
+    var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+
+    if (cString.hasPrefix("#")) {
+        cString.remove(at: cString.startIndex)
+    }
+
+    if ((cString.count) != 6) {
+        return UIColor.gray
+    }
+
+    var rgbValue:UInt64 = 0
+    Scanner(string: cString).scanHexInt64(&rgbValue)
+
+    return UIColor(
+        red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+        green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+        blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+        alpha: CGFloat(1.0)
+    )
 }
