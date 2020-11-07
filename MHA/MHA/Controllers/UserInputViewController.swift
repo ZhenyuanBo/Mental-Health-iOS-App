@@ -1,10 +1,3 @@
-//
-//  UserInputViewController.swift
-//  MHA
-//
-//  Created by Zhenyuan Bo on 2020-11-02.
-//
-
 import UIKit
 import Firebase
 
@@ -16,7 +9,7 @@ class UserInputViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.hidesBackButton = true
-        textBody.layer.borderWidth = 10
+//        textBody.layer.borderWidth = 10
         
     }
 

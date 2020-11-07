@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  MHA
-//
-//  Created by Zhenyuan Bo on 2020-11-03.
-//
-
 import Foundation
 import RealmSwift
 

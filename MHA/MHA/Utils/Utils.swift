@@ -6,6 +6,7 @@ class Utils{
     //MARK: - Segue Identifiers
     public static let signinSegue = "SigninToHistory"
     public static let registerSegue = "RegisterToHistory"
+    public static let dailyNotesSegue = "CalendarToDailyNotes"
     public static let userInputSegue = "NotesToUserInput"
     
     //MARK: - Reusable Cell Identifiers

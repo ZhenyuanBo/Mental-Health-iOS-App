@@ -11,7 +11,7 @@ class NotesListTableViewController: UITableViewController {
     
     let dateFormat = "yyyy-MM-dd"
 
-    let weekCellHeight: CGFloat = 38
+    let weekCellHeight: CGFloat = 40
     let eventCellHeight: CGFloat = 55
     let imageCellHeight: CGFloat = 120
     
@@ -19,7 +19,6 @@ class NotesListTableViewController: UITableViewController {
     var startIndex = 0, endIndex = 0
     var cellHeightMap: [String:CGFloat] = [:]
     var tableData: [NoteCell] = []
-    var noteLists: [String: [NoteActivityCell]] = [:]
 
     var isFirstTimeLoading = true
     
@@ -28,33 +27,27 @@ class NotesListTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
-//        refreshData()
+        refreshData()
         initializeData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadNotes()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        saveNote()
     }
 
-    // MARK: - Data Init & Table View Data Source
+    // MARK: - Data Init & Table View Data Source / Delegate Methods
     private func initializeData() {
         if startIndex == 0{
-            loadRefresh(number: pageSize/2, direction: false)
+            loadRefresh(number: pageSize/2, scrollDir: Utils.downDirection)
         }
         if endIndex == 0{
-            loadRefresh(number: pageSize, direction: true)
+            loadRefresh(number: pageSize, scrollDir: Utils.upDirection)
         }
         if isFirstTimeLoading{
             let weekIndex = Date().firstDayOfWeek().dateFormatter(format: dateFormat)
             if !cellHeightMap.keys.contains(weekIndex){
                 cellHeightMap[weekIndex] = weekCellHeight
             }
-            cellHeightMap[weekIndex]! += (eventCellHeight+1)
             isFirstTimeLoading = false
             self.navigationItem.leftBarButtonItem?.title = Date().dateFormatter(format: "yyyy/MM")
         }
@@ -92,23 +85,6 @@ class NotesListTableViewController: UITableViewController {
             }
             cell = monCell
         }
-        
-        //display each single day within this week
-        
-//        let evWidth = cell.bounds.width - 100
-//        let evX = cell.bounds.minX + 10
-//        let index = tableData[indexPath.row].id
-//        if eventViews.keys.contains(index){
-//            eventViews[index]!.sort(by: {$0.sequenceNumber! < $1.sequenceNumber!})
-//            for (index, view) in eventViews[index]!.enumerated() {
-//                var evY = cell.bounds.minY + weekCellHeight
-//                evY += (CGFloat(index) * (eventViewHeight + 1))
-//                view.frame = CGRect(x: evX, y: evY, width: evWidth, height: eventViewHeight)
-//                cell.addSubview(view)
-//            }
-//            
-//        }
-        
         return cell
     }
     
@@ -117,7 +93,7 @@ class NotesListTableViewController: UITableViewController {
         if tableData[indexPath.row].cellType == .week {
             let cellId = tableData[indexPath.row].cellId
             guard let height = cellHeightMap[cellId] else {
-                fatalError("Cell height not set, id = \(cellId)")
+                fatalError("Invalid Cell Height, id = \(cellId)")
             }
             cellHeight = height
         }else if tableData[indexPath.row].cellType == .month{
@@ -126,6 +102,11 @@ class NotesListTableViewController: UITableViewController {
         return cellHeight
     }
     
+    //MARK: - Navigate to Daily Notes View
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: Utils.dailyNotesSegue, sender: self)
+    }
+
     // MARK: - Data Refresh Handlers
     
     private func refreshData() {
@@ -133,36 +114,34 @@ class NotesListTableViewController: UITableViewController {
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
         tableView.mj_header = MJRefreshGifHeader()
-        tableView.mj_header?.setRefreshingTarget(self, refreshingAction: #selector(downPullRefresh))
+        tableView.mj_header?.setRefreshingTarget(self, refreshingAction: #selector(scrollDownRefresh))
         tableView.mj_footer = MJRefreshAutoGifFooter()
-        tableView.mj_footer?.setRefreshingTarget(self, refreshingAction: #selector(upPullRefresh))
+        tableView.mj_footer?.setRefreshingTarget(self, refreshingAction: #selector(scrollUpRefresh))
     }
     
-    @objc private func downPullRefresh() {
-        loadRefresh(number: pageSize, direction: false)
-        updateYearButton()
+    @objc private func scrollDownRefresh() {
+        loadRefresh(number: pageSize, scrollDir: Utils.downDirection)
+        updateMonYearTitle()
     }
    
-    @objc private func upPullRefresh() {
-        loadRefresh(number: pageSize, direction: true)
-        updateYearButton()
+    @objc private func scrollUpRefresh() {
+        loadRefresh(number: pageSize, scrollDir: Utils.upDirection)
+        updateMonYearTitle()
     }
     
-    private func populateTableData(cellId: String, cellType: CellType, cellContent: CellContent, dir: Bool){
-        if dir{
+    private func populateTableData(cellId: String, cellType: CellType, cellContent: CellContent, dir: String){
+        if dir == "up"{
             tableData.append(NoteCell(cellId: cellId, cellType: cellType, cellContent: cellContent))
-        }else{
+        }else if dir == "down"{
             tableData.insert(NoteCell(cellId: cellId, cellType: cellType, cellContent: cellContent), at: 0)
         }
     }
     
-    private func loadRefresh(number: Int, direction: Bool){
+    private func loadRefresh(number: Int, scrollDir: String){
 
-        if direction {
+        if scrollDir == "up" {
             for i in (endIndex ..< (endIndex + number)){
                 let date = Date().daysOffset(by: 7 * i)
-                print(date)
-                print(i)
                 let firstDay = date.firstDayOfWeek()
                 let lastDay = date.lastDayOfWeek()
                 let monStart = Utils.monthMap[Int(firstDay.dateFormatter(format: "M"))!]!
@@ -171,7 +150,7 @@ class NotesListTableViewController: UITableViewController {
                 let id = firstDay.dateFormatter(format: dateFormat)
                 
                 if monStart == monEnd {
-                    populateTableData(cellId: id, cellType: .week, cellContent: CellContent.weekRange("\(monStart) \(firstDay.dateFormatter(format:"d"))", "\(lastDay.dateFormatter(format: "d"))", firstDay, lastDay), dir: direction)
+                    populateTableData(cellId: id, cellType: .week, cellContent: CellContent.weekRange("\(monStart) \(firstDay.dateFormatter(format:"d"))", "\(lastDay.dateFormatter(format: "d"))", firstDay, lastDay), dir: scrollDir)
                     endIndex += 1
                     
                     if !cellHeightMap.keys.contains(id){
@@ -181,22 +160,21 @@ class NotesListTableViewController: UITableViewController {
                     if lastDay.dateFormatter(format: "yyyyMMdd") == date.lastDayOfMonth().dateFormatter(format: "yyyyMMdd") {
                         var index = Int(monEnd)! + 1
                         if index == 12 { index = 1 }
-                        populateTableData(cellId: "\(id)-mon", cellType:.month, cellContent: CellContent.monthImg(UIImage(named: monStart)!), dir: direction)
+                        populateTableData(cellId: "\(id)m", cellType:.month, cellContent: CellContent.monthImg(UIImage(named: monStart)!), dir: scrollDir)
                         endIndex += 1
                     }
-                    print(endIndex)
                 }else {
-                    populateTableData(cellId: id, cellType: .week, cellContent: CellContent.weekRange("\(monStart) \(firstDay.dateFormatter(format:"d"))", "\(lastDay.dateFormatter(format: "d"))", firstDay, lastDay), dir:direction)
+                    populateTableData(cellId: id, cellType: .week, cellContent: CellContent.weekRange("\(monStart) \(firstDay.dateFormatter(format:"d"))", "\(lastDay.dateFormatter(format: "d"))", firstDay, lastDay), dir:scrollDir)
                     endIndex += 1
                     if !cellHeightMap.keys.contains(id) {
                         cellHeightMap[id] = weekCellHeight
                     }
-                    populateTableData(cellId: "\(id)-mon", cellType:.month, cellContent: CellContent.monthImg(UIImage(named: monEnd)!), dir: direction)
+                    populateTableData(cellId: id, cellType:.month, cellContent: CellContent.monthImg(UIImage(named: monEnd)!), dir: scrollDir)
                     endIndex += 1
                 }
             }
             tableView.reloadData()
-//            tableView.mj_footer!.endRefreshing()
+            tableView.mj_footer!.endRefreshing()
         }else {
             for i in ((startIndex - number) ..< startIndex).reversed(){
                 let date = Date().daysOffset(by: 7 * i)
@@ -208,18 +186,18 @@ class NotesListTableViewController: UITableViewController {
                 let id = firstDay.dateFormatter(format: dateFormat)
 
                 if monStart == monEnd {
-                    populateTableData(cellId: id, cellType: .week, cellContent: CellContent.weekRange("\(monStart) \(firstDay.dateFormatter(format:"d"))", "\(lastDay.dateFormatter(format: "d"))", firstDay, lastDay), dir: direction)
+                    populateTableData(cellId: id, cellType: .week, cellContent: CellContent.weekRange("\(monStart) \(firstDay.dateFormatter(format:"d"))", "\(lastDay.dateFormatter(format: "d"))", firstDay, lastDay), dir: scrollDir)
                     startIndex -= 1
                     if !cellHeightMap.keys.contains(id) {
                         cellHeightMap[id] = weekCellHeight
                     }
                     if firstDay.dateFormatter(format: "yyyyMMdd") == date.firstDayOfMonth().dateFormatter(format: "yyyyMMdd") {
-                        populateTableData(cellId: "\(id)-mon", cellType: .month, cellContent: CellContent.monthImg(UIImage(named: monStart)!), dir: direction)
+                        populateTableData(cellId: id, cellType: .month, cellContent: CellContent.monthImg(UIImage(named: monStart)!), dir: scrollDir)
                         startIndex -= 1
                     }
                 } else {
-                    populateTableData(cellId: "\(id)-mon", cellType: .month, cellContent: CellContent.monthImg(UIImage(named: monEnd)!), dir: direction)
-                    populateTableData(cellId: id, cellType: .week, cellContent: CellContent.weekRange("\(monStart) \(firstDay.dateFormatter(format:"d"))", "\(lastDay.dateFormatter(format: "d"))", firstDay, lastDay), dir: direction)
+                    populateTableData(cellId: id, cellType: .month, cellContent: CellContent.monthImg(UIImage(named: monEnd)!), dir: scrollDir)
+                    populateTableData(cellId: id, cellType: .week, cellContent: CellContent.weekRange("\(monStart) \(firstDay.dateFormatter(format:"d"))", "\(lastDay.dateFormatter(format: "d"))", firstDay, lastDay), dir: scrollDir)
                     startIndex -= 2
                     if !cellHeightMap.keys.contains(id) {
                         cellHeightMap[id] = weekCellHeight
@@ -227,47 +205,41 @@ class NotesListTableViewController: UITableViewController {
                 }
             }
             tableView.reloadData()
-//            tableView.mj_header!.endRefreshing()
+            tableView.mj_header!.endRefreshing()
         }
     }
-    
-   
-    
-
-    // MARK: - Core data handlers
-    private func loadNotes() {}
-    private func saveNote() {}
-
-    
     
     // MARK: - View Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {}
     
     
     // MARK: - Actions
-    @IBAction func backToToday(_ sender: UIBarButtonItem) {
-//        tableView.scrollToRow(at: findToday(), at: .middle, animated: true)
+    private func updateMonYearTitle() {
+        guard let indexes = tableView.indexPathsForVisibleRows else {
+            fatalError("No rows available!")
+        }
+        if indexes.count > 0 {
+            let indexPath = indexes[Int(indexes.count / 3)]
+            if tableData[indexPath.row].cellType == .week{
+                switch tableData[indexPath.row].cellContent{
+                case .weekRange(_, _, let start, _):
+                    self.navigationItem.leftBarButtonItem?.title = start.dateFormatter(format: "yyyy/MM")
+                default: fatalError("Cell content is invalid")
+                }
+            }
+        }
     }
     
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        updateLeftBarButtonItemTitle()
+    
+    @IBAction func currentWKPressed(_ sender: UIBarButtonItem) {
+        tableView.scrollToRow(at: findCurrentWK(), at: .middle, animated: true)
     }
     
-    
-    //MARK: - Other Actions
-    private func updateYearButton() {}
-    
-//    private func findToday() -> IndexPath {
-////        let index = today.startDate.firstDayOfWeek().getAsFormat(format: dateIndexFormat)
-////        let todayIndex = tableData.firstIndex(where: {cellData in
-////            return cellData.id == index
-////        })
-////        guard todayIndex != nil else {
-////            fatalError("Today index not found!")
-////        }
-////        return IndexPath(row: todayIndex!, section: 0)
-//        return 0
-//    }
-    
- 
+    private func findCurrentWK() -> IndexPath{
+        let index = Date().firstDayOfWeek().dateFormatter(format: dateFormat)
+        let currWKIndex = tableData.firstIndex { (notecell) -> Bool in
+            notecell.cellId == index
+        }
+        return IndexPath(row: currWKIndex!, section: 0)
+    }
 }
