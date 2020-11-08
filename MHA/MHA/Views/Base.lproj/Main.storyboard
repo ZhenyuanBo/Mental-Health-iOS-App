@@ -370,7 +370,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Activities" id="LNl-F5-bOD">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="VZj-A8-SRp"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="VZj-A8-SRp">
+                            <connections>
+                                <action selector="addButtonPressed:" destination="OiR-2E-Vbf" id="pUj-8Q-Qee"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="izL-gv-0Pd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

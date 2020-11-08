@@ -12,6 +12,7 @@ class DailyNotesTableViewController: UITableViewController {
     var weekDayList: [String] = []
     var dailyNotesList: [[String]] = []
     var hiddenSections = Set<Int>()
+    var selectedSection:Int?
 
     
     override func viewDidLoad() {
@@ -44,6 +45,7 @@ class DailyNotesTableViewController: UITableViewController {
         let sectionButton = UIButton()
         let sectionButtonTitle = weekDayList[section]
         sectionButton.setTitle("\(month) \(sectionButtonTitle), \(year)",for: .normal)
+        selectedSection = section
         sectionButton.backgroundColor = hexStringToUIColor(hex: Utils.weekDayColourMap[section]!)
         sectionButton.setTitleColor(.black, for: .normal)
         sectionButton.tag = section
@@ -80,6 +82,14 @@ class DailyNotesTableViewController: UITableViewController {
         }
         performSegue(withIdentifier: Utils.notesDetailsSegue, sender: self)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! NotesDetailsTableViewController
+        let dailyNoteTitle = "\(month) \(weekDayList[selectedSection!]), \(year)"
+        let selectedDailyNote = realm.objects(DailyNotes.self).filter("date = '\(dailyNoteTitle)'")
+//        destinationVC.selectedDailyNote = selectedDailyNote[0]
+        print(selectedDailyNote)
+    }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 36
@@ -90,13 +100,6 @@ class DailyNotesTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: Utils.dayCell, for: indexPath)
         cell.textLabel?.text = "Day \(indexPath.section+1) - \(month) \(currentDay), \(year)"
         cell.textLabel?.textAlignment = .center
-        
-//        DispatchQueue.main.async {
-//            let newDailyNote = DailyNotes()
-//            newDailyNote.date = "\(self.month) \(currentDay), \(self.year)"
-//            self.save(dailyNotes: newDailyNote)
-//        }
-        
         return cell
     }
     
