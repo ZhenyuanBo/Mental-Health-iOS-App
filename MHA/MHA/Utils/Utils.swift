@@ -8,10 +8,12 @@ class Utils{
     public static let registerSegue = "RegisterToHistory"
     public static let dailyNotesSegue = "CalendarToDailyNotes"
     public static let userInputSegue = "NotesToUserInput"
+    public static let notesDetailsSegue = "DailyNotesToDetails"
     
     //MARK: - Reusable Cell Identifiers
     public static let weekCell = "WeekCell"
     public static let monthCell = "MonthCell"
+    public static let dayCell = "ReusableDayCell"
     
     //MARK: - Bar Item Button Actions
     public static let addNoteMsg = "Add New Note"
@@ -33,6 +35,13 @@ class Utils{
                                         "Jul":"FFFFFF", "Aug":"BA9389",
                                         "Sept":"CAA301", "Oct":"F45F22",
                                         "Nov":"DCAF9F", "Dec":"949BA5"]
+    
+    public static let monthDayMap = ["Jan": 31, "Feb": 28, "Mar": 31, "Apr": 30,
+                                    "May": 31, "Jun": 30, "Jul": 31, "Aug": 31,
+                                    "Sept": 30, "Oct": 31, "Nov": 30, "Dec": 31]
+    public static let weekDayColourMap = [0: "#389393", 1:"#fa7f72", 2: "#f5a25d",
+                                          3: "#c56183", 4:"#51adcf", 5: "#892cdc",
+                                          6: "#a8dda8"]
 }
 
 
@@ -133,4 +142,22 @@ func hexStringToUIColor (hex:String) -> UIColor {
         blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
         alpha: CGFloat(1.0)
     )
+}
+
+
+//MARK: - CHECK LEAP YEAR
+
+func isLeapYear(datum: Date) -> Bool {
+    let calendar = Calendar(identifier: .gregorian)
+    let dateComponents = DateComponents(year: Int(calendar.component(.year, from: datum)), month: 2)
+    let date = calendar.date(from: dateComponents)!
+    let range = calendar.range(of: .day, in: .month, for: date)!
+    let numDays = range.count
+    
+    if numDays == 29 {
+        return true
+    }else {
+        return false
+    }
+
 }

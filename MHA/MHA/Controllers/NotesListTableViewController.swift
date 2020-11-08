@@ -6,19 +6,19 @@ class NotesListTableViewController: UITableViewController {
 
     @IBOutlet weak var currentYearButton: UIBarButtonItem!
     
-    let realm = try! Realm()
-    var historyNotes: Results<HistoryNote>?
+//    let realm = try! Realm()
+//    var historyNotes: Results<HistoryNote>?
     
     let dateFormat = "yyyy-MM-dd"
 
     let weekCellHeight: CGFloat = 40
-    let eventCellHeight: CGFloat = 55
     let imageCellHeight: CGFloat = 120
     
     var pageSize = 10
     var startIndex = 0, endIndex = 0
     var cellHeightMap: [String:CGFloat] = [:]
     var tableData: [NoteCell] = []
+    var selectedCell:NoteCell?
 
     var isFirstTimeLoading = true
     
@@ -104,7 +104,26 @@ class NotesListTableViewController: UITableViewController {
     
     //MARK: - Navigate to Daily Notes View
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedCell = tableData[indexPath.row]
         performSegue(withIdentifier: Utils.dailyNotesSegue, sender: self)
+    }
+    
+    // MARK: - View Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! DailyNotesTableViewController
+        if let cell = selectedCell{
+            if cell.cellType == .week{
+                switch cell.cellContent{
+                case .weekRange(let start,_, let firstDay, let lastDay):
+                    destinationVC.firstDay = firstDay.dateFormatter(format: "d")
+                    destinationVC.lastDay = lastDay.dateFormatter(format: "d")
+                    destinationVC.year = firstDay.dateFormatter(format: "yyyy")
+                    destinationVC.month = start.components(separatedBy: " ")[0]
+                default:
+                    fatalError("The selected cell is not a week cell!")
+                }
+            }
+        }
     }
 
     // MARK: - Data Refresh Handlers
@@ -208,9 +227,6 @@ class NotesListTableViewController: UITableViewController {
             tableView.mj_header!.endRefreshing()
         }
     }
-    
-    // MARK: - View Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {}
     
     
     // MARK: - Actions
