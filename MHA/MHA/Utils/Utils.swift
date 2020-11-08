@@ -14,6 +14,7 @@ class Utils{
     public static let weekCell = "WeekCell"
     public static let monthCell = "MonthCell"
     public static let dayCell = "ReusableDayCell"
+    public static let activityCell = "ActivityCell"
     
     //MARK: - Bar Item Button Actions
     public static let addNoteMsg = "Add New Note"

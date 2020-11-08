@@ -5,6 +5,7 @@ class NotesDetailsTableViewController: UITableViewController {
     
     let realm = try! Realm()
     var activityList: Results<Activity>?
+    var dailyNoteSectionIndex: Int?
     var selectedDailyNote: DailyNotes?{
         didSet{
             loadActivities()
@@ -22,12 +23,18 @@ class NotesDetailsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return activityList?.count ?? 1
+        return activityList?.count ?? 0
     }
     
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        
-//    }
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityCell", for: indexPath)
+        if let activity = activityList?[indexPath.row]{
+            cell.textLabel?.text = activity.activityName
+        }else{
+            cell.textLabel?.text = "No activities added yet"
+        }
+        return cell
+    }
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         var textField = UITextField()
@@ -35,12 +42,13 @@ class NotesDetailsTableViewController: UITableViewController {
         //create alert
         let alert = UIAlertController(title: "Add New Activity", message: "", preferredStyle: .alert)
         let addActivityAction = UIAlertAction(title: "Add", style:.default) { (action) in
-            if let currentDailyNotes = self.selectedDailyNote{
+            if let currentDailyNote = self.selectedDailyNote{
                 do{
                     try self.realm.write{
                         let newActivity = Activity()
                         newActivity.activityName = textField.text!
-                        currentDailyNotes.activities.append(newActivity)
+                        newActivity.dailyNoteSectionIndex = self.dailyNoteSectionIndex!
+                        currentDailyNote.activities.append(newActivity)
                     }
                 }catch{
                     print("Error saving new activity, \(error)")

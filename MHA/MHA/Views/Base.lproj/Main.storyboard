@@ -355,7 +355,7 @@
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="LT9-gD-tTq">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ActivityCell" id="LT9-gD-tTq">
                                 <rect key="frame" x="0.0" y="72" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LT9-gD-tTq" id="irk-9y-2kg">
@@ -380,6 +380,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="izL-gv-0Pd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4362" y="-151"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="UwN-fo-ie0">
+            <objects>
+                <viewController id="dPk-y5-62v" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="snC-G5-aUy">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="kSM-tO-1Pe"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CBI-j4-Gxo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5513" y="-148"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="6kX-w8-s7q">

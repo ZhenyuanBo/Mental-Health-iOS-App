@@ -10,7 +10,7 @@ class DailyNotesTableViewController: UITableViewController {
     var month: String = ""
     var year: String = ""
     var weekDayList: [String] = []
-    var dailyNotesList: [[String]] = []
+    var dailyActivityList: [[String]] = []
     var hiddenSections = Set<Int>()
     var selectedSection:Int?
 
@@ -19,25 +19,26 @@ class DailyNotesTableViewController: UITableViewController {
         super.viewDidLoad()
         populateWeekDayList(firstDay: firstDay, lastDay: lastDay, month: month)
         tableView.separatorStyle = .none
-        for index in weekDayList.indices{
-            let currDay = weekDayList[index]
-            let newDailyNote = DailyNotes()
-            newDailyNote.date = "\(self.month) \(currDay), \(self.year)"
-            self.save(dailyNotes: newDailyNote)
-        }
+        loadActivities()
+//        for index in weekDayList.indices{
+//            let currDay = weekDayList[index]
+//            let newDailyNote = DailyNotes()
+//            newDailyNote.date = "\(self.month) \(currDay), \(self.year)"
+//            self.save(dailyNotes: newDailyNote)
+//        }
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return self.dailyNotesList.count
+        return self.weekDayList.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.hiddenSections.contains(section) {
               return 0
           }
-        return self.dailyNotesList[section].count
+        return self.dailyActivityList[section].count
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?{
@@ -45,7 +46,6 @@ class DailyNotesTableViewController: UITableViewController {
         let sectionButton = UIButton()
         let sectionButtonTitle = weekDayList[section]
         sectionButton.setTitle("\(month) \(sectionButtonTitle), \(year)",for: .normal)
-        selectedSection = section
         sectionButton.backgroundColor = hexStringToUIColor(hex: Utils.weekDayColourMap[section]!)
         sectionButton.setTitleColor(.black, for: .normal)
         sectionButton.tag = section
@@ -60,10 +60,11 @@ class DailyNotesTableViewController: UITableViewController {
     @objc
     private func hideSection(sender: UIButton) {
         let section = sender.tag
+        selectedSection = section
         func indexPathsForSection() -> [IndexPath] {
             var indexPaths = [IndexPath]()
             
-            for row in 0..<self.dailyNotesList[section].count {
+            for row in 0..<self.dailyActivityList[section].count {
                 indexPaths.append(IndexPath(row: row,
                                             section: section))
             }
@@ -87,8 +88,8 @@ class DailyNotesTableViewController: UITableViewController {
         let destinationVC = segue.destination as! NotesDetailsTableViewController
         let dailyNoteTitle = "\(month) \(weekDayList[selectedSection!]), \(year)"
         let selectedDailyNote = realm.objects(DailyNotes.self).filter("date = '\(dailyNoteTitle)'")
-//        destinationVC.selectedDailyNote = selectedDailyNote[0]
-        print(selectedDailyNote)
+        destinationVC.selectedDailyNote = selectedDailyNote[0]
+        destinationVC.dailyNoteSectionIndex = selectedSection!
     }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -96,9 +97,9 @@ class DailyNotesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let currentDay = self.dailyNotesList[indexPath.section][indexPath.row]
+        let activity = self.dailyActivityList[indexPath.section][indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: Utils.dayCell, for: indexPath)
-        cell.textLabel?.text = "Day \(indexPath.section+1) - \(month) \(currentDay), \(year)"
+        cell.textLabel?.text = activity
         cell.textLabel?.textAlignment = .center
         return cell
     }
@@ -112,7 +113,6 @@ class DailyNotesTableViewController: UITableViewController {
         if(firstDayNumericVal < lastDayNumericVal){
             while(firstDayNumericVal<=lastDayNumericVal){
                 weekDayList.append(String(firstDayNumericVal))
-                dailyNotesList.append([String(firstDayNumericVal)])
                 firstDayNumericVal += 1
             }
         }
@@ -128,6 +128,20 @@ class DailyNotesTableViewController: UITableViewController {
             print("Error saving daily note, \(error)")
         }
                         
+        tableView.reloadData()
+    }
+    
+    func loadActivities(){
+        for index in 0...6{
+            let dailyActivities = realm.objects(Activity.self).filter("dailyNoteSectionIndex=\(index)")
+            print(dailyActivities)
+            var dailyActivity:[String]=[]
+            for activity in dailyActivities{
+                dailyActivity.append(activity.activityName)
+            }
+            dailyActivityList.append(dailyActivity)
+        }
+        print(dailyActivityList)
         tableView.reloadData()
     }
 }
