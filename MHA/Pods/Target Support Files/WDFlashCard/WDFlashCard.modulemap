@@ -1,0 +1,6 @@
+framework module WDFlashCard {
+  umbrella header "WDFlashCard-umbrella.h"
+
+  export *
+  module * { export * }
+}

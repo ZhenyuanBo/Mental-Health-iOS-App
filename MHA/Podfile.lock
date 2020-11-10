@@ -307,12 +307,14 @@ PODS:
   - Realm/Headers (10.1.1)
   - RealmSwift (10.1.1):
     - Realm (= 10.1.1)
+  - WDFlashCard (1.0.6)
 
 DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Firestore
   - MJRefresh
   - RealmSwift
+  - WDFlashCard
 
 SPEC REPOS:
   trunk:
@@ -334,6 +336,7 @@ SPEC REPOS:
     - PromisesObjC
     - Realm
     - RealmSwift
+    - WDFlashCard
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
@@ -354,7 +357,8 @@ SPEC CHECKSUMS:
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   Realm: 784ca1da1453e31a9c9adc14445421a81f316119
   RealmSwift: cc52fe0dcea56387274dff36e19219e055a3bb84
+  WDFlashCard: 9ad847730f3ef177b9943df1f120b655c880941a
 
-PODFILE CHECKSUM: 96a7088d31304907e5b58f21dae94ab11a9c9120
+PODFILE CHECKSUM: be1ff8543c5c2376ff86f0ea0d5658b95ef4c044
 
 COCOAPODS: 1.10.0

@@ -81,16 +81,16 @@ class DailyNotesTableViewController: UITableViewController {
             self.tableView.deleteRows(at: indexPathsForSection(),
                                       with: .fade)
         }
-        performSegue(withIdentifier: Utils.notesDetailsSegue, sender: self)
+//        performSegue(withIdentifier: "CalendarToUserInput", sender: self)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationVC = segue.destination as! NotesDetailsTableViewController
-        let dailyNoteTitle = "\(month) \(weekDayList[selectedSection!]), \(year)"
-        let selectedDailyNote = realm.objects(DailyNotes.self).filter("date = '\(dailyNoteTitle)'")
-        destinationVC.selectedDailyNote = selectedDailyNote[0]
-        destinationVC.dailyNoteSectionIndex = selectedSection!
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let destinationVC = segue.destination as! NotesDetailsTableViewController
+//        let dailyNoteTitle = "\(month) \(weekDayList[selectedSection!]), \(year)"
+//        let selectedDailyNote = realm.objects(DailyNotes.self).filter("date = '\(dailyNoteTitle)'")
+//        destinationVC.selectedDailyNote = selectedDailyNote[0]
+//        destinationVC.dailyNoteSectionIndex = selectedSection!
+//    }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 36
@@ -117,31 +117,31 @@ class DailyNotesTableViewController: UITableViewController {
             }
         }
     }
-    
-    func save(dailyNotes: DailyNotes){
-        do{
-            //commit changes to realm
-            try realm.write{
-                realm.add(dailyNotes)
-            }
-        }catch{
-            print("Error saving daily note, \(error)")
-        }
-                        
-        tableView.reloadData()
-    }
+//
+//    func save(dailyNotes: DailyNotes){
+//        do{
+//            //commit changes to realm
+//            try realm.write{
+//                realm.add(dailyNotes)
+//            }
+//        }catch{
+//            print("Error saving daily note, \(error)")
+//        }
+//
+//        tableView.reloadData()
+//    }
     
     func loadActivities(){
-        for index in 0...6{
-            let dailyActivities = realm.objects(Activity.self).filter("dailyNoteSectionIndex=\(index)")
-            print(dailyActivities)
-            var dailyActivity:[String]=[]
-            for activity in dailyActivities{
-                dailyActivity.append(activity.activityName)
-            }
-            dailyActivityList.append(dailyActivity)
-        }
-        print(dailyActivityList)
-        tableView.reloadData()
+//        for index in 0...6{
+//            let dailyActivities = realm.objects(Activity.self).filter("dailyNoteSectionIndex=\(index)")
+//            print(dailyActivities)
+//            var dailyActivity:[String]=[]
+//            for activity in dailyActivities{
+//                dailyActivity.append(activity.activityName)
+//            }
+//            dailyActivityList.append(dailyActivity)
+//        }
+//        print(dailyActivityList)
+//        tableView.reloadData()
     }
 }

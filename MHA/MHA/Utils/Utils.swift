@@ -46,7 +46,7 @@ class Utils{
 }
 
 
-
+//MARK: - Calendar Cell
 enum CellType: String{
     case week
     case month
@@ -161,4 +161,29 @@ func isLeapYear(datum: Date) -> Bool {
         return false
     }
 
+}
+
+
+//MARK: - FLASH CARD Utils
+enum FlipAnimations
+{
+    case flipFromLeft
+    case flipFromRight
+    case flipFromTop
+    case flipFromBottom
+    
+    func animationOption() -> UIView.AnimationOptions
+    {
+        switch self
+        {
+        case .flipFromLeft:
+            return .transitionFlipFromLeft
+        case .flipFromRight:
+            return .transitionFlipFromRight
+        case .flipFromTop:
+            return .transitionFlipFromTop
+        case .flipFromBottom:
+            return .transitionFlipFromBottom
+        }
+    }
 }

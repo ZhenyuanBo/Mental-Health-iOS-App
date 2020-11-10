@@ -105,26 +105,26 @@ class NotesListTableViewController: UITableViewController {
     //MARK: - Navigate to Daily Notes View
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedCell = tableData[indexPath.row]
-        performSegue(withIdentifier: Utils.dailyNotesSegue, sender: self)
+        performSegue(withIdentifier: "CalendarToUserInput", sender: self)
     }
     
     // MARK: - View Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationVC = segue.destination as! DailyNotesTableViewController
-        if let cell = selectedCell{
-            if cell.cellType == .week{
-                switch cell.cellContent{
-                case .weekRange(let start,_, let firstDay, let lastDay):
-                    destinationVC.firstDay = firstDay.dateFormatter(format: "d")
-                    destinationVC.lastDay = lastDay.dateFormatter(format: "d")
-                    destinationVC.year = firstDay.dateFormatter(format: "yyyy")
-                    destinationVC.month = start.components(separatedBy: " ")[0]
-                default:
-                    fatalError("The selected cell is not a week cell!")
-                }
-            }
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let destinationVC = segue.destination as! DailyNotesTableViewController
+//        if let cell = selectedCell{
+//            if cell.cellType == .week{
+//                switch cell.cellContent{
+//                case .weekRange(let start,_, let firstDay, let lastDay):
+//                    destinationVC.firstDay = firstDay.dateFormatter(format: "d")
+//                    destinationVC.lastDay = lastDay.dateFormatter(format: "d")
+//                    destinationVC.year = firstDay.dateFormatter(format: "yyyy")
+//                    destinationVC.month = start.components(separatedBy: " ")[0]
+//                default:
+//                    fatalError("The selected cell is not a week cell!")
+//                }
+//            }
+//        }
+//    }
 
     // MARK: - Data Refresh Handlers
     
