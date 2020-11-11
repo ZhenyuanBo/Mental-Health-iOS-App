@@ -1098,7 +1098,7 @@
                         <outlet property="resourcesBtn" destination="y3E-mR-q22" id="msR-WS-bHN"/>
                         <outlet property="respectBtn" destination="S4N-Bh-gZF" id="dFx-CC-ix6"/>
                         <outlet property="selfActualizationBtn" destination="h8R-Sg-iVh" id="pcU-rp-MjR"/>
-                        <outlet property="selfEsteenBtn" destination="xE8-0D-aaR" id="s0a-FL-HMq"/>
+                        <outlet property="selfEsteemBtn" destination="xE8-0D-aaR" id="KLI-Dd-QkW"/>
                         <outlet property="shelterBtn" destination="a4z-Fe-GaS" id="HCW-9p-YXk"/>
                         <outlet property="sleetpBtn" destination="cuR-ZB-Ppc" id="Zd4-m8-AeG"/>
                         <outlet property="statusBtn" destination="eZ7-Ca-XPU" id="Kew-nq-poX"/>

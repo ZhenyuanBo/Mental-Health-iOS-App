@@ -23,7 +23,7 @@ class FlashCardFrontViewController: UIViewController {
     @IBOutlet weak var connectionBtn: UIButton!
     @IBOutlet weak var respectBtn: UIButton!
     @IBOutlet weak var statusBtn: UIButton!
-    @IBOutlet weak var selfEsteenBtn: UIButton!
+    @IBOutlet weak var selfEsteemBtn: UIButton!
     @IBOutlet weak var recognitionBtn: UIButton!
     @IBOutlet weak var strengthBtn: UIButton!
     @IBOutlet weak var freedomBtn: UIButton!
@@ -40,6 +40,17 @@ class FlashCardFrontViewController: UIViewController {
                                        "strength": false, "freedom": false,
                                        "self_actualization": false]
     
+    private var pyramidBtnNumActivityMap = ["air": 0, "water": 0,
+                                            "food": 0,"clothing": 0,
+                                            "shelter": 0, "sleep": 0,
+                                            "reproduction": 0, "personal_security": 0,
+                                            "employment": 0, "resources":0,
+                                            "property":0, "health":0,
+                                            "respect":0, "status":0,
+                                            "self_esteem": 0, "recognition":0,
+                                            "strength": 0, "freedom": 0,
+                                            "self_actualization":0]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadNeedResult()
@@ -54,7 +65,7 @@ class FlashCardFrontViewController: UIViewController {
                         let newNeedResult = Need()
                         newNeedResult.dateCreated = Date().dateFormatter(format: "yyyy-MM-dd")
                         newNeedResult.needResult = jsonString
-                        realm.add(newNeedResult, update: .all)
+                        realm.add(newNeedResult, update: .modified)
                     }
                 }catch{
                     print("Error saving new activity, \(error)")
@@ -64,57 +75,28 @@ class FlashCardFrontViewController: UIViewController {
     }
     
     @IBAction func needButtonPressed(_ sender: UIButton) {
-        sender.setTitleColor(.black, for: .normal)
-        switch(sender.titleLabel?.text){
-        case "air":
-            pyramidBtnPressedMap["air"] = true
-        case "food":
-            pyramidBtnPressedMap["food"] = true
-        case "water":
-            pyramidBtnPressedMap["water"] = true
-        case "clothing":
-            pyramidBtnPressedMap["clothing"] = true
-        case "shelter":
-            pyramidBtnPressedMap["shelter"] = true
-        case "sleep":
-            pyramidBtnPressedMap["sleep"] = true
-        case "reproduction":
-            pyramidBtnPressedMap["reproduction"] = true
-        case "personal security":
-            pyramidBtnPressedMap["personal_security"] = true
-        case "employment":
-            pyramidBtnPressedMap["employment"] = true
-        case "resources":
-            pyramidBtnPressedMap["resources"] = true
-        case "health":
-            pyramidBtnPressedMap["health"] = true
-        case "property":
-            pyramidBtnPressedMap["property"] = true
-        case "friendship":
-            pyramidBtnPressedMap["friendship"] = true
-        case "intimacy":
-            pyramidBtnPressedMap["intimacy"] = true
-        case "family":
-            pyramidBtnPressedMap["family"] = true
-        case "connection":
-            pyramidBtnPressedMap["connection"] = true
-        case "respect":
-            pyramidBtnPressedMap["respect"] = true
-        case "status":
-            pyramidBtnPressedMap["status"] = true
-        case "self-esteem":
-            pyramidBtnPressedMap["self_esteem"] = true
-        case "recognition":
-            pyramidBtnPressedMap["recognition"] = true
-        case "strength":
-            pyramidBtnPressedMap["strength"] = true
-        case "freedom":
-            pyramidBtnPressedMap["freedom"] = true
-        case "Self Acutualization":
-            pyramidBtnPressedMap["self_actualization"] = true
-        default:
-            fatalError("No need category is selected!")
+        let selectedCategory = (sender.titleLabel?.text)!
+        let numberActivities = pyramidBtnNumActivityMap[selectedCategory]!
+        let alert = UIAlertController(title: "Add/Remove Activity To/From Selected Category", message: "Number of activities mapped to \(selectedCategory) is \(numberActivities)", preferredStyle: .alert)
+        let addAction = UIAlertAction(title: "Add", style: .default) { (action) in
+            self.pyramidBtnNumActivityMap[selectedCategory]! += 1
+            if sender.titleColor(for: .normal) == UIColor.white{
+                sender.setTitleColor(.black, for: .normal)
+            }
+            if !self.pyramidBtnPressedMap[selectedCategory]!{
+                self.pyramidBtnPressedMap[selectedCategory] = true
+            }
         }
+        let removeAction = UIAlertAction(title: "Remove", style: .default) { (action) in
+            self.pyramidBtnNumActivityMap[selectedCategory]! -= 1
+            if self.pyramidBtnNumActivityMap[selectedCategory]! == 0{
+                sender.setTitleColor(.white, for: .normal)
+                self.pyramidBtnPressedMap[selectedCategory] = false
+            }
+        }
+        alert.addAction(addAction)
+        alert.addAction(removeAction)
+        present(alert, animated: true, completion: nil)
     }
     
     func loadNeedResult(){
@@ -126,57 +108,75 @@ class FlashCardFrontViewController: UIViewController {
         do{
             let decodedData = try decoder.decode(NeedData.self, from: jsonData)
             if decodedData.air{
+                pyramidBtnPressedMap["air"] = true
                 airBtn.setTitleColor(.black, for: .normal)
             }
             if decodedData.clothing{
+                pyramidBtnPressedMap["clothing"] = true
                 clothingBtn.setTitleColor(.black, for: .normal)
             }
             if decodedData.employment{
+                pyramidBtnPressedMap["employment"] = true
                 employmentBtn.setTitleColor(.black, for: .normal)
             }
             if decodedData.food{
+                pyramidBtnPressedMap["food"] = true
                 foodBtn.setTitleColor(.black, for: .normal)
             }
             if decodedData.freedom{
+                pyramidBtnPressedMap["freedom"] = true
                 freedomBtn.setTitleColor(.black, for: .normal)
             }
             if decodedData.health{
+                pyramidBtnPressedMap["health"] = true
                 healthBtn.setTitleColor(.black, for: .normal)
             }
             if decodedData.personal_security{
+                pyramidBtnPressedMap["personal_security"] = true
                 personalSecBtn.setTitleColor(.black, for: .normal)
             }
             if decodedData.property{
+                pyramidBtnPressedMap["property"] = true
                 propertyBtn.setTitleColor(.black, for: .normal)
             }
             if decodedData.recognition{
+                pyramidBtnPressedMap["recognition"] = true
                 recognitionBtn.setTitleColor(.black, for: .normal)
             }
             if decodedData.reproduction{
+                pyramidBtnPressedMap["reproduction"] = true
                 reproductionBtn.setTitleColor(.black, for: .normal)
             }
             if decodedData.resources{
+                pyramidBtnPressedMap["resources"] = true
                 resourcesBtn.setTitleColor(.black, for: .normal)
             }
             if decodedData.respect{
+                pyramidBtnPressedMap["respect"] = true
                 respectBtn.setTitleColor(.black, for: .normal)
             }
             if decodedData.self_actualization{
+                pyramidBtnPressedMap["self_actualization"] = true
                 selfActualizationBtn.setTitleColor(.black, for: .normal)
             }
             if decodedData.self_esteem{
-                selfEsteenBtn.setTitleColor(.black, for: .normal)
+                pyramidBtnPressedMap["self_esteem"] = true
+                selfEsteemBtn.setTitleColor(.black, for: .normal)
             }
             if decodedData.shelter{
+                pyramidBtnPressedMap["shelter"] = true
                 shelterBtn.setTitleColor(.black, for: .normal)
             }
             if decodedData.sleep{
+                pyramidBtnPressedMap["sleep"] = true
                 sleetpBtn.setTitleColor(.black, for: .normal)
             }
             if decodedData.status{
+                pyramidBtnPressedMap["status"] = true
                 statusBtn.setTitleColor(.black, for: .normal)
             }
             if decodedData.strength{
+                pyramidBtnPressedMap["strength"] = true
                 strengthBtn.setTitleColor(.black, for: .normal)
             }
         }catch{
