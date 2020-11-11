@@ -15,7 +15,7 @@ class FlashCardViewController: UIViewController{
     @IBOutlet weak var flashCard: FlashCardView!
     
     
-    @IBOutlet weak var activityText: UITextView!
+//    @IBOutlet weak var activityText: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()

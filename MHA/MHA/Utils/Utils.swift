@@ -43,6 +43,7 @@ class Utils{
     public static let weekDayColourMap = [0: "#389393", 1:"#fa7f72", 2: "#f5a25d",
                                           3: "#c56183", 4:"#51adcf", 5: "#892cdc",
                                           6: "#a8dda8"]
+    
 }
 
 

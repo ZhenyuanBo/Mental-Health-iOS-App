@@ -26,7 +26,7 @@ class SignInViewController: UIViewController {
                 if let e = error{
                     print(e)
                 }else{
-                    self.performSegue(withIdentifier: "SignInToFrontView", sender: self)
+                    self.performSegue(withIdentifier: "test", sender: self)
                 }
             }
         }
