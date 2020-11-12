@@ -9,7 +9,7 @@ target 'MHA' do
   pod 'Firebase/Firestore'
   pod 'RealmSwift'
   pod 'MJRefresh'
-  pod 'WDFlashCard'
+  pod 'Charts'
 
   target 'MHATests' do
     inherit! :search_paths

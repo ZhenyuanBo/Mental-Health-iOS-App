@@ -218,6 +218,9 @@ PODS:
   - BoringSSL-GRPC/Implementation (0.0.7):
     - BoringSSL-GRPC/Interface (= 0.0.7)
   - BoringSSL-GRPC/Interface (0.0.7)
+  - Charts (3.6.0):
+    - Charts/Core (= 3.6.0)
+  - Charts/Core (3.6.0)
   - Firebase/Auth (6.34.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 6.9.2)
@@ -307,19 +310,19 @@ PODS:
   - Realm/Headers (10.1.1)
   - RealmSwift (10.1.1):
     - Realm (= 10.1.1)
-  - WDFlashCard (1.0.6)
 
 DEPENDENCIES:
+  - Charts
   - Firebase/Auth
   - Firebase/Firestore
   - MJRefresh
   - RealmSwift
-  - WDFlashCard
 
 SPEC REPOS:
   trunk:
     - abseil
     - BoringSSL-GRPC
+    - Charts
     - Firebase
     - FirebaseAuth
     - FirebaseCore
@@ -336,11 +339,11 @@ SPEC REPOS:
     - PromisesObjC
     - Realm
     - RealmSwift
-    - WDFlashCard
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
+  Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
   Firebase: c23a36d9e4cdf7877dfcba8dd0c58add66358999
   FirebaseAuth: c92d49ada7948d1a23466e3db17bc4c2039dddc3
   FirebaseCore: d3a978a3cfa3240bf7e4ba7d137fdf5b22b628ec
@@ -357,8 +360,7 @@ SPEC CHECKSUMS:
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   Realm: 784ca1da1453e31a9c9adc14445421a81f316119
   RealmSwift: cc52fe0dcea56387274dff36e19219e055a3bb84
-  WDFlashCard: 9ad847730f3ef177b9943df1f120b655c880941a
 
-PODFILE CHECKSUM: be1ff8543c5c2376ff86f0ea0d5658b95ef4c044
+PODFILE CHECKSUM: f8a848e8ca52c83e4177aebb940e1dd8580fcbd3
 
 COCOAPODS: 1.10.0

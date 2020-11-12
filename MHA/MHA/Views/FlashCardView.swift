@@ -1,5 +1,6 @@
 import UIKit
 
+
 public class FlashCardView: UIView {
     
     var animationInProgress:Bool = false
@@ -9,7 +10,8 @@ public class FlashCardView: UIView {
     var frontView:UIView?
     var backView:UIView?
     
-    func flip() {
+    
+    func flip(){
         if frontView != nil && backView != nil
         {
             let fromView = showFront ? frontView : backView
