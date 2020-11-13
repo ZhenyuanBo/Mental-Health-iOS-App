@@ -100,10 +100,15 @@ enum FlipAnimations
 }
 
 //MARK: - Populate Need-Selection & Need-Activity Map
-func loadNeedSelectionMap(date: Date)-> NeedData? {
+func loadNeedSelectionMap(date: Date, activityID: String? = nil)-> NeedData? {
     let realm = try! Realm()
-    let currDate = date.dateFormatter(format: "yyyy-MM-dd")
-    let selectedNeed = realm.objects(Need.self).filter("dateCreated = '\(currDate)'")
+    var selectedNeed:Results<Need>
+    if let safeActivityID = activityID{
+        selectedNeed = realm.objects(Need.self).filter("activityID = '\(safeActivityID)'")
+    }else{
+        let currDate = date.dateFormatter(format: "yyyy-MM-dd")
+        selectedNeed = realm.objects(Need.self).filter("dateCreated = '\(currDate)'")
+    }
     if selectedNeed.count > 0{
         let selectedNeedResult = selectedNeed[0].needResult
         let jsonData = selectedNeedResult.data(using: .utf8)!

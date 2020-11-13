@@ -12,6 +12,11 @@ class UserInputViewController: UIViewController{
     //MARK: - User Input Outlet
     @IBOutlet weak var activityText: UITextView!
     
+    var savedActivityText: String?
+    var activityID: String?
+    var readonly: Bool = false
+    var selectedDate: Date?
+    
     private var needSelectionMap = ["air": false, "water": false,
                                     "food": false,"clothing":false,
                                     "shelter": false,"sleep": false,
@@ -36,20 +41,36 @@ class UserInputViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.view.addGestureRecognizer(leftSwipeGestureRecognizer)
-        self.view.addGestureRecognizer(rightSwipeGestureRecognizer)
-        
-        let decodedData = loadNeedSelectionMap(date: Date())
+        var decodedData:NeedData?
+        var highlightNeed: Bool = false
+        if let safeText = savedActivityText{
+            activityText.text = safeText
+            readonly = true
+            activityID = loadActivityID(activityText: safeText)
+            print(activityID)
+            decodedData = loadNeedSelectionMap(date: Date(), activityID: activityID)
+            print(decodedData)
+            highlightNeed = true
+        }else{
+            activityID = UUID.init().uuidString
+            decodedData = loadNeedSelectionMap(date: Date())
+        }
         if let safeDecodedData = decodedData{
             needSelectionMap.keys.forEach { (key) in
                 if safeDecodedData[key]{
                     needSelectionMap[key] = true
+                    if highlightNeed{
+                        setPyramidMapData(need: key)
+                    }
                 }else{
                     needSelectionMap[key] = false
                 }
             }
         }
+        
+        self.view.addGestureRecognizer(leftSwipeGestureRecognizer)
+        self.view.addGestureRecognizer(rightSwipeGestureRecognizer)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,7 +85,7 @@ class UserInputViewController: UIViewController{
     //MARK: - Button Actions
     @IBAction func flipPressed(_ sender: UIBarButtonItem) {
         flashCard.flip()
-        if flashCard.backView!.isHidden{
+        if flashCard.backView!.isHidden && !readonly{
             let encoder = JSONEncoder()
             if let needJSONData = try? encoder.encode(needSelectionMap) {
                 if let jsonString = String(data: needJSONData, encoding: .utf8) {
@@ -73,6 +94,7 @@ class UserInputViewController: UIViewController{
                             let newNeedResult = Need()
                             newNeedResult.dateCreated = Date().dateFormatter(format: "yyyy-MM-dd")
                             newNeedResult.needResult = jsonString
+                            newNeedResult.activityID = activityID!
                             realm.add(newNeedResult, update: .modified)
                         }
                     }catch{
@@ -99,6 +121,7 @@ class UserInputViewController: UIViewController{
     
     @IBAction func needButtonPressed(_ sender: UIButton) {
         var selectedCategory = sender.titleLabel?.text
+        readonly = false
         if selectedCategory! == "personal security"{
             selectedCategory = "personal_security"
         }else if selectedCategory! == "self-esteem"{
@@ -116,7 +139,7 @@ class UserInputViewController: UIViewController{
             needNumActivityMap[selectedCategory!]! -= 1
         }
     }
- 
+    
     @IBAction func savePressed(_ sender: UIBarButtonItem) {
         saveActivity()
     }
@@ -127,10 +150,12 @@ class UserInputViewController: UIViewController{
             self.saveActivity()
             self.activityText.text = ""
             self.cleanPyramidMapData()
+            self.activityID = UUID.init().uuidString
         }
         let newAction = UIAlertAction(title: "No", style: .default) { (action) in
             self.activityText.text = ""
             self.cleanPyramidMapData()
+            self.activityID = UUID.init().uuidString
         }
         alert.addAction(saveAction)
         alert.addAction(newAction)
@@ -138,7 +163,7 @@ class UserInputViewController: UIViewController{
     }
     
     //MARK: - Data Manipulation Methods
-    func setTitle(date: Date)->String{
+    private func setTitle(date: Date)->String{
         let month = date.dateFormatter(format: "MM")
         let monthName = Utils.monthMap[Int(month)!]!
         let dateNumber = date.dateFormatter(format: "d")
@@ -146,12 +171,13 @@ class UserInputViewController: UIViewController{
         return navBartitle
     }
     
-    func saveActivity(){
+    private func saveActivity(){
         do{
             try self.realm.write{
                 let newActivity = Activity()
                 newActivity.dateCreated = Date().dateFormatter(format: "yyyy-MM-dd")
                 newActivity.activityText = self.activityText.text
+                newActivity.activityID = activityID!
                 realm.add(newActivity, update: .modified)
             }
         }catch{
@@ -159,7 +185,7 @@ class UserInputViewController: UIViewController{
         }
     }
     
-    func cleanPyramidMapData(){
+    private func cleanPyramidMapData(){
         for topView in self.view.subviews as [UIView] {
             for lowerView in topView.subviews as [UIView]{
                 for innerView in lowerView.subviews as [UIView]{
@@ -168,6 +194,36 @@ class UserInputViewController: UIViewController{
                 }
             }
         }
+    }
+    
+    private func setPyramidMapData(need: String){
+        for topView in self.view.subviews as [UIView] {
+            for lowerView in topView.subviews as [UIView]{
+                for innerView in lowerView.subviews as [UIView]{
+                    if let needButton = innerView as? UIButton {
+                        let buttonLabel = needButton.titleLabel?.text
+                        if buttonLabel == "personal security" && need == "personal_security"{
+                            needButton.setTitleColor(.black, for: .normal)
+                        }else if buttonLabel == "self-esteem" && need == "self_esteem"{
+                            needButton.setTitleColor(.black, for: .normal)
+                        }else if buttonLabel == "Self Actualization" && need == "self_actualization" {
+                            needButton.setTitleColor(.black, for: .normal)
+                        }else if buttonLabel == need{
+                            needButton.setTitleColor(.black, for: .normal)
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+    
+    private func loadActivityID(activityText: String) -> String?{
+        let selectedActivity = realm.objects(Activity.self).filter("activityText = '\(activityText)'")
+        if selectedActivity.count>0{
+            return selectedActivity[0].activityID
+        }
+        return nil
     }
     
     //MARK: - Swipe Functionality
