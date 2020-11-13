@@ -1,5 +1,6 @@
 import UIKit
 import Foundation
+import RealmSwift
 
 class Utils{
     
@@ -27,9 +28,11 @@ class Utils{
     
     //MARK: - WEEK & Month
     public static let weekDayMap = [ 1:"Sun", 2:"Mon", 3:"Tue", 4:"Wed", 5:"Thur", 6:"Fri", 7:"Sat" ]
+    
     public static let monthMap = [1:"Jan", 2: "Feb", 3: "Mar", 4:"Apr",
                                   5:"May", 6:"Jun", 7:"Jul",
                                   8:"Aug", 9: "Sept", 10: "Oct", 11: "Nov", 12: "Dec"]
+    
     public static let monthColourMap = ["Jan": "006EAC", "Feb":"E1E0E5",
                                         "Mar":"61D200", "Apr": "4CB0B2",
                                         "May":"F4736E", "Jun":"FFA800",
@@ -40,9 +43,19 @@ class Utils{
     public static let monthDayMap = ["Jan": 31, "Feb": 28, "Mar": 31, "Apr": 30,
                                     "May": 31, "Jun": 30, "Jul": 31, "Aug": 31,
                                     "Sept": 30, "Oct": 31, "Nov": 30, "Dec": 31]
+    
     public static let weekDayColourMap = [0: "#389393", 1:"#fa7f72", 2: "#f5a25d",
                                           3: "#c56183", 4:"#51adcf", 5: "#892cdc",
                                           6: "#a8dda8"]
+    
+    //MARK: - Maslow Need Data
+    public static let needTypeList = ["air","water","food","clothing",
+                            "shelter","sleep","reproduction",
+                            "personal_security","employment",
+                            "resources","property","health",
+                            "family","respect", "status",
+                            "friendship","self_esteem","recognition",
+                            "strength","freedom","self_actualization"]
     
 }
 
@@ -188,3 +201,41 @@ enum FlipAnimations
         }
     }
 }
+
+//MARK: - Populate Need-Selection & Need-Activity Map
+func loadNeedSelectionMap(date: Date)-> NeedData? {
+    let realm = try! Realm()
+    let currDate = date.dateFormatter(format: "yyyy-MM-dd")
+    let selectedNeed = realm.objects(Need.self).filter("dateCreated = '\(currDate)'")
+    if selectedNeed.count > 0{
+        let selectedNeedResult = selectedNeed[0].needResult
+        let jsonData = selectedNeedResult.data(using: .utf8)!
+        let decoder = JSONDecoder()
+        do{
+            let decodedData = try decoder.decode(NeedData.self, from: jsonData)
+            return decodedData
+        }catch{
+            print("Fail to decode need-selection data, \(error)")
+        }
+    }
+    return nil
+}
+
+func loadNeedActivityResult(date: Date)-> NeedActivityData? {
+    let realm = try! Realm()
+    let currDate = date.dateFormatter(format: "yyyy-MM-dd")
+    let selectedNeedActivity = realm.objects(NeedActivity.self).filter("dateCreated = '\(currDate)'")
+    if selectedNeedActivity.count > 0{
+        let selectedNeedResult = selectedNeedActivity[0].numActivityResult
+        let jsonData = selectedNeedResult.data(using: .utf8)!
+        let decoder = JSONDecoder()
+        do{
+            let decodedData = try decoder.decode(NeedActivityData.self, from: jsonData)
+            return decodedData
+        }catch{
+            print("Error retrieving decoded need result data, \(error)")
+        }
+    }
+    return nil
+}
+

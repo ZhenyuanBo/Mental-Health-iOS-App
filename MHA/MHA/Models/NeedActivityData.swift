@@ -47,7 +47,7 @@ struct NeedActivityData: Codable{
             case "strength": return strength
             case "freedom": return freedom
             case "self_actualization": return self_actualization
-            default: fatalError("No such need type: \(needType)")
+            default: fatalError("No such need type: \(needType) to retrieve need activity data")
             }
         }
     }

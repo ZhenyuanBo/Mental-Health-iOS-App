@@ -861,32 +861,9 @@
                     </navigationItem>
                     <connections>
                         <outlet property="activityText" destination="oVl-mn-enA" id="5Sp-BD-280"/>
-                        <outlet property="airBtn" destination="6tH-vt-kaM" id="ZAT-LC-gb7"/>
                         <outlet property="backView" destination="kxb-hy-A1R" id="bid-ox-H0Y"/>
-                        <outlet property="clothingBtn" destination="zON-ai-dJ5" id="jl4-7r-b8z"/>
-                        <outlet property="connectionBtn" destination="5gS-AG-3Fq" id="A6C-1X-2xu"/>
-                        <outlet property="employmentBtn" destination="xe7-Pk-zqQ" id="bZX-ET-lgA"/>
-                        <outlet property="familyBtn" destination="ikb-mk-Vkh" id="ZbB-zv-73R"/>
                         <outlet property="flashCard" destination="Tq3-c0-sIc" id="Na9-5y-AJJ"/>
-                        <outlet property="foodBtn" destination="qhk-AB-8ee" id="n8O-vd-lme"/>
-                        <outlet property="freedomBtn" destination="X1M-IF-UW2" id="P9h-vD-2KI"/>
-                        <outlet property="friendshipBtn" destination="ZsA-Tx-MR0" id="t3X-ak-PzG"/>
                         <outlet property="frontView" destination="yeQ-34-FDr" id="djs-NM-jBm"/>
-                        <outlet property="healthBtn" destination="gaY-Zs-2JL" id="8fc-CR-9QO"/>
-                        <outlet property="intimacy" destination="KaC-TJ-lOs" id="tPI-Mb-fJZ"/>
-                        <outlet property="personalSecBtn" destination="6pg-jQ-nqD" id="xfj-rj-pb2"/>
-                        <outlet property="propertyBtn" destination="TOz-oc-fdr" id="u6o-5E-Yji"/>
-                        <outlet property="recognitionBtn" destination="Pwa-Y9-K6R" id="CLB-DQ-Dmd"/>
-                        <outlet property="reproductionBtn" destination="Efx-h5-FSf" id="7oc-IA-5ak"/>
-                        <outlet property="resourcesBtn" destination="oyn-w2-Wl2" id="KF0-Tw-8Ja"/>
-                        <outlet property="respectBtn" destination="21k-Bf-eMm" id="xrC-8e-7io"/>
-                        <outlet property="selfActualizationBtn" destination="jsp-NP-Lia" id="lFy-X3-YBC"/>
-                        <outlet property="selfEsteemBtn" destination="UdV-0s-4mf" id="G4m-lD-9jg"/>
-                        <outlet property="shelterBtn" destination="xaB-QK-T2L" id="oFm-Z2-4eO"/>
-                        <outlet property="sleepBtn" destination="2f6-yB-KgQ" id="icf-rB-ubv"/>
-                        <outlet property="statusBtn" destination="xs3-AS-DsC" id="hgp-ez-pGD"/>
-                        <outlet property="strengthBtn" destination="Z1P-pF-TKc" id="xGx-av-Qjc"/>
-                        <outlet property="waterBtn" destination="EPQ-No-jvW" id="GPh-XE-JAS"/>
                         <segue destination="tpP-MW-a8o" kind="show" identifier="UserInputToResult" id="kNe-fZ-oO4"/>
                     </connections>
                 </viewController>
@@ -902,17 +879,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j0G-KR-wnL">
+                                <rect key="frame" x="30" y="141" width="384" height="29.5"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="25"/>
+                                <color key="textColor" red="0.0" green="0.4315754175" blue="0.67348533870000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kwS-HX-TCA" customClass="PieChartView" customModule="Charts">
-                                <rect key="frame" x="20" y="116" width="374" height="746"/>
+                                <rect key="frame" x="20" y="209" width="374" height="577"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="2Vs-vF-B91"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="2Vs-vF-B91" firstAttribute="trailing" secondItem="j0G-KR-wnL" secondAttribute="trailing" id="5Qb-sj-EJo"/>
+                            <constraint firstItem="j0G-KR-wnL" firstAttribute="leading" secondItem="2Vs-vF-B91" secondAttribute="leading" constant="30" id="Nzk-HE-fTx"/>
+                            <constraint firstItem="j0G-KR-wnL" firstAttribute="top" secondItem="2Vs-vF-B91" secondAttribute="top" constant="53" id="o2J-RI-wVw"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="IvZ-24-tcS"/>
                     <connections>
+                        <outlet property="pieChartTitle" destination="j0G-KR-wnL" id="B1u-LJ-gIb"/>
                         <outlet property="pieChartView" destination="kwS-HX-TCA" id="K5V-z8-LLR"/>
                     </connections>
                 </viewController>
@@ -1228,31 +1217,6 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="eRg-Ml-QRR"/>
-                    <connections>
-                        <outlet property="airBtn" destination="bpv-gX-lTv" id="FD1-85-hER"/>
-                        <outlet property="clothingBtn" destination="1kD-NN-OWx" id="3Uq-uk-4hj"/>
-                        <outlet property="connectionBtn" destination="m1w-Cy-SSb" id="mcF-F0-JcX"/>
-                        <outlet property="employmentBtn" destination="8Az-9G-M5j" id="22h-NR-Sca"/>
-                        <outlet property="familyBtn" destination="OAf-Oy-alC" id="esm-DQ-rDg"/>
-                        <outlet property="foodBtn" destination="fNQ-aL-SFP" id="53V-va-sjG"/>
-                        <outlet property="freedomBtn" destination="dE2-lG-GTa" id="ZWI-wP-yOd"/>
-                        <outlet property="friendshipBtn" destination="7oX-TD-kMj" id="PAg-ZM-x2z"/>
-                        <outlet property="healthBtn" destination="zsG-0p-LL9" id="9M8-mh-n1x"/>
-                        <outlet property="intimacy" destination="Xz1-Vt-j06" id="pBa-3l-VxZ"/>
-                        <outlet property="personalSecBtn" destination="1Ho-KW-cIR" id="T2i-7Y-wI3"/>
-                        <outlet property="propertyBtn" destination="osk-0i-yyQ" id="2Bj-O4-KgX"/>
-                        <outlet property="recognitionBtn" destination="6gW-j4-DYY" id="s7N-SD-GrD"/>
-                        <outlet property="reproductionBtn" destination="3u1-1W-jEb" id="Gdy-1e-gBZ"/>
-                        <outlet property="resourcesBtn" destination="y3E-mR-q22" id="msR-WS-bHN"/>
-                        <outlet property="respectBtn" destination="S4N-Bh-gZF" id="dFx-CC-ix6"/>
-                        <outlet property="selfActualizationBtn" destination="h8R-Sg-iVh" id="pcU-rp-MjR"/>
-                        <outlet property="selfEsteemBtn" destination="xE8-0D-aaR" id="KLI-Dd-QkW"/>
-                        <outlet property="shelterBtn" destination="P3F-ni-IuU" id="2XO-td-FQg"/>
-                        <outlet property="sleetpBtn" destination="0qc-sp-qxx" id="CN4-5J-2BK"/>
-                        <outlet property="statusBtn" destination="eZ7-Ca-XPU" id="Kew-nq-poX"/>
-                        <outlet property="strengthBtn" destination="Z1i-H2-uC3" id="Im4-qa-6b3"/>
-                        <outlet property="waterBtn" destination="gpk-oh-aWN" id="Zrx-eo-1ma"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Dw-Ux-Aes" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
