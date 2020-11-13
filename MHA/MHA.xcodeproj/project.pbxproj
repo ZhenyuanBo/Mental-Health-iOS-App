@@ -14,6 +14,8 @@
 		6E0EF69B255C973900939B0B /* DiagonalLineDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0EF69A255C973900939B0B /* DiagonalLineDown.swift */; };
 		6E0EF6BA255DA3A700939B0B /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0EF6B9255DA3A600939B0B /* ResultsViewController.swift */; };
 		6E0EF6C1255DAD3600939B0B /* NeedActivityData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0EF6C0255DAD3600939B0B /* NeedActivityData.swift */; };
+		6E0EF6F2255EED1C00939B0B /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0EF6F1255EED1C00939B0B /* CalendarViewController.swift */; };
+		6E0EF6F7255EED9600939B0B /* DatePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0EF6F6255EED9600939B0B /* DatePickerController.swift */; };
 		6E184D812550F7890066EBC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E184D802550F7890066EBC1 /* AppDelegate.swift */; };
 		6E184D832550F7890066EBC1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E184D822550F7890066EBC1 /* SceneDelegate.swift */; };
 		6E184D852550F7890066EBC1 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E184D842550F7890066EBC1 /* WelcomeViewController.swift */; };
@@ -26,18 +28,11 @@
 		6E184DB82550F9690066EBC1 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E184DB72550F9690066EBC1 /* RegisterViewController.swift */; };
 		6E184DC02550F9790066EBC1 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E184DBF2550F9790066EBC1 /* SignInViewController.swift */; };
 		6E2939632551EA7700D7991D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E2939622551EA7600D7991D /* GoogleService-Info.plist */; };
-		6E3B857025575E7B009996FF /* DailyNotesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B856F25575E7B009996FF /* DailyNotesTableViewController.swift */; };
-		6E3B858925579F30009996FF /* NotesDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B858825579F30009996FF /* NotesDetailsTableViewController.swift */; };
 		6E3B859F2557A9EC009996FF /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B859E2557A9EC009996FF /* Activity.swift */; };
-		6E78E92F255895BD00A61966 /* MaslowPyramidViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E78E92E255895BD00A61966 /* MaslowPyramidViewController.swift */; };
-		6E78E950255A2F4700A61966 /* FlashCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E78E94F255A2F4700A61966 /* FlashCardViewController.swift */; };
+		6E78E950255A2F4700A61966 /* UserInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E78E94F255A2F4700A61966 /* UserInputViewController.swift */; };
 		6E78E973255A4BD200A61966 /* FlashCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E78E972255A4BD200A61966 /* FlashCardView.swift */; };
 		6E78E988255B359600A61966 /* Need.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E78E987255B359600A61966 /* Need.swift */; };
-		6EF7BDC7255452E800280738 /* NotesListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF7BDC6255452E800280738 /* NotesListTableViewController.swift */; };
-		6EF7BDCC2554552200280738 /* WeekCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF7BDCB2554552200280738 /* WeekCell.swift */; };
-		6EF7BDD42554565200280738 /* MonthCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF7BDD32554565200280738 /* MonthCell.swift */; };
 		6EF7BE2C25547CD400280738 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF7BE2B25547CD400280738 /* Utils.swift */; };
-		6EF7BE34255491BE00280738 /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF7BE33255491BE00280738 /* NoteCell.swift */; };
 		94FC146E167BF2F1D30C3470 /* Pods_MHATests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13A23000716A2A40A3E4C14F /* Pods_MHATests.framework */; };
 		D397B2508FB565F065BE0EDD /* Pods_MHA_MHAUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2441BEC56B3BD9F3CECD7CBE /* Pods_MHA_MHAUITests.framework */; };
 /* End PBXBuildFile section */
@@ -72,6 +67,8 @@
 		6E0EF69A255C973900939B0B /* DiagonalLineDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagonalLineDown.swift; sourceTree = "<group>"; };
 		6E0EF6B9255DA3A600939B0B /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		6E0EF6C0255DAD3600939B0B /* NeedActivityData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeedActivityData.swift; sourceTree = "<group>"; };
+		6E0EF6F1255EED1C00939B0B /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		6E0EF6F6255EED9600939B0B /* DatePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerController.swift; sourceTree = "<group>"; };
 		6E184D7D2550F7890066EBC1 /* MHA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MHA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E184D802550F7890066EBC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6E184D822550F7890066EBC1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,18 +87,11 @@
 		6E184DB72550F9690066EBC1 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		6E184DBF2550F9790066EBC1 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		6E2939622551EA7600D7991D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		6E3B856F25575E7B009996FF /* DailyNotesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNotesTableViewController.swift; sourceTree = "<group>"; };
-		6E3B858825579F30009996FF /* NotesDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesDetailsTableViewController.swift; sourceTree = "<group>"; };
 		6E3B859E2557A9EC009996FF /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
-		6E78E92E255895BD00A61966 /* MaslowPyramidViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaslowPyramidViewController.swift; sourceTree = "<group>"; };
-		6E78E94F255A2F4700A61966 /* FlashCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardViewController.swift; sourceTree = "<group>"; };
+		6E78E94F255A2F4700A61966 /* UserInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputViewController.swift; sourceTree = "<group>"; };
 		6E78E972255A4BD200A61966 /* FlashCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardView.swift; sourceTree = "<group>"; };
 		6E78E987255B359600A61966 /* Need.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Need.swift; sourceTree = "<group>"; };
-		6EF7BDC6255452E800280738 /* NotesListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesListTableViewController.swift; sourceTree = "<group>"; };
-		6EF7BDCB2554552200280738 /* WeekCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekCell.swift; sourceTree = "<group>"; };
-		6EF7BDD32554565200280738 /* MonthCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCell.swift; sourceTree = "<group>"; };
 		6EF7BE2B25547CD400280738 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		6EF7BE33255491BE00280738 /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
 		954FC1E411D6C6FB07DC3A8F /* Pods-MHA-MHAUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MHA-MHAUITests.debug.xcconfig"; path = "Target Support Files/Pods-MHA-MHAUITests/Pods-MHA-MHAUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C88933F4A865AACA17E57391 /* Pods-MHATests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MHATests.release.xcconfig"; path = "Target Support Files/Pods-MHATests/Pods-MHATests.release.xcconfig"; sourceTree = "<group>"; };
 		CF89F68AFF3EB5538800AFD6 /* Pods-MHA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MHA.release.xcconfig"; path = "Target Support Files/Pods-MHA/Pods-MHA.release.xcconfig"; sourceTree = "<group>"; };
@@ -197,13 +187,11 @@
 			isa = PBXGroup;
 			children = (
 				6E184D842550F7890066EBC1 /* WelcomeViewController.swift */,
+				6E0EF6F1255EED1C00939B0B /* CalendarViewController.swift */,
+				6E0EF6F6255EED9600939B0B /* DatePickerController.swift */,
 				6E184DB72550F9690066EBC1 /* RegisterViewController.swift */,
 				6E184DBF2550F9790066EBC1 /* SignInViewController.swift */,
-				6EF7BDC6255452E800280738 /* NotesListTableViewController.swift */,
-				6E3B856F25575E7B009996FF /* DailyNotesTableViewController.swift */,
-				6E78E92E255895BD00A61966 /* MaslowPyramidViewController.swift */,
-				6E3B858825579F30009996FF /* NotesDetailsTableViewController.swift */,
-				6E78E94F255A2F4700A61966 /* FlashCardViewController.swift */,
+				6E78E94F255A2F4700A61966 /* UserInputViewController.swift */,
 				6E0EF6B9255DA3A600939B0B /* ResultsViewController.swift */,
 			);
 			path = Controllers;
@@ -212,7 +200,6 @@
 		6E2939A92552254100D7991D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				6EF7BE33255491BE00280738 /* NoteCell.swift */,
 				6E78E987255B359600A61966 /* Need.swift */,
 				6E0EF685255C830000939B0B /* NeedActivity.swift */,
 				6E0EF6C0255DAD3600939B0B /* NeedActivityData.swift */,
@@ -227,10 +214,8 @@
 			children = (
 				6E184D862550F7890066EBC1 /* Main.storyboard */,
 				6E78E972255A4BD200A61966 /* FlashCardView.swift */,
-				6EF7BDCB2554552200280738 /* WeekCell.swift */,
 				6E0EF68F255C896800939B0B /* DiagonalLineUp.swift */,
 				6E0EF69A255C973900939B0B /* DiagonalLineDown.swift */,
-				6EF7BDD32554565200280738 /* MonthCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -505,27 +490,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E0EF6F2255EED1C00939B0B /* CalendarViewController.swift in Sources */,
 				6E3B859F2557A9EC009996FF /* Activity.swift in Sources */,
 				6E0EF6C1255DAD3600939B0B /* NeedActivityData.swift in Sources */,
-				6EF7BDD42554565200280738 /* MonthCell.swift in Sources */,
 				6E184DC02550F9790066EBC1 /* SignInViewController.swift in Sources */,
 				6E0EF69B255C973900939B0B /* DiagonalLineDown.swift in Sources */,
 				6E78E973255A4BD200A61966 /* FlashCardView.swift in Sources */,
 				6E78E988255B359600A61966 /* Need.swift in Sources */,
 				6E184D852550F7890066EBC1 /* WelcomeViewController.swift in Sources */,
 				6E184DB82550F9690066EBC1 /* RegisterViewController.swift in Sources */,
-				6EF7BDCC2554552200280738 /* WeekCell.swift in Sources */,
-				6E78E950255A2F4700A61966 /* FlashCardViewController.swift in Sources */,
+				6E78E950255A2F4700A61966 /* UserInputViewController.swift in Sources */,
 				6E184D812550F7890066EBC1 /* AppDelegate.swift in Sources */,
-				6E3B858925579F30009996FF /* NotesDetailsTableViewController.swift in Sources */,
-				6EF7BDC7255452E800280738 /* NotesListTableViewController.swift in Sources */,
+				6E0EF6F7255EED9600939B0B /* DatePickerController.swift in Sources */,
 				6EF7BE2C25547CD400280738 /* Utils.swift in Sources */,
 				6E0EF686255C830000939B0B /* NeedActivity.swift in Sources */,
 				6E184D8B2550F7890066EBC1 /* MHA.xcdatamodeld in Sources */,
-				6E78E92F255895BD00A61966 /* MaslowPyramidViewController.swift in Sources */,
-				6E3B857025575E7B009996FF /* DailyNotesTableViewController.swift in Sources */,
 				6E184D832550F7890066EBC1 /* SceneDelegate.swift in Sources */,
-				6EF7BE34255491BE00280738 /* NoteCell.swift in Sources */,
 				6E0EF681255C3D7A00939B0B /* NeedData.swift in Sources */,
 				6E0EF690255C896800939B0B /* DiagonalLineUp.swift in Sources */,
 				6E0EF6BA255DA3A700939B0B /* ResultsViewController.swift in Sources */,

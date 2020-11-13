@@ -10,6 +10,7 @@ target 'MHA' do
   pod 'RealmSwift'
   pod 'MJRefresh'
   pod 'Charts'
+  pod 'CalendarKit'
 
   target 'MHATests' do
     inherit! :search_paths

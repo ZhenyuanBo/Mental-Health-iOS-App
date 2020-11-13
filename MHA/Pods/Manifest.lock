@@ -218,9 +218,12 @@ PODS:
   - BoringSSL-GRPC/Implementation (0.0.7):
     - BoringSSL-GRPC/Interface (= 0.0.7)
   - BoringSSL-GRPC/Interface (0.0.7)
+  - CalendarKit (0.13.14):
+    - DateToolsSwift
   - Charts (3.6.0):
     - Charts/Core (= 3.6.0)
   - Charts/Core (3.6.0)
+  - DateToolsSwift (5.0.0)
   - Firebase/Auth (6.34.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 6.9.2)
@@ -312,6 +315,7 @@ PODS:
     - Realm (= 10.1.1)
 
 DEPENDENCIES:
+  - CalendarKit
   - Charts
   - Firebase/Auth
   - Firebase/Firestore
@@ -322,7 +326,9 @@ SPEC REPOS:
   trunk:
     - abseil
     - BoringSSL-GRPC
+    - CalendarKit
     - Charts
+    - DateToolsSwift
     - Firebase
     - FirebaseAuth
     - FirebaseCore
@@ -343,7 +349,9 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
+  CalendarKit: 2688f4284934d7649a57972150b250ad1f2b25b8
   Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
+  DateToolsSwift: 4207ada6ad615d8dc076323d27037c94916dbfa6
   Firebase: c23a36d9e4cdf7877dfcba8dd0c58add66358999
   FirebaseAuth: c92d49ada7948d1a23466e3db17bc4c2039dddc3
   FirebaseCore: d3a978a3cfa3240bf7e4ba7d137fdf5b22b628ec
@@ -361,6 +369,6 @@ SPEC CHECKSUMS:
   Realm: 784ca1da1453e31a9c9adc14445421a81f316119
   RealmSwift: cc52fe0dcea56387274dff36e19219e055a3bb84
 
-PODFILE CHECKSUM: f8a848e8ca52c83e4177aebb940e1dd8580fcbd3
+PODFILE CHECKSUM: f3998cb1eddbfee28d65985b8c86c37537df9d17
 
 COCOAPODS: 1.10.0

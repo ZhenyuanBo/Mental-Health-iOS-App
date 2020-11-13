@@ -13,32 +13,7 @@ class ResultsViewController: UIViewController {
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var frontView: UIView!
     
-    //MARK: - Need Buttons
-    @IBOutlet weak var freedomBtn: UIButton!
-    @IBOutlet weak var recognitionBtn: UIButton!
-    @IBOutlet weak var respectBtn: UIButton!
-    @IBOutlet weak var intimacyBtn: UIButton!
-    @IBOutlet weak var friendshipBtn: UIButton!
-    @IBOutlet weak var healthBtn: UIButton!
-    @IBOutlet weak var propertyBtn: UIButton!
-    @IBOutlet weak var selfActualizationBtn: UIButton!
-    @IBOutlet weak var clothingBtn: UIButton!
-    @IBOutlet weak var statusBtn: UIButton!
-    @IBOutlet weak var familyBtn: UIButton!
-    @IBOutlet weak var resourcesBtn: UIButton!
-    @IBOutlet weak var reproductionBtn: UIButton!
-    @IBOutlet weak var sleepBtn: UIButton!
-    @IBOutlet weak var shelterBtn: UIButton!
-    @IBOutlet weak var foodBtn: UIButton!
-    @IBOutlet weak var waterBtn: UIButton!
-    @IBOutlet weak var airBtn: UIButton!
-    @IBOutlet weak var employmentBtn: UIButton!
-    @IBOutlet weak var personalSecBtn: UIButton!
-    @IBOutlet weak var connectionBtn: UIButton!
-    @IBOutlet weak var selfEsteemBtn: UIButton!
-    @IBOutlet weak var strengthBtn: UIButton!
-    
-    @IBOutlet weak var flipButton: UIButton!
+    @IBOutlet weak var flipButton: UIBarButtonItem!
     
     private var activityCategoryMap:[String: Int] = [:]
     
@@ -62,12 +37,13 @@ class ResultsViewController: UIViewController {
             customizeChart(dataPoints: Array(activityCategoryMap.keys), values: Array(activityCategoryMap.values))
         }
     }
-    @IBAction func categoryViewPressed(_ sender: UIButton) {
+    
+    @IBAction func categoryPressed(_ sender: UIBarButtonItem) {
         flashCard.flip()
         if flashCard.backView!.isHidden{
-            flipButton.setTitle("Category", for: .normal)
+            flipButton.title = "Category"
         }else{
-            flipButton.setTitle("Chart", for: .normal)
+            flipButton.title = "Chart"
         }
     }
     
@@ -118,37 +94,39 @@ class ResultsViewController: UIViewController {
         }
         return colors
     }
-
+    
     func loadNeedSelectionResult(){
         let decodedData = loadNeedSelectionMap(date: Date())
-        if let safeDecodedData = decodedData{
+        var selectedNeedCategory:[String] = []
+        if  let safeDecodedData = decodedData{
             Utils.needTypeList.forEach { (need) in
                 if safeDecodedData[need]{
-                    switch need{
-                    case "air":airBtn.setTitleColor(.black, for: .normal)
-                    case "water": waterBtn.setTitleColor(.black, for: .normal)
-                    case "clothing": clothingBtn.setTitleColor(.black, for: .normal)
-                    case "employment": employmentBtn.setTitleColor(.black, for: .normal)
-                    case "food": foodBtn.setTitleColor(.black, for: .normal)
-                    case "family": familyBtn.setTitleColor(.black, for: .normal)
-                    case "freedom": freedomBtn.setTitleColor(.black, for: .normal)
-                    case "friendship": friendshipBtn.setTitleColor(.black, for: .normal)
-                    case "intimacy": intimacyBtn.setTitleColor(.black, for: .normal)
-                    case "connection": connectionBtn.setTitleColor(.black, for: .normal)
-                    case "health": healthBtn.setTitleColor(.black, for: .normal)
-                    case "personal_security":personalSecBtn.setTitleColor(.black, for: .normal)
-                    case "property": propertyBtn.setTitleColor(.black, for: .normal)
-                    case "recognition":recognitionBtn.setTitleColor(.black, for: .normal)
-                    case "reproduction":reproductionBtn.setTitleColor(.black, for: .normal)
-                    case "resources": resourcesBtn.setTitleColor(.black, for: .normal)
-                    case "respect": respectBtn.setTitleColor(.black, for: .normal)
-                    case "self_actualization":selfActualizationBtn.setTitleColor(.black, for: .normal)
-                    case "self_esteem":selfEsteemBtn.setTitleColor(.black, for: .normal)
-                    case "shelter":shelterBtn.setTitleColor(.black, for: .normal)
-                    case "sleep":sleepBtn.setTitleColor(.black, for: .normal)
-                    case "status": statusBtn.setTitleColor(.black, for: .normal)
-                    case "strength":strengthBtn.setTitleColor(.black, for: .normal)
-                    default: fatalError("No button found for this type:\(need)")
+                    selectedNeedCategory.append(need)
+                }
+            }
+        }
+        for topView in self.view.subviews as [UIView] {
+            for lowerView in topView.subviews as [UIView]{
+                for innerView in lowerView.subviews as [UIView]{
+                    if let needButton = innerView as? UIButton {
+                        let buttonLabel = needButton.titleLabel?.text
+                        if buttonLabel == "personal security"{
+                            if selectedNeedCategory.contains("personal_security"){
+                                needButton.setTitleColor(.black, for: .normal)
+                            }
+                        }else if buttonLabel == "self-esteem"{
+                            if selectedNeedCategory.contains("self_esteem"){
+                                needButton.setTitleColor(.black, for: .normal)
+                            }
+                        }else if buttonLabel == "Self Actualization"{
+                            if selectedNeedCategory.contains("self_actualization"){
+                                needButton.setTitleColor(.black, for: .normal)
+                            }
+                        }else{
+                            if selectedNeedCategory.contains(buttonLabel!){
+                                needButton.setTitleColor(.black, for: .normal)
+                            }
+                        }
                     }
                 }
             }

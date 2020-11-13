@@ -26,7 +26,7 @@ class SignInViewController: UIViewController {
                 if let e = error{
                     print(e)
                 }else{
-                    self.performSegue(withIdentifier: "test", sender: self)
+                    self.performSegue(withIdentifier: Utils.signinUserInputSegue, sender: self)
                 }
             }
         }

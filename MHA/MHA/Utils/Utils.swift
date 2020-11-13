@@ -1,54 +1,25 @@
 import UIKit
 import Foundation
+import DateToolsSwift
 import RealmSwift
 
 class Utils{
     
     //MARK: - Segue Identifiers
-    public static let signinSegue = "SigninToHistory"
-    public static let registerSegue = "RegisterToHistory"
-    public static let dailyNotesSegue = "CalendarToDailyNotes"
-    public static let userInputSegue = "NotesToUserInput"
-    public static let notesDetailsSegue = "DailyNotesToDetails"
+    public static let signinUserInputSegue = "SignInToUserInput"
+    public static let registerUserInputSegue = "RegisterToUserInput"
+    public static let userInputCalendarSegue = "UserInputToCalendar"
+    public static let calendarUserInputSegue = "CalendarToUserInput"
+    public static let userInputReportSegue = "UserInputToResult"
     
-    //MARK: - Reusable Cell Identifiers
-    public static let weekCell = "WeekCell"
-    public static let monthCell = "MonthCell"
-    public static let dayCell = "ReusableDayCell"
-    public static let activityCell = "ActivityCell"
     
-    //MARK: - Bar Item Button Actions
-    public static let addNoteMsg = "Add New Note"
-    public static let alertAddAction = "Add"
-    public static let cellNibName = "NoteActivityCell"
-    
-    //MARK: - Screen Scroll Direction
-    public static let downDirection = "down"
-    public static let upDirection = "up"
-    
-    //MARK: - WEEK & Month
-    public static let weekDayMap = [ 1:"Sun", 2:"Mon", 3:"Tue", 4:"Wed", 5:"Thur", 6:"Fri", 7:"Sat" ]
+    //MARK: - Month
     
     public static let monthMap = [1:"Jan", 2: "Feb", 3: "Mar", 4:"Apr",
                                   5:"May", 6:"Jun", 7:"Jul",
                                   8:"Aug", 9: "Sept", 10: "Oct", 11: "Nov", 12: "Dec"]
-    
-    public static let monthColourMap = ["Jan": "006EAC", "Feb":"E1E0E5",
-                                        "Mar":"61D200", "Apr": "4CB0B2",
-                                        "May":"F4736E", "Jun":"FFA800",
-                                        "Jul":"FFFFFF", "Aug":"BA9389",
-                                        "Sept":"CAA301", "Oct":"F45F22",
-                                        "Nov":"DCAF9F", "Dec":"949BA5"]
-    
-    public static let monthDayMap = ["Jan": 31, "Feb": 28, "Mar": 31, "Apr": 30,
-                                    "May": 31, "Jun": 30, "Jul": 31, "Aug": 31,
-                                    "Sept": 30, "Oct": 31, "Nov": 30, "Dec": 31]
-    
-    public static let weekDayColourMap = [0: "#389393", 1:"#fa7f72", 2: "#f5a25d",
-                                          3: "#c56183", 4:"#51adcf", 5: "#892cdc",
-                                          6: "#a8dda8"]
-    
-    //MARK: - Maslow Need Data
+
+    //MARK: - Maslow Need Category Data
     public static let needTypeList = ["air","water","food","clothing",
                             "shelter","sleep","reproduction",
                             "personal_security","employment",
@@ -69,75 +40,9 @@ class Utils{
     
 }
 
-
-//MARK: - Calendar Cell
-enum CellType: String{
-    case week
-    case month
-}
-
-enum CellContent{
-    case weekRange(String, String, Date, Date)
-    case monthImg(UIImage)
-}
-
-
 //MARK: - Date Extension
 
 extension Date {
-    
-    func firstDayOfMonth() -> Date {
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([.year,.month], from: self)
-        guard let date = calendar.date(from: components) else {
-            fatalError("First day of month doesn't exist!")
-        }
-        return date
-    }
-    
-    func lastDayOfMonth() -> Date {
-        let calendar = Calendar.current
-        var components = DateComponents()
-        components.month = 1
-        components.day = -1
-        guard let date = calendar.date(byAdding: components, to: self.firstDayOfMonth()) else {
-            fatalError("Last day of month doesn't exist!")
-        }
-        return date
-    }
-    
-    func firstDayOfWeek() -> Date {
-        let calendar = Calendar(identifier: .iso8601)
-        let components = calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)
-        guard let date = calendar.date(from: components) else {
-            fatalError("First day of week doesn't exist!")
-        }
-        return date
-    }
-    
-    func lastDayOfWeek() -> Date {
-        let calendar = Calendar(identifier: .iso8601)
-        var components = DateComponents()
-        components.weekOfYear = 1
-        components.day = -1
-        guard let date = calendar.date(byAdding: components, to: self.firstDayOfWeek()) else {
-            fatalError("Last day of week doesn't exist!")
-        }
-        return date
-    }
-    
-    func daysOffset(by: Int) -> Date {
-        return Date(timeInterval: Double(by * 24 * 60 * 60), since: self)
-    }
-    
-    func numOfDaysInMonth() -> Int {
-        let range = Calendar.current.range(of: .day, in: .month, for: self)
-        guard let count = range?.count else {
-            fatalError("Number of month doesn't exist!")
-        }
-        return count
-    }
-    
     func dateFormatter(format: String) -> String {
         let f = DateFormatter()
         f.timeZone = .autoupdatingCurrent
@@ -167,24 +72,6 @@ func hexStringToUIColor (hex:String) -> UIColor {
         blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
         alpha: CGFloat(1.0)
     )
-}
-
-
-//MARK: - CHECK LEAP YEAR
-
-func isLeapYear(datum: Date) -> Bool {
-    let calendar = Calendar(identifier: .gregorian)
-    let dateComponents = DateComponents(year: Int(calendar.component(.year, from: datum)), month: 2)
-    let date = calendar.date(from: dateComponents)!
-    let range = calendar.range(of: .day, in: .month, for: date)!
-    let numDays = range.count
-    
-    if numDays == 29 {
-        return true
-    }else {
-        return false
-    }
-
 }
 
 
@@ -249,3 +136,21 @@ func loadNeedActivityResult(date: Date)-> NeedActivityData? {
     return nil
 }
 
+//MARK: - Calendar Extension
+extension TimeChunk {
+  static func dateComponents(seconds: Int = 0,
+                                  minutes: Int = 0,
+                                  hours: Int = 0,
+                                  days: Int = 0,
+                                  weeks: Int = 0,
+                                  months: Int = 0,
+                                  years: Int = 0) -> TimeChunk {
+    return TimeChunk(seconds: seconds,
+                     minutes: minutes,
+                     hours: hours,
+                     days: days,
+                     weeks: weeks,
+                     months: months,
+                     years: years)
+  }
+}
