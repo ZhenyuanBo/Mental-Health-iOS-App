@@ -6,6 +6,7 @@ struct NeedActivityData: Codable{
     private let food: Int
     private let family: Int
     private let friendship: Int
+    private let intimacy: Int
     private let clothing: Int
     private let shelter: Int
     private let sleep: Int
@@ -16,6 +17,7 @@ struct NeedActivityData: Codable{
     private let property: Int
     private let health: Int
     private let respect: Int
+    private let connection: Int
     private let status: Int
     private let self_esteem: Int
     private let recognition: Int
@@ -34,6 +36,7 @@ struct NeedActivityData: Codable{
             case "sleep": return sleep
             case "family": return family
             case "friendship": return friendship
+            case "intimacy": return intimacy
             case "reproduction": return reproduction
             case "personal_security": return personal_security
             case "employment": return employment
@@ -41,6 +44,7 @@ struct NeedActivityData: Codable{
             case "property": return property
             case "health": return health
             case "respect": return respect
+            case "connection": return connection
             case "status": return status
             case "self_esteem": return self_esteem
             case "recognition": return recognition

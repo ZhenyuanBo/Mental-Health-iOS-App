@@ -7,6 +7,7 @@ struct NeedData: Codable{
     private let food: Bool
     private let family: Bool
     private let friendship: Bool
+    private let intimacy: Bool
     private let clothing: Bool
     private let shelter: Bool
     private let sleep: Bool
@@ -36,6 +37,7 @@ struct NeedData: Codable{
             case "sleep": return sleep
             case "family": return family
             case "friendship": return friendship
+            case "intimacy": return intimacy
             case "reproduction": return reproduction
             case "personal_security": return personal_security
             case "employment": return employment

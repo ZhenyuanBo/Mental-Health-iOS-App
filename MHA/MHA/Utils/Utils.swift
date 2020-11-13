@@ -53,9 +53,19 @@ class Utils{
                             "shelter","sleep","reproduction",
                             "personal_security","employment",
                             "resources","property","health",
-                            "family","respect", "status",
+                            "family","respect", "status","intimacy",
                             "friendship","self_esteem","recognition",
-                            "strength","freedom","self_actualization"]
+                            "strength","freedom","self_actualization", "connection"]
+    
+    public static let phyNeeds:Set = ["air","water","food","clothing","shelter","sleep","reproduction"]
+    public static let safetyNeeds:Set = ["personal_security","employment",
+                                     "resources","property","health"]
+    public static let loveNeeds:Set = ["friendship", "intimacy", "family", "connection"]
+    public static let esteemNeeds:Set = ["respect","self_esteem","status","recognition", "strength","freedom"]
+    public static let selfActualNeeds:Set = ["self_actualization"]
+    
+    public static let needColourMap = [phyNeeds: "#a20a0a", safetyNeeds: "#db6400", loveNeeds: "#ffa62b", esteemNeeds: "#03c4a1", selfActualNeeds: "#005086"]
+    
     
 }
 

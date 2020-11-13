@@ -19,7 +19,7 @@ class FlashCardViewController: UIViewController{
                                     "employment": false, "resources": false,
                                     "property": false, "health": false, "family": false,
                                     "respect": false, "status": false, "friendship": false,
-                                    "self_esteem": false, "recognition": false,
+                                    "self_esteem": false, "recognition": false,"intimacy":false,
                                     "strength": false, "freedom": false, "connection": false,
                                     "self_actualization": false]
     
@@ -32,7 +32,7 @@ class FlashCardViewController: UIViewController{
                                       "respect":0, "status":0, "friendship": 0,
                                       "self_esteem": 0, "recognition":0,
                                       "strength": 0, "freedom": 0,"connection": 0,
-                                      "self_actualization":0]
+                                      "self_actualization":0, "intimacy":0]
     
     override func viewDidLoad() {
         super.viewDidLoad()
