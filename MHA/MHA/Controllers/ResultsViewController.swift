@@ -38,6 +38,11 @@ class ResultsViewController: UIViewController {
         }
     }
     
+    @IBAction func downloadPressed(_ sender: UIBarButtonItem) {
+        let image = pieChartView.getChartImage(transparent: false)
+        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
+    }
+    
     @IBAction func categoryPressed(_ sender: UIBarButtonItem) {
         flashCard.flip()
         if flashCard.backView!.isHidden{

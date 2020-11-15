@@ -49,6 +49,22 @@ extension Date {
         f.dateFormat = format
         return f.string(from: self)
     }
+    
+    func localDate() -> Date {
+        let nowUTC = Date()
+        let timeZoneOffset = Double(TimeZone.current.secondsFromGMT(for: nowUTC))
+        guard let localDate = Calendar.current.date(byAdding: .second, value: Int(timeZoneOffset), to: nowUTC) else {return Date()}
+
+        return localDate
+    }
+    
+    func getDate(dateStr: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.locale = Locale.current
+        return dateFormatter.date(from: dateStr) // replace Date String
+    }
 }
 
 //MARK: - Hex to UIColor

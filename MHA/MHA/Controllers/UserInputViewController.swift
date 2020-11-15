@@ -1,7 +1,13 @@
 import UIKit
+import DateTimePicker
 import RealmSwift
 
-class UserInputViewController: UIViewController{
+class UserInputViewController: UIViewController,DateTimePickerDelegate{
+    
+    func dateTimePicker(_ picker: DateTimePicker, didSelectDate: Date) {
+        title = picker.selectedDateString
+    }
+    
     
     let realm = try! Realm()
     
@@ -47,9 +53,7 @@ class UserInputViewController: UIViewController{
             activityText.text = safeText
             readonly = true
             activityID = loadActivityID(activityText: safeText)
-            print(activityID)
             decodedData = loadNeedSelectionMap(date: Date(), activityID: activityID)
-            print(decodedData)
             highlightNeed = true
         }else{
             activityID = UUID.init().uuidString
@@ -116,6 +120,8 @@ class UserInputViewController: UIViewController{
                     }
                 }
             }
+        }else{
+            
         }
     }
     
@@ -141,13 +147,13 @@ class UserInputViewController: UIViewController{
     }
     
     @IBAction func savePressed(_ sender: UIBarButtonItem) {
-        saveActivity()
+        showTimePicker()
     }
     
     @IBAction func addPressed(_ sender: UIBarButtonItem) {
         let alert = UIAlertController(title: "Do you want to save data before creating a new activity", message: "", preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Yes", style: .default) { (action) in
-            self.saveActivity()
+            self.showTimePicker()
             self.activityText.text = ""
             self.cleanPyramidMapData()
             self.activityID = UUID.init().uuidString
@@ -171,13 +177,15 @@ class UserInputViewController: UIViewController{
         return navBartitle
     }
     
-    private func saveActivity(){
+    private func saveActivity(startTime: String, endTime: String){
         do{
             try self.realm.write{
                 let newActivity = Activity()
                 newActivity.dateCreated = Date().dateFormatter(format: "yyyy-MM-dd")
                 newActivity.activityText = self.activityText.text
                 newActivity.activityID = activityID!
+                newActivity.startTime = startTime
+                newActivity.endTime = endTime
                 realm.add(newActivity, update: .modified)
             }
         }catch{
@@ -215,7 +223,7 @@ class UserInputViewController: UIViewController{
                 }
             }
         }
-
+        
     }
     
     private func loadActivityID(activityText: String) -> String?{
@@ -252,4 +260,26 @@ class UserInputViewController: UIViewController{
         gesture.addTarget(self, action: #selector(swipedRight))
         return gesture
     }()
+}
+
+
+extension UserInputViewController: ActivityTimePickerDelegate {
+    
+    @objc func showTimePicker() {
+        let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "activitytimepicker") as! ActivityTimePicker
+        customAlert.providesPresentationContextTransitionStyle = true
+        customAlert.definesPresentationContext = true
+        customAlert.modalPresentationStyle = .popover
+        customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        customAlert.delegate = self
+        self.present(customAlert, animated: true, completion: nil)
+    }
+    
+    func pickerAlertCancel() {
+        
+    }
+    
+    func pickerAlertSelected(t1: String, t2: String) {
+        saveActivity(startTime: t1, endTime: t2)
+    }
 }

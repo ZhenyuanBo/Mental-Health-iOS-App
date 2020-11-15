@@ -8,9 +8,9 @@ target 'MHA' do
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'RealmSwift'
-  pod 'MJRefresh'
   pod 'Charts'
   pod 'CalendarKit'
+  pod 'DateTimePicker'
 
   target 'MHATests' do
     inherit! :search_paths

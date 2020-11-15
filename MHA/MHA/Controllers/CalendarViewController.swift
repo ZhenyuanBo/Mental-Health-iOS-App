@@ -18,7 +18,7 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
     
     lazy var customCalendar: Calendar = {
         let customNSCalendar = NSCalendar(identifier: NSCalendar.Identifier.gregorian)!
-        customNSCalendar.timeZone = TimeZone(abbreviation: "CEST")!
+        customNSCalendar.timeZone = TimeZone(abbreviation: "EST")!
         let calendar = customNSCalendar as Calendar
         return calendar
     }()
@@ -96,45 +96,45 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
     }
     
     private func generateEventsForDate(_ date: Date) -> [EventDescriptor] {
-        var workingDate = date.add(TimeChunk.dateComponents(hours: Int(arc4random_uniform(10) + 5)))
-        let activities = loadActivity(date: workingDate.dateFormatter(format: "yyyy-MM-dd"))
+        let localDate = date.localDate()
+        let activities = loadActivity(date: localDate.dateFormatter(format: "yyyy-MM-dd"))
         
         var events = [Event]()
         
         if let safeActivities = activities{
-            for i in 0..<safeActivities.count {
+            for (key,value) in safeActivities {
                 let event = Event()
-                let duration = Int(arc4random_uniform(160) + 60)
-                let datePeriod = TimePeriod(beginning: workingDate,
-                                            chunk: TimeChunk.dateComponents(minutes: duration))
                 
-                event.startDate = datePeriod.beginning!
-                event.endDate = datePeriod.end!
-            
+                let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+                    dateFormatter.timeZone = TimeZone.current
+                    dateFormatter.locale = Locale.current
+                    
+                let startDateStr = "\(localDate.dateFormatter(format: "yyyy-MM-dd"))T\(value[0]):00"
+                let startDate = dateFormatter.date(from: startDateStr)
+                
+                let endDateStr = "\(localDate.dateFormatter(format: "yyyy-MM-dd"))T\(value[1]):00"
+                let endDate = dateFormatter.date(from: endDateStr)
+
+                event.startDate = startDate!
+                event.endDate = endDate!
+
                 let timezone = dayView.calendar.timeZone
-                print(timezone)
-                
-                event.text = safeActivities[i]
+
+                event.text = key
                 event.color = colors[Int(arc4random_uniform(UInt32(colors.count)))]
 //                event.isAllDay = Int(arc4random_uniform(2)) % 2 == 0
-                
+
                 if #available(iOS 12.0, *) {
                     if traitCollection.userInterfaceStyle == .dark {
                         event.textColor = textColorForEventInDarkTheme(baseColor: event.color)
                         event.backgroundColor = event.color.withAlphaComponent(0.6)
                     }
                 }
-                
+
                 events.append(event)
-                
-                let nextOffset = Int(arc4random_uniform(250) + 40)
-                workingDate = workingDate.add(TimeChunk.dateComponents(minutes: nextOffset))
-                event.userInfo = String(i)
             }
         }
-        
-        
-        print("Events for \(date)")
         return events
     }
     
@@ -212,12 +212,17 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
         
         reloadData()
     }
-    private func loadActivity(date: String)->[String]?{
+    private func loadActivity(date: String)->[String:[String]]?{
         let activities = realm.objects(Activity.self).filter("dateCreated = '\(date)'")
         if activities.count>0{
-            var validActivities:[String] = []
+            var validActivities:[String:[String]] = [:]
             for i in 0..<activities.count{
-                validActivities.append(activities[i].activityText)
+                var timeList: [String] = []
+                let startTime = activities[i].startTime
+                let endTime = activities[i].endTime
+                timeList.append(startTime)
+                timeList.append(endTime)
+                validActivities[activities[i].activityText] = timeList
             }
             return validActivities
         }

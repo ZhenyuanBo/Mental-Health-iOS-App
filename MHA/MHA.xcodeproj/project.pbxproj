@@ -27,6 +27,7 @@
 		6E184DA62550F78D0066EBC1 /* MHAUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E184DA52550F78D0066EBC1 /* MHAUITests.swift */; };
 		6E184DB82550F9690066EBC1 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E184DB72550F9690066EBC1 /* RegisterViewController.swift */; };
 		6E184DC02550F9790066EBC1 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E184DBF2550F9790066EBC1 /* SignInViewController.swift */; };
+		6E26884C25618F5200C45D21 /* ActivityTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E26884B25618F5200C45D21 /* ActivityTimePicker.swift */; };
 		6E2939632551EA7700D7991D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E2939622551EA7600D7991D /* GoogleService-Info.plist */; };
 		6E3B859F2557A9EC009996FF /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B859E2557A9EC009996FF /* Activity.swift */; };
 		6E78E950255A2F4700A61966 /* UserInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E78E94F255A2F4700A61966 /* UserInputViewController.swift */; };
@@ -86,6 +87,7 @@
 		6E184DA72550F78D0066EBC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E184DB72550F9690066EBC1 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		6E184DBF2550F9790066EBC1 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		6E26884B25618F5200C45D21 /* ActivityTimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTimePicker.swift; sourceTree = "<group>"; };
 		6E2939622551EA7600D7991D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6E3B859E2557A9EC009996FF /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		6E78E94F255A2F4700A61966 /* UserInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputViewController.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				6E184DB72550F9690066EBC1 /* RegisterViewController.swift */,
 				6E184DBF2550F9790066EBC1 /* SignInViewController.swift */,
 				6E78E94F255A2F4700A61966 /* UserInputViewController.swift */,
+				6E26884B25618F5200C45D21 /* ActivityTimePicker.swift */,
 				6E0EF6B9255DA3A600939B0B /* ResultsViewController.swift */,
 			);
 			path = Controllers;
@@ -495,6 +498,7 @@
 				6E0EF6C1255DAD3600939B0B /* NeedActivityData.swift in Sources */,
 				6E184DC02550F9790066EBC1 /* SignInViewController.swift in Sources */,
 				6E0EF69B255C973900939B0B /* DiagonalLineDown.swift in Sources */,
+				6E26884C25618F5200C45D21 /* ActivityTimePicker.swift in Sources */,
 				6E78E973255A4BD200A61966 /* FlashCardView.swift in Sources */,
 				6E78E988255B359600A61966 /* Need.swift in Sources */,
 				6E184D852550F7890066EBC1 /* WelcomeViewController.swift in Sources */,
@@ -685,6 +689,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z8DZSB47AA;
 				HEADER_SEARCH_PATHS = "${inherited}";
@@ -695,6 +700,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zybo.MHA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -706,6 +712,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z8DZSB47AA;
 				HEADER_SEARCH_PATHS = "${inherited}";
@@ -716,6 +723,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zybo.MHA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

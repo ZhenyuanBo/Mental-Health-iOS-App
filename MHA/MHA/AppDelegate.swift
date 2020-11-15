@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //locaiton of Realm file
         print(Realm.Configuration.defaultConfiguration.fileURL)
         
+        
         FirebaseApp.configure()
         
         do{

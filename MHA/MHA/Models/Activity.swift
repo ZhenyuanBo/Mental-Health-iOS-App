@@ -5,6 +5,8 @@ class Activity: Object{
     @objc dynamic var activityID: String=""
     @objc dynamic var activityText: String=""
     @objc dynamic var dateCreated: String=""
+    @objc dynamic var startTime: String=""
+    @objc dynamic var endTime: String=""
     
     override static func primaryKey() -> String? {
       return "activityID"
