@@ -1,4 +1,5 @@
 ${PODS_ROOT}/Target Support Files/Pods-MHA-MHAUITests/Pods-MHA-MHAUITests-frameworks.sh
+${BUILT_PRODUCTS_DIR}/AMPopTip/AMPopTip.framework
 ${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework
 ${BUILT_PRODUCTS_DIR}/CalendarKit/CalendarKit.framework
 ${BUILT_PRODUCTS_DIR}/Charts/Charts.framework

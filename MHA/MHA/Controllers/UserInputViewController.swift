@@ -18,6 +18,9 @@ class UserInputViewController: UIViewController,DateTimePickerDelegate{
     //MARK: - User Input Outlet
     @IBOutlet weak var activityText: UITextView!
     
+    @IBOutlet weak var flipButton: UIBarButtonItem!
+    
+    
     var savedActivityText: String?
     var activityID: String?
     var readonly: Bool = false
@@ -90,6 +93,7 @@ class UserInputViewController: UIViewController,DateTimePickerDelegate{
     @IBAction func flipPressed(_ sender: UIBarButtonItem) {
         flashCard.flip()
         if flashCard.backView!.isHidden && !readonly{
+            flipButton.title = "Category"
             let encoder = JSONEncoder()
             if let needJSONData = try? encoder.encode(needSelectionMap) {
                 if let jsonString = String(data: needJSONData, encoding: .utf8) {
@@ -121,7 +125,7 @@ class UserInputViewController: UIViewController,DateTimePickerDelegate{
                 }
             }
         }else{
-            
+            flipButton.title = "Activity"
         }
     }
     

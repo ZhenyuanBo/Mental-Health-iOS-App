@@ -212,6 +212,7 @@ PODS:
     - abseil/base/base_internal
     - abseil/base/config
     - abseil/meta/type_traits
+  - AMPopTip (4.5.0)
   - BoringSSL-GRPC (0.0.7):
     - BoringSSL-GRPC/Implementation (= 0.0.7)
     - BoringSSL-GRPC/Interface (= 0.0.7)
@@ -315,6 +316,7 @@ PODS:
     - Realm (= 10.1.1)
 
 DEPENDENCIES:
+  - AMPopTip
   - CalendarKit
   - Charts
   - DateTimePicker
@@ -325,6 +327,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - abseil
+    - AMPopTip
     - BoringSSL-GRPC
     - CalendarKit
     - Charts
@@ -348,6 +351,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
+  AMPopTip: e0ed2967892b18d1e55505c015fa06e535003fdc
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   CalendarKit: 2688f4284934d7649a57972150b250ad1f2b25b8
   Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
@@ -369,6 +373,6 @@ SPEC CHECKSUMS:
   Realm: 784ca1da1453e31a9c9adc14445421a81f316119
   RealmSwift: cc52fe0dcea56387274dff36e19219e055a3bb84
 
-PODFILE CHECKSUM: c045ff624f0b50de2c83cf9ab8fbb1223045b207
+PODFILE CHECKSUM: 0065caad7a9e97a84a53d39237e90ec91fc1b154
 
 COCOAPODS: 1.10.0
