@@ -1,10 +1,12 @@
 import UIKit
 import Charts
+import AMPopTip
 import RealmSwift
 
-class ResultsViewController: UIViewController {
+class ResultsViewController: UIViewController, UIPopoverPresentationControllerDelegate{
     
     let realm = try! Realm()
+    let popTip = PopTip()
     
     @IBOutlet weak var pieChartTitle: UILabel!
     @IBOutlet weak var pieChartView: PieChartView!
@@ -19,7 +21,6 @@ class ResultsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadNeedSelectionResult()
         
         flashCard.duration = 2.0
         flashCard.flipAnimation = .flipFromLeft
@@ -36,6 +37,49 @@ class ResultsViewController: UIViewController {
             }
             customizeChart(dataPoints: Array(activityCategoryMap.keys), values: Array(activityCategoryMap.values))
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let width: CGFloat = 55.0
+        let height: CGFloat = 80.0
+        
+        let selfActualizationView = SelfActualizationView(frame: CGRect(x: 150,
+                                                                        y: 100,
+                                                                        width: width,
+                                                                        height: height))
+        
+        let esteemView = EsteemView(frame: CGRect(x: 130, y:190, width: width+40, height: height))
+        let loveBelongingView = LoveView(frame: CGRect(x: 90, y: 280, width: width+120, height: height))
+        let safetyView = SafetyView(frame: CGRect(x:45, y: 370, width: width + 210, height: height))
+        let physiologicalView = PhysiologicalView(frame: CGRect(x: 10, y: 460, width: width + 280, height: height))
+        
+        backView.addSubview(selfActualizationView)
+        backView.addSubview(esteemView)
+        backView.addSubview(loveBelongingView)
+        backView.addSubview(safetyView)
+        backView.addSubview(physiologicalView)
+        
+        let phyTap = UITapGestureRecognizer(target: self, action: #selector(self.handlePhyTap(_:)))
+        physiologicalView.addGestureRecognizer(phyTap)
+        physiologicalView.isUserInteractionEnabled = true
+        
+        let safetyTap = UITapGestureRecognizer(target: self, action: #selector(self.handleSafetyTap(_:)))
+        safetyView.addGestureRecognizer(safetyTap)
+        safetyView.isUserInteractionEnabled = true
+        
+        let loveTap = UITapGestureRecognizer(target: self, action: #selector(self.handleLoveTap(_:)))
+        loveBelongingView.addGestureRecognizer(loveTap)
+        loveBelongingView.isUserInteractionEnabled = true
+        
+        let esteemTap = UITapGestureRecognizer(target: self, action: #selector(self.handleEsteemTap(_:)))
+        esteemView.addGestureRecognizer(esteemTap)
+        esteemView.isUserInteractionEnabled = true
+        
+        let selfActualizationTap = UITapGestureRecognizer(target: self, action: #selector(self.handleSelfActualizationTap(_:)))
+        selfActualizationView.addGestureRecognizer(selfActualizationTap)
+        selfActualizationView.isUserInteractionEnabled = true
     }
     
     @IBAction func downloadPressed(_ sender: UIBarButtonItem) {
@@ -100,41 +144,27 @@ class ResultsViewController: UIViewController {
         return colors
     }
     
-    func loadNeedSelectionResult(){
-        let decodedData = loadNeedSelectionMap(date: Date())
-        var selectedNeedCategory:[String] = []
-        if  let safeDecodedData = decodedData{
-            Utils.needTypeList.forEach { (need) in
-                if safeDecodedData[need]{
-                    selectedNeedCategory.append(need)
-                }
-            }
-        }
-        for topView in self.view.subviews as [UIView] {
-            for lowerView in topView.subviews as [UIView]{
-                for innerView in lowerView.subviews as [UIView]{
-                    if let needButton = innerView as? UIButton {
-                        let buttonLabel = needButton.titleLabel?.text
-                        if buttonLabel == "personal security"{
-                            if selectedNeedCategory.contains("personal_security"){
-                                needButton.setTitleColor(.black, for: .normal)
-                            }
-                        }else if buttonLabel == "self-esteem"{
-                            if selectedNeedCategory.contains("self_esteem"){
-                                needButton.setTitleColor(.black, for: .normal)
-                            }
-                        }else if buttonLabel == "Self Actualization"{
-                            if selectedNeedCategory.contains("self_actualization"){
-                                needButton.setTitleColor(.black, for: .normal)
-                            }
-                        }else{
-                            if selectedNeedCategory.contains(buttonLabel!){
-                                needButton.setTitleColor(.black, for: .normal)
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    //MARK: - Handle Tap
+    @objc func handlePhyTap(_ sender: UITapGestureRecognizer) {
+        popTip.show(text: "Physiological needs", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[4].frame)
+        DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
+            self.performSegue(withIdentifier: "ResultToStats", sender: self)
+        })
+    }
+    
+    @objc func handleSafetyTap(_ sender: UITapGestureRecognizer){
+        popTip.show(text: "Satefy needs", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[3].frame)
+    }
+    
+    @objc func handleLoveTap(_ sender: UITapGestureRecognizer){
+        popTip.show(text: "Love & Belonging", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[2].frame)
+    }
+    
+    @objc func handleEsteemTap(_ sender: UITapGestureRecognizer){
+        popTip.show(text: "Esteem", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[1].frame)
+    }
+    
+    @objc func handleSelfActualizationTap(_ sender: UITapGestureRecognizer){
+        popTip.show(text: "Self-Actualization", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[0].frame)
     }
 }

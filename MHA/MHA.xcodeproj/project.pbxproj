@@ -28,13 +28,12 @@
 		6E184DB82550F9690066EBC1 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E184DB72550F9690066EBC1 /* RegisterViewController.swift */; };
 		6E184DC02550F9790066EBC1 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E184DBF2550F9790066EBC1 /* SignInViewController.swift */; };
 		6E26884C25618F5200C45D21 /* ActivityTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E26884B25618F5200C45D21 /* ActivityTimePicker.swift */; };
-		6E26885A25648EC900C45D21 /* MaslowNeedHierarchyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E26885925648EC900C45D21 /* MaslowNeedHierarchyViewController.swift */; };
 		6E2688652564A2F300C45D21 /* SafetyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2688642564A2F300C45D21 /* SafetyView.swift */; };
 		6E26886F2564A83B00C45D21 /* EsteemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E26886E2564A83B00C45D21 /* EsteemView.swift */; };
 		6E2688742564B29D00C45D21 /* PhysiologicalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2688732564B29D00C45D21 /* PhysiologicalView.swift */; };
 		6E26887C2564B35900C45D21 /* SelfActualizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E26887B2564B35900C45D21 /* SelfActualizationView.swift */; };
-		6E26888A2564C53D00C45D21 /* MaslowColour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2688892564C53C00C45D21 /* MaslowColour.swift */; };
 		6E26888F2564C87200C45D21 /* LoveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E26888E2564C87200C45D21 /* LoveView.swift */; };
+		6E2688C025672E9000C45D21 /* NeedDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2688BF25672E9000C45D21 /* NeedDetailViewController.swift */; };
 		6E2939632551EA7700D7991D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E2939622551EA7600D7991D /* GoogleService-Info.plist */; };
 		6E3B859F2557A9EC009996FF /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B859E2557A9EC009996FF /* Activity.swift */; };
 		6E78E950255A2F4700A61966 /* UserInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E78E94F255A2F4700A61966 /* UserInputViewController.swift */; };
@@ -95,13 +94,12 @@
 		6E184DB72550F9690066EBC1 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		6E184DBF2550F9790066EBC1 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		6E26884B25618F5200C45D21 /* ActivityTimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTimePicker.swift; sourceTree = "<group>"; };
-		6E26885925648EC900C45D21 /* MaslowNeedHierarchyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaslowNeedHierarchyViewController.swift; sourceTree = "<group>"; };
 		6E2688642564A2F300C45D21 /* SafetyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyView.swift; sourceTree = "<group>"; };
 		6E26886E2564A83B00C45D21 /* EsteemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EsteemView.swift; sourceTree = "<group>"; };
 		6E2688732564B29D00C45D21 /* PhysiologicalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysiologicalView.swift; sourceTree = "<group>"; };
 		6E26887B2564B35900C45D21 /* SelfActualizationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfActualizationView.swift; sourceTree = "<group>"; };
-		6E2688892564C53C00C45D21 /* MaslowColour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaslowColour.swift; sourceTree = "<group>"; };
 		6E26888E2564C87200C45D21 /* LoveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoveView.swift; sourceTree = "<group>"; };
+		6E2688BF25672E9000C45D21 /* NeedDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeedDetailViewController.swift; sourceTree = "<group>"; };
 		6E2939622551EA7600D7991D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6E3B859E2557A9EC009996FF /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		6E78E94F255A2F4700A61966 /* UserInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputViewController.swift; sourceTree = "<group>"; };
@@ -210,13 +208,12 @@
 				6E78E94F255A2F4700A61966 /* UserInputViewController.swift */,
 				6E26884B25618F5200C45D21 /* ActivityTimePicker.swift */,
 				6E0EF6B9255DA3A600939B0B /* ResultsViewController.swift */,
-				6E26885925648EC900C45D21 /* MaslowNeedHierarchyViewController.swift */,
 				6E26887B2564B35900C45D21 /* SelfActualizationView.swift */,
 				6E26886E2564A83B00C45D21 /* EsteemView.swift */,
 				6E26888E2564C87200C45D21 /* LoveView.swift */,
+				6E2688BF25672E9000C45D21 /* NeedDetailViewController.swift */,
 				6E2688642564A2F300C45D21 /* SafetyView.swift */,
 				6E2688732564B29D00C45D21 /* PhysiologicalView.swift */,
-				6E2688892564C53C00C45D21 /* MaslowColour.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -514,7 +511,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E26885A25648EC900C45D21 /* MaslowNeedHierarchyViewController.swift in Sources */,
 				6E2688742564B29D00C45D21 /* PhysiologicalView.swift in Sources */,
 				6E0EF6F2255EED1C00939B0B /* CalendarViewController.swift in Sources */,
 				6E3B859F2557A9EC009996FF /* Activity.swift in Sources */,
@@ -529,11 +525,11 @@
 				6E184DB82550F9690066EBC1 /* RegisterViewController.swift in Sources */,
 				6E78E950255A2F4700A61966 /* UserInputViewController.swift in Sources */,
 				6E184D812550F7890066EBC1 /* AppDelegate.swift in Sources */,
-				6E26888A2564C53D00C45D21 /* MaslowColour.swift in Sources */,
 				6E0EF6F7255EED9600939B0B /* DatePickerController.swift in Sources */,
 				6E26886F2564A83B00C45D21 /* EsteemView.swift in Sources */,
 				6EF7BE2C25547CD400280738 /* Utils.swift in Sources */,
 				6E0EF686255C830000939B0B /* NeedActivity.swift in Sources */,
+				6E2688C025672E9000C45D21 /* NeedDetailViewController.swift in Sources */,
 				6E26887C2564B35900C45D21 /* SelfActualizationView.swift in Sources */,
 				6E184D8B2550F7890066EBC1 /* MHA.xcdatamodeld in Sources */,
 				6E184D832550F7890066EBC1 /* SceneDelegate.swift in Sources */,

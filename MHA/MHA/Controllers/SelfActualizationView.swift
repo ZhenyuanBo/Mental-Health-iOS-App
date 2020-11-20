@@ -23,12 +23,7 @@ class SelfActualizationView: UIView {
     
     override func draw(_ rect: CGRect) {
         self.createSelfActualizationLevel()
-        
-        hexStringToUIColor(hex: "#4259C3").setFill()
-        
+        hexStringToUIColor(hex: "#aaaaaa").setFill()
         path.fill()
-//
-//        UIColor.purple.setStroke()
-//        path.stroke()
     }
 }

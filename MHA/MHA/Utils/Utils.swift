@@ -38,6 +38,19 @@ class Utils{
     public static let needColourMap = [phyNeeds: "#a20a0a", safetyNeeds: "#db6400", loveNeeds: "#ffa62b", esteemNeeds: "#03c4a1", selfActualNeeds: "#005086"]
     
     
+    //MARK: - Maslow Hierarchy Base Colour
+    
+    public static let baseColour = "#7e7474"
+    
+    //MARK: - Physiological Need Colours
+    public static let phyNeedColoursList = ["#E97452","#D65D42",
+                                 "#C34632","#B12E21","#9E1711","#8B0001","#4B0A0E"]
+    
+    public static let safetyOrange1 = "#FDB777"
+    public static let safetyOrange5 = "#FF6200"
+    
+    
+    
 }
 
 //MARK: - Date Extension

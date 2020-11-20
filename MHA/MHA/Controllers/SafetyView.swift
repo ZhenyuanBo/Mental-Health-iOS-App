@@ -28,15 +28,20 @@ class SafetyView: UIView {
     override func draw(_ rect: CGRect) {
         self.createSafeNeedsView()
         
+        hexStringToUIColor(hex: Utils.baseColour).setFill()
+        path.fill()
+        
         let gradient = CAGradientLayer()
         gradient.frame = path.bounds
         gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
         gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
+        gradient.locations = [0.0, 0.1, 0.2]
         
-        let lightOrange = hexStringToUIColor(hex: "#FDB777").cgColor
-        let darkOrange = hexStringToUIColor(hex: "#FF6200").cgColor
+        let lightOrange = hexStringToUIColor(hex: Utils.safetyOrange1)
+        let darkOrange = hexStringToUIColor(hex: Utils.safetyOrange5)
+        let baseColour = hexStringToUIColor(hex: Utils.baseColour)
         
-        gradient.colors = [lightOrange, darkOrange]
+        gradient.colors = [lightOrange.cgColor, darkOrange.cgColor, darkOrange.cgColor, baseColour.withAlphaComponent(0.0).cgColor]
         
         let shapeMask = CAShapeLayer()
         shapeMask.path = path.cgPath

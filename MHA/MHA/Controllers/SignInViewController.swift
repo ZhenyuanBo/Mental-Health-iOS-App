@@ -26,8 +26,7 @@ class SignInViewController: UIViewController {
                 if let e = error{
                     print(e)
                 }else{
-//                    self.performSegue(withIdentifier: Utils.signinUserInputSegue, sender: self)
-                    self.performSegue(withIdentifier: "SignInToTriangleView", sender: self)
+                    self.performSegue(withIdentifier: Utils.signinUserInputSegue, sender: self)
                 }
             }
         }
