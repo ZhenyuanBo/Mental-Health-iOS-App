@@ -19,6 +19,8 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     private var activityCategoryMap:[String: Int] = [:]
     
+    var currSelectedNeedLevel: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -146,6 +148,7 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     //MARK: - Handle Tap
     @objc func handlePhyTap(_ sender: UITapGestureRecognizer) {
+        currSelectedNeedLevel = "physiological"
         popTip.show(text: "Physiological needs", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[4].frame)
         DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
             self.performSegue(withIdentifier: "ResultToStats", sender: self)
@@ -153,18 +156,27 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     }
     
     @objc func handleSafetyTap(_ sender: UITapGestureRecognizer){
+        currSelectedNeedLevel = "safety"
         popTip.show(text: "Satefy needs", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[3].frame)
     }
     
     @objc func handleLoveTap(_ sender: UITapGestureRecognizer){
+        currSelectedNeedLevel = "love"
         popTip.show(text: "Love & Belonging", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[2].frame)
     }
     
     @objc func handleEsteemTap(_ sender: UITapGestureRecognizer){
+        currSelectedNeedLevel = "esteem"
         popTip.show(text: "Esteem", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[1].frame)
     }
     
     @objc func handleSelfActualizationTap(_ sender: UITapGestureRecognizer){
+        currSelectedNeedLevel = "selfActual"
         popTip.show(text: "Self-Actualization", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[0].frame)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! NeedDetailViewController
+        destinationVC.needCategoryLevel = currSelectedNeedLevel
     }
 }

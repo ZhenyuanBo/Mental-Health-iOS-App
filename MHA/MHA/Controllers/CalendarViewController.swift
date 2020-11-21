@@ -29,6 +29,9 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
         view = dayView
     }
     
+    @IBAction func unwind(_ unwindSegue: UIStoryboardSegue) {
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Calendar"
@@ -144,6 +147,8 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
         return UIColor(hue: h, saturation: s * 0.3, brightness: b, alpha: a)
     }
     
+    
+    
     // MARK: DayViewDelegate
     
     private var createdEvent: EventDescriptor?
@@ -154,11 +159,11 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
         }
         selectedActivitiyText = eventView.textView.text!
         let alert = UIAlertController(title: "Do you want to edit/delete this activity?", message: "", preferredStyle: .alert)
-        let saveAction = UIAlertAction(title: "Yes", style: .default) { (action) in
-            self.performSegue(withIdentifier: Utils.calendarUserInputSegue, sender: self)
+        let editAction = UIAlertAction(title: "Yes", style: .default) { (action) in
+            self.performSegue(withIdentifier: "unwindToUserInput", sender: self)
         }
         let cancelAction = UIAlertAction(title: "No", style: .default)
-        alert.addAction(saveAction)
+        alert.addAction(editAction)
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
     }

@@ -4,23 +4,73 @@ import Foundation
 
 class NeedDetailViewController: UIViewController {
     
+    @IBOutlet weak var flashCardView: FlashCardView!
+    @IBOutlet weak var backView: UIView!
     @IBOutlet weak var barChartView: BarChartView!
     
     @IBOutlet weak var lineChartView: LineChartView!
     
-    let players = ["Ozil", "Ramsey", "Laca", "Auba", "Xhaka", "Torreira"]
-    let goals = [6, 8, 26, 30, 8, 10]
+    var needCategoryLevel: String = ""
+    
+    let decodedData = loadNeedActivityResult(date: Date())
+    
+    var activityCategoryMap = ["air": 0, "water": 0, "food": 0,
+                               "clothing": 0, "shelter":0, "sleep": 0, "reproduction": 0]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        customizeChart(dataPoints: players, values: goals.map{ Double($0) })
+        switch needCategoryLevel {
+        case "physiological":
+            if let safeDecodedData = decodedData{
+                for needType in Utils.phyNeeds{
+                    if safeDecodedData[needType] != 0{
+                        activityCategoryMap[needType] = safeDecodedData[needType]
+                    }
+                }
+            }
+        case "safety":
+            if let safeDecodedData = decodedData{
+                for needType in Utils.safetyNeeds{
+                    if safeDecodedData[needType] != 0{
+                        activityCategoryMap[needType] = safeDecodedData[needType]
+                    }
+                }
+            }
+        case "love":
+            if let safeDecodedData = decodedData{
+                for needType in Utils.loveNeeds{
+                    if safeDecodedData[needType] != 0{
+                        activityCategoryMap[needType] = safeDecodedData[needType]
+                    }
+                }
+            }
+        case "esteem":
+            if let safeDecodedData = decodedData{
+                for needType in Utils.esteemNeeds{
+                    if safeDecodedData[needType] != 0{
+                        activityCategoryMap[needType] = safeDecodedData[needType]
+                    }
+                }
+            }
+        case "selfActual":
+            if let safeDecodedData = decodedData{
+                for needType in Utils.selfActualNeeds{
+                    if safeDecodedData[needType] != 0{
+                        activityCategoryMap[needType] = safeDecodedData[needType]
+                    }
+                }
+            }
+        default:
+            fatalError("There is no such need category, \(needCategoryLevel)")
+        }
+        customizeChart(dataPoints: Array(activityCategoryMap.keys), values: Array(activityCategoryMap.values))
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
-    func customizeChart(dataPoints: [String], values: [Double]) {
+    func customizeChart(dataPoints: [String], values: [Int]) {
 
         var dataEntries: [BarChartDataEntry] = []
         for i in 0..<dataPoints.count {
@@ -29,7 +79,18 @@ class NeedDetailViewController: UIViewController {
         }
         let chartDataSet = BarChartDataSet(entries: dataEntries, label: "Bar Chart View")
         let chartData = BarChartData(dataSet: chartDataSet)
+        
         barChartView.data = chartData
+        barChartView.xAxis.drawGridLinesEnabled = false
+        barChartView.leftAxis.drawGridLinesEnabled = false
+        barChartView.pinchZoomEnabled = true
+        barChartView.scaleYEnabled = true
+        barChartView.scaleXEnabled = true
+        barChartView.highlighter = nil
+        barChartView.doubleTapToZoomEnabled = true
+        barChartView.chartDescription?.text = ""
+        barChartView.rightAxis.enabled = false
+        barChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: dataPoints)
     }
     
 }
