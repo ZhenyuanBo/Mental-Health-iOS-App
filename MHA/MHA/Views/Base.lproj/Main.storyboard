@@ -260,104 +260,6 @@
             </objects>
             <point key="canvasLocation" x="3342.0289855072465" y="-719.19642857142856"/>
         </scene>
-        <!--Notes-->
-        <scene sceneID="oLi-uT-kaq">
-            <objects>
-                <tableViewController id="FVi-bD-ES4" customClass="NotesListTableViewController" customModule="MHA" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="z1n-rn-dfk">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.23198598619999999" green="0.39672940969999998" blue="0.593927443" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="WeekCell" id="3qR-Te-M9E" userLabel="WeekCell" customClass="WeekCell" customModule="MHA" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3qR-Te-M9E" id="FRH-cO-7T2">
-                                    <rect key="frame" x="0.0" y="0.0" width="383" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q9X-FJ-Ufy">
-                                            <rect key="frame" x="0.0" y="0.0" width="115" height="44"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mon" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xV-R1-q7Y">
-                                                    <rect key="frame" x="8" y="4" width="99" height="32"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" systemColor="systemOrangeColor"/>
-                                        </view>
-                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vWH-mr-rMG" userLabel="Week View">
-                                            <rect key="frame" x="113" y="0.0" width="301" height="44"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1 - 7" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9gI-sx-z6i">
-                                                    <rect key="frame" x="23" y="8" width="263" height="28"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </view>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="dateRangeLabel" destination="9gI-sx-z6i" id="wiP-AF-UeP"/>
-                                    <outlet property="monthLabel" destination="1xV-R1-q7Y" id="igV-2z-o1Q"/>
-                                    <outlet property="monthView" destination="Q9X-FJ-Ufy" id="Ld2-kb-7as"/>
-                                    <outlet property="weekView" destination="vWH-mr-rMG" id="5X6-IJ-4AS"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MonthCell" rowHeight="125" id="UsX-s1-mhI" customClass="MonthCell" customModule="MHA" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="71.5" width="414" height="125"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UsX-s1-mhI" id="xye-tu-UzP">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="125"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Dec" translatesAutoresizingMaskIntoConstraints="NO" id="ImX-ww-Cc7" userLabel="month">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="125"/>
-                                        </imageView>
-                                    </subviews>
-                                    <color key="backgroundColor" red="0.0" green="0.4315754175" blue="0.67348533870000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="ImX-ww-Cc7" secondAttribute="trailing" id="0KF-T4-bXX"/>
-                                        <constraint firstAttribute="bottom" secondItem="ImX-ww-Cc7" secondAttribute="bottom" id="4Td-ND-A2q"/>
-                                        <constraint firstItem="ImX-ww-Cc7" firstAttribute="top" secondItem="xye-tu-UzP" secondAttribute="top" id="HpH-4N-UbG"/>
-                                        <constraint firstItem="ImX-ww-Cc7" firstAttribute="leading" secondItem="xye-tu-UzP" secondAttribute="leading" id="XCE-EN-fqB"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="monthImgView" destination="ImX-ww-Cc7" id="OOP-Ka-txC"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="FVi-bD-ES4" id="Mtn-8u-OEF"/>
-                            <outlet property="delegate" destination="FVi-bD-ES4" id="dzV-PO-NWe"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Notes" id="tRh-w2-zbG">
-                        <barButtonItem key="leftBarButtonItem" title="2020" id="Ee6-Go-gXw" userLabel="currentYear"/>
-                        <barButtonItem key="rightBarButtonItem" title="Current Week" id="JqJ-tk-H7F">
-                            <connections>
-                                <action selector="currentWKPressed:" destination="FVi-bD-ES4" id="DXm-Au-XKI"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="currentYearButton" destination="Ee6-Go-gXw" id="fE1-9E-ugO"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HU9-4o-myV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5806" y="-455"/>
-        </scene>
         <!--Register View Controller-->
         <scene sceneID="6kX-w8-s7q">
             <objects>
@@ -911,7 +813,7 @@
                         <outlet property="frontView" destination="4Rs-ho-LWL" id="ofG-fR-Vbv"/>
                         <outlet property="pieChartTitle" destination="j0G-KR-wnL" id="B1u-LJ-gIb"/>
                         <outlet property="pieChartView" destination="kwS-HX-TCA" id="K5V-z8-LLR"/>
-                        <segue destination="c5w-ks-mN0" kind="show" id="kPB-MC-EyE"/>
+                        <segue destination="c5w-ks-mN0" kind="show" identifier="ResultToStats" id="kPB-MC-EyE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y00-8J-toE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -980,7 +882,6 @@
         <segue reference="SMU-C0-imn"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="Dec" width="200" height="133.5"/>
         <image name="textfield" width="298" height="93"/>
         <image name="yourself" width="176" height="233"/>
         <systemColor name="labelColor">

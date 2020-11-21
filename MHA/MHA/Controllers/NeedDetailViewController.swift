@@ -90,7 +90,10 @@ class NeedDetailViewController: UIViewController {
         barChartView.doubleTapToZoomEnabled = true
         barChartView.chartDescription?.text = ""
         barChartView.rightAxis.enabled = false
+        barChartView.xAxis.labelPosition = XAxis.LabelPosition.bottom
         barChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: dataPoints)
+        barChartView.gridBackgroundColor = NSUIColor.gray
+        barChartView.xAxis.labelFont = UIFont.systemFont(ofSize: 10)
     }
     
 }

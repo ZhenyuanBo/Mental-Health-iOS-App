@@ -151,7 +151,7 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         currSelectedNeedLevel = "physiological"
         popTip.show(text: "Physiological needs", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[4].frame)
         DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
-            self.performSegue(withIdentifier: "ResultToStats", sender: self)
+            self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
         })
     }
     

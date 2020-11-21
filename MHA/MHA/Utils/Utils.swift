@@ -11,6 +11,7 @@ class Utils{
     public static let userInputCalendarSegue = "UserInputToCalendar"
     public static let calendarUserInputSegue = "CalendarToUserInput"
     public static let userInputReportSegue = "UserInputToResult"
+    public static let resultStatsSegue = "ResultToStats"
     
     
     //MARK: - Month
