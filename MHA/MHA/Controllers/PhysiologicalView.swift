@@ -48,8 +48,8 @@ class PhysiologicalView: UIView {
         if activityList.count>0{
             let gradient = CAGradientLayer()
             gradient.frame = path.bounds
-            gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
-            gradient.endPoint = CGPoint(x: 0.5, y: 1.0)
+            gradient.endPoint = CGPoint(x: 0.0, y: 1.0)
+            gradient.startPoint = CGPoint(x: 1.0, y: 1.0)
             
             if activityList.count==1{
                 gradient.locations = [0.0, 0.2]

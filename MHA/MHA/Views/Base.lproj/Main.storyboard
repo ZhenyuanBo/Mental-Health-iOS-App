@@ -232,7 +232,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Qr-Lf-uGT" customClass="BarChartView" customModule="Charts">
-                                                <rect key="frame" x="4" y="8" width="366" height="697"/>
+                                                <rect key="frame" x="4" y="0.0" width="366" height="705"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </view>
