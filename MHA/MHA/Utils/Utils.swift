@@ -29,12 +29,22 @@ class Utils{
                             "friendship","self_esteem","recognition",
                             "strength","freedom","self_actualization", "connection"]
     
-    public static let phyNeeds:Set = ["air","water","food","clothing","shelter","sleep","reproduction"]
-    public static let safetyNeeds:Set = ["personal_security","employment",
+    public static let phyNeeds = ["reproduction","air","shelter","sleep","water","food","clothing"]
+    public static let safetyNeeds = ["personal_security","employment",
                                      "resources","property","health"]
-    public static let loveNeeds:Set = ["friendship", "intimacy", "family", "connection"]
-    public static let esteemNeeds:Set = ["respect","self_esteem","status","recognition", "strength","freedom"]
-    public static let selfActualNeeds:Set = ["self_actualization"]
+    public static let loveNeeds = ["friendship", "intimacy", "family", "connection"]
+    public static let esteemNeeds = ["respect","self_esteem","status","recognition", "strength","freedom"]
+    public static let selfActualNeeds  = ["self_actualization"]
+    
+    
+    public static let phyCategoryIndexMap = ["reproduction": 0, "air": 1, "shelter": 2,
+                            "sleep": 3, "water": 4, "food": 5, "clothing": 6]
+    public static let safetyIndexMap = ["personal_security":0, "employment":1,
+                                        "resources":2,"property":3,"health":4]
+    public static let loveIndexMap = ["friendship":0, "intimacy":1, "family":2, "connection":3]
+    public static let esteemIndexMap = ["respect":0,"self_esteem":1,"status":2,"recognition":3, "strength":4,"freedom":5]
+    public static let selfActualIndexMap = ["self_actualization":0]
+    
     
     public static let needColourMap = [phyNeeds: "#a20a0a", safetyNeeds: "#db6400", loveNeeds: "#ffa62b", esteemNeeds: "#03c4a1", selfActualNeeds: "#005086"]
     
@@ -43,9 +53,13 @@ class Utils{
     
     public static let baseColour = "#7e7474"
     
-    //MARK: - Physiological Need Colours
+    //MARK: - Maslow Need Colours
     public static let phyNeedColoursList = ["#E97452","#D65D42",
                                  "#C34632","#B12E21","#9E1711","#8B0001","#4B0A0E"]
+    public static let safetyNeedColoursList = ["#FDB777", "#FDA766", "#FD9346", "#FD7F2C", "#FF6200"]
+    public static let loveNeedColoursList = ["#FFF192", "#FFEA61", "#FFDD3C", "#FFD400"]
+    public static let esteemNeedColoursList = ["#B7FFBF","#95F985","#4DED30","#26D701","#00C301", "#00AB08"]
+    public static let selfActualNeedColour = "#00008b"
     
     public static let safetyOrange1 = "#FDB777"
     public static let safetyOrange5 = "#FF6200"

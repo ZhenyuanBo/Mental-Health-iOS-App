@@ -1,6 +1,5 @@
 import UIKit
 import Charts
-import AMPopTip
 import Foundation
 
 class NeedDetailViewController: UIViewController{
@@ -14,78 +13,26 @@ class NeedDetailViewController: UIViewController{
     
     var needCategoryLevel: String = ""
     
-    let popTip = PopTip()
-    
     let decodedData = loadNeedActivityResult(date: Date())
     
-    var phyCategoryIndexMap = ["reproduction": 0, "air": 1, "shelter": 2,
-                            "sleep": 3, "water": 4, "food": 5, "clothing": 6]
+    var sortedColors:[UIColor] = []
+    var categoryColors:[UIColor] = [UIColor.white, UIColor.white, UIColor.white, UIColor.white, UIColor.white, UIColor.white, UIColor.white]
     
-    var phyCategoryList = ["reproduction","air","shelter","sleep","water","food","clothing"]
-    
-    var phyCategoryValue = [0, 0, 0, 0, 0, 0, 0]
-    
-    var phyCategoryValueSorted:[Int] = []
+    var categoryValue: [Int] = []
+    var sortedCategoryValue:[Int] = []
+    var startIndex: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        switch needCategoryLevel {
-        case "physiological":
-            if let safeDecodedData = decodedData{
-                for needType in Utils.phyNeeds{
-                    if safeDecodedData[needType] != 0{
-                        let index = phyCategoryIndexMap[needType]
-                        phyCategoryValue[index!] = safeDecodedData[needType]
-//                        phyCategoryValueSorted[index!] = safeDecodedData[needType]
-                    }
-                }
-                phyCategoryValueSorted = phyCategoryValue
-                phyCategoryValueSorted.sort(){$0>$1}
-            }
-//        case "safety":
-//            if let safeDecodedData = decodedData{
-//                for needType in Utils.safetyNeeds{
-//                    if safeDecodedData[needType] != 0{
-//                        activityCategoryMap[needType] = safeDecodedData[needType]
-//                    }
-//                }
-//            }
-//        case "love":
-//            if let safeDecodedData = decodedData{
-//                for needType in Utils.loveNeeds{
-//                    if safeDecodedData[needType] != 0{
-//                        activityCategoryMap[needType] = safeDecodedData[needType]
-//                    }
-//                }
-//            }
-//        case "esteem":
-//            if let safeDecodedData = decodedData{
-//                for needType in Utils.esteemNeeds{
-//                    if safeDecodedData[needType] != 0{
-//                        activityCategoryMap[needType] = safeDecodedData[needType]
-//                    }
-//                }
-//            }
-//        case "selfActual":
-//            if let safeDecodedData = decodedData{
-//                for needType in Utils.selfActualNeeds{
-//                    if safeDecodedData[needType] != 0{
-//                        activityCategoryMap[needType] = safeDecodedData[needType]
-//                    }
-//                }
-//            }
-        default:
-            fatalError("There is no such need category, \(needCategoryLevel)")
-        }
-        
-        customizeChart(dataPoints: phyCategoryList, values: phyCategoryValue)
+        populateCategoryValue()
+        customizeChart(dataPoints: Utils.phyNeeds, values: categoryValue)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
-    func customizeChart(dataPoints: [String], values: [Int]) {
+    private func customizeChart(dataPoints: [String], values: [Int]) {
 
         var dataEntries: [BarChartDataEntry] = []
         for i in 0..<dataPoints.count {
@@ -96,43 +43,10 @@ class NeedDetailViewController: UIViewController{
         let chartData = BarChartData(dataSet: chartDataSet)
         
         chartDataSet.valueFont = UIFont(name: "HelveticaNeue-Light", size: 20) ?? UIFont.systemFont(ofSize: 20)
-        
-        barChartView.data = chartData
-        
-        var sortedColors:[UIColor] = []
-        var categoryColors:[UIColor] = [UIColor.white, UIColor.white, UIColor.white, UIColor.white, UIColor.white, UIColor.white, UIColor.white]
-//
-//        var i=6
-//        let phyCategoryValueSortedCopy = phyCategoryValueSorted
-//        var prevMax = phyCategoryValueSorted.max()
-//
-//        for value in phyCategoryValueSorted{
-//            if value == prevMax{
-//                sortedColors.append(hexStringToUIColor(hex: Utils.phyNeedColoursList[i]))
-//            }else{
-//                i = i-1
-//                sortedColors.append(hexStringToUIColor(hex: Utils.phyNeedColoursList[i]))
-//                phyCategoryValueSorted.removeFirst()
-//                prevMax = phyCategoryValueSorted.max()
-//            }
-//        }
-//
-//        for index in 0..<phyCategoryValueSortedCopy.count{
-//            var currVal = phyCategoryValueSortedCopy[index]
-//            for pos in 0..<phyCategoryValue.count{
-//                if phyCategoryValue[pos] == currVal{
-//                    categoryColors[pos] = sortedColors[index]
-//                    phyCategoryValue[pos] = -1
-//                    break
-//                }
-//            }
-//        }
 
-//        chartDataSet.colors = categoryColors
-        
-        
-        
-        chartDataSet.colors = [UIColor.red,UIColor.orange,UIColor.green,UIColor.red,UIColor.blue, UIColor.red, UIColor.red]
+        barChartView.data = chartData
+        categoryColorMaker(startIndex: startIndex)
+        chartDataSet.colors = categoryColors
         
         let formatter: CustomIntFormatter = CustomIntFormatter()
         barChartView.data?.setValueFormatter(formatter)
@@ -145,6 +59,106 @@ class NeedDetailViewController: UIViewController{
         barChartView.chartDescription?.text = ""
         barChartView.xAxis.labelPosition = XAxis.LabelPosition.top
         barChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: dataPoints)
+        
+    }
+    
+    private func populateCategoryValue(){
+        switch needCategoryLevel {
+        case "physiological":
+            if let safeDecodedData = decodedData{
+                categoryValue = [Int](repeating: 0, count: 7)
+                for needType in Utils.phyNeeds{
+                    if safeDecodedData[needType] != 0{
+                        let index = Utils.phyCategoryIndexMap[needType]
+                        categoryValue[index!] = safeDecodedData[needType]
+                    }
+                }
+                sortedCategoryValue = categoryValue
+                sortedCategoryValue.sort(){$0>$1}
+                startIndex = 6
+            }
+        case "safety":
+            if let safeDecodedData = decodedData{
+                categoryValue = [Int](repeating: 0, count: 5)
+                for needType in Utils.safetyNeeds{
+                    if safeDecodedData[needType] != 0{
+                        let index = Utils.safetyIndexMap[needType]
+                        categoryValue[index!] = safeDecodedData[needType]
+                    }
+                }
+                sortedCategoryValue = categoryValue
+                sortedCategoryValue.sort(){$0>$1}
+                startIndex = 4
+            }
+        case "love":
+            if let safeDecodedData = decodedData{
+                categoryValue = [Int](repeating: 0, count: 4)
+                for needType in Utils.loveNeeds{
+                    if safeDecodedData[needType] != 0{
+                        let index = Utils.loveIndexMap[needType]
+                        categoryValue[index!] = safeDecodedData[needType]
+                    }
+                }
+                sortedCategoryValue = categoryValue
+                sortedCategoryValue.sort(){$0>$1}
+                startIndex = 3
+            }
+        case "esteem":
+            if let safeDecodedData = decodedData{
+                categoryValue = [Int](repeating: 0, count: 6)
+                for needType in Utils.esteemNeeds{
+                    if safeDecodedData[needType] != 0{
+                        let index = Utils.esteemIndexMap[needType]
+                        categoryValue[index!] = safeDecodedData[needType]
+                    }
+                }
+                sortedCategoryValue = categoryValue
+                sortedCategoryValue.sort(){$0>$1}
+                startIndex = 5
+            }
+        case "selfActual":
+            if let safeDecodedData = decodedData{
+                categoryValue = [Int](repeating: 0, count: 1)
+                let needType = Utils.selfActualNeeds[0]
+                if safeDecodedData[needType] != 0{
+                    let index = Utils.selfActualIndexMap[needType]
+                    categoryValue[index!] = safeDecodedData[needType]
+                }
+                sortedCategoryValue = categoryValue
+                sortedCategoryValue.sort(){$0>$1}
+                startIndex = 1
+            }
+        default:
+            fatalError("There is no such need category, \(needCategoryLevel)")
+        }
+    }
+    
+    private func categoryColorMaker(startIndex: Int){
+        var i = startIndex
+        let sortedCategoryValueCopy = self.sortedCategoryValue
+        var prevMax = self.sortedCategoryValue.max()
+
+        for value in sortedCategoryValue{
+            if value == prevMax{
+                sortedColors.append(hexStringToUIColor(hex: Utils.phyNeedColoursList[i]))
+            }else{
+                i = i-1
+                sortedColors.append(hexStringToUIColor(hex: Utils.phyNeedColoursList[i]))
+                self.sortedCategoryValue.removeFirst()
+                prevMax = sortedCategoryValue.max()
+            }
+        }
+
+        for index in 0..<sortedCategoryValueCopy.count{
+            let currVal = sortedCategoryValueCopy[index]
+            for pos in 0..<categoryValue.count{
+                if categoryValue[pos] == currVal{
+                    categoryColors[pos] = self.sortedColors[index]
+                    categoryValue[pos] = -1
+                    break
+                }
+            }
+        }
     }
 }
 
