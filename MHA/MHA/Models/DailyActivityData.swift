@@ -1,6 +1,6 @@
 import Foundation
 
-struct NeedActivityData: Codable{
+struct DailyActivityData: Codable{
     private let air: Int
     private let water: Int
     private let food: Int

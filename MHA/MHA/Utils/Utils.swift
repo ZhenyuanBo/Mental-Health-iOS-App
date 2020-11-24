@@ -138,22 +138,20 @@ enum FlipAnimations
     }
 }
 
-//MARK: - Populate Need-Selection & Need-Activity Map
-func loadNeedSelectionMap(date: Date, activityID: String? = nil)-> NeedData? {
+//MARK: - Populate Daily-Need & Daily-Activity Map
+func loadDailyNeed(date: Date)-> DailyNeedData? {
     let realm = try! Realm()
-    var selectedNeed:Results<Need>
-    if let safeActivityID = activityID{
-        selectedNeed = realm.objects(Need.self).filter("activityID = '\(safeActivityID)'")
-    }else{
-        let currDate = date.dateFormatter(format: "yyyy-MM-dd")
-        selectedNeed = realm.objects(Need.self).filter("dateCreated = '\(currDate)'")
-    }
+    var selectedNeed:Results<DailyNeed>
+    
+    let currDate = date.dateFormatter(format: "yyyy-MM-dd")
+    selectedNeed = realm.objects(DailyNeed.self).filter("dateCreated = '\(currDate)'")
+    
     if selectedNeed.count > 0{
         let selectedNeedResult = selectedNeed[0].needResult
         let jsonData = selectedNeedResult.data(using: .utf8)!
         let decoder = JSONDecoder()
         do{
-            let decodedData = try decoder.decode(NeedData.self, from: jsonData)
+            let decodedData = try decoder.decode(DailyNeedData.self, from: jsonData)
             return decodedData
         }catch{
             print("Fail to decode need-selection data, \(error)")
@@ -162,16 +160,16 @@ func loadNeedSelectionMap(date: Date, activityID: String? = nil)-> NeedData? {
     return nil
 }
 
-func loadNeedActivityResult(date: Date)-> NeedActivityData? {
+func loadDailyActivityResult(date: Date)-> DailyActivityData? {
     let realm = try! Realm()
     let currDate = date.dateFormatter(format: "yyyy-MM-dd")
-    let selectedNeedActivity = realm.objects(NeedActivity.self).filter("dateCreated = '\(currDate)'")
-    if selectedNeedActivity.count > 0{
-        let selectedNeedResult = selectedNeedActivity[0].numActivityResult
-        let jsonData = selectedNeedResult.data(using: .utf8)!
+    let selectedDailyActivity = realm.objects(DailyActivity.self).filter("dateCreated = '\(currDate)'")
+    if selectedDailyActivity.count > 0{
+        let result = selectedDailyActivity[0].numActivityResult
+        let jsonData = result.data(using: .utf8)!
         let decoder = JSONDecoder()
         do{
-            let decodedData = try decoder.decode(NeedActivityData.self, from: jsonData)
+            let decodedData = try decoder.decode(DailyActivityData.self, from: jsonData)
             return decodedData
         }catch{
             print("Error retrieving decoded need result data, \(error)")

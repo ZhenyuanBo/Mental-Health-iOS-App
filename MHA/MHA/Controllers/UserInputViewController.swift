@@ -1,16 +1,19 @@
 import UIKit
-import DateTimePicker
 import RealmSwift
 
-class UserInputViewController: UIViewController,DateTimePickerDelegate{
+class UserInputViewController: UIViewController{
     
-    func dateTimePicker(_ picker: DateTimePicker, didSelectDate: Date) {
-        title = picker.selectedDateString
-    }
+    private var savedActivityText: String?
+    private var activityID: String?
+    private var readonly: Bool = false
+    private var selectedDate: Date = Date()
     
     @IBAction func unwind(_ unwindSegue: UIStoryboardSegue) {
+        if let calendarViewController = unwindSegue.source as? CalendarViewController{
+            savedActivityText = calendarViewController.selectedActivitiyText!
+            selectedDate = calendarViewController.selectedDate!
+        }
     }
-    
     
     let realm = try! Realm()
     let encoder = JSONEncoder()
@@ -21,61 +24,15 @@ class UserInputViewController: UIViewController,DateTimePickerDelegate{
     
     //MARK: - User Input Outlet
     @IBOutlet weak var activityText: UITextView!
-    
     @IBOutlet weak var flipButton: UIBarButtonItem!
+
+    private var dailyNeedMap:[String:Bool] = [:]
+    private var dailyActivityMap:[String:Int] = [:]
+    private var selectedNeeds: String = ""
     
-    
-    var savedActivityText: String?
-    var activityID: String?
-    var readonly: Bool = false
-    var selectedDate: Date?
-    
-    private var needSelectionMap = ["air": false, "water": false,
-                                    "food": false,"clothing":false,
-                                    "shelter": false,"sleep": false,
-                                    "reproduction":false, "personal_security":false,
-                                    "employment": false, "resources": false,
-                                    "property": false, "health": false, "family": false,
-                                    "respect": false, "status": false, "friendship": false,
-                                    "self_esteem": false, "recognition": false,"intimacy":false,
-                                    "strength": false, "freedom": false, "connection": false,
-                                    "self_actualization": false]
-    
-    private var needNumActivityMap:[String:Int] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        var decodedNeedSelectionData:NeedData?
-
-        var highlightNeed: Bool = false
-        if let safeText = savedActivityText{
-            activityText.text = safeText
-            readonly = true
-            activityID = loadActivityID(activityText: safeText)
-            decodedNeedSelectionData = loadNeedSelectionMap(date: Date(), activityID: activityID)
-            highlightNeed = true
-        }else{
-            activityID = UUID.init().uuidString
-            decodedNeedSelectionData = loadNeedSelectionMap(date: Date())
-        }
-
-        if let safeDecodedNeedSelectionData = decodedNeedSelectionData{
-            needSelectionMap.keys.forEach { (key) in
-                if safeDecodedNeedSelectionData[key]{
-                    needSelectionMap[key] = true
-                    if highlightNeed{
-                        setPyramidMapData(need: key)
-                    }
-                }else{
-                    needSelectionMap[key] = false
-                }
-            }
-        }
-        
-        populateNeedNumActivityMap(date: Date())
-        
-
         
         self.view.addGestureRecognizer(leftSwipeGestureRecognizer)
         self.view.addGestureRecognizer(rightSwipeGestureRecognizer)
@@ -83,7 +40,11 @@ class UserInputViewController: UIViewController,DateTimePickerDelegate{
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        title = setTitle(date: Date())
+        title = setTitle(date: selectedDate)
+        
+        populateDailyNeedMap(date: selectedDate)
+        populateDailyActivityMap(date: selectedDate)
+        
         flashCard.duration = 2.0
         flashCard.flipAnimation = .flipFromLeft
         flashCard.frontView = frontView
@@ -96,8 +57,9 @@ class UserInputViewController: UIViewController,DateTimePickerDelegate{
         flashCard.flip()
         if flashCard.backView!.isHidden && !readonly{
             flipButton.title = "Category"
-            saveNeedSelectionMap()
-            saveNeedNumActivityMap()
+            saveDailyNeedMap()
+            saveDailyActivityMap()
+            saveSelectedNeeds()
         }else{
             flipButton.title = "Activity"
         }
@@ -115,12 +77,14 @@ class UserInputViewController: UIViewController,DateTimePickerDelegate{
         }
         if sender.titleColor(for: .normal) == UIColor.white{
             sender.setTitleColor(.black, for: .normal)
-            needSelectionMap[selectedCategory!] = true
-            needNumActivityMap[selectedCategory!]! += 1
+            dailyNeedMap[selectedCategory!] = true
+            selectedNeeds += selectedCategory! + ","
+            selectedNeeds.append(selectedCategory!)
+            dailyActivityMap[selectedCategory!]! += 1
         }else{
             sender.setTitleColor(.white, for: .normal)
-            needSelectionMap[selectedCategory!] = false
-            needNumActivityMap[selectedCategory!]! -= 1
+            dailyNeedMap[selectedCategory!] = false
+            dailyActivityMap[selectedCategory!]! -= 1
         }
     }
     
@@ -171,17 +135,16 @@ class UserInputViewController: UIViewController,DateTimePickerDelegate{
         }
     }
     
-    private func saveNeedSelectionMap(){
-        if(!isNeedSelectionMapEmpty(needSelectionMap: needSelectionMap)){
-            if let needJSONData = try? encoder.encode(needSelectionMap) {
+    private func saveDailyNeedMap(){
+        if(!isNeedSelectionMapEmpty(needSelectionMap: dailyNeedMap)){
+            if let needJSONData = try? encoder.encode(dailyNeedMap) {
                 if let jsonString = String(data: needJSONData, encoding: .utf8) {
                     do{
                         try self.realm.write{
-                            let newNeedResult = Need()
-                            newNeedResult.dateCreated = Date().dateFormatter(format: "yyyy-MM-dd")
-                            newNeedResult.needResult = jsonString
-                            newNeedResult.activityID = activityID!
-                            realm.add(newNeedResult, update: .modified)
+                            let newDailyNeed = DailyNeed()
+                            newDailyNeed.dateCreated = Date().dateFormatter(format: "yyyy-MM-dd")
+                            newDailyNeed.needResult = jsonString
+                            realm.add(newDailyNeed, update: .modified)
                         }
                     }catch{
                         print("Error saving new category-mapping, \(error)")
@@ -191,22 +154,35 @@ class UserInputViewController: UIViewController,DateTimePickerDelegate{
         }
     }
     
-    private func saveNeedNumActivityMap(){
-        if(!isNeedNumActivityMapEmpty(needNumActivityMap: needNumActivityMap)){
-            if let needActivityJSONData = try? encoder.encode(needNumActivityMap){
+    private func saveDailyActivityMap(){
+        if(!isNeedNumActivityMapEmpty(needNumActivityMap: dailyActivityMap)){
+            if let needActivityJSONData = try? encoder.encode(dailyActivityMap){
                 if let jsonString = String(data: needActivityJSONData, encoding: .utf8){
                     do{
                         try self.realm.write{
-                            let newNeedActivity = NeedActivity()
-                            newNeedActivity.dateCreated = Date().dateFormatter(format: "yyyy-MM-dd")
-                            newNeedActivity.numActivityResult = jsonString
-                            realm.add(newNeedActivity, update: .modified)
+                            let newDailyActivity = DailyActivity()
+                            newDailyActivity.dateCreated = Date().dateFormatter(format: "yyyy-MM-dd")
+                            newDailyActivity.numActivityResult = jsonString
+                            realm.add(newDailyActivity, update: .modified)
                         }
                     }catch{
                         print("Error saving new activity-category mapping, \(error)")
                     }
                 }
             }
+        }
+    }
+    
+    private func saveSelectedNeeds(){
+        do{
+            try self.realm.write{
+                let newActivityNeed = ActivityNeed()
+                newActivityNeed.selectedNeeds = selectedNeeds
+                newActivityNeed.activityID = activityID!
+                realm.add(newActivityNeed, update: .modified)
+            }
+        }catch{
+            print("Error saving new category-mapping, \(error)")
         }
     }
     
@@ -250,11 +226,27 @@ class UserInputViewController: UIViewController,DateTimePickerDelegate{
         return nil
     }
     
-    private func populateNeedNumActivityMap(date: Date){
-        let decodedNeedActivityData = loadNeedActivityResult(date: Date())
+    private func populateDailyActivityMap(date: Date){
+        let decodedNeedActivityData = loadDailyActivityResult(date: date)
         if let safeDecodedNeedActivityData = decodedNeedActivityData{
             for needType in Utils.needTypeList{
-                needNumActivityMap[needType] = safeDecodedNeedActivityData[needType]
+                dailyActivityMap[needType] = safeDecodedNeedActivityData[needType]
+            }
+        }
+    }
+    
+    private func populateDailyNeedMap(date: Date){
+        
+        let decodedDailyNeedData = loadDailyNeed(date: date)
+        
+        if let safeDecodedDailyNeedData = decodedDailyNeedData{
+            for needType in Utils.needTypeList{
+                if safeDecodedDailyNeedData[needType]{
+                    dailyNeedMap[needType] = true
+                    setPyramidMapData(need: needType)
+                }else{
+                    dailyNeedMap[needType] = false
+                }
             }
         }
     }

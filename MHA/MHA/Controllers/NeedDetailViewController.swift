@@ -19,7 +19,7 @@ class NeedDetailViewController: UIViewController{
     
     var needCategoryLevel: String = ""
     
-    let decodedData = loadNeedActivityResult(date: Date())
+    let decodedData = loadDailyActivityResult(date: Date())
     
     var coloursList:[String] = []
     var chartDescription: String = ""

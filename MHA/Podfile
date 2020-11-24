@@ -10,7 +10,6 @@ target 'MHA' do
   pod 'RealmSwift'
   pod 'Charts'
   pod 'CalendarKit'
-  pod 'DateTimePicker'
   pod 'AMPopTip'
 
   target 'MHATests' do

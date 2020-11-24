@@ -224,7 +224,6 @@ PODS:
   - Charts (3.6.0):
     - Charts/Core (= 3.6.0)
   - Charts/Core (3.6.0)
-  - DateTimePicker (2.5.2)
   - DateToolsSwift (5.0.0)
   - Firebase/Auth (6.34.0):
     - Firebase/CoreOnly
@@ -319,7 +318,6 @@ DEPENDENCIES:
   - AMPopTip
   - CalendarKit
   - Charts
-  - DateTimePicker
   - Firebase/Auth
   - Firebase/Firestore
   - RealmSwift
@@ -331,7 +329,6 @@ SPEC REPOS:
     - BoringSSL-GRPC
     - CalendarKit
     - Charts
-    - DateTimePicker
     - DateToolsSwift
     - Firebase
     - FirebaseAuth
@@ -355,7 +352,6 @@ SPEC CHECKSUMS:
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   CalendarKit: 2688f4284934d7649a57972150b250ad1f2b25b8
   Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
-  DateTimePicker: 5b6386eb8f9839192e77748f620b9d9f12f41c28
   DateToolsSwift: 4207ada6ad615d8dc076323d27037c94916dbfa6
   Firebase: c23a36d9e4cdf7877dfcba8dd0c58add66358999
   FirebaseAuth: c92d49ada7948d1a23466e3db17bc4c2039dddc3
@@ -373,6 +369,6 @@ SPEC CHECKSUMS:
   Realm: 784ca1da1453e31a9c9adc14445421a81f316119
   RealmSwift: cc52fe0dcea56387274dff36e19219e055a3bb84
 
-PODFILE CHECKSUM: 0065caad7a9e97a84a53d39237e90ec91fc1b154
+PODFILE CHECKSUM: 0bb7de4a0193d6037e230af01d4818c27f8bc418
 
 COCOAPODS: 1.10.0

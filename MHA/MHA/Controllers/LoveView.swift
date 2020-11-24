@@ -11,7 +11,7 @@ class LoveView: UIView {
      
         self.backgroundColor = .white
         
-        let decodedData = loadNeedActivityResult(date: Date())
+        let decodedData = loadDailyActivityResult(date: Date())
         if let safeDecodedData = decodedData{
             for needType in Utils.loveNeeds{
                 if safeDecodedData[needType] != 0{

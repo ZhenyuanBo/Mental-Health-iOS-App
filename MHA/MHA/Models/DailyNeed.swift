@@ -1,11 +1,12 @@
 import Foundation
 import RealmSwift
 
-class NeedActivity: Object{
+class DailyNeed: Object{
     @objc dynamic var dateCreated: String = ""
-    @objc dynamic var numActivityResult: String = ""
+    @objc dynamic var needResult: String = ""
     
     override static func primaryKey() -> String? {
       return "dateCreated"
     }
+
 }

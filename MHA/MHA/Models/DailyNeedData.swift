@@ -1,7 +1,7 @@
 import Foundation
 import RealmSwift
 
-struct NeedData: Codable{
+struct DailyNeedData: Codable{
     private let air: Bool
     private let water: Bool
     private let food: Bool
@@ -21,8 +21,7 @@ struct NeedData: Codable{
     private let respect: Bool
     private let status: Bool
     private let self_esteem: Bool
-    private let recog
-        nition: Bool
+    private let recognition: Bool
     private let strength: Bool
     private let freedom: Bool
     private let self_actualization: Bool

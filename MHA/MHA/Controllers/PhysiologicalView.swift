@@ -12,7 +12,7 @@ class PhysiologicalView: UIView {
         
         self.backgroundColor = .white
         
-        let decodedData = loadNeedActivityResult(date: Date())
+        let decodedData = loadDailyActivityResult(date: Date())
         if let safeDecodedData = decodedData{
             for needType in Utils.phyNeeds{
                 if safeDecodedData[needType] != 0{

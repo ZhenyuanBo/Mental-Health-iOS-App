@@ -10,6 +10,7 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
     var generatedEvents = [EventDescriptor]()
     var alreadyGeneratedSet = Set<Date>()
     var selectedActivitiyText: String?
+    var selectedDate: Date?
     
     var colors = [UIColor.blue,
                   UIColor.yellow,
@@ -91,6 +92,7 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
     // MARK: EventDataSource
     
     override func eventsForDate(_ date: Date) -> [EventDescriptor] {
+        selectedDate = date
         if !alreadyGeneratedSet.contains(date) {
             alreadyGeneratedSet.insert(date)
             generatedEvents.append(contentsOf: generateEventsForDate(date))
@@ -99,8 +101,8 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
     }
     
     private func generateEventsForDate(_ date: Date) -> [EventDescriptor] {
-        let localDate = date.localDate()
-        let activities = loadActivity(date: localDate.dateFormatter(format: "yyyy-MM-dd"))
+        
+        let activities = loadActivity(date: date.dateFormatter(format: "yyyy-MM-dd"))
         
         var events = [Event]()
         
@@ -113,10 +115,10 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
                     dateFormatter.timeZone = TimeZone.current
                     dateFormatter.locale = Locale.current
                     
-                let startDateStr = "\(localDate.dateFormatter(format: "yyyy-MM-dd"))T\(value[0]):00"
+                let startDateStr = "\(date.dateFormatter(format: "yyyy-MM-dd"))T\(value[0]):00"
                 let startDate = dateFormatter.date(from: startDateStr)
                 
-                let endDateStr = "\(localDate.dateFormatter(format: "yyyy-MM-dd"))T\(value[1]):00"
+                let endDateStr = "\(date.dateFormatter(format: "yyyy-MM-dd"))T\(value[1]):00"
                 let endDate = dateFormatter.date(from: endDateStr)
 
                 event.startDate = startDate!
@@ -168,11 +170,6 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
         present(alert, animated: true, completion: nil)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationVC = segue.destination as! UserInputViewController
-        destinationVC.savedActivityText = selectedActivitiyText!
-    }
-    
     override func dayViewDidLongPressEventView(_ eventView: EventView) {
         guard let descriptor = eventView.descriptor as? Event else {
             return
@@ -180,7 +177,6 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
         endEventEditing()
         print("Event has been longPressed: \(descriptor) \(String(describing: descriptor.userInfo))")
         beginEditing(event: descriptor, animated: true)
-        print(Date())
     }
     
     override func dayView(dayView: DayView, didTapTimelineAt date: Date) {
@@ -197,7 +193,7 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
     }
     
     override func dayView(dayView: DayView, didMoveTo date: Date) {
-        print("DayView = \(dayView) did move to: \(date)")
+        reloadData()
     }
     
     override func dayView(dayView: DayView, didUpdate event: EventDescriptor) {

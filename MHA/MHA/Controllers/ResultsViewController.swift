@@ -30,7 +30,8 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         flashCard.backView = backView
         
         pieChartTitle.text = "# of Activities/Need Category"
-        let decodedData = loadNeedActivityResult(date: Date())
+        let decodedData = loadDailyActivityResult(date: Date())
+        print(decodedData)
         if let safeDecodedData = decodedData{
             for needType in Utils.needTypeList{
                 if safeDecodedData[needType] != 0{
