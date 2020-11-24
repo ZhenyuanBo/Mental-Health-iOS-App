@@ -61,6 +61,7 @@ class NeedDetailViewController: UIViewController{
         let formatter: CustomIntFormatter = CustomIntFormatter()
         barChartView.data?.setValueFormatter(formatter)
         
+        barChartView.legend.enabled = false
         barChartView.rightAxis.enabled = false
         barChartView.xAxis.drawGridLinesEnabled = false
         barChartView.scaleYEnabled = true
