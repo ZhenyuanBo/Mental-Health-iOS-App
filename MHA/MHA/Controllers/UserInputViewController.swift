@@ -98,32 +98,36 @@ class UserInputViewController: UIViewController,DateTimePickerDelegate{
         if flashCard.backView!.isHidden && !readonly{
             flipButton.title = "Category"
             let encoder = JSONEncoder()
-            if let needJSONData = try? encoder.encode(needSelectionMap) {
-                if let jsonString = String(data: needJSONData, encoding: .utf8) {
-                    do{
-                        try self.realm.write{
-                            let newNeedResult = Need()
-                            newNeedResult.dateCreated = Date().dateFormatter(format: "yyyy-MM-dd")
-                            newNeedResult.needResult = jsonString
-                            newNeedResult.activityID = activityID!
-                            realm.add(newNeedResult, update: .modified)
+            if(!isNeedSelectionMapEmpty(needSelectionMap: needSelectionMap)){
+                if let needJSONData = try? encoder.encode(needSelectionMap) {
+                    if let jsonString = String(data: needJSONData, encoding: .utf8) {
+                        do{
+                            try self.realm.write{
+                                let newNeedResult = Need()
+                                newNeedResult.dateCreated = Date().dateFormatter(format: "yyyy-MM-dd")
+                                newNeedResult.needResult = jsonString
+                                newNeedResult.activityID = activityID!
+                                realm.add(newNeedResult, update: .modified)
+                            }
+                        }catch{
+                            print("Error saving new category-mapping, \(error)")
                         }
-                    }catch{
-                        print("Error saving new category-mapping, \(error)")
                     }
                 }
             }
-            if let needActivityJSONData = try? encoder.encode(needNumActivityMap){
-                if let jsonString = String(data: needActivityJSONData, encoding: .utf8){
-                    do{
-                        try self.realm.write{
-                            let newNeedActivity = NeedActivity()
-                            newNeedActivity.dateCreated = Date().dateFormatter(format: "yyyy-MM-dd")
-                            newNeedActivity.numActivityResult = jsonString
-                            realm.add(newNeedActivity, update: .modified)
+            if(!isNeedNumActivityMapEmpty(needNumActivityMap: needNumActivityMap)){
+                if let needActivityJSONData = try? encoder.encode(needNumActivityMap){
+                    if let jsonString = String(data: needActivityJSONData, encoding: .utf8){
+                        do{
+                            try self.realm.write{
+                                let newNeedActivity = NeedActivity()
+                                newNeedActivity.dateCreated = Date().dateFormatter(format: "yyyy-MM-dd")
+                                newNeedActivity.numActivityResult = jsonString
+                                realm.add(newNeedActivity, update: .modified)
+                            }
+                        }catch{
+                            print("Error saving new activity-category mapping, \(error)")
                         }
-                    }catch{
-                        print("Error saving new activity-category mapping, \(error)")
                     }
                 }
             }
@@ -239,6 +243,24 @@ class UserInputViewController: UIViewController,DateTimePickerDelegate{
             return selectedActivity[0].activityID
         }
         return nil
+    }
+    
+    private func isNeedSelectionMapEmpty(needSelectionMap: [String:Bool]) -> Bool{
+        for key in needSelectionMap.keys{
+            if (needSelectionMap[key]!){
+                return false
+            }
+        }
+        return true
+    }
+    
+    private func isNeedNumActivityMapEmpty(needNumActivityMap: [String:Int]) -> Bool{
+        for key in needNumActivityMap.keys{
+            if (needNumActivityMap[key] != 0){
+                return false
+            }
+        }
+        return true
     }
     
     //MARK: - Swipe Functionality

@@ -3,11 +3,23 @@ import UIKit
 class LoveView: UIView {
 
     var path: UIBezierPath!
+    
+    var activityList:[Int] = []
      
     override init(frame: CGRect) {
         super.init(frame: frame)
      
         self.backgroundColor = .white
+        
+        let decodedData = loadNeedActivityResult(date: Date())
+        if let safeDecodedData = decodedData{
+            for needType in Utils.loveNeeds{
+                if safeDecodedData[needType] != 0{
+                    activityList.append(safeDecodedData[needType])
+                }
+            }
+            activityList.sort(){$0 > $1}
+        }
     }
      
     required init?(coder aDecoder: NSCoder) {
@@ -28,19 +40,54 @@ class LoveView: UIView {
     override func draw(_ rect: CGRect) {
         self.createLoveLevel()
         
-        let gradient = CAGradientLayer()
-        gradient.frame = path.bounds
-        gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
-        gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
-        let lightYellow = hexStringToUIColor(hex: "#FFFFB7")
-        let darkYellow = hexStringToUIColor(hex: "#FFD400")
-        gradient.colors = [lightYellow.cgColor, darkYellow.cgColor]
-
-        let shapeMask = CAShapeLayer()
-        shapeMask.path = path.cgPath
-
-        gradient.mask = shapeMask
-        self.layer.addSublayer(gradient)
+        hexStringToUIColor(hex: Utils.baseColour).setFill()
+        path.fill()
+        
+        if activityList.count>0{
+            let gradient = CAGradientLayer()
+            gradient.frame = path.bounds
+            gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
+            gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
+            
+            if activityList.count==1{
+                gradient.locations = [0.0, 0.4]
+            }else if activityList.count==2{
+                gradient.locations = [0.0, 0.4, 0.6]
+            }else if activityList.count==3{
+                gradient.locations = [0.0, 0.4, 0.6, 0.8]
+            }else if activityList.count==4{
+                gradient.locations = [0.0, 0.4, 0.6, 0.8, 1.0]
+            }
+            
+            var colors:[Any] = []
+            var currColour:CGColor
+            var j = 3
+            for i in 0..<activityList.count{
+                if i==0{
+                    currColour = hexStringToUIColor(hex: Utils.loveNeedColoursList[j]).cgColor
+                    colors.insert(currColour, at: 0)
+                }else if activityList[i] != activityList[i-1]{
+                    j -= 1
+                    currColour = hexStringToUIColor(hex: Utils.loveNeedColoursList[j]).cgColor
+                    colors.insert(currColour, at: 0)
+                }else if activityList[i] == activityList[i-1]{
+                    currColour = hexStringToUIColor(hex: Utils.loveNeedColoursList[j]).cgColor
+                    colors.insert(currColour, at: 0)
+                }
+            }
+            
+            if activityList.count < 4{
+                colors.append(hexStringToUIColor(hex: Utils.baseColour).cgColor)
+            }
+            
+            gradient.colors = colors
+            
+            let shapeMask = CAShapeLayer()
+            shapeMask.path = path.cgPath
+            
+            gradient.mask = shapeMask
+            self.layer.addSublayer(gradient)
+        }
     }
 
 }

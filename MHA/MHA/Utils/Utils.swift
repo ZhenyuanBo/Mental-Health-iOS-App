@@ -61,11 +61,6 @@ class Utils{
     public static let esteemNeedColoursList = ["#B7FFBF","#95F985","#4DED30","#26D701","#00C301", "#00AB08"]
     public static let selfActualNeedColour = "#00008b"
     
-    public static let safetyOrange1 = "#FDB777"
-    public static let safetyOrange5 = "#FF6200"
-    
-    
-    
 }
 
 //MARK: - Date Extension
