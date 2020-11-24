@@ -59,7 +59,7 @@ class Utils{
     public static let safetyNeedColoursList = ["#FDB777", "#FDA766", "#FD9346", "#FD7F2C", "#FF6200"]
     public static let loveNeedColoursList = ["#FFF192", "#FFEA61", "#FFDD3C", "#FFD400"]
     public static let esteemNeedColoursList = ["#B7FFBF","#95F985","#4DED30","#26D701","#00C301", "#00AB08"]
-    public static let selfActualNeedColour = "#00008b"
+    public static let selfActualNeedColoursList = ["#00008b"]
     
 }
 

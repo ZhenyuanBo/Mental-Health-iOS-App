@@ -158,21 +158,33 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     @objc func handleSafetyTap(_ sender: UITapGestureRecognizer){
         currSelectedNeedLevel = "safety"
         popTip.show(text: "Satefy needs", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[3].frame)
+        DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
+            self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
+        })
     }
     
     @objc func handleLoveTap(_ sender: UITapGestureRecognizer){
         currSelectedNeedLevel = "love"
         popTip.show(text: "Love & Belonging", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[2].frame)
+        DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
+            self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
+        })
     }
     
     @objc func handleEsteemTap(_ sender: UITapGestureRecognizer){
         currSelectedNeedLevel = "esteem"
         popTip.show(text: "Esteem", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[1].frame)
+        DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
+            self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
+        })
     }
     
     @objc func handleSelfActualizationTap(_ sender: UITapGestureRecognizer){
         currSelectedNeedLevel = "selfActual"
         popTip.show(text: "Self-Actualization", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[0].frame)
+        DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
+            self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
+        })
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
