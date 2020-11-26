@@ -142,13 +142,13 @@
             filePath = "MHA/Controllers/UserInputViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
             landmarkName = "saveActivity(startTime:endTime:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "A3AB82BC-2A11-4C47-B09F-B814CFA46F3B - 4c8fc2cb269c43ee"
+                  uuid = "A3AB82BC-2A11-4C47-B09F-B814CFA46F3B - 4c8fc2cb269c404b"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -158,12 +158,12 @@
                   urlString = "file:///Users/zhenyuanbo/Desktop/MHA_v2/MHA/MHA/Controllers/UserInputViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "144"
-                  endingLineNumber = "144"
+                  startingLineNumber = "147"
+                  endingLineNumber = "147"
                   offsetFromSymbolStart = "72">
                </Location>
                <Location
-                  uuid = "A3AB82BC-2A11-4C47-B09F-B814CFA46F3B - ac5decff99c540ec"
+                  uuid = "A3AB82BC-2A11-4C47-B09F-B814CFA46F3B - ac5decff99c5408b"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -173,8 +173,8 @@
                   urlString = "file:///Users/zhenyuanbo/Desktop/MHA_v2/MHA/MHA/Controllers/UserInputViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "145"
-                  endingLineNumber = "145"
+                  startingLineNumber = "148"
+                  endingLineNumber = "148"
                   offsetFromSymbolStart = "159">
                </Location>
             </Locations>

@@ -126,8 +126,11 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
     }
     
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-         //This method will be called when user changes tab.
-        print(tabBar.items![1])
+        if item.title == "Calendar"{
+            performSegue(withIdentifier: Utils.userInputCalendarSegue, sender: self)
+        }else if item.title == "Report"{
+            performSegue(withIdentifier: Utils.userInputReportSegue, sender: self)
+        }
      }
     
     //MARK: - Data Manipulation Methods
