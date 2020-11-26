@@ -1,7 +1,7 @@
 import UIKit
 import RealmSwift
 
-class UserInputViewController: UIViewController{
+class UserInputViewController: UIViewController, UITabBarDelegate{
     
     private var savedActivityText: String?
     private var activityID: String?
@@ -18,6 +18,7 @@ class UserInputViewController: UIViewController{
     let realm = try! Realm()
     let encoder = JSONEncoder()
     
+    @IBOutlet weak var userInputTabBar: UITabBar!
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var frontView: UIView!
     @IBOutlet weak var flashCard: FlashCardView!
@@ -25,14 +26,20 @@ class UserInputViewController: UIViewController{
     //MARK: - User Input Outlet
     @IBOutlet weak var activityText: UITextView!
     @IBOutlet weak var flipButton: UIBarButtonItem!
-
-    private var dailyNeedMap:[String:Bool] = [:]
+    
+    //    private var dailyNeedMap:[String:Bool] = [:]
     private var dailyActivityMap:[String:Int] = [:]
     private var selectedNeeds: String = ""
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        for need in Utils.needTypeList{
+            dailyActivityMap[need] = 0
+        }
+        
+        userInputTabBar.delegate = self
         
         self.view.addGestureRecognizer(leftSwipeGestureRecognizer)
         self.view.addGestureRecognizer(rightSwipeGestureRecognizer)
@@ -42,8 +49,15 @@ class UserInputViewController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         title = setTitle(date: selectedDate)
         
-        populateDailyNeedMap(date: selectedDate)
+        if let safeActivityText = savedActivityText{
+            activityID = loadActivityID(activityText: safeActivityText)
+            activityText.text = safeActivityText
+        }else{
+            activityID = UUID.init().uuidString
+        }
+        
         populateDailyActivityMap(date: selectedDate)
+        populateSelectedNeed(activityID: activityID!)
         
         flashCard.duration = 2.0
         flashCard.flipAnimation = .flipFromLeft
@@ -57,8 +71,8 @@ class UserInputViewController: UIViewController{
         flashCard.flip()
         if flashCard.backView!.isHidden && !readonly{
             flipButton.title = "Category"
-            saveDailyNeedMap()
-            saveDailyActivityMap()
+            //            saveDailyNeedMap(date: selectedDate)
+            saveDailyActivityMap(date: selectedDate)
             saveSelectedNeeds()
         }else{
             flipButton.title = "Activity"
@@ -77,38 +91,44 @@ class UserInputViewController: UIViewController{
         }
         if sender.titleColor(for: .normal) == UIColor.white{
             sender.setTitleColor(.black, for: .normal)
-            dailyNeedMap[selectedCategory!] = true
-            selectedNeeds += selectedCategory! + ","
-            selectedNeeds.append(selectedCategory!)
+            //            dailyNeedMap[selectedCategory!] = true
+            selectedNeeds += " " + selectedCategory!
             dailyActivityMap[selectedCategory!]! += 1
         }else{
             sender.setTitleColor(.white, for: .normal)
-            dailyNeedMap[selectedCategory!] = false
+            //            dailyNeedMap[selectedCategory!] = false
             dailyActivityMap[selectedCategory!]! -= 1
         }
     }
+    
+    @IBAction func deletePressed(_ sender: UIBarButtonItem) {
+    }
+    
     
     @IBAction func savePressed(_ sender: UIBarButtonItem) {
         showTimePicker()
     }
     
     @IBAction func addPressed(_ sender: UIBarButtonItem) {
-        let alert = UIAlertController(title: "Do you want to save data before creating a new activity", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Do you want to save current note?", message: "", preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Yes", style: .default) { (action) in
             self.showTimePicker()
             self.activityText.text = ""
             self.cleanPyramidMapData()
-            self.activityID = UUID.init().uuidString
         }
         let newAction = UIAlertAction(title: "No", style: .default) { (action) in
             self.activityText.text = ""
             self.cleanPyramidMapData()
-            self.activityID = UUID.init().uuidString
         }
         alert.addAction(saveAction)
         alert.addAction(newAction)
         present(alert, animated: true, completion: nil)
     }
+    
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+         //This method will be called when user changes tab.
+        print(tabBar.items![1])
+     }
     
     //MARK: - Data Manipulation Methods
     private func setTitle(date: Date)->String{
@@ -135,33 +155,33 @@ class UserInputViewController: UIViewController{
         }
     }
     
-    private func saveDailyNeedMap(){
-        if(!isNeedSelectionMapEmpty(needSelectionMap: dailyNeedMap)){
-            if let needJSONData = try? encoder.encode(dailyNeedMap) {
-                if let jsonString = String(data: needJSONData, encoding: .utf8) {
-                    do{
-                        try self.realm.write{
-                            let newDailyNeed = DailyNeed()
-                            newDailyNeed.dateCreated = Date().dateFormatter(format: "yyyy-MM-dd")
-                            newDailyNeed.needResult = jsonString
-                            realm.add(newDailyNeed, update: .modified)
-                        }
-                    }catch{
-                        print("Error saving new category-mapping, \(error)")
-                    }
-                }
-            }
-        }
-    }
+    //    private func saveDailyNeedMap(date: Date){
+    //        if(!isNeedSelectionMapEmpty(needSelectionMap: dailyNeedMap)){
+    //            if let needJSONData = try? encoder.encode(dailyNeedMap) {
+    //                if let jsonString = String(data: needJSONData, encoding: .utf8) {
+    //                    do{
+    //                        try self.realm.write{
+    //                            let newDailyNeed = DailyNeed()
+    //                            newDailyNeed.dateCreated = date.dateFormatter(format: "yyyy-MM-dd")
+    //                            newDailyNeed.needResult = jsonString
+    //                            realm.add(newDailyNeed, update: .modified)
+    //                        }
+    //                    }catch{
+    //                        print("Error saving new category-mapping, \(error)")
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
     
-    private func saveDailyActivityMap(){
+    private func saveDailyActivityMap(date: Date){
         if(!isNeedNumActivityMapEmpty(needNumActivityMap: dailyActivityMap)){
             if let needActivityJSONData = try? encoder.encode(dailyActivityMap){
                 if let jsonString = String(data: needActivityJSONData, encoding: .utf8){
                     do{
                         try self.realm.write{
                             let newDailyActivity = DailyActivity()
-                            newDailyActivity.dateCreated = Date().dateFormatter(format: "yyyy-MM-dd")
+                            newDailyActivity.dateCreated = date.dateFormatter(format: "yyyy-MM-dd")
                             newDailyActivity.numActivityResult = jsonString
                             realm.add(newDailyActivity, update: .modified)
                         }
@@ -177,12 +197,13 @@ class UserInputViewController: UIViewController{
         do{
             try self.realm.write{
                 let newActivityNeed = ActivityNeed()
+                selectedNeeds = selectedNeeds.trimmingCharacters(in: .whitespacesAndNewlines)
                 newActivityNeed.selectedNeeds = selectedNeeds
                 newActivityNeed.activityID = activityID!
                 realm.add(newActivityNeed, update: .modified)
             }
         }catch{
-            print("Error saving new category-mapping, \(error)")
+            print("Error saving new selected needs, \(error)")
         }
     }
     
@@ -191,27 +212,6 @@ class UserInputViewController: UIViewController{
             for lowerView in topView.subviews as [UIView]{
                 for innerView in lowerView.subviews as [UIView]{
                     if let needButton = innerView as? UIButton {                            needButton.setTitleColor(.white, for: .normal)
-                    }
-                }
-            }
-        }
-    }
-    
-    private func setPyramidMapData(need: String){
-        for topView in self.view.subviews as [UIView] {
-            for lowerView in topView.subviews as [UIView]{
-                for innerView in lowerView.subviews as [UIView]{
-                    if let needButton = innerView as? UIButton {
-                        let buttonLabel = needButton.titleLabel?.text
-                        if buttonLabel == "personal security" && need == "personal_security"{
-                            needButton.setTitleColor(.black, for: .normal)
-                        }else if buttonLabel == "self-esteem" && need == "self_esteem"{
-                            needButton.setTitleColor(.black, for: .normal)
-                        }else if buttonLabel == "Self Actualization" && need == "self_actualization" {
-                            needButton.setTitleColor(.black, for: .normal)
-                        }else if buttonLabel == need{
-                            needButton.setTitleColor(.black, for: .normal)
-                        }
                     }
                 }
             }
@@ -235,17 +235,46 @@ class UserInputViewController: UIViewController{
         }
     }
     
-    private func populateDailyNeedMap(date: Date){
-        
-        let decodedDailyNeedData = loadDailyNeed(date: date)
-        
-        if let safeDecodedDailyNeedData = decodedDailyNeedData{
-            for needType in Utils.needTypeList{
-                if safeDecodedDailyNeedData[needType]{
-                    dailyNeedMap[needType] = true
-                    setPyramidMapData(need: needType)
-                }else{
-                    dailyNeedMap[needType] = false
+    private func populateSelectedNeed(activityID: String){
+        let selectedActivityNeed = realm.objects(ActivityNeed.self).filter("activityID = '\(activityID)'")
+        if selectedActivityNeed.count>0{
+            selectedNeeds = selectedActivityNeed[0].selectedNeeds
+            let selectedNeedsArray = selectedNeeds.components(separatedBy: ",")
+            print(selectedNeedsArray)
+            for need in selectedNeedsArray{
+                setPyramidMapData(need: need)
+            }
+        }
+    }
+    
+    //    private func populateDailyNeedMap(date: Date){
+    //
+    //        let decodedDailyNeedData = loadDailyNeed(date: date)
+    //
+    //        if let safeDecodedDailyNeedData = decodedDailyNeedData{
+    //            for needType in Utils.needTypeList{
+    //                if safeDecodedDailyNeedData[needType]{
+    //                    dailyNeedMap[needType] = true
+    //                    setPyramidMapData(need: needType)
+    //                }else{
+    //                    dailyNeedMap[needType] = false
+    //                }
+    //            }
+    //        }
+    //    }
+    
+    private func setPyramidMapData(need: String){
+        for innerView in backView.subviews as [UIView]{
+            if let needButton = innerView as? UIButton {
+                let buttonLabel = needButton.titleLabel?.text
+                if buttonLabel == "personal security" && need == "personal_security"{
+                    needButton.setTitleColor(.black, for: .normal)
+                }else if buttonLabel == "self-esteem" && need == "self_esteem"{
+                    needButton.setTitleColor(.black, for: .normal)
+                }else if buttonLabel == "Self Actualization" && need == "self_actualization" {
+                    needButton.setTitleColor(.black, for: .normal)
+                }else if buttonLabel == need{
+                    needButton.setTitleColor(.black, for: .normal)
                 }
             }
         }
@@ -310,9 +339,7 @@ extension UserInputViewController: ActivityTimePickerDelegate {
         self.present(customAlert, animated: true, completion: nil)
     }
     
-    func pickerAlertCancel() {
-        
-    }
+    func pickerAlertCancel() {}
     
     func pickerAlertSelected(t1: String, t2: String) {
         saveActivity(startTime: t1, endTime: t2)

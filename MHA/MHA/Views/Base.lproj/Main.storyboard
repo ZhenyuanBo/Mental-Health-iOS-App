@@ -8,10 +8,13 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
+        <!--Item-->
         <scene sceneID="wFK-v7-e56">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LcR-Nv-V3K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController id="i9T-Gf-lNy" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="baw-vy-J3Y"/>
+                    <navigationItem key="navigationItem" id="pWt-On-E4c"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="omC-ru-cR6">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -25,14 +28,13 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="w4M-5F-20a"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="LcR-Nv-V3K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-638" y="7"/>
         </scene>
         <!--Welcome View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="WelcomeViewController" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="BYZ-38-t0r" customClass="WelcomeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -114,7 +116,7 @@
         <!--Sign In View Controller-->
         <scene sceneID="QHs-H5-O4V">
             <objects>
-                <viewController id="MwZ-jR-WsS" customClass="SignInViewController" customModule="MHA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="MwZ-jR-WsS" customClass="SignInViewController" customModule="MHA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WxW-nl-sho">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -206,7 +208,7 @@
         <!--Need Detail View Controller-->
         <scene sceneID="zjf-Uv-JAy">
             <objects>
-                <viewController storyboardIdentifier="PopoverContentController" id="c5w-ks-mN0" customClass="NeedDetailViewController" customModule="MHA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PopoverContentController" hidesBottomBarWhenPushed="YES" id="c5w-ks-mN0" customClass="NeedDetailViewController" customModule="MHA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Jg9-R9-mn7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -258,12 +260,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1IE-Xa-K8B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3342.0289855072465" y="-719.19642857142856"/>
+            <point key="canvasLocation" x="4171" y="-322"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="6kX-w8-s7q">
             <objects>
-                <viewController id="aSk-ha-SFj" customClass="RegisterViewController" customModule="MHA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="aSk-ha-SFj" customClass="RegisterViewController" customModule="MHA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FXA-fZ-Foa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -649,7 +651,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="655"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="oVl-mn-enA">
-                                                <rect key="frame" x="8" y="22" width="358" height="615"/>
+                                                <rect key="frame" x="8" y="22" width="358" height="609"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <color key="textColor" systemColor="labelColor"/>
@@ -672,6 +674,15 @@
                                     <constraint firstItem="yeQ-34-FDr" firstAttribute="leading" secondItem="Tq3-c0-sIc" secondAttribute="leading" id="sXq-vj-6Yc"/>
                                 </constraints>
                             </view>
+                            <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r82-S2-e6Q">
+                                <rect key="frame" x="0.0" y="819" width="414" height="49"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <items>
+                                    <tabBarItem title="Calendar" image="calendar" catalog="system" selectedImage="calendar" id="2w3-iI-3xA"/>
+                                    <tabBarItem title="Report" image="chart.pie.fill" catalog="system" id="uDq-LG-Qyh"/>
+                                </items>
+                            </tabBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="L8k-tS-SDT"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -684,23 +695,27 @@
                     </view>
                     <navigationItem key="navigationItem" id="7ea-jO-ph5">
                         <leftBarButtonItems>
-                            <barButtonItem systemItem="save" id="ziS-iR-Z7B">
+                            <barButtonItem systemItem="save" id="u1B-yY-VaW">
                                 <connections>
-                                    <action selector="savePressed:" destination="0vO-9G-NZj" id="NY3-9I-2a9"/>
+                                    <action selector="savePressed:" destination="0vO-9G-NZj" id="Mxl-9U-5Gg"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem systemItem="trash" id="4fd-w5-eZH"/>
+                            <barButtonItem systemItem="add" id="1lz-1d-gIY">
+                                <connections>
+                                    <action selector="addPressed:" destination="0vO-9G-NZj" id="oL5-1v-Jtn"/>
+                                </connections>
+                            </barButtonItem>
                         </leftBarButtonItems>
                         <rightBarButtonItems>
                             <barButtonItem id="zaq-PF-Evf"/>
-                            <barButtonItem systemItem="add" id="Vgb-10-gyv">
+                            <barButtonItem title="Category" id="uiq-ic-Uth">
                                 <connections>
-                                    <action selector="addPressed:" destination="0vO-9G-NZj" id="aug-LR-xSw"/>
+                                    <action selector="flipPressed:" destination="0vO-9G-NZj" id="hfN-6f-7FP"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Category" id="0JQ-ow-TSO">
+                            <barButtonItem systemItem="trash" id="mVT-8l-hcn">
                                 <connections>
-                                    <action selector="flipPressed:" destination="0vO-9G-NZj" id="Hon-9T-deX"/>
+                                    <action selector="deletePressed:" destination="0vO-9G-NZj" id="aUX-Lh-FxL"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -709,8 +724,8 @@
                         <outlet property="activityText" destination="oVl-mn-enA" id="5Sp-BD-280"/>
                         <outlet property="backView" destination="kxb-hy-A1R" id="bid-ox-H0Y"/>
                         <outlet property="flashCard" destination="Tq3-c0-sIc" id="Na9-5y-AJJ"/>
-                        <outlet property="flipButton" destination="0JQ-ow-TSO" id="CKy-gZ-seM"/>
                         <outlet property="frontView" destination="yeQ-34-FDr" id="djs-NM-jBm"/>
+                        <outlet property="userInputTabBar" destination="r82-S2-e6Q" id="1ab-V6-SLD"/>
                         <segue destination="tpP-MW-a8o" kind="show" identifier="UserInputToResult" id="kNe-fZ-oO4"/>
                         <segue destination="6Aq-Mh-V8w" kind="show" identifier="UserInputToCalendar" id="8NX-6J-0MJ"/>
                     </connections>
@@ -722,7 +737,7 @@
         <!--Calendar View Controller-->
         <scene sceneID="j83-Xa-e9U">
             <objects>
-                <viewController id="6Aq-Mh-V8w" customClass="CalendarViewController" customModule="MHA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="6Aq-Mh-V8w" customClass="CalendarViewController" customModule="MHA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IYm-SI-JBc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -742,7 +757,7 @@
         <!--Results View Controller-->
         <scene sceneID="5FM-86-JjT">
             <objects>
-                <viewController id="tpP-MW-a8o" customClass="ResultsViewController" customModule="MHA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="tpP-MW-a8o" customClass="ResultsViewController" customModule="MHA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FQs-4K-puT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -879,9 +894,11 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="SMU-C0-imn"/>
+        <segue reference="fzl-el-JQi"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="calendar" catalog="system" width="128" height="106"/>
+        <image name="chart.pie.fill" catalog="system" width="128" height="121"/>
         <image name="textfield" width="298" height="93"/>
         <image name="yourself" width="176" height="233"/>
         <systemColor name="labelColor">
