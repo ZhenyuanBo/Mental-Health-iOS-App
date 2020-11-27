@@ -1,5 +1,6 @@
 import UIKit
 
+
 protocol DatePickerControllerDelegate: AnyObject {
   func datePicker(controller: DatePickerController, didSelect date: Date?)
 }
@@ -20,6 +21,7 @@ class DatePickerController: UIViewController {
   lazy var datePicker: UIDatePicker = {
     let v = UIDatePicker()
     v.datePickerMode = .date
+    v.preferredDatePickerStyle = .inline
     return v
   }()
 

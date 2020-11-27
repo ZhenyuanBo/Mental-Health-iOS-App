@@ -48,14 +48,6 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
         picker.delegate = self
         let navC = UINavigationController(rootViewController: picker)
         navigationController?.present(navC, animated: true, completion: nil)
-        //    let picker = DatePickerController()
-        //    //    let calendar = dayView.calendar
-        //    //    picker.calendar = calendar
-        //    //    picker.date = dayView.state!.selectedDate
-        //    picker.datePicker.timeZone = TimeZone(secondsFromGMT: 0)!
-        //    picker.delegate = self
-        //    let navC = UINavigationController(rootViewController: picker)
-        //    navigationController?.present(navC, animated: true, completion: nil)
     }
     
     func datePicker(controller: DatePickerController, didSelect date: Date?) {
@@ -125,12 +117,9 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
                 event.startDate = startDate!
                 event.endDate = endDate!
 
-                let timezone = dayView.calendar.timeZone
-
                 event.text = key
-                event.color = colors[Int(arc4random_uniform(UInt32(colors.count)))]
-//                event.isAllDay = Int(arc4random_uniform(2)) % 2 == 0
-
+                event.color = hexStringToUIColor(hex: value[2])
+                
                 if #available(iOS 12.0, *) {
                     if traitCollection.userInterfaceStyle == .dark {
                         event.textColor = textColorForEventInDarkTheme(baseColor: event.color)
@@ -219,12 +208,14 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
         if activities.count>0{
             var validActivities:[String:[String]] = [:]
             for i in 0..<activities.count{
-                var timeList: [String] = []
+                var infoList: [String] = []
                 let startTime = activities[i].startTime
                 let endTime = activities[i].endTime
-                timeList.append(startTime)
-                timeList.append(endTime)
-                validActivities[activities[i].activityText] = timeList
+                let colour = activities[i].colour
+                infoList.append(startTime)
+                infoList.append(endTime)
+                infoList.append(colour)
+                validActivities[activities[i].activityText] = infoList
             }
             return validActivities
         }

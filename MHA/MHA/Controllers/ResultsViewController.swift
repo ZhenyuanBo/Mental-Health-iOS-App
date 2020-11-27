@@ -19,7 +19,9 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     private var activityCategoryMap:[String: Int] = [:]
     
-    var currSelectedNeedLevel: String = ""
+    var selectedDate:Date = Date()
+    
+    private var currSelectedNeedLevel: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +32,7 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         flashCard.backView = backView
         
         pieChartTitle.text = "# of Activities/Need Category"
-        let decodedData = loadDailyActivityResult(date: Date())
+        let decodedData = loadDailyActivityResult(date: selectedDate)
         print(decodedData)
         if let safeDecodedData = decodedData{
             for needType in Utils.needTypeList{

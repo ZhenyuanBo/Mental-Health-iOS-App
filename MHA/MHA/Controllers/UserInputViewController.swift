@@ -5,13 +5,18 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
     
     private var savedActivityText: String?
     private var activityID: String?
-    private var readonly: Bool = false
+    private var readonly: Bool = true
     private var selectedDate: Date = Date()
+    
+    private var colours = ["#9ad3bc","#fd8c04", "#9088d4", "#f3bad6", "#9ddfd3",
+                           "#ffa36c", "#bedbbb", "#0e918c", "#a6f6f1", "#edcfa9"]
     
     @IBAction func unwind(_ unwindSegue: UIStoryboardSegue) {
         if let calendarViewController = unwindSegue.source as? CalendarViewController{
             if let safeSelectedActivityText = calendarViewController.selectedActivitiyText{
                 savedActivityText = safeSelectedActivityText
+            }else{
+                savedActivityText = ""
             }
             if let safeSelectedDate = calendarViewController.selectedDate{
                 selectedDate = safeSelectedDate
@@ -54,13 +59,19 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
         title = setTitle(date: selectedDate)
         
         if let safeActivityText = savedActivityText{
-            activityID = loadActivityID(activityText: safeActivityText)
             activityText.text = safeActivityText
+            if safeActivityText != ""{
+                activityID = loadActivityID(activityText: safeActivityText)
+            }else{
+                activityID = UUID.init().uuidString
+            }
         }else{
             activityID = UUID.init().uuidString
         }
         
+        readonly = true
         populateDailyActivityMap(date: selectedDate)
+        cleanPyramidMapData()
         populateSelectedNeed(activityID: activityID!)
         
         flashCard.duration = 2.0
@@ -74,12 +85,10 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
     @IBAction func flipPressed(_ sender: UIBarButtonItem) {
         flashCard.flip()
         if flashCard.backView!.isHidden && !readonly{
-            flipButton.title = "Category"
+            print("save...")
             //            saveDailyNeedMap(date: selectedDate)
             saveDailyActivityMap(date: selectedDate)
             saveSelectedNeeds()
-        }else{
-            flipButton.title = "Activity"
         }
     }
     
@@ -134,7 +143,6 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
                                 newData[need] = decodedData[need]
                             }
                         }
-                        print(activityToDeleteDateCreated)
                         if let newJSONData = try? encoder.encode(newData){
                             if let jsonString = String(data: newJSONData, encoding: .utf8){
                                 do{
@@ -190,6 +198,13 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Utils.userInputReportSegue{
+            let destinationVC = segue.destination as! ResultsViewController
+            destinationVC.selectedDate = selectedDate
+        }
+    }
+    
     //MARK: - Data Manipulation Methods
     private func setTitle(date: Date)->String{
         let month = date.dateFormatter(format: "MM")
@@ -203,11 +218,12 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
         do{
             try self.realm.write{
                 let newActivity = Activity()
-                newActivity.dateCreated = Date().dateFormatter(format: "yyyy-MM-dd")
+                newActivity.dateCreated = selectedDate.dateFormatter(format: "yyyy-MM-dd")
                 newActivity.activityText = self.activityText.text
                 newActivity.activityID = activityID!
                 newActivity.startTime = startTime
                 newActivity.endTime = endTime
+                newActivity.colour = colours[Int(arc4random_uniform(UInt32(colours.count)))]
                 realm.add(newActivity, update: .modified)
             }
         }catch{
@@ -268,12 +284,8 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
     }
     
     private func cleanPyramidMapData(){
-        for topView in self.view.subviews as [UIView] {
-            for lowerView in topView.subviews as [UIView]{
-                for innerView in lowerView.subviews as [UIView]{
-                    if let needButton = innerView as? UIButton {                            needButton.setTitleColor(.white, for: .normal)
-                    }
-                }
+        for innerView in backView.subviews as [UIView]{
+            if let needButton = innerView as? UIButton {                            needButton.setTitleColor(.white, for: .normal)
             }
         }
     }
@@ -293,6 +305,7 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
                 dailyActivityMap[needType] = safeDecodedNeedActivityData[needType]
             }
         }
+        print(dailyActivityMap)
     }
     
     private func populateSelectedNeed(activityID: String){
@@ -304,6 +317,8 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
             for need in selectedNeedsArray{
                 setPyramidMapData(need: need)
             }
+        }else{
+            selectedNeeds = ""
         }
     }
     
