@@ -30,9 +30,6 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
         view = dayView
     }
     
-    @IBAction func unwind(_ unwindSegue: UIStoryboardSegue) {
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Calendar"
@@ -89,6 +86,10 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
         return returnValue!
     }
     
+    @IBAction func composePressed(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "unwindToUserInput", sender: self)
+    }
+
     // MARK: EventDataSource
     
     override func eventsForDate(_ date: Date) -> [EventDescriptor] {

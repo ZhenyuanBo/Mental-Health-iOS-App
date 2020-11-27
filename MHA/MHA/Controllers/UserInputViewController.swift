@@ -10,8 +10,12 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
     
     @IBAction func unwind(_ unwindSegue: UIStoryboardSegue) {
         if let calendarViewController = unwindSegue.source as? CalendarViewController{
-            savedActivityText = calendarViewController.selectedActivitiyText!
-            selectedDate = calendarViewController.selectedDate!
+            if let safeSelectedActivityText = calendarViewController.selectedActivitiyText{
+                savedActivityText = safeSelectedActivityText
+            }
+            if let safeSelectedDate = calendarViewController.selectedDate{
+                selectedDate = safeSelectedDate
+            }
         }
     }
     
@@ -102,6 +106,59 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
     }
     
     @IBAction func deletePressed(_ sender: UIBarButtonItem) {
+        var activityToDeleteDateCreated = ""
+        
+        let activityToDelete = realm.objects(Activity.self).filter("activityID = '\(activityID!)'")
+        
+        if activityToDelete.count>0{
+            activityToDeleteDateCreated = activityToDelete[0].dateCreated
+            
+            let activityNeedToDelete = realm.objects(ActivityNeed.self).filter("activityID='\(activityID!)'")
+            
+            if activityNeedToDelete.count>0{
+                let selectedNeedsToDelete = activityNeedToDelete[0].selectedNeeds
+                let selectedNeedsToDeleteArray = selectedNeedsToDelete.components(separatedBy: " ")
+                
+                let dailyActivityToModify = realm.objects(DailyActivity.self).filter("dateCreated = '\(activityToDeleteDateCreated)'")
+                if dailyActivityToModify.count>0{
+                    let result = dailyActivityToModify[0].numActivityResult
+                    let jsonData = result.data(using: .utf8)!
+                    let decoder = JSONDecoder()
+                    do{
+                        let decodedData = try decoder.decode(DailyActivityData.self, from: jsonData)
+                        var newData:[String:Int] = [:]
+                        for need in Utils.needTypeList{
+                            if selectedNeedsToDeleteArray.contains(need){
+                                newData[need] = decodedData[need]-1
+                            }else{
+                                newData[need] = decodedData[need]
+                            }
+                        }
+                        print(activityToDeleteDateCreated)
+                        if let newJSONData = try? encoder.encode(newData){
+                            if let jsonString = String(data: newJSONData, encoding: .utf8){
+                                do{
+                                    try self.realm.write{
+                                        let newDailyActivity = DailyActivity()
+                                        newDailyActivity.dateCreated = activityToDeleteDateCreated
+                                        newDailyActivity.numActivityResult = jsonString
+                                        realm.add(newDailyActivity, update: .modified)
+                                        realm.delete(activityToDelete[0])
+                                        realm.delete(activityNeedToDelete[0])
+                                    }
+                                }catch{
+                                    print("Error saving modified daily activity object, \(error)")
+                                }
+                            }
+                        }
+                    }catch{
+                        print("Error retrieving decoded need DailyActivity data, \(error)")
+                    }
+                }
+            }
+        }else{
+            print("No such activity with ID: \(activityID!) to be deleted")
+        }
     }
     
     
@@ -131,7 +188,7 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
         }else if item.title == "Report"{
             performSegue(withIdentifier: Utils.userInputReportSegue, sender: self)
         }
-     }
+    }
     
     //MARK: - Data Manipulation Methods
     private func setTitle(date: Date)->String{
@@ -242,7 +299,7 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
         let selectedActivityNeed = realm.objects(ActivityNeed.self).filter("activityID = '\(activityID)'")
         if selectedActivityNeed.count>0{
             selectedNeeds = selectedActivityNeed[0].selectedNeeds
-            let selectedNeedsArray = selectedNeeds.components(separatedBy: ",")
+            let selectedNeedsArray = selectedNeeds.components(separatedBy: " ")
             print(selectedNeedsArray)
             for need in selectedNeedsArray{
                 setPyramidMapData(need: need)

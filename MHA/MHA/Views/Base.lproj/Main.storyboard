@@ -11,7 +11,6 @@
         <!--Item-->
         <scene sceneID="wFK-v7-e56">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="LcR-Nv-V3K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController id="i9T-Gf-lNy" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="baw-vy-J3Y"/>
                     <navigationItem key="navigationItem" id="pWt-On-E4c"/>
@@ -28,6 +27,7 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="w4M-5F-20a"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LcR-Nv-V3K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-638" y="7"/>
         </scene>
@@ -708,14 +708,14 @@
                         </leftBarButtonItems>
                         <rightBarButtonItems>
                             <barButtonItem id="zaq-PF-Evf"/>
-                            <barButtonItem title="Category" id="uiq-ic-Uth">
-                                <connections>
-                                    <action selector="flipPressed:" destination="0vO-9G-NZj" id="hfN-6f-7FP"/>
-                                </connections>
-                            </barButtonItem>
                             <barButtonItem systemItem="trash" id="mVT-8l-hcn">
                                 <connections>
                                     <action selector="deletePressed:" destination="0vO-9G-NZj" id="aUX-Lh-FxL"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Flip" image="goforward" catalog="system" id="uiq-ic-Uth">
+                                <connections>
+                                    <action selector="flipPressed:" destination="0vO-9G-NZj" id="hfN-6f-7FP"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -745,7 +745,13 @@
                         <viewLayoutGuide key="safeArea" id="hwv-Dj-gGz"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="v01-gz-U9D"/>
+                    <navigationItem key="navigationItem" id="v01-gz-U9D">
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="UaA-aL-DiM">
+                            <connections>
+                                <action selector="composePressed:" destination="6Aq-Mh-V8w" id="rZp-OQ-QL8"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="UpQ-8x-WkR" kind="unwind" identifier="unwindToUserInput" unwindAction="unwind:" id="XxU-t2-szg"/>
                     </connections>
@@ -900,6 +906,7 @@
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>
         <image name="chart.pie.fill" catalog="system" width="128" height="121"/>
+        <image name="goforward" catalog="system" width="121" height="128"/>
         <image name="textfield" width="298" height="93"/>
         <image name="yourself" width="176" height="233"/>
         <systemColor name="labelColor">

@@ -54,5 +54,6 @@ struct DailyActivityData: Codable{
             default: fatalError("No such need type: \(needType) to retrieve need activity data")
             }
         }
+        
     }
 }
