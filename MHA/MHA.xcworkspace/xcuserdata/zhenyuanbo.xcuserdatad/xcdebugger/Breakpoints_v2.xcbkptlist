@@ -142,8 +142,8 @@
             filePath = "MHA/Controllers/UserInputViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "219"
-            endingLineNumber = "219"
+            startingLineNumber = "202"
+            endingLineNumber = "202"
             landmarkName = "saveActivity(startTime:endTime:)"
             landmarkType = "7">
             <Locations>
@@ -190,8 +190,8 @@
             filePath = "MHA/Controllers/UserInputViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "221"
-            endingLineNumber = "221"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
             landmarkName = "saveActivity(startTime:endTime:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -206,8 +206,8 @@
             filePath = "MHA/Controllers/UserInputViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "222"
-            endingLineNumber = "222"
+            startingLineNumber = "205"
+            endingLineNumber = "205"
             landmarkName = "saveActivity(startTime:endTime:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -215,31 +215,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "DE37596B-BDFA-4624-90E9-BC4436E0C941"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MHA/Controllers/UserInputViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "250"
-            endingLineNumber = "250"
-            landmarkName = "UserInputViewController"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "B80E31BB-ADA3-4804-8FB7-08892FB966BC"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MHA/Controllers/UserInputViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "233"
-            endingLineNumber = "233"
+            startingLineNumber = "218"
+            endingLineNumber = "218"
             landmarkName = "UserInputViewController"
             landmarkType = "3">
          </BreakpointContent>

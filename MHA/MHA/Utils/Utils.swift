@@ -61,6 +61,15 @@ class Utils{
     public static let esteemNeedColoursList = ["#B7FFBF","#95F985","#4DED30","#26D701","#00C301", "#00AB08"]
     public static let selfActualNeedColoursList = ["#00008b"]
     
+    //MARK: - Calendar Event Colours
+    public static let eventColours = ["#9ad3bc","#fd8c04", "#9088d4", "#f3bad6", "#9ddfd3",
+                           "#ffa36c", "#bedbbb", "#0e918c", "#a6f6f1", "#edcfa9"]
+    
+    
+    //MARK: - Alert Messages
+    public static let saveNoteAlertMsg = "Do you want to save current note?"
+    public static let saveNoteBeforeLeavingAlertMsg = "Do you want to save current note before leaving?"
+    
 }
 
 //MARK: - Date Extension

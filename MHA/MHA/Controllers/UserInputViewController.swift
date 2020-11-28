@@ -5,11 +5,8 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
     
     private var savedActivityText: String?
     private var activityID: String?
-    private var readonly: Bool = true
+    private var readonly: Bool?
     private var selectedDate: Date = Date()
-    
-    private var colours = ["#9ad3bc","#fd8c04", "#9088d4", "#f3bad6", "#9ddfd3",
-                           "#ffa36c", "#bedbbb", "#0e918c", "#a6f6f1", "#edcfa9"]
     
     @IBAction func unwind(_ unwindSegue: UIStoryboardSegue) {
         if let calendarViewController = unwindSegue.source as? CalendarViewController{
@@ -36,7 +33,6 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
     @IBOutlet weak var activityText: UITextView!
     @IBOutlet weak var flipButton: UIBarButtonItem!
     
-    //    private var dailyNeedMap:[String:Bool] = [:]
     private var dailyActivityMap:[String:Int] = [:]
     private var selectedNeeds: String = ""
     
@@ -72,7 +68,10 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
         readonly = true
         populateDailyActivityMap(date: selectedDate)
         cleanPyramidMapData()
-        populateSelectedNeed(activityID: activityID!)
+        
+        if let safeActivityID = activityID{
+            populateSelectedNeed(activityID: safeActivityID)
+        }
         
         flashCard.duration = 2.0
         flashCard.flipAnimation = .flipFromLeft
@@ -84,12 +83,6 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
     //MARK: - Button Actions
     @IBAction func flipPressed(_ sender: UIBarButtonItem) {
         flashCard.flip()
-        if flashCard.backView!.isHidden && !readonly{
-            print("save...")
-            //            saveDailyNeedMap(date: selectedDate)
-            saveDailyActivityMap(date: selectedDate)
-            saveSelectedNeeds()
-        }
     }
     
     @IBAction func needButtonPressed(_ sender: UIButton) {
@@ -104,12 +97,10 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
         }
         if sender.titleColor(for: .normal) == UIColor.white{
             sender.setTitleColor(.black, for: .normal)
-            //            dailyNeedMap[selectedCategory!] = true
             selectedNeeds += " " + selectedCategory!
             dailyActivityMap[selectedCategory!]! += 1
         }else{
             sender.setTitleColor(.white, for: .normal)
-            //            dailyNeedMap[selectedCategory!] = false
             dailyActivityMap[selectedCategory!]! -= 1
         }
     }
@@ -153,6 +144,8 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
                                         realm.add(newDailyActivity, update: .modified)
                                         realm.delete(activityToDelete[0])
                                         realm.delete(activityNeedToDelete[0])
+                                        savedActivityText = ""
+                                        activityText.text = ""
                                     }
                                 }catch{
                                     print("Error saving modified daily activity object, \(error)")
@@ -175,25 +168,15 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
     }
     
     @IBAction func addPressed(_ sender: UIBarButtonItem) {
-        let alert = UIAlertController(title: "Do you want to save current note?", message: "", preferredStyle: .alert)
-        let saveAction = UIAlertAction(title: "Yes", style: .default) { (action) in
-            self.showTimePicker()
-            self.activityText.text = ""
-            self.cleanPyramidMapData()
-        }
-        let newAction = UIAlertAction(title: "No", style: .default) { (action) in
-            self.activityText.text = ""
-            self.cleanPyramidMapData()
-        }
-        alert.addAction(saveAction)
-        alert.addAction(newAction)
-        present(alert, animated: true, completion: nil)
+        alertMessageCreator(isLeaving: false)
     }
     
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if item.title == "Calendar"{
+            alertMessageCreator(isLeaving: true)
             performSegue(withIdentifier: Utils.userInputCalendarSegue, sender: self)
         }else if item.title == "Report"{
+            alertMessageCreator(isLeaving: true)
             performSegue(withIdentifier: Utils.userInputReportSegue, sender: self)
         }
     }
@@ -223,32 +206,15 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
                 newActivity.activityID = activityID!
                 newActivity.startTime = startTime
                 newActivity.endTime = endTime
-                newActivity.colour = colours[Int(arc4random_uniform(UInt32(colours.count)))]
+                newActivity.colour = Utils.eventColours[Int(arc4random_uniform(UInt32(Utils.eventColours.count)))]
                 realm.add(newActivity, update: .modified)
             }
+            saveDailyActivityMap(date: selectedDate)
+            saveSelectedNeeds()
         }catch{
             print("Error saving new category-mapping, \(error)")
         }
     }
-    
-    //    private func saveDailyNeedMap(date: Date){
-    //        if(!isNeedSelectionMapEmpty(needSelectionMap: dailyNeedMap)){
-    //            if let needJSONData = try? encoder.encode(dailyNeedMap) {
-    //                if let jsonString = String(data: needJSONData, encoding: .utf8) {
-    //                    do{
-    //                        try self.realm.write{
-    //                            let newDailyNeed = DailyNeed()
-    //                            newDailyNeed.dateCreated = date.dateFormatter(format: "yyyy-MM-dd")
-    //                            newDailyNeed.needResult = jsonString
-    //                            realm.add(newDailyNeed, update: .modified)
-    //                        }
-    //                    }catch{
-    //                        print("Error saving new category-mapping, \(error)")
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
     
     private func saveDailyActivityMap(date: Date){
         if(!isNeedNumActivityMapEmpty(needNumActivityMap: dailyActivityMap)){
@@ -322,22 +288,6 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
         }
     }
     
-    //    private func populateDailyNeedMap(date: Date){
-    //
-    //        let decodedDailyNeedData = loadDailyNeed(date: date)
-    //
-    //        if let safeDecodedDailyNeedData = decodedDailyNeedData{
-    //            for needType in Utils.needTypeList{
-    //                if safeDecodedDailyNeedData[needType]{
-    //                    dailyNeedMap[needType] = true
-    //                    setPyramidMapData(need: needType)
-    //                }else{
-    //                    dailyNeedMap[needType] = false
-    //                }
-    //            }
-    //        }
-    //    }
-    
     private func setPyramidMapData(need: String){
         for innerView in backView.subviews as [UIView]{
             if let needButton = innerView as? UIButton {
@@ -371,6 +321,32 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
             }
         }
         return true
+    }
+    
+    private func alertMessageCreator(isLeaving: Bool){
+        let alert : UIAlertController?
+        let alertTitle : String?
+        
+        if isLeaving{
+            alertTitle = Utils.saveNoteBeforeLeavingAlertMsg
+        }else{
+            alertTitle = Utils.saveNoteAlertMsg
+        }
+        
+        alert = UIAlertController(title: alertTitle, message: "", preferredStyle: .alert)
+        let saveAction = UIAlertAction(title: "Yes", style: .default) { (action) in
+            self.showTimePicker()
+        }
+        let newAction = UIAlertAction(title: "No", style: .default) { (action) in
+            if isLeaving{
+                self.activityText.text = ""
+                self.activityID = UUID.init().uuidString
+                self.cleanPyramidMapData()
+            }
+        }
+        alert!.addAction(saveAction)
+        alert!.addAction(newAction)
+        present(alert!, animated: true, completion: nil)
     }
     
     //MARK: - Swipe Functionality
