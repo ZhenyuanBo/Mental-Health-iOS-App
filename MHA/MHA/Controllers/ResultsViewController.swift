@@ -33,7 +33,7 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         
         pieChartTitle.text = "# of Activities/Need Category"
         let decodedData = loadDailyActivityResult(date: selectedDate)
-        print(decodedData)
+
         if let safeDecodedData = decodedData{
             for needType in Utils.needTypeList{
                 if safeDecodedData[needType] != 0{

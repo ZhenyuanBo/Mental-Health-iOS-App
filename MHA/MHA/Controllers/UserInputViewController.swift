@@ -173,11 +173,9 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
     
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if item.title == "Calendar"{
-            alertMessageCreator(isLeaving: true)
-            performSegue(withIdentifier: Utils.userInputCalendarSegue, sender: self)
+            alertMessageCreator(isLeaving: true, destination: "Calendar")
         }else if item.title == "Report"{
-            alertMessageCreator(isLeaving: true)
-            performSegue(withIdentifier: Utils.userInputReportSegue, sender: self)
+            alertMessageCreator(isLeaving: true, destination: "Report")
         }
     }
     
@@ -323,7 +321,7 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
         return true
     }
     
-    private func alertMessageCreator(isLeaving: Bool){
+    private func alertMessageCreator(isLeaving: Bool, destination: String = ""){
         let alert : UIAlertController?
         let alertTitle : String?
         
@@ -334,14 +332,20 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
         }
         
         alert = UIAlertController(title: alertTitle, message: "", preferredStyle: .alert)
-        let saveAction = UIAlertAction(title: "Yes", style: .default) { (action) in
+        let saveAction = UIAlertAction(title: "Yes", style: .default) {(action) in
             self.showTimePicker()
         }
-        let newAction = UIAlertAction(title: "No", style: .default) { (action) in
-            if isLeaving{
+        let newAction = UIAlertAction(title: "No", style: .default) {(action) in
+            if !isLeaving{
                 self.activityText.text = ""
                 self.activityID = UUID.init().uuidString
                 self.cleanPyramidMapData()
+            }else{
+                if destination == "Calendar"{
+                    self.performSegue(withIdentifier: Utils.userInputCalendarSegue, sender: self)
+                }else if destination == "Report"{
+                    self.performSegue(withIdentifier: Utils.userInputReportSegue, sender: self)
+                }
             }
         }
         alert!.addAction(saveAction)

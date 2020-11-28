@@ -248,9 +248,7 @@
                         <viewLayoutGuide key="safeArea" id="hQm-6O-Do9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="1t1-wm-1Ed">
-                        <barButtonItem key="rightBarButtonItem" systemItem="play" id="U4D-5O-jLN"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="1t1-wm-1Ed"/>
                     <connections>
                         <outlet property="backView" destination="zcd-R3-x1E" id="A8p-7V-4HX"/>
                         <outlet property="barChartView" destination="3Qr-Lf-uGT" id="vzQ-KE-UHQ"/>
@@ -816,11 +814,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="IvZ-24-tcS">
                         <rightBarButtonItems>
-                            <barButtonItem title="Category" id="ECx-Nj-LTo">
-                                <connections>
-                                    <action selector="categoryPressed:" destination="tpP-MW-a8o" id="Gdc-tE-rmF"/>
-                                </connections>
-                            </barButtonItem>
+                            <barButtonItem title="Item" image="goforward" catalog="system" id="N34-QB-Jmp"/>
                             <barButtonItem title="Download" id="B1v-4S-XBM">
                                 <connections>
                                     <action selector="downloadPressed:" destination="tpP-MW-a8o" id="3iQ-c5-y60"/>
@@ -831,7 +825,6 @@
                     <connections>
                         <outlet property="backView" destination="aHU-hz-ggY" id="Abu-Pj-Oy8"/>
                         <outlet property="flashCard" destination="2mv-ep-Qkn" id="FSF-Gq-nQI"/>
-                        <outlet property="flipButton" destination="ECx-Nj-LTo" id="5FH-5J-MuL"/>
                         <outlet property="frontView" destination="4Rs-ho-LWL" id="ofG-fR-Vbv"/>
                         <outlet property="pieChartTitle" destination="j0G-KR-wnL" id="B1u-LJ-gIb"/>
                         <outlet property="pieChartView" destination="kwS-HX-TCA" id="K5V-z8-LLR"/>
