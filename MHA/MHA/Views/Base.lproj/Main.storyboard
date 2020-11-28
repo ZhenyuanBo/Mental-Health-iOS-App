@@ -814,7 +814,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="IvZ-24-tcS">
                         <rightBarButtonItems>
-                            <barButtonItem title="Item" image="goforward" catalog="system" id="N34-QB-Jmp"/>
+                            <barButtonItem title="Item" image="goforward" catalog="system" id="N34-QB-Jmp">
+                                <connections>
+                                    <action selector="flipPressed:" destination="tpP-MW-a8o" id="h5K-Ut-d6x"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem title="Download" id="B1v-4S-XBM">
                                 <connections>
                                     <action selector="downloadPressed:" destination="tpP-MW-a8o" id="3iQ-c5-y60"/>
@@ -825,6 +829,7 @@
                     <connections>
                         <outlet property="backView" destination="aHU-hz-ggY" id="Abu-Pj-Oy8"/>
                         <outlet property="flashCard" destination="2mv-ep-Qkn" id="FSF-Gq-nQI"/>
+                        <outlet property="flipButton" destination="N34-QB-Jmp" id="eLq-D2-oLj"/>
                         <outlet property="frontView" destination="4Rs-ho-LWL" id="ofG-fR-Vbv"/>
                         <outlet property="pieChartTitle" destination="j0G-KR-wnL" id="B1u-LJ-gIb"/>
                         <outlet property="pieChartView" destination="kwS-HX-TCA" id="K5V-z8-LLR"/>

@@ -60,6 +60,10 @@ class NeedDetailViewController: UIViewController{
         
         let formatter: CustomIntFormatter = CustomIntFormatter()
         barChartView.data?.setValueFormatter(formatter)
+
+        barChartView.leftAxis.axisMinimum = 0.0
+        barChartView.extraTopOffset = 15.0
+        barChartView.extraBottomOffset = 20.0
         
         barChartView.legend.enabled = false
         barChartView.rightAxis.enabled = false
@@ -67,8 +71,7 @@ class NeedDetailViewController: UIViewController{
         barChartView.scaleYEnabled = true
         barChartView.scaleXEnabled = true
         barChartView.doubleTapToZoomEnabled = false
-        barChartView.chartDescription?.font = UIFont.systemFont(ofSize: 20)
-        barChartView.chartDescription?.text = chartDescription
+        title = chartDescription
         barChartView.xAxis.labelPosition = XAxis.LabelPosition.top
         barChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: dataPoints)
         

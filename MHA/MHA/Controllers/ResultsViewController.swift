@@ -92,13 +92,8 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
     }
     
-    @IBAction func categoryPressed(_ sender: UIBarButtonItem) {
+    @IBAction func flipPressed(_ sender: UIBarButtonItem) {
         flashCard.flip()
-        if flashCard.backView!.isHidden{
-            flipButton.title = "Category"
-        }else{
-            flipButton.title = "Chart"
-        }
     }
     
     private func customizeChart(dataPoints: [String], values: [Int]) {

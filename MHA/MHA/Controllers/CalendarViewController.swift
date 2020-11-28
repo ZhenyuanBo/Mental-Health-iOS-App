@@ -33,7 +33,7 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Calendar"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Change Date",
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Select Date",
                                                            style: .plain,
                                                            target: self,
                                                            action: #selector(presentDatePicker))
