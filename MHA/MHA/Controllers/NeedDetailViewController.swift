@@ -6,14 +6,14 @@
 
 import UIKit
 import Charts
-import Foundation
 
 class NeedDetailViewController: UIViewController{
     
-    @IBOutlet weak var flashCardView: FlashCardView!
+    @IBOutlet weak var flashCard: FlashCardView!
+
+    @IBOutlet weak var frontView: UIView!
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var barChartView: BarChartView!
-    
     @IBOutlet weak var lineChartView: LineChartView!
     
     
@@ -33,15 +33,40 @@ class NeedDetailViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        flashCard.duration = 2.0
+        flashCard.flipAnimation = .flipFromLeft
+        flashCard.frontView = frontView
+        flashCard.backView = backView
+        
         populateCategoryValue()
-        customizeChart(dataPoints: dataPoints, values: categoryValue)
+        customizeBarChart(dataPoints: dataPoints, values: categoryValue)
+        let dates = Date.getDates(forLastNDays: 7)
+        let values = [1, 2, 0, 4, 5, 2, 1]
+        print(dates)
+//        customizeLineChart(dataPoints: dates, values: values)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
-    private func customizeChart(dataPoints: [String], values: [Int]) {
+    @IBAction func flipPressed(_ sender: UIBarButtonItem) {
+        flashCard.flip()
+    }
+    
+    private func customizeLineChart(dataPoints: [String], values: [Int]){
+        var dataEntries: [ChartDataEntry] = []
+        for i in 0..<dataPoints.count {
+            let dataEntry = ChartDataEntry(x: Double(i), y: Double(values[i]))
+          dataEntries.append(dataEntry)
+        }
+        let lineChartDataSet = LineChartDataSet(entries: dataEntries, label: nil)
+        let lineChartData = LineChartData(dataSet: lineChartDataSet)
+        lineChartView.data = lineChartData
+    }
+    
+    private func customizeBarChart(dataPoints: [String], values: [Int]) {
 
         var dataEntries: [BarChartDataEntry] = []
         for i in 0..<dataPoints.count {
@@ -93,7 +118,7 @@ class NeedDetailViewController: UIViewController{
                 startIndex = 6
                 dataPoints = Utils.phyNeeds
                 coloursList = Utils.phyNeedColoursList
-                chartDescription = "Physiological Needs"
+                chartDescription = "Physiological"
             }
         case "safety":
             if let safeDecodedData = decodedData{
@@ -109,7 +134,7 @@ class NeedDetailViewController: UIViewController{
                 startIndex = 4
                 dataPoints = Utils.safetyNeeds
                 coloursList = Utils.safetyNeedColoursList
-                chartDescription = "Safety Needs"
+                chartDescription = "Safety"
             }
         case "love":
             if let safeDecodedData = decodedData{

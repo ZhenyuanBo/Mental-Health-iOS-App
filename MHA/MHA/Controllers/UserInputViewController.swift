@@ -5,7 +5,6 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
     
     private var savedActivityText: String?
     private var activityID: String?
-    private var readonly: Bool?
     private var selectedDate: Date = Date()
     
     @IBAction func unwind(_ unwindSegue: UIStoryboardSegue) {
@@ -65,7 +64,6 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
             activityID = UUID.init().uuidString
         }
         
-        readonly = true
         populateDailyActivityMap(date: selectedDate)
         cleanPyramidMapData()
         
@@ -87,7 +85,6 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
     
     @IBAction func needButtonPressed(_ sender: UIButton) {
         var selectedCategory = sender.titleLabel?.text
-        readonly = false
         if selectedCategory! == "personal security"{
             selectedCategory = "personal_security"
         }else if selectedCategory! == "self-esteem"{

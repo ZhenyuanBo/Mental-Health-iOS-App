@@ -97,6 +97,25 @@ extension Date {
         dateFormatter.locale = Locale.current
         return dateFormatter.date(from: dateStr) // replace Date String
     }
+    
+    static func getDates(forLastNDays nDays: Int) -> [String] {
+        let cal = NSCalendar.current
+        // start with today
+        var date = cal.startOfDay(for: Date())
+
+        var arrDates = [String]()
+
+        for _ in 1 ... nDays {
+            // move back in time by one day:
+            date = cal.date(byAdding: Calendar.Component.day, value: -1, to: date)!
+
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM/dd"
+            let dateString = dateFormatter.string(from: date)
+            arrDates.append(dateString)
+        }
+        return arrDates
+    }
 }
 
 //MARK: - Hex to UIColor
@@ -205,3 +224,5 @@ extension TimeChunk {
                      years: years)
   }
 }
+
+

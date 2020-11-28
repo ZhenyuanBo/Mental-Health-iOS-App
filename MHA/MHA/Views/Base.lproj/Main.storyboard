@@ -208,7 +208,7 @@
         <!--Need Detail View Controller-->
         <scene sceneID="zjf-Uv-JAy">
             <objects>
-                <viewController storyboardIdentifier="PopoverContentController" hidesBottomBarWhenPushed="YES" id="c5w-ks-mN0" customClass="NeedDetailViewController" customModule="MHA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="c5w-ks-mN0" customClass="NeedDetailViewController" customModule="MHA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Jg9-R9-mn7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -248,11 +248,18 @@
                         <viewLayoutGuide key="safeArea" id="hQm-6O-Do9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="1t1-wm-1Ed"/>
+                    <navigationItem key="navigationItem" id="1t1-wm-1Ed">
+                        <barButtonItem key="rightBarButtonItem" title="Flip Button" image="goforward" catalog="system" id="Syu-9v-cR6">
+                            <connections>
+                                <action selector="flipPressed:" destination="c5w-ks-mN0" id="52e-is-WcL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="backView" destination="zcd-R3-x1E" id="A8p-7V-4HX"/>
                         <outlet property="barChartView" destination="3Qr-Lf-uGT" id="vzQ-KE-UHQ"/>
-                        <outlet property="flashCardView" destination="vza-az-eVi" id="01p-j3-Lrg"/>
+                        <outlet property="flashCard" destination="vza-az-eVi" id="MfM-mz-yzk"/>
+                        <outlet property="frontView" destination="h8K-Qt-1Vb" id="jZq-Fz-ouQ"/>
                         <outlet property="lineChartView" destination="f37-LQ-fc5" id="lKy-OU-fiJ"/>
                     </connections>
                 </viewController>
