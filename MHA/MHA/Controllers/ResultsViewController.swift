@@ -53,12 +53,12 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         let selfActualizationView = SelfActualizationView(frame: CGRect(x: 150,
                                                                         y: 100,
                                                                         width: width,
-                                                                        height: height))
+                                                                        height: height), date: selectedDate)
         
-        let esteemView = EsteemView(frame: CGRect(x: 130, y:190, width: width+40, height: height))
-        let loveBelongingView = LoveView(frame: CGRect(x: 90, y: 280, width: width+120, height: height))
-        let safetyView = SafetyView(frame: CGRect(x:45, y: 370, width: width + 210, height: height))
-        let physiologicalView = PhysiologicalView(frame: CGRect(x: 10, y: 460, width: width + 280, height: height))
+        let esteemView = EsteemView(frame: CGRect(x: 130, y:190, width: width+40, height: height), date: selectedDate)
+        let loveBelongingView = LoveView(frame: CGRect(x: 90, y: 280, width: width+120, height: height), date: selectedDate)
+        let safetyView = SafetyView(frame: CGRect(x:45, y: 370, width: width + 210, height: height), date: selectedDate)
+        let physiologicalView = PhysiologicalView(frame: CGRect(x: 10, y: 460, width: width + 280, height: height), date: selectedDate)
         
         backView.addSubview(selfActualizationView)
         backView.addSubview(esteemView)
@@ -188,5 +188,6 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! NeedDetailViewController
         destinationVC.needCategoryLevel = currSelectedNeedLevel
+        destinationVC.selectedDate = selectedDate
     }
 }

@@ -6,12 +6,12 @@ class SafetyView: UIView {
     
     var activityList:[Int] = []
      
-    override init(frame: CGRect) {
+    init(frame: CGRect, date: Date) {
         super.init(frame: frame)
      
         self.backgroundColor = .white
         
-        let decodedData = loadDailyActivityResult(date: Date())
+        let decodedData = loadDailyActivityResult(date: date)
         if let safeDecodedData = decodedData{
             for needType in Utils.safetyNeeds{
                 if safeDecodedData[needType] != 0{

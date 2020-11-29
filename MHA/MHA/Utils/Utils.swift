@@ -90,9 +90,9 @@ extension Date {
         return localDate
     }
     
-    func getDate(dateStr: String) -> Date? {
+    static func getDate(dateStr: String) -> Date? {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.timeZone = TimeZone.current
         dateFormatter.locale = Locale.current
         return dateFormatter.date(from: dateStr) // replace Date String
@@ -110,9 +110,9 @@ extension Date {
             date = cal.date(byAdding: Calendar.Component.day, value: -1, to: date)!
 
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd"
+            dateFormatter.dateFormat = "yyyy-MM-dd"
             let dateString = dateFormatter.string(from: date)
-            arrDates.append(dateString)
+            arrDates.insert(dateString, at: 0)
         }
         return arrDates
     }

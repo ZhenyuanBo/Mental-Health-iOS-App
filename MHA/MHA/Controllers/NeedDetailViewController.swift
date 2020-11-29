@@ -7,7 +7,7 @@
 import UIKit
 import Charts
 
-class NeedDetailViewController: UIViewController{
+class NeedDetailViewController: UIViewController, ChartViewDelegate{
     
     @IBOutlet weak var flashCard: FlashCardView!
 
@@ -18,33 +18,38 @@ class NeedDetailViewController: UIViewController{
     
     
     var needCategoryLevel: String = ""
-    
-    let decodedData = loadDailyActivityResult(date: Date())
-    
+    var selectedDate:Date = Date()
+    var decodedData: DailyActivityData?
+
     var coloursList:[String] = []
     var chartDescription: String = ""
     var sortedColours:[UIColor] = []
     var categoryColours:[UIColor] = [UIColor.white, UIColor.white, UIColor.white, UIColor.white, UIColor.white, UIColor.white, UIColor.white]
-    
+    let lineChartColours: [String] = ["#583d72", "#db6400", "#db6400", "#fd3a69", "#61b15a", "#af6b58", "#16a596"]
+   
     var categoryValue: [Int] = []
     var sortedCategoryValue:[Int] = []
-    var dataPoints:[String] = []
+    var categories:[String] = []
     var startIndex: Int = 0
+    
+    var categoryTrendData:[String:[Int]] = [:]
+    var dates:[String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        decodedData = loadDailyActivityResult(date: selectedDate)
         
         flashCard.duration = 2.0
         flashCard.flipAnimation = .flipFromLeft
         flashCard.frontView = frontView
         flashCard.backView = backView
         
-        populateCategoryValue()
-        customizeBarChart(dataPoints: dataPoints, values: categoryValue)
-        let dates = Date.getDates(forLastNDays: 7)
-        let values = [1, 2, 0, 4, 5, 2, 1]
-        print(dates)
-//        customizeLineChart(dataPoints: dates, values: values)
+        //build bar chart
+        buildBarChart()
+        
+        //build line chart
+        buildLineChart()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,15 +60,48 @@ class NeedDetailViewController: UIViewController{
         flashCard.flip()
     }
     
-    private func customizeLineChart(dataPoints: [String], values: [Int]){
-        var dataEntries: [ChartDataEntry] = []
-        for i in 0..<dataPoints.count {
-            let dataEntry = ChartDataEntry(x: Double(i), y: Double(values[i]))
-          dataEntries.append(dataEntry)
+    private func buildBarChart(){
+        populateCategoryValue()
+        customizeBarChart(dataPoints: categories, values: categoryValue)
+    }
+    
+    private func buildLineChart(){
+        dates = Date.getDates(forLastNDays: 7)
+        var formattedDates:[String] = []
+        
+        for date in dates{
+            let dateObj = Date.getDate(dateStr: date)
+            formattedDates.append((dateObj?.dateFormatter(format: "MM/dd"))!)
         }
-        let lineChartDataSet = LineChartDataSet(entries: dataEntries, label: nil)
-        let lineChartData = LineChartData(dataSet: lineChartDataSet)
+        populateWeeklyCategoryValue()
+        customizeLineChart(dataPoints: formattedDates, categoryTrendValues: categoryTrendData)
+    }
+    
+    private func customizeLineChart(dataPoints: [String], categoryTrendValues: [String:[Int]]){
+        var datasets:[LineChartDataSet] = []
+        for category in categoryTrendValues.keys{
+            var dataEntries: [ChartDataEntry] = []
+            for i in 0..<dataPoints.count {
+                let dataEntry = ChartDataEntry(x: Double(i), y: Double(categoryTrendValues[category]![i]))
+              dataEntries.append(dataEntry)
+            }
+            let lineChartDataSet = LineChartDataSet(entries: dataEntries, label: category)
+            lineChartDataSet.valueFont = UIFont(name: "HelveticaNeue-Light", size: 20) ?? UIFont.systemFont(ofSize: 20)
+            lineChartDataSet.colors = [hexStringToUIColor(hex: lineChartColours[Int(arc4random_uniform(UInt32(lineChartColours.count)))])]
+            datasets.append(lineChartDataSet)
+        }
+        
+        let marker = ChartMarker()
+        marker.chartView = lineChartView
+        lineChartView.marker = marker
+        
+        let lineChartData = LineChartData(dataSets: datasets)
         lineChartView.data = lineChartData
+        
+        let formatter: CustomIntFormatter = CustomIntFormatter()
+        lineChartView.data?.setValueFormatter(formatter)
+        
+        lineChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: dataPoints)
     }
     
     private func customizeBarChart(dataPoints: [String], values: [Int]) {
@@ -87,9 +125,7 @@ class NeedDetailViewController: UIViewController{
         barChartView.data?.setValueFormatter(formatter)
 
         barChartView.leftAxis.axisMinimum = 0.0
-        barChartView.extraTopOffset = 15.0
-        barChartView.extraBottomOffset = 20.0
-        
+  
         barChartView.legend.enabled = false
         barChartView.rightAxis.enabled = false
         barChartView.xAxis.drawGridLinesEnabled = false
@@ -116,7 +152,7 @@ class NeedDetailViewController: UIViewController{
                 sortedCategoryValue = categoryValue
                 sortedCategoryValue.sort(){$0>$1}
                 startIndex = 6
-                dataPoints = Utils.phyNeeds
+                categories = Utils.phyNeeds
                 coloursList = Utils.phyNeedColoursList
                 chartDescription = "Physiological"
             }
@@ -132,7 +168,7 @@ class NeedDetailViewController: UIViewController{
                 sortedCategoryValue = categoryValue
                 sortedCategoryValue.sort(){$0>$1}
                 startIndex = 4
-                dataPoints = Utils.safetyNeeds
+                categories = Utils.safetyNeeds
                 coloursList = Utils.safetyNeedColoursList
                 chartDescription = "Safety"
             }
@@ -148,7 +184,7 @@ class NeedDetailViewController: UIViewController{
                 sortedCategoryValue = categoryValue
                 sortedCategoryValue.sort(){$0>$1}
                 startIndex = 3
-                dataPoints = Utils.loveNeeds
+                categories = Utils.loveNeeds
                 coloursList = Utils.loveNeedColoursList
                 chartDescription = "Love & Belonging"
             }
@@ -164,7 +200,7 @@ class NeedDetailViewController: UIViewController{
                 sortedCategoryValue = categoryValue
                 sortedCategoryValue.sort(){$0>$1}
                 startIndex = 5
-                dataPoints = Utils.esteemNeeds
+                categories = Utils.esteemNeeds
                 coloursList = Utils.esteemNeedColoursList
                 chartDescription = "Esteem"
             }
@@ -179,7 +215,7 @@ class NeedDetailViewController: UIViewController{
                 sortedCategoryValue = categoryValue
                 sortedCategoryValue.sort(){$0>$1}
                 startIndex = 1
-                dataPoints = Utils.selfActualNeeds
+                categories = Utils.selfActualNeeds
                 coloursList = Utils.selfActualNeedColoursList
                 chartDescription = "Self-Actualization"
             }
@@ -215,6 +251,28 @@ class NeedDetailViewController: UIViewController{
             }
         }
     }
+    
+    private func populateWeeklyCategoryValue(){
+        for category in categories{
+            var categoryValues:[Int] = []
+            for date in dates{
+                let dateObj = Date.getDate(dateStr: date)
+                let decodedData = loadDailyActivityResult(date: dateObj!)
+                if let safeDecodedData = decodedData{
+                    categoryValues.append(safeDecodedData[category])
+                }else{
+                    categoryValues.append(0)
+                }
+            }
+            categoryTrendData[category] = categoryValues
+        }
+    }
+    
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        print(chartView)
+    }
+
+
 }
 
 //MARK: - Format chart data value to integer
@@ -222,6 +280,46 @@ class CustomIntFormatter: NSObject, IValueFormatter{
     public func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
         let correctValue = Int(value)
         return String(correctValue)
+    }
+}
+
+
+//MARK: - Custom Chart Marker
+class ChartMarker: MarkerView {
+    private var text = String()
+
+    private let drawAttributes: [NSAttributedString.Key: Any] = [
+        .font: UIFont.systemFont(ofSize: 15),
+        .foregroundColor: UIColor.white,
+        .backgroundColor: UIColor.darkGray
+    ]
+
+    override func refreshContent(entry: ChartDataEntry, highlight: Highlight) {
+        text = String(entry.y)
+    }
+
+    override func draw(context: CGContext, point: CGPoint) {
+        super.draw(context: context, point: point)
+
+        let sizeForDrawing = text.size(withAttributes: drawAttributes)
+        bounds.size = sizeForDrawing
+        offset = CGPoint(x: -sizeForDrawing.width / 2, y: -sizeForDrawing.height - 4)
+
+        let offset = offsetForDrawing(atPoint: point)
+        let originPoint = CGPoint(x: point.x + offset.x, y: point.y + offset.y)
+        let rectForText = CGRect(origin: originPoint, size: sizeForDrawing)
+        drawText(text: text, rect: rectForText, withAttributes: drawAttributes)
+    }
+
+    private func drawText(text: String, rect: CGRect, withAttributes attributes: [NSAttributedString.Key: Any]? = nil) {
+        let size = bounds.size
+        let centeredRect = CGRect(
+            x: rect.origin.x + (rect.size.width - size.width) / 2,
+            y: rect.origin.y + (rect.size.height - size.height) / 2,
+            width: size.width,
+            height: size.height
+        )
+        text.draw(in: centeredRect, withAttributes: attributes)
     }
 }
 

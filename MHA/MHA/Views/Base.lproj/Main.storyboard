@@ -213,40 +213,67 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vza-az-eVi" customClass="FlashCardView" customModule="MHA" customModuleProvider="target">
-                                <rect key="frame" x="20" y="136" width="374" height="691"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vza-az-eVi" customClass="FlashCardView" customModule="MHA" customModuleProvider="target">
+                                <rect key="frame" x="20" y="108" width="374" height="719"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zcd-R3-x1E" userLabel="BackView">
-                                        <rect key="frame" x="0.0" y="-9" width="374" height="700"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zcd-R3-x1E" userLabel="BackView">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="719"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f37-LQ-fc5" customClass="LineChartView" customModule="Charts">
-                                                <rect key="frame" x="4" y="8" width="366" height="684"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CAc-oc-hC4" customClass="LineChartView" customModule="Charts">
+                                                <rect key="frame" x="8" y="6" width="358" height="707"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="CAc-oc-hC4" secondAttribute="bottom" constant="6" id="F2Q-gg-NGX"/>
+                                            <constraint firstItem="CAc-oc-hC4" firstAttribute="leading" secondItem="zcd-R3-x1E" secondAttribute="leading" constant="8" id="J2V-YK-ZkV"/>
+                                            <constraint firstAttribute="trailing" secondItem="CAc-oc-hC4" secondAttribute="trailing" constant="8" id="lAA-c6-AzK"/>
+                                            <constraint firstItem="CAc-oc-hC4" firstAttribute="top" secondItem="zcd-R3-x1E" secondAttribute="top" constant="6" id="rgI-NR-jWU"/>
+                                        </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h8K-Qt-1Vb" userLabel="FrontView">
-                                        <rect key="frame" x="0.0" y="-17" width="374" height="708"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cE4-7X-7ox" userLabel="FrontView">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="719"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Qr-Lf-uGT" customClass="BarChartView" customModule="Charts">
-                                                <rect key="frame" x="4" y="0.0" width="366" height="705"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dOz-ZB-vVe" customClass="BarChartView" customModule="Charts">
+                                                <rect key="frame" x="8" y="8" width="358" height="703"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="dOz-ZB-vVe" secondAttribute="trailing" constant="8" id="MIm-Mg-cBt"/>
+                                            <constraint firstItem="dOz-ZB-vVe" firstAttribute="top" secondItem="cE4-7X-7ox" secondAttribute="top" constant="8" id="iT9-la-QGF"/>
+                                            <constraint firstItem="dOz-ZB-vVe" firstAttribute="leading" secondItem="cE4-7X-7ox" secondAttribute="leading" constant="8" id="pr7-kT-m2D"/>
+                                            <constraint firstAttribute="bottom" secondItem="dOz-ZB-vVe" secondAttribute="bottom" constant="8" id="rGZ-UF-7Qa"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="zcd-R3-x1E" firstAttribute="top" secondItem="vza-az-eVi" secondAttribute="top" id="7jN-80-k8D"/>
+                                    <constraint firstAttribute="trailing" secondItem="cE4-7X-7ox" secondAttribute="trailing" id="83M-nO-Ckr"/>
+                                    <constraint firstItem="cE4-7X-7ox" firstAttribute="top" secondItem="vza-az-eVi" secondAttribute="top" id="Fur-gb-wkK"/>
+                                    <constraint firstAttribute="bottom" secondItem="zcd-R3-x1E" secondAttribute="bottom" id="JcK-9c-hg7"/>
+                                    <constraint firstAttribute="bottom" secondItem="cE4-7X-7ox" secondAttribute="bottom" id="Mv7-is-GJI"/>
+                                    <constraint firstAttribute="trailing" secondItem="zcd-R3-x1E" secondAttribute="trailing" id="bYR-Nv-bCI"/>
+                                    <constraint firstItem="cE4-7X-7ox" firstAttribute="leading" secondItem="vza-az-eVi" secondAttribute="leading" id="cpm-Gv-1ys"/>
+                                    <constraint firstAttribute="trailing" secondItem="cE4-7X-7ox" secondAttribute="trailing" id="fMs-LM-cqu"/>
+                                    <constraint firstItem="zcd-R3-x1E" firstAttribute="leading" secondItem="vza-az-eVi" secondAttribute="leading" id="iOO-Zn-bh8"/>
+                                    <constraint firstItem="cE4-7X-7ox" firstAttribute="leading" secondItem="vza-az-eVi" secondAttribute="leading" id="sYH-cJ-XFs"/>
+                                    <constraint firstItem="cE4-7X-7ox" firstAttribute="top" secondItem="vza-az-eVi" secondAttribute="top" id="uPN-b6-aR9"/>
+                                    <constraint firstAttribute="bottom" secondItem="cE4-7X-7ox" secondAttribute="bottom" id="xlH-i7-v9H"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hQm-6O-Do9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hQm-6O-Do9" firstAttribute="bottom" secondItem="vza-az-eVi" secondAttribute="bottom" constant="35" id="G0k-aL-wVG"/>
+                            <constraint firstItem="vza-az-eVi" firstAttribute="top" secondItem="hQm-6O-Do9" secondAttribute="top" constant="20" id="NiD-ge-hkr"/>
+                            <constraint firstItem="hQm-6O-Do9" firstAttribute="trailing" secondItem="vza-az-eVi" secondAttribute="trailing" constant="20" id="rQl-CL-b6K"/>
+                            <constraint firstItem="vza-az-eVi" firstAttribute="leading" secondItem="hQm-6O-Do9" secondAttribute="leading" constant="20" id="yDy-Lx-8KJ"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="1t1-wm-1Ed">
                         <barButtonItem key="rightBarButtonItem" title="Flip Button" image="goforward" catalog="system" id="Syu-9v-cR6">
@@ -257,15 +284,15 @@
                     </navigationItem>
                     <connections>
                         <outlet property="backView" destination="zcd-R3-x1E" id="A8p-7V-4HX"/>
-                        <outlet property="barChartView" destination="3Qr-Lf-uGT" id="vzQ-KE-UHQ"/>
+                        <outlet property="barChartView" destination="dOz-ZB-vVe" id="mCP-Z0-add"/>
                         <outlet property="flashCard" destination="vza-az-eVi" id="MfM-mz-yzk"/>
-                        <outlet property="frontView" destination="h8K-Qt-1Vb" id="jZq-Fz-ouQ"/>
-                        <outlet property="lineChartView" destination="f37-LQ-fc5" id="lKy-OU-fiJ"/>
+                        <outlet property="frontView" destination="cE4-7X-7ox" id="Cx7-O2-xIx"/>
+                        <outlet property="lineChartView" destination="CAc-oc-hC4" id="ka8-sO-9CK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1IE-Xa-K8B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4171" y="-322"/>
+            <point key="canvasLocation" x="4169.5652173913049" y="-322.09821428571428"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="6kX-w8-s7q">
@@ -840,7 +867,7 @@
                         <outlet property="frontView" destination="4Rs-ho-LWL" id="ofG-fR-Vbv"/>
                         <outlet property="pieChartTitle" destination="j0G-KR-wnL" id="B1u-LJ-gIb"/>
                         <outlet property="pieChartView" destination="kwS-HX-TCA" id="K5V-z8-LLR"/>
-                        <segue destination="c5w-ks-mN0" kind="show" identifier="ResultToStats" id="kPB-MC-EyE"/>
+                        <segue destination="c5w-ks-mN0" kind="show" identifier="ResultToStats" id="fHz-dO-hM7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y00-8J-toE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -902,7 +929,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h9w-Eh-1ez" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4676.811594202899" y="397.76785714285711"/>
+            <point key="canvasLocation" x="5287" y="633"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

@@ -12,11 +12,6 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
     var selectedActivitiyText: String?
     var selectedDate: Date?
     
-    var colors = [UIColor.blue,
-                  UIColor.yellow,
-                  UIColor.green,
-                  UIColor.red]
-    
     lazy var customCalendar: Calendar = {
         let customNSCalendar = NSCalendar(identifier: NSCalendar.Identifier.gregorian)!
         customNSCalendar.timeZone = TimeZone(abbreviation: "EST")!
