@@ -5,6 +5,8 @@ import RealmSwift
 
 class CalendarViewController: DayViewController, DatePickerControllerDelegate {
     
+    @IBOutlet weak var calendarView: UIView!
+    
     let realm = try! Realm()
 
     var generatedEvents = [EventDescriptor]()
@@ -22,7 +24,9 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
     override func loadView() {
         calendar = customCalendar
         dayView = DayView(calendar: calendar)
-        view = dayView
+        calendarView = dayView
+//        view = dayView
+        
     }
     
     override func viewDidLoad() {

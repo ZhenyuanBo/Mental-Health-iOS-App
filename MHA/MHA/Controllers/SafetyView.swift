@@ -67,14 +67,14 @@ class SafetyView: UIView {
             for i in 0..<activityList.count{
                 if i==0{
                     currColour = hexStringToUIColor(hex: Utils.safetyNeedColoursList[j]).cgColor
-                    colors.insert(currColour, at: 0)
+                    colors.append(currColour)
                 }else if activityList[i] != activityList[i-1]{
                     j -= 1
                     currColour = hexStringToUIColor(hex: Utils.safetyNeedColoursList[j]).cgColor
-                    colors.insert(currColour, at: 0)
+                    colors.append(currColour)
                 }else if activityList[i] == activityList[i-1]{
                     currColour = hexStringToUIColor(hex: Utils.safetyNeedColoursList[j]).cgColor
-                    colors.insert(currColour, at: 0)
+                    colors.append(currColour)
                 }
             }
             

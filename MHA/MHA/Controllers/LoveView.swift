@@ -65,14 +65,14 @@ class LoveView: UIView {
             for i in 0..<activityList.count{
                 if i==0{
                     currColour = hexStringToUIColor(hex: Utils.loveNeedColoursList[j]).cgColor
-                    colors.insert(currColour, at: 0)
+                    colors.append(currColour)
                 }else if activityList[i] != activityList[i-1]{
                     j -= 1
                     currColour = hexStringToUIColor(hex: Utils.loveNeedColoursList[j]).cgColor
-                    colors.insert(currColour, at: 0)
+                    colors.append(currColour)
                 }else if activityList[i] == activityList[i-1]{
                     currColour = hexStringToUIColor(hex: Utils.loveNeedColoursList[j]).cgColor
-                    colors.insert(currColour, at: 0)
+                    colors.append(currColour)
                 }
             }
             

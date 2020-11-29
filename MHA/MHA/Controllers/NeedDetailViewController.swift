@@ -295,7 +295,7 @@ class ChartMarker: MarkerView {
     }
 
     private let drawAttributes: [NSAttributedString.Key: Any] = [
-        .font: UIFont.systemFont(ofSize: 15),
+        .font: UIFont.systemFont(ofSize: 20),
         .foregroundColor: UIColor.white,
         .backgroundColor: UIColor.darkGray
     ]

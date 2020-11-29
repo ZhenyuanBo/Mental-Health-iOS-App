@@ -48,8 +48,8 @@ class PhysiologicalView: UIView {
         if activityList.count>0{
             let gradient = CAGradientLayer()
             gradient.frame = path.bounds
-            gradient.endPoint = CGPoint(x: 0.0, y: 1.0)
-            gradient.startPoint = CGPoint(x: 1.0, y: 1.0)
+            gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
+            gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
             
             if activityList.count==1{
                 gradient.locations = [0.0, 0.2]
@@ -73,14 +73,14 @@ class PhysiologicalView: UIView {
             for i in 0..<activityList.count{
                 if i==0{
                     currColour = hexStringToUIColor(hex: Utils.phyNeedColoursList[j]).cgColor
-                    colors.insert(currColour, at: 0)
+                    colors.append(currColour)
                 }else if activityList[i] != activityList[i-1]{
                     j -= 1
                     currColour = hexStringToUIColor(hex: Utils.phyNeedColoursList[j]).cgColor
-                    colors.insert(currColour, at: 0)
+                    colors.append(currColour)
                 }else if activityList[i] == activityList[i-1]{
                     currColour = hexStringToUIColor(hex: Utils.phyNeedColoursList[j]).cgColor
-                    colors.insert(currColour, at: 0)
+                    colors.append(currColour)
                 }
             }
             

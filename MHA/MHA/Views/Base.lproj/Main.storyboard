@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -269,8 +270,11 @@
                         <viewLayoutGuide key="safeArea" id="hQm-6O-Do9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="vza-az-eVi" firstAttribute="leading" secondItem="hQm-6O-Do9" secondAttribute="leading" constant="20" id="5Qp-Ll-2CU"/>
                             <constraint firstItem="hQm-6O-Do9" firstAttribute="bottom" secondItem="vza-az-eVi" secondAttribute="bottom" constant="35" id="G0k-aL-wVG"/>
-                            <constraint firstItem="vza-az-eVi" firstAttribute="top" secondItem="hQm-6O-Do9" secondAttribute="top" constant="20" id="NiD-ge-hkr"/>
+                            <constraint firstItem="vza-az-eVi" firstAttribute="top" secondItem="hQm-6O-Do9" secondAttribute="top" constant="20" id="W2p-fn-Et6"/>
+                            <constraint firstItem="hQm-6O-Do9" firstAttribute="trailing" secondItem="vza-az-eVi" secondAttribute="trailing" constant="20" id="bzn-nw-cbJ"/>
+                            <constraint firstItem="hQm-6O-Do9" firstAttribute="bottom" secondItem="vza-az-eVi" secondAttribute="bottom" constant="35" id="n2i-iW-7bp"/>
                             <constraint firstItem="hQm-6O-Do9" firstAttribute="trailing" secondItem="vza-az-eVi" secondAttribute="trailing" constant="20" id="rQl-CL-b6K"/>
                             <constraint firstItem="vza-az-eVi" firstAttribute="leading" secondItem="hQm-6O-Do9" secondAttribute="leading" constant="20" id="yDy-Lx-8KJ"/>
                         </constraints>
@@ -712,6 +716,9 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items>
                                     <tabBarItem title="Calendar" image="calendar" catalog="system" selectedImage="calendar" id="2w3-iI-3xA"/>
+                                    <tabBarItem title="Setting" id="TsN-Pl-aDZ">
+                                        <imageReference key="image" image="gearshape" catalog="system" symbolScale="large"/>
+                                    </tabBarItem>
                                     <tabBarItem title="Report" image="chart.pie.fill" catalog="system" id="uDq-LG-Qyh"/>
                                 </items>
                             </tabBar>
@@ -761,37 +768,74 @@
                         <outlet property="userInputTabBar" destination="r82-S2-e6Q" id="1ab-V6-SLD"/>
                         <segue destination="tpP-MW-a8o" kind="show" identifier="UserInputToResult" id="kNe-fZ-oO4"/>
                         <segue destination="6Aq-Mh-V8w" kind="show" identifier="UserInputToCalendar" id="8NX-6J-0MJ"/>
+                        <segue destination="lJI-G8-fw4" kind="show" id="GK2-me-LGj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kPX-G5-h0F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2289.8550724637685" y="413.83928571428572"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="KCP-wy-xxY">
+            <objects>
+                <viewController id="lJI-G8-fw4" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1zl-Ml-uXW">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="O0r-xG-1bQ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Z3K-mi-FD5"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lsz-yO-cyn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2083" y="1266"/>
+        </scene>
         <!--Calendar View Controller-->
         <scene sceneID="j83-Xa-e9U">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="6Aq-Mh-V8w" customClass="CalendarViewController" customModule="MHA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="6Aq-Mh-V8w" customClass="CalendarViewController" customModule="MHA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IYm-SI-JBc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="abr-Zc-fBb" userLabel="CalendarView">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OYK-9J-dy0">
+                                <rect key="frame" x="0.0" y="813" width="414" height="49"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <items>
+                                    <tabBarItem systemItem="favorites" id="BlS-Vo-kQ8"/>
+                                    <tabBarItem systemItem="more" id="w3W-bt-atj"/>
+                                </items>
+                            </tabBar>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="hwv-Dj-gGz"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="v01-gz-U9D">
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="UaA-aL-DiM">
-                            <connections>
-                                <action selector="composePressed:" destination="6Aq-Mh-V8w" id="rZp-OQ-QL8"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Report" image="chart.pie.fill" catalog="system" id="cvm-te-AsZ"/>
+                            <barButtonItem systemItem="compose" id="UaA-aL-DiM">
+                                <connections>
+                                    <action selector="composePressed:" destination="6Aq-Mh-V8w" id="rZp-OQ-QL8"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="calendarView" destination="abr-Zc-fBb" id="EW4-DD-ffh"/>
                         <segue destination="UpQ-8x-WkR" kind="unwind" identifier="unwindToUserInput" unwindAction="unwind:" id="XxU-t2-szg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MTY-4c-1dl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="UpQ-8x-WkR" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3374" y="843"/>
+            <point key="canvasLocation" x="3279.7101449275365" y="1081.4732142857142"/>
         </scene>
         <!--Results View Controller-->
         <scene sceneID="5FM-86-JjT">
@@ -938,6 +982,7 @@
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>
         <image name="chart.pie.fill" catalog="system" width="128" height="121"/>
+        <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="goforward" catalog="system" width="121" height="128"/>
         <image name="textfield" width="298" height="93"/>
         <image name="yourself" width="176" height="233"/>
