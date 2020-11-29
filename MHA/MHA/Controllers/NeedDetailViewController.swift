@@ -50,6 +50,8 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
         
         //build line chart
         buildLineChart()
+        
+        self.lineChartView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -85,15 +87,12 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
                 let dataEntry = ChartDataEntry(x: Double(i), y: Double(categoryTrendValues[category]![i]))
               dataEntries.append(dataEntry)
             }
+            print(category)
             let lineChartDataSet = LineChartDataSet(entries: dataEntries, label: category)
             lineChartDataSet.valueFont = UIFont(name: "HelveticaNeue-Light", size: 20) ?? UIFont.systemFont(ofSize: 20)
             lineChartDataSet.colors = [hexStringToUIColor(hex: lineChartColours[Int(arc4random_uniform(UInt32(lineChartColours.count)))])]
             datasets.append(lineChartDataSet)
         }
-        
-        let marker = ChartMarker()
-        marker.chartView = lineChartView
-        lineChartView.marker = marker
         
         let lineChartData = LineChartData(dataSets: datasets)
         lineChartView.data = lineChartData
@@ -269,10 +268,11 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
     }
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        print(chartView)
+        let selectedCategory = Array(categoryTrendData.keys)[highlight.dataSetIndex]
+        let marker = ChartMarker()
+        marker.setSelectedCategory(selectedCategory: selectedCategory)
+        lineChartView.marker = marker
     }
-
-
 }
 
 //MARK: - Format chart data value to integer
@@ -287,15 +287,21 @@ class CustomIntFormatter: NSObject, IValueFormatter{
 //MARK: - Custom Chart Marker
 class ChartMarker: MarkerView {
     private var text = String()
+    
+    private var category = ""
+    
+    public func setSelectedCategory(selectedCategory: String){
+        category = selectedCategory
+    }
 
     private let drawAttributes: [NSAttributedString.Key: Any] = [
         .font: UIFont.systemFont(ofSize: 15),
         .foregroundColor: UIColor.white,
         .backgroundColor: UIColor.darkGray
     ]
-
+    
     override func refreshContent(entry: ChartDataEntry, highlight: Highlight) {
-        text = String(entry.y)
+        text = category
     }
 
     override func draw(context: CGContext, point: CGPoint) {
