@@ -74,7 +74,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         UIView.transition(with: window,
                             duration: 0.5,
-                            options: [.transitionFlipFromLeft],
+                            options:[.transitionCrossDissolve],
                             animations: nil,
                             completion: nil)
     }

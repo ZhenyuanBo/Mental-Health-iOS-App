@@ -826,7 +826,7 @@
         <!--Results View Controller-->
         <scene sceneID="5FM-86-JjT">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="tpP-MW-a8o" customClass="ResultsViewController" customModule="MHA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="tpP-MW-a8o" customClass="ResultsViewController" customModule="MHA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FQs-4K-puT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -54,7 +54,6 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
             
             let offsetDate = dateOnly(date: date, calendar: dayView.calendar)
             
-            print(offsetDate)
             dayView.state?.move(to: offsetDate)
         }
         controller.dismiss(animated: true, completion: nil)

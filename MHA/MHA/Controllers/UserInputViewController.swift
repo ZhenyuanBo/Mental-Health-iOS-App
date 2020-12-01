@@ -265,7 +265,6 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
                 dailyActivityMap[needType] = safeDecodedNeedActivityData[needType]
             }
         }
-        print(dailyActivityMap)
     }
     
     private func populateSelectedNeed(activityID: String){
@@ -273,7 +272,6 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
         if selectedActivityNeed.count>0{
             selectedNeeds = selectedActivityNeed[0].selectedNeeds
             let selectedNeedsArray = selectedNeeds.components(separatedBy: " ")
-            print(selectedNeedsArray)
             for need in selectedNeedsArray{
                 setPyramidMapData(need: need)
             }

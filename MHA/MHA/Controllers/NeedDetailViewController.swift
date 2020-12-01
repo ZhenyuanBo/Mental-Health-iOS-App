@@ -87,7 +87,6 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
                 let dataEntry = ChartDataEntry(x: Double(i), y: Double(categoryTrendValues[category]![i]))
               dataEntries.append(dataEntry)
             }
-            print(category)
             let lineChartDataSet = LineChartDataSet(entries: dataEntries, label: category)
             lineChartDataSet.valueFont = UIFont(name: "HelveticaNeue-Light", size: 20) ?? UIFont.systemFont(ofSize: 20)
             lineChartDataSet.colors = [hexStringToUIColor(hex: lineChartColours[Int(arc4random_uniform(UInt32(lineChartColours.count)))])]
