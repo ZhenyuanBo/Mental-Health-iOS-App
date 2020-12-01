@@ -23,7 +23,6 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
     let realm = try! Realm()
     let encoder = JSONEncoder()
     
-    @IBOutlet weak var userInputTabBar: UITabBar!
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var frontView: UIView!
     @IBOutlet weak var flashCard: FlashCardView!
@@ -43,7 +42,7 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
             dailyActivityMap[need] = 0
         }
         
-        userInputTabBar.delegate = self
+//        userInputTabBar.delegate = self
         
         self.view.addGestureRecognizer(leftSwipeGestureRecognizer)
         self.view.addGestureRecognizer(rightSwipeGestureRecognizer)

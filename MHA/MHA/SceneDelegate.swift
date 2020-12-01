@@ -17,6 +17,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        // if user is logged in before
+        if let loggedUsername = UserDefaults.standard.string(forKey: "username"){
+            // instantiate the main tab bar controller and set it as root view controller
+            // using the storyboard identifier we set earlier
+            let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
+            window?.rootViewController = mainTabBarController
+        } else {
+            // if user isn't logged in
+            // instantiate the navigation controller and set it as root view controller
+            // using the storyboard identifier we set earlier
+            let loginNavController = storyboard.instantiateViewController(identifier: "SigninNavigationController")
+            window?.rootViewController = loginNavController
+        }
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -45,6 +62,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+    }
+    
+    func changeRootViewController(_ vc: UIViewController, animated: Bool = true) {
+        guard let window = self.window else {
+            return
+        }
+        
+        // change the root view controller to your specific view controller
+        window.rootViewController = vc
+        
+        UIView.transition(with: window,
+                            duration: 0.5,
+                            options: [.transitionFlipFromLeft],
+                            animations: nil,
+                            completion: nil)
     }
 
 }

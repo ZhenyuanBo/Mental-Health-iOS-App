@@ -26,7 +26,11 @@ class SignInViewController: UIViewController {
                 if let e = error{
                     print(e)
                 }else{
-                    self.performSegue(withIdentifier: Utils.signinUserInputSegue, sender: self)
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
+                        
+                        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
+//                    self.performSegue(withIdentifier: Utils.signinUserInputSegue, sender: self)
                 }
             }
         }

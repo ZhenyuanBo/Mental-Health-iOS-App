@@ -24,9 +24,7 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
     override func loadView() {
         calendar = customCalendar
         dayView = DayView(calendar: calendar)
-        calendarView = dayView
-//        view = dayView
-        
+        view = dayView
     }
     
     override func viewDidLoad() {
