@@ -1,5 +1,10 @@
-import UIKit
+/*
+ Author: Zhenyuan Bo
+ File Description: presents the date picker view
+ Date: Nov 23, 2020
+ */
 
+import UIKit
 
 protocol DatePickerControllerDelegate: AnyObject {
   func datePicker(controller: DatePickerController, didSelect date: Date?)

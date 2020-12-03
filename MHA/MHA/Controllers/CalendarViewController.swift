@@ -1,11 +1,15 @@
+/*
+ Author: Zhenyuan Bo
+ File Description: presents the calendar view
+ Date: Nov 23, 2020
+ */
+
 import UIKit
 import CalendarKit
 import DateToolsSwift
 import RealmSwift
 
 class CalendarViewController: DayViewController, DatePickerControllerDelegate {
-    
-    @IBOutlet weak var calendarView: UIView!
     
     let realm = try! Realm()
 

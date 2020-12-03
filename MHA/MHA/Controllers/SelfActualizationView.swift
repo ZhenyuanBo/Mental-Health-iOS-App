@@ -1,3 +1,9 @@
+/*
+ Author: Zhenyuan Bo
+ File Description: presents the self-acutalization level
+ Date: Nov 23, 2020
+ */
+
 import UIKit
 
 class SelfActualizationView: UIView {

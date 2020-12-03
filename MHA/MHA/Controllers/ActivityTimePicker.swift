@@ -1,3 +1,9 @@
+/*
+ Author: Zhenyuan Bo
+ File Description: presents the activity time picker view
+ Date: Nov 23, 2020
+ */
+
 import UIKit
 
 protocol ActivityTimePickerDelegate: class {

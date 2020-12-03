@@ -1,3 +1,9 @@
+/*
+ Author: Zhenyuan Bo
+ File Description: presents the user input view
+ Date: Nov 23, 2020
+ */
+
 import UIKit
 import RealmSwift
 

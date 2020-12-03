@@ -1,5 +1,10 @@
+/*
+ Author: Zhenyuan Bo
+ File Description: presents the physiological level
+ Date: Nov 23, 2020
+ */
+
 import UIKit
-import AMPopTip
 
 class PhysiologicalView: UIView {
     

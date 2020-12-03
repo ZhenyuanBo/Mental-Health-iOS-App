@@ -1,3 +1,9 @@
+/*
+ Author: Zhenyuan Bo
+ File Description: presents the results view
+ Date: Nov 23, 2020
+ */
+
 import UIKit
 import Charts
 import AMPopTip

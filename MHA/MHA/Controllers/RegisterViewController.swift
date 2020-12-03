@@ -1,9 +1,8 @@
-//
-//  RegisterViewController.swift
-//  MHA
-//
-//  Created by Zhenyuan Bo on 2020-11-02.
-//
+/*
+ Author: Zhenyuan Bo
+ File Description: presents the register view
+ Date: Nov 23, 2020
+ */
 
 import UIKit
 import Firebase

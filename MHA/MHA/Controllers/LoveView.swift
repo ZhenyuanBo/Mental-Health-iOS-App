@@ -1,3 +1,9 @@
+/*
+ Author: Zhenyuan Bo
+ File Description: presents the love & belonging level
+ Date: Nov 23, 2020
+ */
+
 import UIKit
 
 class LoveView: UIView {
