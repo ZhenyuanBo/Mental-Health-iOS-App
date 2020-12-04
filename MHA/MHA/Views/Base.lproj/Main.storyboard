@@ -11,7 +11,6 @@
         <!--Navigation Controller-->
         <scene sceneID="wFK-v7-e56">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="LcR-Nv-V3K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="SigninNavigationController" id="i9T-Gf-lNy" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="pWt-On-E4c"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="omC-ru-cR6">
@@ -27,6 +26,7 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="w4M-5F-20a"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LcR-Nv-V3K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1320" y="7"/>
         </scene>
@@ -401,7 +401,7 @@
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="themeCell" id="klh-Ii-iYt" customClass="ThemeTableViewCell" customModule="MHA" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="themesCell" id="klh-Ii-iYt" customClass="ThemeTableViewCell" customModule="MHA" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="klh-Ii-iYt" id="96c-2e-Opy">
@@ -450,7 +450,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Settings" id="TGX-bs-PPD"/>
                     <connections>
-                        <segue destination="JSQ-0C-ptO" kind="show" id="hzw-8d-c8J"/>
+                        <segue destination="JSQ-0C-ptO" kind="show" identifier="themeDetails" id="hzw-8d-c8J"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vt8-Ga-YJt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -466,7 +466,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="GD7-te-sfC">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="themeCell" id="GD7-te-sfC">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GD7-te-sfC" id="3DA-t4-SyC">

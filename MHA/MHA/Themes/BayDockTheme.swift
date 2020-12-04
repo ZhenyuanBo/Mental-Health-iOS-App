@@ -1,6 +1,6 @@
 import UIKit
 
-class BayDockTheme{
+class BayDockTheme:ThemeProtocol{
     var background: UIColor = hexStringToUIColor(hex: "#81A3A7")
 }
 

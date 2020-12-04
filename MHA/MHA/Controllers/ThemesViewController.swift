@@ -1,7 +1,11 @@
-
 import UIKit
 
 class ThemesViewController: UITableViewController {
+    
+    let themes = ["Light", "Natural Elegance", "Fiery Red Landscape",
+                         "Summer Blueberries", "Dock of Bay", "Earthy Greens",
+                         "Berries Galore", "Tropical", "Lemon",
+                         "Romantic", "Winter Barn"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -10,27 +14,21 @@ class ThemesViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return themes.count
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        <#code#>
-    }
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        <#code#>
+//    }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "themeCell", for: indexPath)
+        cell.textLabel?.text = themes[indexPath.row]
         return cell
     }
-    */
 
 }

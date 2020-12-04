@@ -1,5 +1,5 @@
 import UIKit
 
-class FieryRedLanscapeTheme{
+class FieryRedLanscapeTheme:ThemeProtocol{
     var background: UIColor = hexStringToUIColor(hex: "#8D2F23")
 }

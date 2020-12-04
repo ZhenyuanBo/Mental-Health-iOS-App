@@ -1,5 +1,5 @@
 import UIKit
 
-class NaturalEleganceTheme{
+class NaturalEleganceTheme:ThemeProtocol{
     var background: UIColor = hexStringToUIColor(hex: "#B5C184")
 }
