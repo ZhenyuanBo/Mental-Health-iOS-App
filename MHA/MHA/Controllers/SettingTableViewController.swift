@@ -25,14 +25,15 @@ class SettingTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell?
         if indexPath.row == 0{
-            cell = tableView.dequeueReusableCell(withIdentifier: "notificationCell", for: indexPath)
-            cell!.showSeparator()
+            cell = tableView.dequeueReusableCell(withIdentifier: "themeCell", for: indexPath)
         }else if indexPath.row == 1{
-            cell = tableView.dequeueReusableCell(withIdentifier: "generalCell", for: indexPath)
-        }else if indexPath.row == 2{
             cell = tableView.dequeueReusableCell(withIdentifier: "logoutCell", for: indexPath)
         }
         return cell!
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        <#code#>
     }
 
     /*
@@ -47,13 +48,3 @@ class SettingTableViewController: UITableViewController {
 
 }
 
-extension UITableViewCell {
-
-  func hideSeparator() {
-    self.separatorInset = UIEdgeInsets(top: 0, left: self.bounds.size.width, bottom: 0, right: 0)
-  }
-
-  func showSeparator() {
-    self.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-  }
-}

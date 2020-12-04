@@ -36,9 +36,16 @@
 		6E2939632551EA7700D7991D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E2939622551EA7600D7991D /* GoogleService-Info.plist */; };
 		6E3B859F2557A9EC009996FF /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3B859E2557A9EC009996FF /* Activity.swift */; };
 		6E4308802577099F00EA4754 /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E43087F2577099F00EA4754 /* SettingTableViewController.swift */; };
-		6E4308852577EE4D00EA4754 /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4308842577EE4D00EA4754 /* NotificationTableViewCell.swift */; };
-		6E43088A2577FE8300EA4754 /* GeneralTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4308892577FE8300EA4754 /* GeneralTableViewCell.swift */; };
+		6E43088A2577FE8300EA4754 /* ThemeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4308892577FE8300EA4754 /* ThemeTableViewCell.swift */; };
 		6E43088F2578021D00EA4754 /* LogOutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E43088E2578021D00EA4754 /* LogOutTableViewCell.swift */; };
+		6E430897257A973000EA4754 /* ThemesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E430896257A973000EA4754 /* ThemesViewController.swift */; };
+		6E43089E257A988900EA4754 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E43089D257A988900EA4754 /* Theme.swift */; };
+		6E4308A6257A99A200EA4754 /* FieryRedLandscapeTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4308A5257A99A200EA4754 /* FieryRedLandscapeTheme.swift */; };
+		6E4308AB257A9A1C00EA4754 /* NaturalEleganceTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4308AA257A9A1C00EA4754 /* NaturalEleganceTheme.swift */; };
+		6E4308B0257A9A7900EA4754 /* SummerBlueberriesTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4308AF257A9A7900EA4754 /* SummerBlueberriesTheme.swift */; };
+		6E4308B5257A9ACD00EA4754 /* BayDockTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4308B4257A9ACD00EA4754 /* BayDockTheme.swift */; };
+		6E4308BA257A9B1D00EA4754 /* EarthyGreensTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4308B9257A9B1D00EA4754 /* EarthyGreensTheme.swift */; };
+		6E4308BF257A9B8B00EA4754 /* BerriesGaloreTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4308BE257A9B8B00EA4754 /* BerriesGaloreTheme.swift */; };
 		6E78E950255A2F4700A61966 /* UserInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E78E94F255A2F4700A61966 /* UserInputViewController.swift */; };
 		6E78E973255A4BD200A61966 /* FlashCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E78E972255A4BD200A61966 /* FlashCardView.swift */; };
 		6E78E988255B359600A61966 /* DailyNeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E78E987255B359600A61966 /* DailyNeed.swift */; };
@@ -105,9 +112,16 @@
 		6E2939622551EA7600D7991D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6E3B859E2557A9EC009996FF /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		6E43087F2577099F00EA4754 /* SettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
-		6E4308842577EE4D00EA4754 /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
-		6E4308892577FE8300EA4754 /* GeneralTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralTableViewCell.swift; sourceTree = "<group>"; };
+		6E4308892577FE8300EA4754 /* ThemeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeTableViewCell.swift; sourceTree = "<group>"; };
 		6E43088E2578021D00EA4754 /* LogOutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutTableViewCell.swift; sourceTree = "<group>"; };
+		6E430896257A973000EA4754 /* ThemesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesViewController.swift; sourceTree = "<group>"; };
+		6E43089D257A988900EA4754 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		6E4308A5257A99A200EA4754 /* FieryRedLandscapeTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieryRedLandscapeTheme.swift; sourceTree = "<group>"; };
+		6E4308AA257A9A1C00EA4754 /* NaturalEleganceTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaturalEleganceTheme.swift; sourceTree = "<group>"; };
+		6E4308AF257A9A7900EA4754 /* SummerBlueberriesTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummerBlueberriesTheme.swift; sourceTree = "<group>"; };
+		6E4308B4257A9ACD00EA4754 /* BayDockTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BayDockTheme.swift; sourceTree = "<group>"; };
+		6E4308B9257A9B1D00EA4754 /* EarthyGreensTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarthyGreensTheme.swift; sourceTree = "<group>"; };
+		6E4308BE257A9B8B00EA4754 /* BerriesGaloreTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BerriesGaloreTheme.swift; sourceTree = "<group>"; };
 		6E78E94F255A2F4700A61966 /* UserInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputViewController.swift; sourceTree = "<group>"; };
 		6E78E972255A4BD200A61966 /* FlashCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardView.swift; sourceTree = "<group>"; };
 		6E78E987255B359600A61966 /* DailyNeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNeed.swift; sourceTree = "<group>"; };
@@ -148,6 +162,7 @@
 		6E184D742550F7890066EBC1 = {
 			isa = PBXGroup;
 			children = (
+				6E43089C257A986F00EA4754 /* Themes */,
 				6E184D7F2550F7890066EBC1 /* MHA */,
 				6E184D992550F78D0066EBC1 /* MHATests */,
 				6E184DA42550F78D0066EBC1 /* MHAUITests */,
@@ -216,6 +231,7 @@
 				6E0EF6B9255DA3A600939B0B /* ResultsViewController.swift */,
 				6E26887B2564B35900C45D21 /* SelfActualizationView.swift */,
 				6E43087F2577099F00EA4754 /* SettingTableViewController.swift */,
+				6E430896257A973000EA4754 /* ThemesViewController.swift */,
 				6E26886E2564A83B00C45D21 /* EsteemView.swift */,
 				6E26888E2564C87200C45D21 /* LoveView.swift */,
 				6E2688BF25672E9000C45D21 /* NeedDetailViewController.swift */,
@@ -243,11 +259,24 @@
 			children = (
 				6E184D862550F7890066EBC1 /* Main.storyboard */,
 				6E78E972255A4BD200A61966 /* FlashCardView.swift */,
-				6E4308842577EE4D00EA4754 /* NotificationTableViewCell.swift */,
-				6E4308892577FE8300EA4754 /* GeneralTableViewCell.swift */,
+				6E4308892577FE8300EA4754 /* ThemeTableViewCell.swift */,
 				6E43088E2578021D00EA4754 /* LogOutTableViewCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		6E43089C257A986F00EA4754 /* Themes */ = {
+			isa = PBXGroup;
+			children = (
+				6E43089D257A988900EA4754 /* Theme.swift */,
+				6E4308A5257A99A200EA4754 /* FieryRedLandscapeTheme.swift */,
+				6E4308AA257A9A1C00EA4754 /* NaturalEleganceTheme.swift */,
+				6E4308AF257A9A7900EA4754 /* SummerBlueberriesTheme.swift */,
+				6E4308B4257A9ACD00EA4754 /* BayDockTheme.swift */,
+				6E4308B9257A9B1D00EA4754 /* EarthyGreensTheme.swift */,
+				6E4308BE257A9B8B00EA4754 /* BerriesGaloreTheme.swift */,
+			);
+			path = Themes;
 			sourceTree = "<group>";
 		};
 		6EF7BE2A25547C9D00280738 /* Utils */ = {
@@ -520,33 +549,40 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E4308852577EE4D00EA4754 /* NotificationTableViewCell.swift in Sources */,
 				6E2688742564B29D00C45D21 /* PhysiologicalView.swift in Sources */,
 				6E0EF6F2255EED1C00939B0B /* CalendarViewController.swift in Sources */,
 				6E43088F2578021D00EA4754 /* LogOutTableViewCell.swift in Sources */,
 				6E3B859F2557A9EC009996FF /* Activity.swift in Sources */,
 				6E26888F2564C87200C45D21 /* LoveView.swift in Sources */,
 				6E0EF6C1255DAD3600939B0B /* DailyActivityData.swift in Sources */,
-				6E43088A2577FE8300EA4754 /* GeneralTableViewCell.swift in Sources */,
+				6E43088A2577FE8300EA4754 /* ThemeTableViewCell.swift in Sources */,
 				6E184DC02550F9790066EBC1 /* SignInViewController.swift in Sources */,
 				6E26884C25618F5200C45D21 /* ActivityTimePicker.swift in Sources */,
 				6E78E973255A4BD200A61966 /* FlashCardView.swift in Sources */,
 				6E78E988255B359600A61966 /* DailyNeed.swift in Sources */,
 				6E184D852550F7890066EBC1 /* WelcomeViewController.swift in Sources */,
+				6E4308B0257A9A7900EA4754 /* SummerBlueberriesTheme.swift in Sources */,
+				6E430897257A973000EA4754 /* ThemesViewController.swift in Sources */,
 				6E184DB82550F9690066EBC1 /* RegisterViewController.swift in Sources */,
 				6E78E950255A2F4700A61966 /* UserInputViewController.swift in Sources */,
 				6E184D812550F7890066EBC1 /* AppDelegate.swift in Sources */,
 				6E0EF6F7255EED9600939B0B /* DatePickerController.swift in Sources */,
 				6E4308802577099F00EA4754 /* SettingTableViewController.swift in Sources */,
+				6E4308A6257A99A200EA4754 /* FieryRedLandscapeTheme.swift in Sources */,
+				6E4308BF257A9B8B00EA4754 /* BerriesGaloreTheme.swift in Sources */,
+				6E4308AB257A9A1C00EA4754 /* NaturalEleganceTheme.swift in Sources */,
+				6E4308B5257A9ACD00EA4754 /* BayDockTheme.swift in Sources */,
 				6E268908256D9F1F00C45D21 /* ActivityNeed.swift in Sources */,
 				6E26886F2564A83B00C45D21 /* EsteemView.swift in Sources */,
 				6EF7BE2C25547CD400280738 /* Utils.swift in Sources */,
 				6E0EF686255C830000939B0B /* DailyActivity.swift in Sources */,
 				6E2688C025672E9000C45D21 /* NeedDetailViewController.swift in Sources */,
+				6E4308BA257A9B1D00EA4754 /* EarthyGreensTheme.swift in Sources */,
 				6E26887C2564B35900C45D21 /* SelfActualizationView.swift in Sources */,
 				6E184D8B2550F7890066EBC1 /* MHA.xcdatamodeld in Sources */,
 				6E184D832550F7890066EBC1 /* SceneDelegate.swift in Sources */,
 				6E0EF681255C3D7A00939B0B /* DailyNeedData.swift in Sources */,
+				6E43089E257A988900EA4754 /* Theme.swift in Sources */,
 				6E2688652564A2F300C45D21 /* SafetyView.swift in Sources */,
 				6E0EF6BA255DA3A700939B0B /* ResultsViewController.swift in Sources */,
 			);
