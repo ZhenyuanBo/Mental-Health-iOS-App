@@ -53,6 +53,8 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        view.backgroundColor = Theme.current.background
+        
         let width: CGFloat = 55.0
         let height: CGFloat = 80.0
         

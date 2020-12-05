@@ -70,6 +70,20 @@ class Utils{
     public static let saveNoteAlertMsg = "Do you want to save current note?"
     public static let saveNoteBeforeLeavingAlertMsg = "Do you want to save current note before leaving?"
     
+    public static let themes:[String: ThemeProtocol] = [
+        "Light":LightTheme(),
+        "Natural Elegance":NaturalEleganceTheme(),
+        "Fiery Red Landscape":FieryRedLanscapeTheme(),
+        "Summer Blueberries":SummerBlueberriesTheme(),
+        "Dock of Bay":BayDockTheme(),
+        "Earthy Greens":EarthyGreensTheme(),
+        "Berries Galore": BerriesGaloreTheme(),
+        "Tropical":TropicalTheme(),
+        "Lemon":LemonTheme(),
+        "Romantic":RomanticTheme(),
+        "Winter Barn":WinterBarnTheme()
+       ]
+    
 }
 
 //MARK: - Date Extension

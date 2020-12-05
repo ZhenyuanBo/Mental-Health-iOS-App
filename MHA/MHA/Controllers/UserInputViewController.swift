@@ -47,9 +47,7 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
         for need in Utils.needTypeList{
             dailyActivityMap[need] = 0
         }
-        
-//        userInputTabBar.delegate = self
-        
+
         self.view.addGestureRecognizer(leftSwipeGestureRecognizer)
         self.view.addGestureRecognizer(rightSwipeGestureRecognizer)
         
@@ -81,6 +79,13 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
         flashCard.frontView = frontView
         flashCard.backView = backView
         activityText.font = .systemFont(ofSize: 18)
+        
+        frontView.layer.cornerRadius = 25
+        backView.layer.cornerRadius = 25
+        flashCard.layer.cornerRadius = 25
+        
+        frontView.backgroundColor = hexStringToUIColor(hex: "#98acf8")
+        view.backgroundColor = Theme.current.background
     }
     
     //MARK: - Button Actions

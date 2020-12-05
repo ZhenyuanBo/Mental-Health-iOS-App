@@ -33,7 +33,7 @@
         <!--Welcome View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="BYZ-38-t0r" customClass="WelcomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WelcomeViewController" hidesBottomBarWhenPushed="YES" id="BYZ-38-t0r" customClass="WelcomeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -457,14 +457,19 @@
             </objects>
             <point key="canvasLocation" x="1709" y="1245"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Themes View Controller-->
         <scene sceneID="Tfj-d3-cbr">
             <objects>
-                <tableViewController id="JSQ-0C-ptO" sceneMemberID="viewController">
+                <tableViewController id="JSQ-0C-ptO" customClass="ThemesViewController" customModule="MHA" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="r0O-a2-6bf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="iJk-uZ-jBc">
+                            <rect key="frame" x="0.0" y="99.5" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="themeCell" id="GD7-te-sfC">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
@@ -905,15 +910,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2mv-ep-Qkn" userLabel="Flash Card" customClass="FlashCardView" customModule="MHA" customModuleProvider="target">
-                                <rect key="frame" x="20" y="120" width="374" height="606"/>
+                                <rect key="frame" x="20" y="120" width="374" height="673"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aHU-hz-ggY" userLabel="BackView">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="689"/>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="23c-b8-Lpg" userLabel="BackView">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="673"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Rs-ho-LWL" userLabel="FrontView">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="606"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="673"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j0G-KR-wnL">
                                                 <rect key="frame" x="-5" y="8" width="384" height="29.5"/>
@@ -944,9 +949,12 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="2mv-ep-Qkn" firstAttribute="leading" secondItem="2Vs-vF-B91" secondAttribute="leading" constant="20" id="03Z-Sc-zN5"/>
-                            <constraint firstItem="2Vs-vF-B91" firstAttribute="bottom" secondItem="2mv-ep-Qkn" secondAttribute="bottom" constant="87" id="Eam-FJ-q98"/>
+                            <constraint firstItem="2Vs-vF-B91" firstAttribute="trailing" secondItem="2mv-ep-Qkn" secondAttribute="trailing" constant="20" id="3ri-RH-vqr"/>
+                            <constraint firstItem="2mv-ep-Qkn" firstAttribute="leading" secondItem="2Vs-vF-B91" secondAttribute="leading" constant="20" id="HrS-gj-7Nf"/>
                             <constraint firstItem="2mv-ep-Qkn" firstAttribute="top" secondItem="2Vs-vF-B91" secondAttribute="top" constant="32" id="VGh-xJ-YVY"/>
+                            <constraint firstItem="2Vs-vF-B91" firstAttribute="bottom" secondItem="2mv-ep-Qkn" secondAttribute="bottom" constant="20" id="pxZ-g2-M2W"/>
                             <constraint firstItem="2Vs-vF-B91" firstAttribute="trailing" secondItem="2mv-ep-Qkn" secondAttribute="trailing" constant="20" id="tYq-Qu-yf9"/>
+                            <constraint firstItem="2mv-ep-Qkn" firstAttribute="top" secondItem="2Vs-vF-B91" secondAttribute="top" constant="32" id="uep-uw-VON"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="IvZ-24-tcS">
@@ -964,7 +972,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="backView" destination="aHU-hz-ggY" id="Abu-Pj-Oy8"/>
+                        <outlet property="backView" destination="23c-b8-Lpg" id="nRk-mR-iwE"/>
                         <outlet property="flashCard" destination="2mv-ep-Qkn" id="FSF-Gq-nQI"/>
                         <outlet property="flipButton" destination="N34-QB-Jmp" id="eLq-D2-oLj"/>
                         <outlet property="frontView" destination="4Rs-ho-LWL" id="ofG-fR-Vbv"/>

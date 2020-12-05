@@ -1,12 +1,13 @@
+/*
+ Author: Zhenyuan Bo
+ File Description: MHA App's Themes Configuration
+ Date: Dec 4, 2020
+ */
+
 import UIKit
 
 class ThemesViewController: UITableViewController {
     
-    let themes = ["Light", "Natural Elegance", "Fiery Red Landscape",
-                         "Summer Blueberries", "Dock of Bay", "Earthy Greens",
-                         "Berries Galore", "Tropical", "Lemon",
-                         "Romantic", "Winter Barn"]
-
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -18,17 +19,26 @@ class ThemesViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return themes.count
+        return Utils.themes.count
     }
-    
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        <#code#>
-//    }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "themeCell", for: indexPath)
-        cell.textLabel?.text = themes[indexPath.row]
+        cell.textLabel?.text = Array(Utils.themes.keys).sorted(by: <)[indexPath.row]
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) {
+            cell.accessoryType = .checkmark
+            Theme.current = Utils.themes[Array(Utils.themes.keys).sorted(by: <)[indexPath.row]]!
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) {
+            cell.accessoryType = .none
+        }
     }
 
 }

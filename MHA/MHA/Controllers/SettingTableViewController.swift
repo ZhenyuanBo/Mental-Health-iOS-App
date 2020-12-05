@@ -19,13 +19,13 @@ class SettingTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell?
         if indexPath.row == 0{
-            cell = tableView.dequeueReusableCell(withIdentifier: "themeCell", for: indexPath)
+            cell = tableView.dequeueReusableCell(withIdentifier: "themesCell", for: indexPath)
         }else if indexPath.row == 1{
             cell = tableView.dequeueReusableCell(withIdentifier: "logoutCell", for: indexPath)
         }
