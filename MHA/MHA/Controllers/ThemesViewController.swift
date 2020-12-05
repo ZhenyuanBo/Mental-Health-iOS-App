@@ -3,25 +3,28 @@
  File Description: MHA App's Themes Configuration
  Date: Dec 4, 2020
  */
-
 import UIKit
+import Firebase
+import FirebaseFirestore
 
 class ThemesViewController: UITableViewController {
+    
+    let db = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return Utils.themes.count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "themeCell", for: indexPath)
         cell.textLabel?.text = Array(Utils.themes.keys).sorted(by: <)[indexPath.row]
@@ -31,7 +34,17 @@ class ThemesViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) {
             cell.accessoryType = .checkmark
-            Theme.current = Utils.themes[Array(Utils.themes.keys).sorted(by: <)[indexPath.row]]!
+            let selectedTheme = Array(Utils.themes.keys).sorted(by: <)[indexPath.row]
+            Theme.current = Utils.themes[selectedTheme]!
+            if let themeOwner = Auth.auth().currentUser?.email{
+                db.collection(Utils.FStore.collectionName).addDocument(
+                    data:[Utils.FStore.themeOwner: themeOwner,
+                          Utils.FStore.selectedTheme: selectedTheme]) { (error) in
+                    if let e = error{
+                        print("There was an issue saving selected theme to firestore, \(e)")
+                    }
+                }
+            }
         }
     }
     
@@ -40,5 +53,5 @@ class ThemesViewController: UITableViewController {
             cell.accessoryType = .none
         }
     }
-
+    
 }

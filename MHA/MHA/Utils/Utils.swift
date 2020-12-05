@@ -84,6 +84,11 @@ class Utils{
         "Winter Barn":WinterBarnTheme()
        ]
     
+    struct FStore {
+        static let collectionName = "themes"
+        static let themeOwner = "sender"
+        static let selectedTheme = "selectedTheme"
+    }
 }
 
 //MARK: - Date Extension

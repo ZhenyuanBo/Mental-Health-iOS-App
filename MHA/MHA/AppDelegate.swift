@@ -21,6 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         FirebaseApp.configure()
+        let db = Firestore.firestore()
+        
+        print("Firestore DB: \(db)")
         
         do{
             let _ = try Realm()

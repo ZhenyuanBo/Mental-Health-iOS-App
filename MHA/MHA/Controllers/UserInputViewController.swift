@@ -5,9 +5,13 @@
  */
 
 import UIKit
+import Firebase
+import FirebaseFirestore
 import RealmSwift
 
 class UserInputViewController: UIViewController, UITabBarDelegate{
+    
+    let db = Firestore.firestore()
     
     private var savedActivityText: String?
     private var activityID: String?
@@ -47,7 +51,7 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
         for need in Utils.needTypeList{
             dailyActivityMap[need] = 0
         }
-
+        
         self.view.addGestureRecognizer(leftSwipeGestureRecognizer)
         self.view.addGestureRecognizer(rightSwipeGestureRecognizer)
         
@@ -85,7 +89,8 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
         flashCard.layer.cornerRadius = 25
         
         frontView.backgroundColor = hexStringToUIColor(hex: "#98acf8")
-        view.backgroundColor = Theme.current.background
+        
+        loadTheme()
     }
     
     //MARK: - Button Actions
@@ -356,6 +361,26 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
         alert!.addAction(saveAction)
         alert!.addAction(newAction)
         present(alert!, animated: true, completion: nil)
+    }
+    
+    private func loadTheme(){
+        if let currentThemeOwner = Auth.auth().currentUser?.email{
+            db.collection(Utils.FStore.collectionName).whereField(Utils.FStore.themeOwner, isEqualTo: currentThemeOwner).addSnapshotListener { (querySnapshot, error) in
+                if let e = error{
+                    print("There was an issue with retreiving current theme, \(e)")
+                }else{
+                    if let snapshotDocuments = querySnapshot?.documents{
+                        let data = snapshotDocuments[0].data()
+                        if let selectedTheme = data[Utils.FStore.selectedTheme] as? String{
+                            DispatchQueue.main.async {
+                                Theme.current = Utils.themes[selectedTheme]!
+                                self.view.backgroundColor = Theme.current.background
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     
     //MARK: - Swipe Functionality
