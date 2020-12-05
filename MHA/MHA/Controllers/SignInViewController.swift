@@ -8,7 +8,8 @@ import UIKit
 import Firebase
 
 class SignInViewController: UIViewController {
-
+    
+    let db = Firestore.firestore()
     
     @IBOutlet weak var emailTextField: UITextField!
     
@@ -26,12 +27,12 @@ class SignInViewController: UIViewController {
                     print(e)
                 }else{
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
-                        
-                        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
+                    let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
+
+                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
                 }
             }
         }
     }
-
+    
 }

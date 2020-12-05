@@ -90,7 +90,10 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
         
         frontView.backgroundColor = hexStringToUIColor(hex: "#98acf8")
         
-        loadTheme()
+        if let currentThemeOwner = Auth.auth().currentUser?.email{
+            loadAppTheme(withEmail: currentThemeOwner, view: view)
+        }
+
     }
     
     //MARK: - Button Actions
@@ -362,27 +365,7 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
         alert!.addAction(newAction)
         present(alert!, animated: true, completion: nil)
     }
-    
-    private func loadTheme(){
-        if let currentThemeOwner = Auth.auth().currentUser?.email{
-            db.collection(Utils.FStore.collectionName).whereField(Utils.FStore.themeOwner, isEqualTo: currentThemeOwner).addSnapshotListener { (querySnapshot, error) in
-                if let e = error{
-                    print("There was an issue with retreiving current theme, \(e)")
-                }else{
-                    if let snapshotDocuments = querySnapshot?.documents{
-                        let data = snapshotDocuments[0].data()
-                        if let selectedTheme = data[Utils.FStore.selectedTheme] as? String{
-                            DispatchQueue.main.async {
-                                Theme.current = Utils.themes[selectedTheme]!
-                                self.view.backgroundColor = Theme.current.background
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
+        
     //MARK: - Swipe Functionality
     @objc func swipedLeft(sender: UISwipeGestureRecognizer) {
         if sender.state == .ended {

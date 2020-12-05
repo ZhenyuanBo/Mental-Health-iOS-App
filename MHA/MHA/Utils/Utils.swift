@@ -2,6 +2,8 @@ import UIKit
 import Foundation
 import DateToolsSwift
 import RealmSwift
+import Firebase
+import FirebaseFirestore
 
 class Utils{
     
@@ -242,6 +244,27 @@ extension TimeChunk {
                      months: months,
                      years: years)
   }
+}
+
+//MARK: - Load Current Theme
+func loadAppTheme(withEmail email: String, view: UIView){
+    let db = Firestore.firestore()
+    db.collection(Utils.FStore.collectionName).whereField(Utils.FStore.themeOwner, isEqualTo: email).getDocuments { (querySnapshot, error) in
+        if let e = error{
+            print("There was an issue with retrieving current theme, \(e)")
+        }else{
+            if let snapshotDocuments = querySnapshot?.documents{
+                let data = snapshotDocuments.first?.data()
+                if let selectedTheme = data?[Utils.FStore.selectedTheme] as? String{
+                    DispatchQueue.main.async {
+                        Theme.current = Utils.themes[selectedTheme]!
+                        print(Theme.current)
+                        view.backgroundColor = Theme.current.background
+                    }
+                }
+            }
+        }
+    }
 }
 
 

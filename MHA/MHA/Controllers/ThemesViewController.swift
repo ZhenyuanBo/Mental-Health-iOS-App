@@ -35,13 +35,24 @@ class ThemesViewController: UITableViewController {
         if let cell = tableView.cellForRow(at: indexPath) {
             cell.accessoryType = .checkmark
             let selectedTheme = Array(Utils.themes.keys).sorted(by: <)[indexPath.row]
-            Theme.current = Utils.themes[selectedTheme]!
             if let themeOwner = Auth.auth().currentUser?.email{
-                db.collection(Utils.FStore.collectionName).addDocument(
-                    data:[Utils.FStore.themeOwner: themeOwner,
-                          Utils.FStore.selectedTheme: selectedTheme]) { (error) in
+                db.collection(Utils.FStore.collectionName).whereField(Utils.FStore.themeOwner, isEqualTo: themeOwner).getDocuments { (querySnapshot, error) in
                     if let e = error{
-                        print("There was an issue saving selected theme to firestore, \(e)")
+                        print("Error with retrieving current theme, \(e)")
+                    }else{
+                        if let snapshotDocuments = querySnapshot?.documents{
+                            if snapshotDocuments.count<1{
+                                self.db.collection(Utils.FStore.collectionName).addDocument(
+                                    data:[Utils.FStore.themeOwner: themeOwner,
+                                          Utils.FStore.selectedTheme: selectedTheme]) { (error) in
+                                    if let e = error{
+                                        print("There was an issue saving selected theme to firestore, \(e)")
+                                    }
+                                }
+                            }else{
+                                snapshotDocuments.first?.reference.updateData([Utils.FStore.selectedTheme: selectedTheme])
+                            }
+                        }
                     }
                 }
             }

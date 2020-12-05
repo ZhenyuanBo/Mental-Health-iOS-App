@@ -8,6 +8,8 @@ import UIKit
 import Charts
 import AMPopTip
 import RealmSwift
+import Firebase
+import FirebaseFirestore
 
 class ResultsViewController: UIViewController, UIPopoverPresentationControllerDelegate{
     
@@ -53,7 +55,9 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        view.backgroundColor = Theme.current.background
+        if let currentThemeOwner = Auth.auth().currentUser?.email{
+            loadAppTheme(withEmail: currentThemeOwner, view: view)
+        }
         
         let width: CGFloat = 55.0
         let height: CGFloat = 80.0
