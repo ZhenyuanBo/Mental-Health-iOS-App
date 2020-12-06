@@ -258,7 +258,6 @@ func loadAppTheme(withEmail email: String, view: UIView){
                 if let selectedTheme = data?[Utils.FStore.selectedTheme] as? String{
                     DispatchQueue.main.async {
                         Theme.current = Utils.themes[selectedTheme]!
-                        print(Theme.current)
                         view.backgroundColor = Theme.current.background
                     }
                 }

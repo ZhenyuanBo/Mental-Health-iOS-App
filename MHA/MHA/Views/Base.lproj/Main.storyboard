@@ -491,10 +491,10 @@
             </objects>
             <point key="canvasLocation" x="2607" y="1245"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Custom Tab View Controller-->
         <scene sceneID="pUy-cT-8AK">
             <objects>
-                <tabBarController storyboardIdentifier="MainTabBarController" id="zNH-QW-HLr" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabBarController" id="zNH-QW-HLr" customClass="CustomTabViewController" customModule="MHA" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="Cq6-UJ-BOd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -514,7 +514,7 @@
         <!--User Input View Controller-->
         <scene sceneID="lTS-I3-sde">
             <objects>
-                <viewController id="0vO-9G-NZj" customClass="UserInputViewController" customModule="MHA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="userInputVC" id="0vO-9G-NZj" customClass="UserInputViewController" customModule="MHA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gAo-jM-fJY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

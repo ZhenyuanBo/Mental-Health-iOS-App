@@ -9,7 +9,7 @@ import Firebase
 import FirebaseFirestore
 import RealmSwift
 
-class UserInputViewController: UIViewController, UITabBarDelegate{
+class UserInputViewController: UIViewController{
     
     let db = Firestore.firestore()
     
@@ -186,14 +186,6 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
         alertMessageCreator(isLeaving: false)
     }
     
-    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        if item.title == "Calendar"{
-            alertMessageCreator(isLeaving: true, destination: "Calendar")
-        }else if item.title == "Report"{
-            alertMessageCreator(isLeaving: true, destination: "Report")
-        }
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Utils.userInputReportSegue{
             let destinationVC = segue.destination as! ResultsViewController
@@ -334,7 +326,7 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
         return true
     }
     
-    private func alertMessageCreator(isLeaving: Bool, destination: String = ""){
+    private func alertMessageCreator(isLeaving: Bool){
         let alert : UIAlertController?
         let alertTitle : String?
         
@@ -353,12 +345,6 @@ class UserInputViewController: UIViewController, UITabBarDelegate{
                 self.activityText.text = ""
                 self.activityID = UUID.init().uuidString
                 self.cleanPyramidMapData()
-            }else{
-                if destination == "Calendar"{
-                    self.performSegue(withIdentifier: Utils.userInputCalendarSegue, sender: self)
-                }else if destination == "Report"{
-                    self.performSegue(withIdentifier: Utils.userInputReportSegue, sender: self)
-                }
             }
         }
         alert!.addAction(saveAction)
