@@ -6,29 +6,27 @@
 import UIKit
 
 class CustomTabViewController: UITabBarController, UITabBarControllerDelegate{
-    
-    let selectedTabIndexKey = "selectedTabIndex"
-    var prevSelectedIndex = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
-        
-        if UserDefaults.standard.object(forKey: self.selectedTabIndexKey) != nil {
-            prevSelectedIndex = UserDefaults.standard.integer(forKey: self.selectedTabIndexKey)
-        }
     }
+    
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
 
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        if tabBarController.selectedIndex == 1 && prevSelectedIndex == 0{
-            let alert = UIAlertController(title: "Have you saved your current note", message: "", preferredStyle: .alert)
-            let confirmAction = UIAlertAction(title: "Yes", style: .default)
-            let cancelAction = UIAlertAction(title: "No", style: .default) {(action) in
-                
+        let calNavController = tabBarController.viewControllers![1] as! UINavigationController
+        let calendarVC = calNavController.topViewController as! CalendarViewController
+        let selectedDate = calendarVC.selectedDate
+        
+        //reports view
+        let currNavController = viewController as! UINavigationController
+        if ((currNavController.topViewController is ResultsViewController)){
+            if let safeSelectedDate = selectedDate{
+                let resulstsVC = currNavController.topViewController as! ResultsViewController
+                resulstsVC.selectedDate = safeSelectedDate
             }
-            alert.addAction(confirmAction)
-            alert.addAction(cancelAction)
-            present(alert, animated: true, completion: nil)
         }
+
+        return true
     }
 }

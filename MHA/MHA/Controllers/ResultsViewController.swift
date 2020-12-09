@@ -25,35 +25,37 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     @IBOutlet weak var flipButton: UIBarButtonItem!
     
-    private var activityCategoryMap:[String: Int] = [:]
-    
     var selectedDate:Date = Date()
     
     private var currSelectedNeedLevel: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         flashCard.duration = 2.0
         flashCard.flipAnimation = .flipFromLeft
         flashCard.frontView = frontView
         flashCard.backView = backView
         
         pieChartTitle.text = "# of Activities/Need Category"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         let decodedData = loadDailyActivityResult(date: selectedDate)
 
         if let safeDecodedData = decodedData{
+            var activityCategoryMap:[String: Int] = [:]
             for needType in Utils.needTypeList{
                 if safeDecodedData[needType] != 0{
                     activityCategoryMap[needType] = safeDecodedData[needType]
                 }
             }
             customizeChart(dataPoints: Array(activityCategoryMap.keys), values: Array(activityCategoryMap.values))
+        }else{
+            pieChartView.data = nil
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
         if let currentThemeOwner = Auth.auth().currentUser?.email{
             loadAppTheme(withEmail: currentThemeOwner, view: view)
