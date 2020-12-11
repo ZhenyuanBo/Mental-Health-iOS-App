@@ -964,7 +964,7 @@
                                     <action selector="flipPressed:" destination="tpP-MW-a8o" id="h5K-Ut-d6x"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Download" id="B1v-4S-XBM">
+                            <barButtonItem title="Download" image="square.and.arrow.down" catalog="system" id="B1v-4S-XBM">
                                 <connections>
                                     <action selector="downloadPressed:" destination="tpP-MW-a8o" id="3iQ-c5-y60"/>
                                 </connections>
@@ -1125,6 +1125,7 @@
         <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="goforward" catalog="system" width="121" height="128"/>
         <image name="note.text" catalog="system" width="128" height="106"/>
+        <image name="square.and.arrow.down" catalog="system" width="121" height="128"/>
         <image name="textfield" width="298" height="93"/>
         <image name="yourself" width="176" height="233"/>
         <systemColor name="labelColor">

@@ -24,7 +24,6 @@ class SelfActualizationView: UIView {
                     activityList.append(safeDecodedData[needType])
                 }
             }
-            activityList.sort(){$0 > $1}
         }
     }
     
@@ -43,31 +42,12 @@ class SelfActualizationView: UIView {
     override func draw(_ rect: CGRect) {
         self.createSelfActualizationLevel()
         
-        hexStringToUIColor(hex: Utils.baseColour).setFill()
-        path.fill()
-        
         if activityList.count>0{
-            let gradient = CAGradientLayer()
-            gradient.frame = path.bounds
-            gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
-            gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
-            
-            var colors:[Any] = []
-            let currColour = hexStringToUIColor(hex: Utils.esteemNeedColoursList[0]).cgColor
-            colors.append(currColour)
-
-            if activityList.count < 1{
-                colors.append(hexStringToUIColor(hex: Utils.baseColour).cgColor)
-            }
-            
-            gradient.colors = colors
-            
-            let shapeMask = CAShapeLayer()
-            shapeMask.path = path.cgPath
-            
-            gradient.mask = shapeMask
-            self.layer.addSublayer(gradient)
+            hexStringToUIColor(hex: Utils.selfActualNeedColoursList[0]).setFill()
+        }else{
+            hexStringToUIColor(hex: Utils.baseColour).setFill()
         }
+        path.fill()
         
     }
 }
