@@ -40,6 +40,9 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
                                                            action: #selector(presentDatePicker))
         navigationController?.navigationBar.isTranslucent = false
         dayView.autoScrollToFirstEvent = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         reloadData()
     }
     
@@ -76,10 +79,6 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
         let returnValue = calendar.date(from: newComponents)
         
         return returnValue!
-    }
-    
-    @IBAction func composePressed(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: "unwindToUserInput", sender: self)
     }
 
     // MARK: EventDataSource

@@ -10,7 +10,7 @@ import Charts
 class NeedDetailViewController: UIViewController, ChartViewDelegate{
     
     @IBOutlet weak var flashCard: FlashCardView!
-
+    
     @IBOutlet weak var frontView: UIView!
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var barChartView: BarChartView!
@@ -20,13 +20,13 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
     var needCategoryLevel: String = ""
     var selectedDate:Date = Date()
     var decodedData: DailyActivityData?
-
+    
     var coloursList:[String] = []
     var chartDescription: String = ""
     var sortedColours:[UIColor] = []
     var categoryColours:[UIColor] = [UIColor.white, UIColor.white, UIColor.white, UIColor.white, UIColor.white, UIColor.white, UIColor.white]
     let lineChartColours: [String] = ["#583d72", "#db6400", "#db6400", "#fd3a69", "#61b15a", "#af6b58", "#16a596"]
-   
+    
     var categoryValue: [Int] = []
     var sortedCategoryValue:[Int] = []
     var categories:[String] = []
@@ -85,7 +85,7 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
             var dataEntries: [ChartDataEntry] = []
             for i in 0..<dataPoints.count {
                 let dataEntry = ChartDataEntry(x: Double(i), y: Double(categoryTrendValues[category]![i]))
-              dataEntries.append(dataEntry)
+                dataEntries.append(dataEntry)
             }
             let lineChartDataSet = LineChartDataSet(entries: dataEntries, label: category)
             lineChartDataSet.valueFont = UIFont(name: "HelveticaNeue-Light", size: 20) ?? UIFont.systemFont(ofSize: 20)
@@ -103,27 +103,26 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
     }
     
     private func customizeBarChart(dataPoints: [String], values: [Int]) {
-
         var dataEntries: [BarChartDataEntry] = []
         for i in 0..<dataPoints.count {
-          let dataEntry = BarChartDataEntry(x: Double(i), y: Double(values[i]))
-          dataEntries.append(dataEntry)
+            let dataEntry = BarChartDataEntry(x: Double(i), y: Double(values[i]))
+            dataEntries.append(dataEntry)
         }
-    
+        
         let chartDataSet = BarChartDataSet(entries: dataEntries)
         let chartData = BarChartData(dataSet: chartDataSet)
         
         chartDataSet.valueFont = UIFont(name: "HelveticaNeue-Light", size: 20) ?? UIFont.systemFont(ofSize: 20)
-
+        
         barChartView.data = chartData
         categoryColorMaker(startIndex: startIndex, coloursList: coloursList)
         chartDataSet.colors = categoryColours
         
         let formatter: CustomIntFormatter = CustomIntFormatter()
         barChartView.data?.setValueFormatter(formatter)
-
+        
         barChartView.leftAxis.axisMinimum = 0.0
-  
+        
         barChartView.legend.enabled = false
         barChartView.rightAxis.enabled = false
         barChartView.xAxis.drawGridLinesEnabled = false
@@ -133,6 +132,8 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
         title = chartDescription
         barChartView.xAxis.labelPosition = XAxis.LabelPosition.top
         barChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: dataPoints)
+        barChartView.xAxis.granularityEnabled = true
+        barChartView.xAxis.granularity = 1.0
         
     }
     
@@ -212,7 +213,7 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
                 }
                 sortedCategoryValue = categoryValue
                 sortedCategoryValue.sort(){$0>$1}
-                startIndex = 1
+                startIndex = 0
                 categories = Utils.selfActualNeeds
                 coloursList = Utils.selfActualNeedColoursList
                 chartDescription = "Self-Actualization"
@@ -226,7 +227,7 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
         var i = startIndex
         let sortedCategoryValueCopy = self.sortedCategoryValue
         var prevMax = self.sortedCategoryValue.max()
-
+        
         for value in sortedCategoryValue{
             if value == prevMax{
                 sortedColours.append(hexStringToUIColor(hex: coloursList[i]))
@@ -237,7 +238,7 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
                 prevMax = sortedCategoryValue.max()
             }
         }
-
+        
         for index in 0..<sortedCategoryValueCopy.count{
             let currVal = sortedCategoryValueCopy[index]
             for pos in 0..<categoryValue.count{
@@ -282,7 +283,6 @@ class CustomIntFormatter: NSObject, IValueFormatter{
     }
 }
 
-
 //MARK: - Custom Chart Marker
 class ChartMarker: MarkerView {
     private var text = String()
@@ -292,7 +292,7 @@ class ChartMarker: MarkerView {
     public func setSelectedCategory(selectedCategory: String){
         category = selectedCategory
     }
-
+    
     private let drawAttributes: [NSAttributedString.Key: Any] = [
         .font: UIFont.systemFont(ofSize: 20),
         .foregroundColor: UIColor.white,
@@ -302,20 +302,20 @@ class ChartMarker: MarkerView {
     override func refreshContent(entry: ChartDataEntry, highlight: Highlight) {
         text = category
     }
-
+    
     override func draw(context: CGContext, point: CGPoint) {
         super.draw(context: context, point: point)
-
+        
         let sizeForDrawing = text.size(withAttributes: drawAttributes)
         bounds.size = sizeForDrawing
         offset = CGPoint(x: -sizeForDrawing.width / 2, y: -sizeForDrawing.height - 4)
-
+        
         let offset = offsetForDrawing(atPoint: point)
         let originPoint = CGPoint(x: point.x + offset.x, y: point.y + offset.y)
         let rectForText = CGRect(origin: originPoint, size: sizeForDrawing)
         drawText(text: text, rect: rectForText, withAttributes: drawAttributes)
     }
-
+    
     private func drawText(text: String, rect: CGRect, withAttributes attributes: [NSAttributedString.Key: Any]? = nil) {
         let size = bounds.size
         let centeredRect = CGRect(
