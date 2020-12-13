@@ -13,7 +13,7 @@ import FirebaseFirestore
 import Instructions
 
 class ResultsViewController: UIViewController, UIPopoverPresentationControllerDelegate{
-
+    
     let realm = try! Realm()
     let popTip = PopTip()
     
@@ -42,11 +42,6 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         self.coachMarksController.dataSource = self
         self.coachMarksController.delegate = self
         
-//        let skipView = CoachMarkSkipDefaultView()
-//
-//        skipView.setTitle("Skip", for: .normal)
-//        self.coachMarksController.skipView = skipView
-
         pieChartTitle.text = "# of Activities/Need Category"
     }
     
@@ -65,7 +60,7 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         flashCard.layer.cornerRadius = 25
         
         let decodedData = loadDailyActivityResult(date: selectedDate)
-
+        
         if let safeDecodedData = decodedData{
             var activityCategoryMap:[String: Int] = [:]
             for needType in Utils.needTypeList{
@@ -242,16 +237,16 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
 extension ResultsViewController: CoachMarksControllerDelegate, CoachMarksControllerDataSource{
     func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkViewsAt index: Int, madeFrom coachMark: CoachMark) -> (bodyView: (UIView & CoachMarkBodyView), arrowView: (UIView & CoachMarkArrowView)?) {
         let coachViews = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
-         switch index {
-         case 0:
-            coachViews.bodyView.hintLabel.text = "Flip the card below to view back side"
-            coachViews.bodyView.nextLabel.text = "Next"
-         case 1:
+        switch index {
+        case 0:
+            coachViews.bodyView.hintLabel.text = "Flip card below to view back side"
+            coachViews.bodyView.nextLabel.text = "next"
+        case 1:
             coachViews.bodyView.hintLabel.text = "Download chart below as an image"
-            coachViews.bodyView.nextLabel.text = "Next"
-         default: break
-         }
-       return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
+            coachViews.bodyView.nextLabel.text = "next"
+        default: break
+        }
+        return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
     }
     
     func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkAt index: Int) -> CoachMark {
@@ -264,10 +259,11 @@ extension ResultsViewController: CoachMarksControllerDelegate, CoachMarksControl
             return coachMarksController.helper.makeCoachMark(for: viewDownload)
         default: return coachMarksController.helper.makeCoachMark()
         }
-      }
+    }
     
     func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
-      return 2
+        return 2
     }
+    
 }
 
