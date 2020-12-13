@@ -21,15 +21,15 @@ class Utils{
     public static let monthMap = [1:"Jan", 2: "Feb", 3: "Mar", 4:"Apr",
                                   5:"May", 6:"Jun", 7:"Jul",
                                   8:"Aug", 9: "Sept", 10: "Oct", 11: "Nov", 12: "Dec"]
-
+    
     //MARK: - Maslow Need Category Data
     public static let needTypeList = ["air","water","food","clothing",
-                            "shelter","sleep","reproduction",
-                            "personal_security","employment",
-                            "resources","property","health",
-                            "family","respect", "status","intimacy",
-                            "friendship","self_esteem","recognition",
-                            "strength","freedom","self_actualization", "connection"]
+                                      "shelter","sleep","reproduction",
+                                      "personal_security","employment",
+                                      "resources","property","health",
+                                      "family","respect", "status","intimacy",
+                                      "friendship","self_esteem","recognition",
+                                      "strength","freedom","self_actualization", "connection"]
     
     public static let phyNeeds = ["reproduction","air","shelter","sleep","water","food","clothing"]
     public static let safetyNeeds = ["personal_security","employment",
@@ -40,7 +40,7 @@ class Utils{
     
     
     public static let phyCategoryIndexMap = ["reproduction": 0, "air": 1, "shelter": 2,
-                            "sleep": 3, "water": 4, "food": 5, "clothing": 6]
+                                             "sleep": 3, "water": 4, "food": 5, "clothing": 6]
     public static let safetyIndexMap = ["personal_security":0, "employment":1,
                                         "resources":2,"property":3,"health":4]
     public static let loveIndexMap = ["friendship":0, "intimacy":1, "family":2, "connection":3]
@@ -57,7 +57,7 @@ class Utils{
     
     //MARK: - Maslow Need Colours
     public static let phyNeedColoursList = ["#E97452","#D65D42",
-                                 "#C34632","#B12E21","#9E1711","#8B0001","#4B0A0E"]
+                                            "#C34632","#B12E21","#9E1711","#8B0001","#4B0A0E"]
     public static let safetyNeedColoursList = ["#FDB777", "#FDA766", "#FD9346", "#FD7F2C", "#FF6200"]
     public static let loveNeedColoursList = ["#FFF192", "#FFEA61", "#FFDD3C", "#FFD400"]
     public static let esteemNeedColoursList = ["#B7FFBF","#95F985","#4DED30","#26D701","#00C301", "#00AB08"]
@@ -65,12 +65,11 @@ class Utils{
     
     //MARK: - Calendar Event Colours
     public static let eventColours = ["#9ad3bc","#fd8c04", "#9088d4", "#f3bad6", "#9ddfd3",
-                           "#ffa36c", "#bedbbb", "#0e918c", "#a6f6f1", "#edcfa9"]
+                                      "#ffa36c", "#bedbbb", "#0e918c", "#a6f6f1", "#edcfa9"]
     
     
     //MARK: - Alert Messages
-    public static let saveNoteAlertMsg = "Do you want to save current note?"
-    public static let saveNoteBeforeLeavingAlertMsg = "Do you want to save current note before leaving?"
+    public static let saveNoteAlertMsg = "Have you saved your current note?"
     
     public static let themes:[String: ThemeProtocol] = [
         "Light":LightTheme(),
@@ -84,7 +83,7 @@ class Utils{
         "Lemon":LemonTheme(),
         "Romantic":RomanticTheme(),
         "Winter Barn":WinterBarnTheme()
-       ]
+    ]
     
     struct FStore {
         static let collectionName = "themes"
@@ -107,7 +106,7 @@ extension Date {
         let nowUTC = Date()
         let timeZoneOffset = Double(TimeZone.current.secondsFromGMT(for: nowUTC))
         guard let localDate = Calendar.current.date(byAdding: .second, value: Int(timeZoneOffset), to: nowUTC) else {return Date()}
-
+        
         return localDate
     }
     
@@ -123,13 +122,13 @@ extension Date {
         let cal = NSCalendar.current
         // start with today
         var date = cal.startOfDay(for: Date())
-
+        
         var arrDates = [String]()
-
+        
         for _ in 1 ... nDays {
             // move back in time by one day:
             date = cal.date(byAdding: Calendar.Component.day, value: -1, to: date)!
-
+            
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
             let dateString = dateFormatter.string(from: date)
@@ -142,18 +141,18 @@ extension Date {
 //MARK: - Hex to UIColor
 func hexStringToUIColor (hex:String) -> UIColor {
     var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-
+    
     if (cString.hasPrefix("#")) {
         cString.remove(at: cString.startIndex)
     }
-
+    
     if ((cString.count) != 6) {
         return UIColor.gray
     }
-
+    
     var rgbValue:UInt64 = 0
     Scanner(string: cString).scanHexInt64(&rgbValue)
-
+    
     return UIColor(
         red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
         green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
@@ -229,21 +228,21 @@ func loadDailyActivityResult(date: Date)-> DailyActivityData? {
 
 //MARK: - Calendar Extension
 extension TimeChunk {
-  static func dateComponents(seconds: Int = 0,
-                                  minutes: Int = 0,
-                                  hours: Int = 0,
-                                  days: Int = 0,
-                                  weeks: Int = 0,
-                                  months: Int = 0,
-                                  years: Int = 0) -> TimeChunk {
-    return TimeChunk(seconds: seconds,
-                     minutes: minutes,
-                     hours: hours,
-                     days: days,
-                     weeks: weeks,
-                     months: months,
-                     years: years)
-  }
+    static func dateComponents(seconds: Int = 0,
+                               minutes: Int = 0,
+                               hours: Int = 0,
+                               days: Int = 0,
+                               weeks: Int = 0,
+                               months: Int = 0,
+                               years: Int = 0) -> TimeChunk {
+        return TimeChunk(seconds: seconds,
+                         minutes: minutes,
+                         hours: hours,
+                         days: days,
+                         weeks: weeks,
+                         months: months,
+                         years: years)
+    }
 }
 
 //MARK: - Load Current Theme
@@ -265,5 +264,4 @@ func loadAppTheme(withEmail email: String, view: UIView){
         }
     }
 }
-
 

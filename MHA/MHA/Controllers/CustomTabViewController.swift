@@ -25,6 +25,8 @@ class CustomTabViewController: UITabBarController, UITabBarControllerDelegate{
                 let resulstsVC = currNavController.topViewController as! ResultsViewController
                 resulstsVC.selectedDate = safeSelectedDate
             }
+        }else if currNavController.topViewController is ThemesViewController{
+            
         }
         
         return true

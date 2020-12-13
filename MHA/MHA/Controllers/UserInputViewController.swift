@@ -183,7 +183,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate{
     }
     
     @IBAction func addPressed(_ sender: UIBarButtonItem) {
-        alertMessageCreator(isLeaving: false)
+        alertMessageCreator()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -326,26 +326,18 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate{
         return true
     }
     
-    private func alertMessageCreator(isLeaving: Bool){
+    private func alertMessageCreator(){
         let alert : UIAlertController?
-        let alertTitle : String?
-        
-        if isLeaving{
-            alertTitle = Utils.saveNoteBeforeLeavingAlertMsg
-        }else{
-            alertTitle = Utils.saveNoteAlertMsg
-        }
-        
+        let alertTitle = Utils.saveNoteAlertMsg
+
         alert = UIAlertController(title: alertTitle, message: "", preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Yes", style: .default) {(action) in
-            self.showTimePicker()
+            self.activityText.text = ""
+            self.activityID = UUID.init().uuidString
+            self.cleanPyramidMapData()
         }
         let newAction = UIAlertAction(title: "No", style: .default) {(action) in
-            if !isLeaving{
-                self.activityText.text = ""
-                self.activityID = UUID.init().uuidString
-                self.cleanPyramidMapData()
-            }
+            self.showTimePicker()
         }
         alert!.addAction(saveAction)
         alert!.addAction(newAction)
@@ -355,13 +347,13 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate{
     //MARK: - Swipe Functionality
     @objc func swipedLeft(sender: UISwipeGestureRecognizer) {
         if sender.state == .ended {
-            performSegue(withIdentifier: Utils.userInputReportSegue, sender: self)
+            performSegue(withIdentifier: "unwindToResults", sender: self)
         }
     }
     
     @objc func swipedRight(sender: UISwipeGestureRecognizer) {
         if sender.state == .ended {
-            performSegue(withIdentifier: Utils.userInputCalendarSegue, sender: self)
+            performSegue(withIdentifier: "unwindToCalendar", sender: self)
         }
     }
     

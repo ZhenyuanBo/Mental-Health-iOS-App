@@ -19,14 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //locaiton of Realm file
         print(Realm.Configuration.defaultConfiguration.fileURL)
         
-        //location of UserDefault
-        print("UserDefault Location: \(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! as String)")
-        
-        
         FirebaseApp.configure()
-        let db = Firestore.firestore()
-        
-        print("Firestore DB: \(db)")
+        Firestore.firestore()
         
         do{
             let _ = try Realm()

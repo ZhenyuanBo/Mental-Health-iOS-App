@@ -11,8 +11,14 @@ class ThemesViewController: UITableViewController {
     
     let db = Firestore.firestore()
     
+    var selectedThemeName = ""
+
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        selectedThemeName = Theme.current.themeName
     }
     
     // MARK: - Table view data source
@@ -28,6 +34,9 @@ class ThemesViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "themeCell", for: indexPath)
         cell.textLabel?.text = Array(Utils.themes.keys).sorted(by: <)[indexPath.row]
+        if cell.textLabel?.text == selectedThemeName{
+            cell.accessoryType = .checkmark
+        }
         return cell
     }
     
@@ -64,5 +73,5 @@ class ThemesViewController: UITableViewController {
             cell.accessoryType = .none
         }
     }
-    
+        
 }

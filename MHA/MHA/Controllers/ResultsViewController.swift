@@ -29,19 +29,25 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     private var currSelectedNeedLevel: String = ""
     
+    @IBAction func unwindToResults(_ unwindSegue: UIStoryboardSegue) {}
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        flashCard.duration = 2.0
-        flashCard.flipAnimation = .flipFromLeft
-        flashCard.frontView = frontView
-        flashCard.backView = backView
         
         pieChartTitle.text = "# of Activities/Need Category"
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        flashCard.duration = 2.0
+        flashCard.flipAnimation = .flipFromLeft
+        flashCard.frontView = frontView
+        flashCard.backView = backView
+        
+        frontView.layer.cornerRadius = 25
+        backView.layer.cornerRadius = 25
+        flashCard.layer.cornerRadius = 25
         
         let decodedData = loadDailyActivityResult(date: selectedDate)
 
@@ -64,16 +70,23 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         let width: CGFloat = 55.0
         let height: CGFloat = 80.0
         
-        let selfActualizationView = SelfActualizationView(frame: CGRect(x: 150,
+        let pyramidTitle = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 21))
+        pyramidTitle.center = CGPoint(x: 190, y: 40)
+        pyramidTitle.textAlignment = .center
+        pyramidTitle.text = "Maslow's Hierarchy of Needs"
+        pyramidTitle.font = pyramidTitle.font.withSize(20)
+        
+        let selfActualizationView = SelfActualizationView(frame: CGRect(x: 155,
                                                                         y: 100,
                                                                         width: width,
                                                                         height: height), date: selectedDate)
         
-        let esteemView = EsteemView(frame: CGRect(x: 130, y:190, width: width+40, height: height), date: selectedDate)
-        let loveBelongingView = LoveView(frame: CGRect(x: 90, y: 280, width: width+120, height: height), date: selectedDate)
-        let safetyView = SafetyView(frame: CGRect(x:45, y: 370, width: width + 210, height: height), date: selectedDate)
-        let physiologicalView = PhysiologicalView(frame: CGRect(x: 10, y: 460, width: width + 280, height: height), date: selectedDate)
+        let esteemView = EsteemView(frame: CGRect(x: 135, y:190, width: width+40, height: height), date: selectedDate)
+        let loveBelongingView = LoveView(frame: CGRect(x: 95, y: 280, width: width+120, height: height), date: selectedDate)
+        let safetyView = SafetyView(frame: CGRect(x:52, y: 370, width: width + 210, height: height), date: selectedDate)
+        let physiologicalView = PhysiologicalView(frame: CGRect(x: 20, y: 460, width: width + 280, height: height), date: selectedDate)
         
+        backView.addSubview(pyramidTitle)
         backView.addSubview(selfActualizationView)
         backView.addSubview(esteemView)
         backView.addSubview(loveBelongingView)
@@ -161,7 +174,7 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     //MARK: - Handle Tap
     @objc func handlePhyTap(_ sender: UITapGestureRecognizer) {
         currSelectedNeedLevel = "physiological"
-        popTip.show(text: "Physiological needs", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[4].frame)
+        popTip.show(text: "Physiological needs", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[5].frame)
         DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
             self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
         })
@@ -169,7 +182,7 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     @objc func handleSafetyTap(_ sender: UITapGestureRecognizer){
         currSelectedNeedLevel = "safety"
-        popTip.show(text: "Satefy needs", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[3].frame)
+        popTip.show(text: "Satefy needs", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[4].frame)
         DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
             self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
         })
@@ -177,7 +190,7 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     @objc func handleLoveTap(_ sender: UITapGestureRecognizer){
         currSelectedNeedLevel = "love"
-        popTip.show(text: "Love & Belonging", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[2].frame)
+        popTip.show(text: "Love & Belonging", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[3].frame)
         DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
             self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
         })
@@ -185,7 +198,7 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     @objc func handleEsteemTap(_ sender: UITapGestureRecognizer){
         currSelectedNeedLevel = "esteem"
-        popTip.show(text: "Esteem", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[1].frame)
+        popTip.show(text: "Esteem", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[2].frame)
         DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
             self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
         })
@@ -193,7 +206,7 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     @objc func handleSelfActualizationTap(_ sender: UITapGestureRecognizer){
         currSelectedNeedLevel = "selfActual"
-        popTip.show(text: "Self-Actualization", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[0].frame)
+        popTip.show(text: "Self-Actualization", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[1].frame)
         DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
             self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
         })

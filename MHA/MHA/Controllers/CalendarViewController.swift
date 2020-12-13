@@ -18,6 +18,8 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
     var selectedActivitiyText: String?
     var selectedDate: Date?
     
+    @IBAction func unwindToCalendar(_ unwindSegue: UIStoryboardSegue) {}
+    
     lazy var customCalendar: Calendar = {
         let customNSCalendar = NSCalendar(identifier: NSCalendar.Identifier.gregorian)!
         customNSCalendar.timeZone = TimeZone(abbreviation: "EST")!

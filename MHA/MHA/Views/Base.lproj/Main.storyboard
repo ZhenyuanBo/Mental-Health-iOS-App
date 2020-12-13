@@ -875,9 +875,12 @@
                         <outlet property="flashCard" destination="Tq3-c0-sIc" id="Na9-5y-AJJ"/>
                         <outlet property="flipButton" destination="uiq-ic-Uth" id="Ab6-ql-Qmv"/>
                         <outlet property="frontView" destination="yeQ-34-FDr" id="djs-NM-jBm"/>
+                        <segue destination="grp-0z-snX" kind="unwind" identifier="unwindToResults" unwindAction="unwindToResults:" id="jWa-sp-cyw"/>
+                        <segue destination="grp-0z-snX" kind="unwind" identifier="unwindToCalendar" unwindAction="unwindToCalendar:" id="tQB-Wv-qJf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kPX-G5-h0F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="grp-0z-snX" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3568.115942028986" y="-68.303571428571431"/>
         </scene>
