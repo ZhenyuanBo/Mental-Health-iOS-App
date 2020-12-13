@@ -134,6 +134,7 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
         barChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: dataPoints)
         barChartView.xAxis.granularityEnabled = true
         barChartView.xAxis.granularity = 1.0
+        barChartView.xAxis.labelRotationAngle = -45
         
     }
     

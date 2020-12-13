@@ -976,6 +976,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="backView" destination="23c-b8-Lpg" id="nRk-mR-iwE"/>
+                        <outlet property="downloadButton" destination="B1v-4S-XBM" id="A87-gY-uop"/>
                         <outlet property="flashCard" destination="2mv-ep-Qkn" id="FSF-Gq-nQI"/>
                         <outlet property="flipButton" destination="N34-QB-Jmp" id="eLq-D2-oLj"/>
                         <outlet property="frontView" destination="4Rs-ho-LWL" id="ofG-fR-Vbv"/>

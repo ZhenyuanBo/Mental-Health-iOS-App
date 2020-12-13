@@ -10,9 +10,10 @@ import AMPopTip
 import RealmSwift
 import Firebase
 import FirebaseFirestore
+import Instructions
 
 class ResultsViewController: UIViewController, UIPopoverPresentationControllerDelegate{
-    
+
     let realm = try! Realm()
     let popTip = PopTip()
     
@@ -25,20 +26,34 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     @IBOutlet weak var flipButton: UIBarButtonItem!
     
+    @IBOutlet weak var downloadButton: UIBarButtonItem!
+    
     var selectedDate:Date = Date()
     
     private var currSelectedNeedLevel: String = ""
     
     @IBAction func unwindToResults(_ unwindSegue: UIStoryboardSegue) {}
     
+    let coachMarksController = CoachMarksController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.coachMarksController.dataSource = self
+        self.coachMarksController.delegate = self
+        
+//        let skipView = CoachMarkSkipDefaultView()
+//
+//        skipView.setTitle("Skip", for: .normal)
+//        self.coachMarksController.skipView = skipView
+
         pieChartTitle.text = "# of Activities/Need Category"
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         super.viewDidAppear(animated)
+        self.coachMarksController.start(in: .viewController(self))
         
         flashCard.duration = 2.0
         flashCard.flipAnimation = .flipFromLeft
@@ -112,6 +127,11 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         let selfActualizationTap = UITapGestureRecognizer(target: self, action: #selector(self.handleSelfActualizationTap(_:)))
         selfActualizationView.addGestureRecognizer(selfActualizationTap)
         selfActualizationView.isUserInteractionEnabled = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.coachMarksController.stop(immediately: true)
     }
     
     @IBAction func downloadPressed(_ sender: UIBarButtonItem) {
@@ -218,3 +238,36 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         destinationVC.selectedDate = selectedDate
     }
 }
+
+extension ResultsViewController: CoachMarksControllerDelegate, CoachMarksControllerDataSource{
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkViewsAt index: Int, madeFrom coachMark: CoachMark) -> (bodyView: (UIView & CoachMarkBodyView), arrowView: (UIView & CoachMarkArrowView)?) {
+        let coachViews = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
+         switch index {
+         case 0:
+            coachViews.bodyView.hintLabel.text = "Flip the card below to view back side"
+            coachViews.bodyView.nextLabel.text = "Next"
+         case 1:
+            coachViews.bodyView.hintLabel.text = "Download chart below as an image"
+            coachViews.bodyView.nextLabel.text = "Next"
+         default: break
+         }
+       return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
+    }
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkAt index: Int) -> CoachMark {
+        switch index {
+        case 0:
+            let viewFlip = flipButton.value(forKey: "view") as! UIView
+            return coachMarksController.helper.makeCoachMark(for: viewFlip)
+        case 1:
+            let viewDownload = downloadButton.value(forKey: "view") as! UIView
+            return coachMarksController.helper.makeCoachMark(for: viewDownload)
+        default: return coachMarksController.helper.makeCoachMark()
+        }
+      }
+    
+    func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
+      return 2
+    }
+}
+

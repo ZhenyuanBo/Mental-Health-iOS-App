@@ -11,6 +11,7 @@ target 'MHA' do
   pod 'Charts'
   pod 'CalendarKit'
   pod 'AMPopTip'
+  pod 'Instructions'
 
   target 'MHATests' do
     inherit! :search_paths

@@ -301,6 +301,7 @@ PODS:
     - gRPC-Core/Interface (= 1.28.2)
   - gRPC-Core/Interface (1.28.2)
   - GTMSessionFetcher/Core (1.4.0)
+  - Instructions (2.0.0)
   - leveldb-library (1.22)
   - nanopb (1.30906.0):
     - nanopb/decode (= 1.30906.0)
@@ -320,6 +321,7 @@ DEPENDENCIES:
   - Charts
   - Firebase/Auth
   - Firebase/Firestore
+  - Instructions
   - RealmSwift
 
 SPEC REPOS:
@@ -340,6 +342,7 @@ SPEC REPOS:
     - "gRPC-C++"
     - gRPC-Core
     - GTMSessionFetcher
+    - Instructions
     - leveldb-library
     - nanopb
     - PromisesObjC
@@ -363,12 +366,13 @@ SPEC CHECKSUMS:
   "gRPC-C++": 13d8ccef97d5c3c441b7e3c529ef28ebee86fad2
   gRPC-Core: 4afa11bfbedf7cdecd04de535a9e046893404ed5
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
+  Instructions: debf9cedeaf8d095108fd35d2c54b97ccf769e65
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   Realm: 784ca1da1453e31a9c9adc14445421a81f316119
   RealmSwift: cc52fe0dcea56387274dff36e19219e055a3bb84
 
-PODFILE CHECKSUM: 0bb7de4a0193d6037e230af01d4818c27f8bc418
+PODFILE CHECKSUM: 613726d75fc19ff798bbc014f63cb96cd1593846
 
 COCOAPODS: 1.10.0
