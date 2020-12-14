@@ -16,6 +16,17 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     let realm = try! Realm()
     let popTip = PopTip()
+    let phyPopTip = PopTip()
+    let safetyPopTip = PopTip()
+    let loveBelongingPopTip = PopTip()
+    let esteemPopTip = PopTip()
+    let selfActualizationPopTip = PopTip()
+    
+    let phyColor = hexStringToUIColor(hex: Utils.needColourMap[Utils.phyNeeds]!)
+    let safetyColor = hexStringToUIColor(hex: Utils.needColourMap[Utils.safetyNeeds]!)
+    let loveColor = hexStringToUIColor(hex: Utils.needColourMap[Utils.loveNeeds]!)
+    let esteemColor = hexStringToUIColor(hex: Utils.needColourMap[Utils.esteemNeeds]!)
+    let selfActualColor = hexStringToUIColor(hex: Utils.needColourMap[Utils.selfActualNeeds]!)
     
     @IBOutlet weak var pieChartTitle: UILabel!
     @IBOutlet weak var pieChartView: PieChartView!
@@ -106,22 +117,32 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         let phyTap = UITapGestureRecognizer(target: self, action: #selector(self.handlePhyTap(_:)))
         physiologicalView.addGestureRecognizer(phyTap)
         physiologicalView.isUserInteractionEnabled = true
+        phyPopTip.show(text: "Physiological needs", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[5].frame)
+        phyPopTip.bubbleColor = phyColor
         
         let safetyTap = UITapGestureRecognizer(target: self, action: #selector(self.handleSafetyTap(_:)))
         safetyView.addGestureRecognizer(safetyTap)
         safetyView.isUserInteractionEnabled = true
+        safetyPopTip.show(text: "Satefy needs", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[4].frame)
+        safetyPopTip.bubbleColor = safetyColor
         
         let loveTap = UITapGestureRecognizer(target: self, action: #selector(self.handleLoveTap(_:)))
         loveBelongingView.addGestureRecognizer(loveTap)
         loveBelongingView.isUserInteractionEnabled = true
+        loveBelongingPopTip.show(text: "Love & Belonging", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[3].frame)
+        loveBelongingPopTip.bubbleColor = loveColor
         
         let esteemTap = UITapGestureRecognizer(target: self, action: #selector(self.handleEsteemTap(_:)))
         esteemView.addGestureRecognizer(esteemTap)
         esteemView.isUserInteractionEnabled = true
+        esteemPopTip.show(text: "Esteem", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[2].frame)
+        esteemPopTip.bubbleColor = esteemColor
         
         let selfActualizationTap = UITapGestureRecognizer(target: self, action: #selector(self.handleSelfActualizationTap(_:)))
         selfActualizationView.addGestureRecognizer(selfActualizationTap)
         selfActualizationView.isUserInteractionEnabled = true
+        selfActualizationPopTip.show(text: "Self-Actualization", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[1].frame)
+        selfActualizationPopTip.bubbleColor = selfActualColor
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -167,37 +188,31 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         var colors: [UIColor] = []
         for index in 0..<dataPoints.count{
             if Utils.phyNeeds.contains(dataPoints[index]){
-                let phyColor = hexStringToUIColor(hex: Utils.needColourMap[Utils.phyNeeds]!)
                 colors.append(phyColor)
             }else if Utils.safetyNeeds.contains(dataPoints[index]){
-                let safetyColor = hexStringToUIColor(hex: Utils.needColourMap[Utils.safetyNeeds]!)
                 colors.append(safetyColor)
             }else if Utils.loveNeeds.contains(dataPoints[index]){
-                let loveColor = hexStringToUIColor(hex: Utils.needColourMap[Utils.loveNeeds]!)
                 colors.append(loveColor)
             }else if Utils.esteemNeeds.contains(dataPoints[index]){
-                let esteemColor = hexStringToUIColor(hex: Utils.needColourMap[Utils.esteemNeeds]!)
                 colors.append(esteemColor)
             }else if Utils.selfActualNeeds.contains(dataPoints[index]){
-                let selfActualColor = hexStringToUIColor(hex: Utils.needColourMap[Utils.selfActualNeeds]!)
                 colors.append(selfActualColor)
             }
         }
         return colors
     }
     
+    
     //MARK: - Handle Tap
     @objc func handlePhyTap(_ sender: UITapGestureRecognizer) {
-        currSelectedNeedLevel = "physiological"
-        popTip.show(text: "Physiological needs", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[5].frame)
-        DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
-            self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
-        })
+//        currSelectedNeedLevel = "physiological"
+//        DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
+//            self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
+//        })
     }
     
     @objc func handleSafetyTap(_ sender: UITapGestureRecognizer){
         currSelectedNeedLevel = "safety"
-        popTip.show(text: "Satefy needs", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[4].frame)
         DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
             self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
         })
@@ -205,7 +220,6 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     @objc func handleLoveTap(_ sender: UITapGestureRecognizer){
         currSelectedNeedLevel = "love"
-        popTip.show(text: "Love & Belonging", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[3].frame)
         DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
             self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
         })
@@ -213,7 +227,6 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     @objc func handleEsteemTap(_ sender: UITapGestureRecognizer){
         currSelectedNeedLevel = "esteem"
-        popTip.show(text: "Esteem", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[2].frame)
         DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
             self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
         })
@@ -221,7 +234,6 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     @objc func handleSelfActualizationTap(_ sender: UITapGestureRecognizer){
         currSelectedNeedLevel = "selfActual"
-        popTip.show(text: "Self-Actualization", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[1].frame)
         DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
             self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
         })
@@ -239,7 +251,7 @@ extension ResultsViewController: CoachMarksControllerDelegate, CoachMarksControl
         let coachViews = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
         switch index {
         case 0:
-            coachViews.bodyView.hintLabel.text = "Flip card below to view back side"
+            coachViews.bodyView.hintLabel.text = "Flip card below"
             coachViews.bodyView.nextLabel.text = "next"
         case 1:
             coachViews.bodyView.hintLabel.text = "Download chart below as an image"
