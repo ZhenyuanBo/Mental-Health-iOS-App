@@ -151,14 +151,7 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
             return
         }
         selectedActivitiyText = eventView.textView.text!
-        let alert = UIAlertController(title: "Do you want to edit/delete this activity?", message: "", preferredStyle: .alert)
-        let editAction = UIAlertAction(title: "Yes", style: .default) { (action) in
-            self.performSegue(withIdentifier: "unwindToUserInput", sender: self)
-        }
-        let cancelAction = UIAlertAction(title: "No", style: .default)
-        alert.addAction(editAction)
-        alert.addAction(cancelAction)
-        present(alert, animated: true, completion: nil)
+        self.performSegue(withIdentifier: "unwindToUserInput", sender: self)
     }
     
     override func dayViewDidLongPressEventView(_ eventView: EventView) {
@@ -184,6 +177,8 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
     }
     
     override func dayView(dayView: DayView, didMoveTo date: Date) {
+        selectedDate = date
+        print("Selected date: \(selectedDate)")
         reloadData()
     }
     

@@ -18,15 +18,17 @@ class CustomTabViewController: UITabBarController, UITabBarControllerDelegate{
         let calendarVC = calNavController.topViewController as! CalendarViewController
         let selectedDate = calendarVC.selectedDate
         
-        //results view
         let currNavController = viewController as! UINavigationController
         if currNavController.topViewController is ResultsViewController{
             if let safeSelectedDate = selectedDate{
                 let resulstsVC = currNavController.topViewController as! ResultsViewController
                 resulstsVC.selectedDate = safeSelectedDate
             }
-        }else if currNavController.topViewController is ThemesViewController{
-            
+        }else if currNavController.topViewController is UserInputViewController{
+            if let safeSelectedDate = selectedDate{
+                let userInputVC = currNavController.topViewController as! UserInputViewController
+                userInputVC.selectedDate = safeSelectedDate
+            }
         }
         
         return true

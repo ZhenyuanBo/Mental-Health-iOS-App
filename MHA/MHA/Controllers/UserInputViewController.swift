@@ -15,7 +15,8 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     
     private var savedActivityText: String?
     private var activityID: String?
-    private var selectedDate: Date = Date()
+    
+    var selectedDate: Date = Date()
     
     @IBAction func unwind(_ unwindSegue: UIStoryboardSegue) {
         if let calendarViewController = unwindSegue.source as? CalendarViewController{
