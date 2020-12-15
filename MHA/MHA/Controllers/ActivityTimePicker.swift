@@ -35,6 +35,8 @@ class ActivityTimePicker: UIViewController {
         startTimes = getTimeList(from: 0)
         endTimes = getTimeList(from: 0)
         
+        self.definesPresentationContext = true
+        
         cancelButton.addTarget(self, action: #selector(cancelAction), for: .touchUpInside)
         doneButton.addTarget(self, action: #selector(doneAction), for: .touchUpInside)
     }

@@ -4,6 +4,7 @@ import DateToolsSwift
 import RealmSwift
 import Firebase
 import FirebaseFirestore
+import PopupDialog
 
 class Utils{
     
@@ -263,5 +264,43 @@ func loadAppTheme(withEmail email: String, view: UIView){
             }
         }
     }
+}
+
+//MARK: - Instruction Pop-up Dialog
+func showInstructionDialog(VC: UIViewController, message: String){
+
+    let title = "Instruction"
+
+    let popup = PopupDialog(title: title, message: message, buttonAlignment: .vertical)
+
+    let understandButton = DefaultButton(title: "Start", dismissOnTap: true) {}
+    popup.addButtons([understandButton])
+    
+    let dialogAppearance = PopupDialogDefaultView.appearance()
+
+    dialogAppearance.backgroundColor      = .white
+    dialogAppearance.titleFont            = .boldSystemFont(ofSize: 30)
+    dialogAppearance.titleColor           = UIColor(white: 0.4, alpha: 1)
+    dialogAppearance.titleTextAlignment   = .center
+    dialogAppearance.messageFont          = .systemFont(ofSize: 20)
+    dialogAppearance.messageColor         = UIColor(white: 0.6, alpha: 1)
+    dialogAppearance.messageTextAlignment = .left
+    
+    let containerAppearance = PopupDialogContainerView.appearance()
+
+    containerAppearance.cornerRadius    = 10
+    containerAppearance.shadowEnabled   = true
+    containerAppearance.shadowColor     = .black
+    containerAppearance.shadowOpacity   = 0.6
+    containerAppearance.shadowRadius    = 20
+    containerAppearance.shadowOffset    = CGSize(width: 0, height: 8)
+
+    let buttonAppearance = DefaultButton.appearance()
+
+    buttonAppearance.titleFont      = .systemFont(ofSize: 25)
+    buttonAppearance.titleColor     =  .black
+    buttonAppearance.buttonColor = hexStringToUIColor(hex: "#61b15a")
+    
+    VC.present(popup, animated: true, completion: nil)
 }
 

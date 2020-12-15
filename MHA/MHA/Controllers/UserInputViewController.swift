@@ -9,7 +9,7 @@ import Firebase
 import FirebaseFirestore
 import RealmSwift
 
-class UserInputViewController: UIViewController, UITabBarControllerDelegate{
+class UserInputViewController: UIViewController, UITabBarControllerDelegate, UITextViewDelegate{
     
     let db = Firestore.firestore()
     
@@ -55,20 +55,30 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate{
         self.view.addGestureRecognizer(leftSwipeGestureRecognizer)
         self.view.addGestureRecognizer(rightSwipeGestureRecognizer)
         
+        activityText.delegate = self
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        if let currentThemeOwner = Auth.auth().currentUser?.email{
+            loadAppTheme(withEmail: currentThemeOwner, view: view)
+        }
+        
         title = setTitle(date: selectedDate)
         
         if let safeActivityText = savedActivityText{
             activityText.text = safeActivityText
             if safeActivityText != ""{
                 activityID = loadActivityID(activityText: safeActivityText)
+                activityText.textColor = UIColor.black
             }else{
                 activityID = UUID.init().uuidString
+                setTextViewPlaceHolder()
             }
         }else{
             activityID = UUID.init().uuidString
+            setTextViewPlaceHolder()
         }
         
         populateDailyActivityMap(date: selectedDate)
@@ -89,10 +99,6 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate{
         flashCard.layer.cornerRadius = 25
         
         frontView.backgroundColor = hexStringToUIColor(hex: "#98acf8")
-        
-        if let currentThemeOwner = Auth.auth().currentUser?.email{
-            loadAppTheme(withEmail: currentThemeOwner, view: view)
-        }
 
     }
     
@@ -184,12 +190,20 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate{
     
     @IBAction func addPressed(_ sender: UIBarButtonItem) {
         alertMessageCreator()
+        setTextViewPlaceHolder()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Utils.userInputReportSegue{
             let destinationVC = segue.destination as! ResultsViewController
             destinationVC.selectedDate = selectedDate
+        }
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if activityText.textColor == UIColor.lightGray{
+            activityText.text = nil
+            activityText.textColor = UIColor.black
         }
     }
     
@@ -343,6 +357,11 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate{
         alert!.addAction(newAction)
         present(alert!, animated: true, completion: nil)
     }
+    
+    private func setTextViewPlaceHolder(){
+        activityText.text = "Please compose your activity here..."
+        activityText.textColor = UIColor.lightGray
+    }
         
     //MARK: - Swipe Functionality
     @objc func swipedLeft(sender: UISwipeGestureRecognizer) {
@@ -379,8 +398,8 @@ extension UserInputViewController: ActivityTimePickerDelegate {
         let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "activitytimepicker") as! ActivityTimePicker
         customAlert.providesPresentationContextTransitionStyle = true
         customAlert.definesPresentationContext = true
-        customAlert.modalPresentationStyle = .popover
-        customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        customAlert.modalPresentationStyle = .overCurrentContext
+        customAlert.modalTransitionStyle = .crossDissolve
         customAlert.delegate = self
         self.present(customAlert, animated: true, completion: nil)
     }

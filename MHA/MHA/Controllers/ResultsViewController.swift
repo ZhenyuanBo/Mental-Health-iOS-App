@@ -160,7 +160,7 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     @IBAction func flipPressed(_ sender: UIBarButtonItem) {
         flashCard.flip()
         if flashCard.showFront{
-            showInstructionDialog()
+            displayInstruction()
         }
     }
     
@@ -207,43 +207,9 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         return colors
     }
     
-    private func showInstructionDialog(){
-
-        let title = "Instruction"
-        let message = "1. Tap on label to dismiss it\n2. Tap inside each level to view detailed data\n3. Tap myself to dismiss"
-
-        let popup = PopupDialog(title: title, message: message, buttonAlignment: .vertical)
-
-        let understandButton = DefaultButton(title: "Understand", dismissOnTap: true) {}
-        popup.addButtons([understandButton])
-        
-        let dialogAppearance = PopupDialogDefaultView.appearance()
-
-        dialogAppearance.backgroundColor      = .white
-        dialogAppearance.titleFont            = .boldSystemFont(ofSize: 30)
-        dialogAppearance.titleColor           = UIColor(white: 0.4, alpha: 1)
-        dialogAppearance.titleTextAlignment   = .center
-        dialogAppearance.messageFont          = .systemFont(ofSize: 20)
-        dialogAppearance.messageColor         = UIColor(white: 0.6, alpha: 1)
-        dialogAppearance.messageTextAlignment = .center
-        
-        let containerAppearance = PopupDialogContainerView.appearance()
-
-        containerAppearance.backgroundColor = UIColor(red:0.23, green:0.23, blue:0.27, alpha:1.00)
-        containerAppearance.cornerRadius    = 10
-        containerAppearance.shadowEnabled   = true
-        containerAppearance.shadowColor     = .black
-        containerAppearance.shadowOpacity   = 0.6
-        containerAppearance.shadowRadius    = 20
-        containerAppearance.shadowOffset    = CGSize(width: 0, height: 8)
-
-        let buttonAppearance = DefaultButton.appearance()
-
-        buttonAppearance.titleFont      = .systemFont(ofSize: 18)
-        buttonAppearance.titleColor     = UIColor(red: 0.25, green: 0.53, blue: 0.91, alpha: 1)
-        buttonAppearance.buttonColor    = .clear
-        
-        self.present(popup, animated: true, completion: nil)
+    private func displayInstruction(){
+        let message = "1. Tap on each level tag to view activity progression.\n2. Tap inside each level to view detailed data"
+        showInstructionDialog(VC: self, message: message)
     }
     
     
@@ -295,10 +261,10 @@ extension ResultsViewController: CoachMarksControllerDelegate, CoachMarksControl
         let coachViews = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
         switch index {
         case 0:
-            coachViews.bodyView.hintLabel.text = "Flip card below"
+            coachViews.bodyView.hintLabel.text = "Flip card"
             coachViews.bodyView.nextLabel.text = "next"
         case 1:
-            coachViews.bodyView.hintLabel.text = "Download chart below as an image"
+            coachViews.bodyView.hintLabel.text = "Download as an image"
             coachViews.bodyView.nextLabel.text = "next"
         default: break
         }
