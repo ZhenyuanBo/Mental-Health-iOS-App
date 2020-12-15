@@ -12,6 +12,7 @@ target 'MHA' do
   pod 'CalendarKit'
   pod 'AMPopTip'
   pod 'Instructions'
+  pod 'PopupDialog', '~> 1.1'
 
   target 'MHATests' do
     inherit! :search_paths

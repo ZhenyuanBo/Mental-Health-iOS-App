@@ -11,6 +11,7 @@ import RealmSwift
 import Firebase
 import FirebaseFirestore
 import Instructions
+import PopupDialog
 
 class ResultsViewController: UIViewController, UIPopoverPresentationControllerDelegate{
     
@@ -143,6 +144,7 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         selfActualizationView.isUserInteractionEnabled = true
         selfActualizationPopTip.show(text: "Self-Actualization", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[1].frame)
         selfActualizationPopTip.bubbleColor = selfActualColor
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -157,6 +159,9 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     @IBAction func flipPressed(_ sender: UIBarButtonItem) {
         flashCard.flip()
+        if flashCard.showFront{
+            showInstructionDialog()
+        }
     }
     
     private func customizeChart(dataPoints: [String], values: [Int]) {
@@ -202,13 +207,52 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         return colors
     }
     
+    private func showInstructionDialog(){
+
+        let title = "Instruction"
+        let message = "1. Tap on label to dismiss it\n2. Tap inside each level to view detailed data\n3. Tap myself to dismiss"
+
+        let popup = PopupDialog(title: title, message: message, buttonAlignment: .vertical)
+
+        let understandButton = DefaultButton(title: "Understand", dismissOnTap: true) {}
+        popup.addButtons([understandButton])
+        
+        let dialogAppearance = PopupDialogDefaultView.appearance()
+
+        dialogAppearance.backgroundColor      = .white
+        dialogAppearance.titleFont            = .boldSystemFont(ofSize: 30)
+        dialogAppearance.titleColor           = UIColor(white: 0.4, alpha: 1)
+        dialogAppearance.titleTextAlignment   = .center
+        dialogAppearance.messageFont          = .systemFont(ofSize: 20)
+        dialogAppearance.messageColor         = UIColor(white: 0.6, alpha: 1)
+        dialogAppearance.messageTextAlignment = .center
+        
+        let containerAppearance = PopupDialogContainerView.appearance()
+
+        containerAppearance.backgroundColor = UIColor(red:0.23, green:0.23, blue:0.27, alpha:1.00)
+        containerAppearance.cornerRadius    = 10
+        containerAppearance.shadowEnabled   = true
+        containerAppearance.shadowColor     = .black
+        containerAppearance.shadowOpacity   = 0.6
+        containerAppearance.shadowRadius    = 20
+        containerAppearance.shadowOffset    = CGSize(width: 0, height: 8)
+
+        let buttonAppearance = DefaultButton.appearance()
+
+        buttonAppearance.titleFont      = .systemFont(ofSize: 18)
+        buttonAppearance.titleColor     = UIColor(red: 0.25, green: 0.53, blue: 0.91, alpha: 1)
+        buttonAppearance.buttonColor    = .clear
+        
+        self.present(popup, animated: true, completion: nil)
+    }
+    
     
     //MARK: - Handle Tap
     @objc func handlePhyTap(_ sender: UITapGestureRecognizer) {
-//        currSelectedNeedLevel = "physiological"
-//        DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
-//            self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
-//        })
+        currSelectedNeedLevel = "physiological"
+        DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
+            self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
+        })
     }
     
     @objc func handleSafetyTap(_ sender: UITapGestureRecognizer){

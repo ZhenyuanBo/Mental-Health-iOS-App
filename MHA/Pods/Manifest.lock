@@ -225,6 +225,7 @@ PODS:
     - Charts/Core (= 3.6.0)
   - Charts/Core (3.6.0)
   - DateToolsSwift (5.0.0)
+  - DynamicBlurView (4.1.0)
   - Firebase/Auth (6.34.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 6.9.2)
@@ -308,6 +309,8 @@ PODS:
     - nanopb/encode (= 1.30906.0)
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
+  - PopupDialog (1.1.1):
+    - DynamicBlurView (~> 4.0)
   - PromisesObjC (1.2.11)
   - Realm (10.1.1):
     - Realm/Headers (= 10.1.1)
@@ -322,6 +325,7 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Firestore
   - Instructions
+  - PopupDialog (~> 1.1)
   - RealmSwift
 
 SPEC REPOS:
@@ -332,6 +336,7 @@ SPEC REPOS:
     - CalendarKit
     - Charts
     - DateToolsSwift
+    - DynamicBlurView
     - Firebase
     - FirebaseAuth
     - FirebaseCore
@@ -345,6 +350,7 @@ SPEC REPOS:
     - Instructions
     - leveldb-library
     - nanopb
+    - PopupDialog
     - PromisesObjC
     - Realm
     - RealmSwift
@@ -356,6 +362,7 @@ SPEC CHECKSUMS:
   CalendarKit: 2688f4284934d7649a57972150b250ad1f2b25b8
   Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
   DateToolsSwift: 4207ada6ad615d8dc076323d27037c94916dbfa6
+  DynamicBlurView: 58e18fae80bb614e34681a4486870e7d257b62e8
   Firebase: c23a36d9e4cdf7877dfcba8dd0c58add66358999
   FirebaseAuth: c92d49ada7948d1a23466e3db17bc4c2039dddc3
   FirebaseCore: d3a978a3cfa3240bf7e4ba7d137fdf5b22b628ec
@@ -369,10 +376,11 @@ SPEC CHECKSUMS:
   Instructions: debf9cedeaf8d095108fd35d2c54b97ccf769e65
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
+  PopupDialog: 720c92befd8bc23c13442254945213db5612f149
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   Realm: 784ca1da1453e31a9c9adc14445421a81f316119
   RealmSwift: cc52fe0dcea56387274dff36e19219e055a3bb84
 
-PODFILE CHECKSUM: 613726d75fc19ff798bbc014f63cb96cd1593846
+PODFILE CHECKSUM: 7ddf87e67d30b94e9f64d64ef00b3ef817164fc8
 
 COCOAPODS: 1.10.0
