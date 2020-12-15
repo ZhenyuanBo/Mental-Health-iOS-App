@@ -16,6 +16,8 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
     var generatedEvents = [EventDescriptor]()
     var alreadyGeneratedSet = Set<Date>()
     var selectedActivitiyText: String?
+    var selectedStartTime: String?
+    var selectedEndTime: String?
     var selectedDate: Date?
     
     @IBAction func unwindToCalendar(_ unwindSegue: UIStoryboardSegue) {}
@@ -114,7 +116,7 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
                 
                 let endDateStr = "\(date.dateFormatter(format: "yyyy-MM-dd"))T\(value[1]):00"
                 let endDate = dateFormatter.date(from: endDateStr)
-
+                
                 event.startDate = startDate!
                 event.endDate = endDate!
 
@@ -151,6 +153,8 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
             return
         }
         selectedActivitiyText = eventView.textView.text!
+        selectedStartTime = descriptor.startDate.dateFormatter(format: "H:mm")
+        selectedEndTime = descriptor.endDate.dateFormatter(format: "H:mm")
         self.performSegue(withIdentifier: "unwindToUserInput", sender: self)
     }
     
@@ -178,7 +182,6 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
     
     override func dayView(dayView: DayView, didMoveTo date: Date) {
         selectedDate = date
-        print("Selected date: \(selectedDate)")
         reloadData()
     }
     

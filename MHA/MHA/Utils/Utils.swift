@@ -69,9 +69,11 @@ class Utils{
                                       "#ffa36c", "#bedbbb", "#0e918c", "#a6f6f1", "#edcfa9"]
     
     
-    //MARK: - Alert Messages
+    //MARK: - Messages
     public static let saveNoteAlertMsg = "Have you saved your current note?"
+    public static let resultsInstructionMsg = "1. Tap on each level tag to view activity progression.\n2. Tap inside each level to view detailed data"
     
+    //MARK: - App Themes
     public static let themes:[String: ThemeProtocol] = [
         "Light":LightTheme(),
         "Natural Elegance":NaturalEleganceTheme(),

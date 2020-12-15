@@ -16,7 +16,7 @@ import PopupDialog
 class ResultsViewController: UIViewController, UIPopoverPresentationControllerDelegate{
     
     let realm = try! Realm()
-    let popTip = PopTip()
+    
     let phyPopTip = PopTip()
     let safetyPopTip = PopTip()
     let loveBelongingPopTip = PopTip()
@@ -208,8 +208,7 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     }
     
     private func displayInstruction(){
-        let message = "1. Tap on each level tag to view activity progression.\n2. Tap inside each level to view detailed data"
-        showInstructionDialog(VC: self, message: message)
+        showInstructionDialog(VC: self, message: Utils.resultsInstructionMsg)
     }
     
     

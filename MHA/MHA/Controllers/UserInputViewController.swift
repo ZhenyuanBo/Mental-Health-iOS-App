@@ -17,6 +17,8 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     private var activityID: String?
     
     var selectedDate: Date = Date()
+    private var selectedStartTime: String = ""
+    private var selectedEndTime: String = ""
     
     @IBAction func unwind(_ unwindSegue: UIStoryboardSegue) {
         if let calendarViewController = unwindSegue.source as? CalendarViewController{
@@ -27,6 +29,10 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
             }
             if let safeSelectedDate = calendarViewController.selectedDate{
                 selectedDate = safeSelectedDate
+            }
+            if let safeStartTime = calendarViewController.selectedStartTime, let safeEndTime = calendarViewController.selectedEndTime{
+                selectedStartTime = safeStartTime
+                selectedEndTime = safeEndTime
             }
         }
     }
@@ -401,7 +407,10 @@ extension UserInputViewController: ActivityTimePickerDelegate {
         customAlert.definesPresentationContext = true
         customAlert.modalPresentationStyle = .overCurrentContext
         customAlert.modalTransitionStyle = .crossDissolve
-        customAlert.delegate = self
+        if selectedStartTime != "" && selectedEndTime != ""{
+            customAlert.selectedStartTime = selectedStartTime
+            customAlert.selectedEndTime = selectedEndTime
+        }
         self.present(customAlert, animated: true, completion: nil)
     }
     

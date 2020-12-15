@@ -12,7 +12,7 @@ protocol ActivityTimePickerDelegate: class {
 }
 
 class ActivityTimePicker: UIViewController {
-
+    
     
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
@@ -24,6 +24,15 @@ class ActivityTimePicker: UIViewController {
     var startTimes = [String]()
     var endTimes = [String]()
     let timeFormatter = DateFormatter()
+    
+    var selectedStartTime : String?
+    var selectedEndTime : String?
+    
+    let timeList: [String] = [
+        "0:00", "1:00","2:00","3:00","4:00","5:00", "6:00", "7:00",
+        "8:00", "9:00","10:00","11:00", "12:00", "13:00", "14:00",
+        "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00",
+        "22:00", "23:00", "24:00"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +50,15 @@ class ActivityTimePicker: UIViewController {
         doneButton.addTarget(self, action: #selector(doneAction), for: .touchUpInside)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if let safeStartTime = selectedStartTime, let safeEndTime = selectedEndTime{
+            let startTimeIndex = timeList.firstIndex(of: safeStartTime)
+            let endTimeIndex = timeList.firstIndex(of: safeEndTime)
+            pickerView.selectRow(startTimeIndex!, inComponent: 0, animated: true)
+            pickerView.selectRow(endTimeIndex!, inComponent: 1, animated: true)
+        }
+    }
+    
     @objc func cancelAction(){
         delegate?.pickerAlertCancel()
         self.dismiss(animated: true, completion: nil)
@@ -50,13 +68,11 @@ class ActivityTimePicker: UIViewController {
         delegate?.pickerAlertSelected(t1: startTimes[pickerView.selectedRow(inComponent: 0)], t2: endTimes[pickerView.selectedRow(inComponent: 1)])
         self.dismiss(animated: true, completion: nil)
     }
-
+    
 }
 
 extension ActivityTimePicker{
     func getTimeList(from: Int) -> [String] {
-        let timeList: [String] = [
-            "0:00", "1:00","2:00","3:00","4:00","5:00", "6:00", "7:00", "8:00", "9:00","10:00","11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00"]
         var list: [String] = []
         for i in from...timeList.count-1 {
             list.append(timeList[i])
@@ -82,19 +98,19 @@ extension ActivityTimePicker: UIPickerViewDelegate, UIPickerViewDataSource{
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         var label: UILabel
-       
+        
         if let view = view as? UILabel {
             label = view
         } else {
             label = UILabel()
         }
-       
+        
         label.textColor = .black
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 15)
-       
+        
         var text = ""
-       
+        
         switch component {
         case 0:
             text = startTimes[row]
@@ -103,16 +119,15 @@ extension ActivityTimePicker: UIPickerViewDelegate, UIPickerViewDataSource{
         default:
             break
         }
-       
+        
         label.text = text
-       
+        
         return label
     }
-   
+    
     //this is for reloading the END times list, according to the value selected as the START time.
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if (component == 0) {
-           
             endTimes = getTimeList(from: row)
             pickerView.reloadComponent(1)
         }
