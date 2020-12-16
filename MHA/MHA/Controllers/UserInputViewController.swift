@@ -12,14 +12,28 @@ import RealmSwift
 class UserInputViewController: UIViewController, UITabBarControllerDelegate, UITextViewDelegate{
     
     let db = Firestore.firestore()
+    let realm = try! Realm()
+    let encoder = JSONEncoder()
     
-    private var savedActivityText: String?
-    private var activityID: String?
+    var savedActivityText: String?
+    var activityID: String?
     
     var selectedDate: Date = Date()
-    private var selectedStartTime: String = ""
-    private var selectedEndTime: String = ""
+    var selectedStartTime: String = ""
+    var selectedEndTime: String = ""
     
+    @IBOutlet weak var backView: UIView!
+    @IBOutlet weak var frontView: UIView!
+    @IBOutlet weak var flashCard: FlashCardView!
+    
+    //MARK: - User Input Outlet
+    @IBOutlet weak var activityText: UITextView!
+    @IBOutlet weak var flipButton: UIBarButtonItem!
+    
+    private var dailyActivityMap:[String:Int] = [:]
+    private var selectedNeeds: String = ""
+    
+    //MARK: - Unwind Action from CalendarView
     @IBAction func unwind(_ unwindSegue: UIStoryboardSegue) {
         if let calendarViewController = unwindSegue.source as? CalendarViewController{
             if let safeSelectedActivityText = calendarViewController.selectedActivitiyText{
@@ -37,33 +51,14 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
         }
     }
     
-    let realm = try! Realm()
-    let encoder = JSONEncoder()
-    
-    @IBOutlet weak var backView: UIView!
-    @IBOutlet weak var frontView: UIView!
-    @IBOutlet weak var flashCard: FlashCardView!
-    
-    //MARK: - User Input Outlet
-    @IBOutlet weak var activityText: UITextView!
-    @IBOutlet weak var flipButton: UIBarButtonItem!
-    
-    private var dailyActivityMap:[String:Int] = [:]
-    private var selectedNeeds: String = ""
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         for need in Utils.needTypeList{
             dailyActivityMap[need] = 0
         }
-        
         self.view.addGestureRecognizer(leftSwipeGestureRecognizer)
         self.view.addGestureRecognizer(rightSwipeGestureRecognizer)
-        
         activityText.delegate = self
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -83,7 +78,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
                 activityID = UUID.init().uuidString
                 setTextViewPlaceHolder()
             }
-        }else{
+        }else if activityText.text.isEmpty{
             activityID = UUID.init().uuidString
             setTextViewPlaceHolder()
         }
@@ -106,7 +101,15 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
         flashCard.layer.cornerRadius = 25
         
         frontView.backgroundColor = hexStringToUIColor(hex: "#98acf8")
-
+        
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if (text as NSString).rangeOfCharacter(from: CharacterSet.newlines).location == NSNotFound {
+            return true
+        }
+        activityText.resignFirstResponder()
+        return false
     }
     
     //MARK: - Button Actions
@@ -224,6 +227,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     }
     
     private func saveActivity(startTime: String, endTime: String){
+        print("save activity now...")
         do{
             try self.realm.write{
                 let newActivity = Activity()
@@ -350,7 +354,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     private func alertMessageCreator(){
         let alert : UIAlertController?
         let alertTitle = Utils.saveNoteAlertMsg
-
+        
         alert = UIAlertController(title: alertTitle, message: "", preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Yes", style: .default) {(action) in
             self.activityText.text = ""
@@ -369,7 +373,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
         activityText.text = "Please compose your activity here..."
         activityText.textColor = UIColor.lightGray
     }
-        
+    
     //MARK: - Swipe Functionality
     @objc func swipedLeft(sender: UISwipeGestureRecognizer) {
         if sender.state == .ended {
@@ -407,6 +411,7 @@ extension UserInputViewController: ActivityTimePickerDelegate {
         customAlert.definesPresentationContext = true
         customAlert.modalPresentationStyle = .overCurrentContext
         customAlert.modalTransitionStyle = .crossDissolve
+        customAlert.delegate = self
         if selectedStartTime != "" && selectedEndTime != ""{
             customAlert.selectedStartTime = selectedStartTime
             customAlert.selectedEndTime = selectedEndTime

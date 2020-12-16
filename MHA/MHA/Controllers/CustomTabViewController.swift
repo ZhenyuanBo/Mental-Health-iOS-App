@@ -27,6 +27,9 @@ class CustomTabViewController: UITabBarController, UITabBarControllerDelegate{
         }else if currNavController.topViewController is UserInputViewController{
             if let safeSelectedDate = selectedDate{
                 let userInputVC = currNavController.topViewController as! UserInputViewController
+                if userInputVC.selectedDate != safeSelectedDate{
+                    userInputVC.savedActivityText = nil
+                }
                 userInputVC.selectedDate = safeSelectedDate
             }
         }

@@ -125,7 +125,6 @@ extension ActivityTimePicker: UIPickerViewDelegate, UIPickerViewDataSource{
         return label
     }
     
-    //this is for reloading the END times list, according to the value selected as the START time.
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if (component == 0) {
             endTimes = getTimeList(from: row)

@@ -299,7 +299,7 @@
         <!--Register View Controller-->
         <scene sceneID="6kX-w8-s7q">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="aSk-ha-SFj" customClass="RegisterViewController" customModule="MHA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="aSk-ha-SFj" customClass="RegisterViewController" customModule="MHA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FXA-fZ-Foa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
