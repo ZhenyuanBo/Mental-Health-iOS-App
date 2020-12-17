@@ -88,7 +88,6 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
     // MARK: EventDataSource
     
     override func eventsForDate(_ date: Date) -> [EventDescriptor] {
-        print("generate events...")
         selectedDate = date
         if !alreadyGeneratedSet.contains(date) {
             alreadyGeneratedSet.insert(date)
@@ -100,8 +99,7 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
     private func generateEventsForDate(_ date: Date) -> [EventDescriptor] {
         
         let activities = loadActivity(date: date.dateFormatter(format: "yyyy-MM-dd"))
-        print(activities)
-        
+
         var events = [Event]()
         
         if let safeActivities = activities{

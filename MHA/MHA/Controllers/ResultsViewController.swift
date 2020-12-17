@@ -54,7 +54,7 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         self.coachMarksController.dataSource = self
         self.coachMarksController.delegate = self
         
-        pieChartTitle.text = "# of Activities/Need Category"
+        pieChartTitle.text = "# of Activities/Need"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,12 +72,22 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         flashCard.layer.cornerRadius = 25
         
         let decodedData = loadDailyActivityResult(date: selectedDate)
-        
+
         if let safeDecodedData = decodedData{
-            var activityCategoryMap:[String: Int] = [:]
+            var activityCategoryMap = ["physiological": 0, "safety": 0, "love&belonging": 0, "esteem": 0, "self-actualization": 0]
             for needType in Utils.needTypeList{
-                if safeDecodedData[needType] != 0{
-                    activityCategoryMap[needType] = safeDecodedData[needType]
+                if safeDecodedData[needType] != 0 {
+                    if Utils.phyNeeds.contains(needType){
+                        activityCategoryMap["physiological"]! += safeDecodedData[needType]
+                    }else if Utils.safetyNeeds.contains(needType){
+                        activityCategoryMap["safety"]! += safeDecodedData[needType]
+                    }else if Utils.loveNeeds.contains(needType){
+                        activityCategoryMap["love&belonging"]! += safeDecodedData[needType]
+                    }else if Utils.esteemNeeds.contains(needType){
+                        activityCategoryMap["esteem"]! += safeDecodedData[needType]
+                    }else if Utils.selfActualNeeds.contains(needType){
+                        activityCategoryMap["self-actualization"]! += safeDecodedData[needType]
+                    }
                 }
             }
             customizeChart(dataPoints: Array(activityCategoryMap.keys), values: Array(activityCategoryMap.values))
@@ -181,26 +191,31 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         pieChartData.setValueFormatter(formatter)
         
         pieChartView.data = pieChartData
-        pieChartView.drawEntryLabelsEnabled = true
-        pieChartView.entryLabelFont = UIFont.systemFont(ofSize: 16)
-        pieChartView.entryLabelColor = UIColor.white
+        pieChartView.drawEntryLabelsEnabled = false
+        pieChartView.drawHoleEnabled = false
         
-        pieChartView.legend.enabled = false
+        let l = pieChartView.legend
+        l.horizontalAlignment = .right
+        l.verticalAlignment = .top
+        l.orientation = .vertical
+        l.font = .systemFont(ofSize: 11.0)
+        l.xEntrySpace = 20
+        l.yEntrySpace = 8
         
     }
     
     private func colorsOfCharts(dataPoints:[String])->[UIColor]{
         var colors: [UIColor] = []
         for index in 0..<dataPoints.count{
-            if Utils.phyNeeds.contains(dataPoints[index]){
+            if dataPoints[index] == "physiological"{
                 colors.append(phyColor)
-            }else if Utils.safetyNeeds.contains(dataPoints[index]){
+            }else if dataPoints[index] == "safety"{
                 colors.append(safetyColor)
-            }else if Utils.loveNeeds.contains(dataPoints[index]){
+            }else if dataPoints[index] == "love&belonging"{
                 colors.append(loveColor)
-            }else if Utils.esteemNeeds.contains(dataPoints[index]){
+            }else if dataPoints[index] == "esteem"{
                 colors.append(esteemColor)
-            }else if Utils.selfActualNeeds.contains(dataPoints[index]){
+            }else if dataPoints[index] == "self-actualization"{
                 colors.append(selfActualColor)
             }
         }

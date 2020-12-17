@@ -32,6 +32,10 @@ class CustomTabViewController: UITabBarController, UITabBarControllerDelegate{
                 }
                 userInputVC.selectedDate = safeSelectedDate
             }
+        }else if currNavController.topViewController is CalendarViewController{
+            let calendarVC = currNavController.topViewController as! CalendarViewController
+            calendarVC.generatedEvents.removeAll()
+            calendarVC.alreadyGeneratedSet.removeAll()
         }
         
         return true

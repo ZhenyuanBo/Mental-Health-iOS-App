@@ -62,7 +62,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+
         if let currentThemeOwner = Auth.auth().currentUser?.email{
             loadAppTheme(withEmail: currentThemeOwner, view: view)
         }
