@@ -41,9 +41,9 @@ class Utils{
     
     public static let phyNeedName = "Physiological"
     public static let safetyNeedName = "Safety"
-    public static let loveBelongingNeedName = "Love&Belonging"
+    public static let loveBelongingNeedName = "Love & Belonging"
     public static let esteemNeedName = "Esteem"
-    public static let selfActualNeedName = "Self-actualization"
+    public static let selfActualNeedName = "Self-Actualization"
     
     
     //MARK: - Maslow Need Data

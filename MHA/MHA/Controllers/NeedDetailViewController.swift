@@ -64,7 +64,7 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
     
     private func buildBarChart(){
         populateCategoryValue()
-        customizeBarChart(dataPoints: categories, values: categoryValue)
+        drawBarChart(dataPoints: categories, values: categoryValue)
     }
     
     private func buildLineChart(){
@@ -76,10 +76,10 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
             formattedDates.append((dateObj?.dateFormatter(format: "MM/dd"))!)
         }
         populateWeeklyCategoryValue()
-        customizeLineChart(dataPoints: formattedDates, categoryTrendValues: categoryTrendData)
+        drawLineChart(dataPoints: formattedDates, categoryTrendValues: categoryTrendData)
     }
     
-    private func customizeLineChart(dataPoints: [String], categoryTrendValues: [String:[Int]]){
+    private func drawLineChart(dataPoints: [String], categoryTrendValues: [String:[Int]]){
         var datasets:[LineChartDataSet] = []
         for category in categoryTrendValues.keys{
             var dataEntries: [ChartDataEntry] = []
@@ -102,7 +102,7 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
         lineChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: dataPoints)
     }
     
-    private func customizeBarChart(dataPoints: [String], values: [Int]) {
+    private func drawBarChart(dataPoints: [String], values: [Int]) {
         var dataEntries: [BarChartDataEntry] = []
         for i in 0..<dataPoints.count {
             let dataEntry = BarChartDataEntry(x: Double(i), y: Double(values[i]))
@@ -135,12 +135,13 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
         barChartView.xAxis.granularityEnabled = true
         barChartView.xAxis.granularity = 1.0
         barChartView.xAxis.labelRotationAngle = -45
+        barChartView.xAxis.labelFont = .systemFont(ofSize: 12.0)
         
     }
     
     private func populateCategoryValue(){
         switch needCategoryLevel {
-        case "physiological":
+        case Utils.phyNeedName:
             if let safeDecodedData = decodedData{
                 categoryValue = [Int](repeating: 0, count: 7)
                 for needType in Utils.phyNeeds{
@@ -154,9 +155,9 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
                 startIndex = 6
                 categories = Utils.phyNeeds
                 coloursList = Utils.phyNeedColoursList
-                chartDescription = "Physiological"
+                chartDescription = Utils.phyNeedName
             }
-        case "safety":
+        case Utils.safetyNeedName:
             if let safeDecodedData = decodedData{
                 categoryValue = [Int](repeating: 0, count: 5)
                 for needType in Utils.safetyNeeds{
@@ -170,9 +171,9 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
                 startIndex = 4
                 categories = Utils.safetyNeeds
                 coloursList = Utils.safetyNeedColoursList
-                chartDescription = "Safety"
+                chartDescription = Utils.safetyNeedName
             }
-        case "love":
+        case Utils.loveBelongingNeedName:
             if let safeDecodedData = decodedData{
                 categoryValue = [Int](repeating: 0, count: 4)
                 for needType in Utils.loveNeeds{
@@ -186,9 +187,9 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
                 startIndex = 3
                 categories = Utils.loveNeeds
                 coloursList = Utils.loveNeedColoursList
-                chartDescription = "Love & Belonging"
+                chartDescription = Utils.loveBelongingNeedName
             }
-        case "esteem":
+        case Utils.esteemNeedName:
             if let safeDecodedData = decodedData{
                 categoryValue = [Int](repeating: 0, count: 6)
                 for needType in Utils.esteemNeeds{
@@ -202,9 +203,9 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
                 startIndex = 5
                 categories = Utils.esteemNeeds
                 coloursList = Utils.esteemNeedColoursList
-                chartDescription = "Esteem"
+                chartDescription = Utils.esteemNeedName
             }
-        case "selfActual":
+        case Utils.selfActualNeedName:
             if let safeDecodedData = decodedData{
                 categoryValue = [Int](repeating: 0, count: 1)
                 let needType = Utils.selfActualNeeds[0]
@@ -217,7 +218,7 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
                 startIndex = 0
                 categories = Utils.selfActualNeeds
                 coloursList = Utils.selfActualNeedColoursList
-                chartDescription = "Self-Actualization"
+                chartDescription = Utils.selfActualNeedName
             }
         default:
             fatalError("There is no such need category, \(needCategoryLevel)")

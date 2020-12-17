@@ -252,35 +252,35 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     //MARK: - Handle Tap
     @objc func handlePhyTap(_ sender: UITapGestureRecognizer) {
-        currSelectedNeedLevel = "physiological"
+        currSelectedNeedLevel = Utils.phyNeedName
         DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
             self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
         })
     }
     
     @objc func handleSafetyTap(_ sender: UITapGestureRecognizer){
-        currSelectedNeedLevel = "safety"
+        currSelectedNeedLevel = Utils.safetyNeedName
         DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
             self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
         })
     }
     
     @objc func handleLoveTap(_ sender: UITapGestureRecognizer){
-        currSelectedNeedLevel = "love"
+        currSelectedNeedLevel = Utils.loveBelongingNeedName
         DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
             self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
         })
     }
     
     @objc func handleEsteemTap(_ sender: UITapGestureRecognizer){
-        currSelectedNeedLevel = "esteem"
+        currSelectedNeedLevel = Utils.esteemNeedName
         DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
             self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
         })
     }
     
     @objc func handleSelfActualizationTap(_ sender: UITapGestureRecognizer){
-        currSelectedNeedLevel = "selfActual"
+        currSelectedNeedLevel = Utils.selfActualNeedName
         DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
             self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
         })
