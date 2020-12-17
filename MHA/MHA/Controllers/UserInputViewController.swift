@@ -86,6 +86,8 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
         populateDailyActivityMap(date: selectedDate)
         cleanPyramidMapData()
         
+        configureNeedButton()
+        
         if let safeActivityID = activityID{
             populateSelectedNeed(activityID: safeActivityID)
         }
@@ -333,13 +335,12 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
         }
     }
     
-    private func isNeedSelectionMapEmpty(needSelectionMap: [String:Bool]) -> Bool{
-        for key in needSelectionMap.keys{
-            if (needSelectionMap[key]!){
-                return false
+    private func configureNeedButton(){
+        for innerView in backView.subviews as [UIView]{
+            if let needButton = innerView as? UIButton {
+                needButton.layer.cornerRadius = 8.0
             }
         }
-        return true
     }
     
     private func isNeedNumActivityMapEmpty(needNumActivityMap: [String:Int]) -> Bool{
