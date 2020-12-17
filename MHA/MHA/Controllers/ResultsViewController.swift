@@ -40,9 +40,12 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     @IBOutlet weak var downloadButton: UIBarButtonItem!
     
+    @IBOutlet weak var instructionButton: UIBarButtonItem!
+    
     var selectedDate:Date = Date()
     
     private var currSelectedNeedLevel: String = ""
+    private var activityNeed = [Utils.phyNeedName: 0, Utils.safetyNeedName: 0, Utils.loveBelongingNeedName: 0, Utils.esteemNeedName: 0, Utils.selfActualNeedName: 0]
     
     @IBAction func unwindToResults(_ unwindSegue: UIStoryboardSegue) {}
     
@@ -54,51 +57,129 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         self.coachMarksController.dataSource = self
         self.coachMarksController.delegate = self
         
-        pieChartTitle.text = "# of Activities/Need"
+        instructionButton.isEnabled = false
+        instructionButton.tintColor = .clear
+        
+        pieChartTitle.text = "Activity Distribution"
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         super.viewDidAppear(animated)
-        self.coachMarksController.start(in: .viewController(self))
-        
-        flashCard.duration = 2.0
-        flashCard.flipAnimation = .flipFromLeft
-        flashCard.frontView = frontView
-        flashCard.backView = backView
         
         frontView.layer.cornerRadius = 25
         backView.layer.cornerRadius = 25
-        flashCard.layer.cornerRadius = 25
-        
-        let decodedData = loadDailyActivityResult(date: selectedDate)
-
-        if let safeDecodedData = decodedData{
-            var activityCategoryMap = ["physiological": 0, "safety": 0, "love&belonging": 0, "esteem": 0, "self-actualization": 0]
-            for needType in Utils.needTypeList{
-                if safeDecodedData[needType] != 0 {
-                    if Utils.phyNeeds.contains(needType){
-                        activityCategoryMap["physiological"]! += safeDecodedData[needType]
-                    }else if Utils.safetyNeeds.contains(needType){
-                        activityCategoryMap["safety"]! += safeDecodedData[needType]
-                    }else if Utils.loveNeeds.contains(needType){
-                        activityCategoryMap["love&belonging"]! += safeDecodedData[needType]
-                    }else if Utils.esteemNeeds.contains(needType){
-                        activityCategoryMap["esteem"]! += safeDecodedData[needType]
-                    }else if Utils.selfActualNeeds.contains(needType){
-                        activityCategoryMap["self-actualization"]! += safeDecodedData[needType]
-                    }
-                }
-            }
-            customizeChart(dataPoints: Array(activityCategoryMap.keys), values: Array(activityCategoryMap.values))
-        }else{
-            pieChartView.data = nil
-        }
         
         if let currentThemeOwner = Auth.auth().currentUser?.email{
             loadAppTheme(withEmail: currentThemeOwner, view: view)
         }
         
+        self.coachMarksController.start(in: .viewController(self))
+        
+        configureFlashCard()
+        
+        //create pie chart
+        preparePieChart()
+        //create maslow pyramid view
+        createMaslowPyramidView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.coachMarksController.stop(immediately: true)
+    }
+    
+    @IBAction func downloadPressed(_ sender: UIBarButtonItem) {
+        let image = pieChartView.getChartImage(transparent: false)
+        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
+    }
+    
+    @IBAction func flipPressed(_ sender: UIBarButtonItem) {
+        flashCard.flip()
+        instructionButton.isEnabled = true
+        instructionButton.tintColor = .systemBlue
+//        self.navigationItem.rightBarButtonItem = self.instructionButton
+//        if flashCard.showFront{
+//            displayInstruction()
+//        }
+    }
+    
+    @IBAction func instructionPressed(_ sender: UIBarButtonItem) {
+        displayInstruction()
+    }
+    
+    private func preparePieChart(){
+        let decodedData = loadDailyActivityResult(date: selectedDate)
+        if let safeDecodedData = decodedData{
+            for needType in Utils.needTypeList{
+                if safeDecodedData[needType] != 0 {
+                    if Utils.phyNeeds.contains(needType){
+                        activityNeed[Utils.phyNeedName]! += safeDecodedData[needType]
+                    }else if Utils.safetyNeeds.contains(needType){
+                        activityNeed[Utils.safetyNeedName]! += safeDecodedData[needType]
+                    }else if Utils.loveNeeds.contains(needType){
+                        activityNeed[Utils.loveBelongingNeedName]! += safeDecodedData[needType]
+                    }else if Utils.esteemNeeds.contains(needType){
+                        activityNeed[Utils.esteemNeedName]! += safeDecodedData[needType]
+                    }else if Utils.selfActualNeeds.contains(needType){
+                        activityNeed[Utils.selfActualNeedName]! += safeDecodedData[needType]
+                    }
+                }
+            }
+            drawPieChart(dataPoints: Array(activityNeed.keys), values: Array(activityNeed.values))
+        }else{
+            pieChartView.data = nil
+        }
+    }
+    
+    private func drawPieChart(dataPoints: [String], values: [Int]) {
+        
+        var dataEntries: [ChartDataEntry] = []
+        for i in 0..<dataPoints.count {
+            let dataEntry = PieChartDataEntry(value: Double(values[i]), label: dataPoints[i], data: dataPoints[i] as AnyObject)
+            dataEntries.append(dataEntry)
+        }
+        let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: nil)
+        pieChartDataSet.colors = pieChartColorGenerator(dataPoints: dataPoints)
+        
+        let pieChartData = PieChartData(dataSet: pieChartDataSet)
+        let format = NumberFormatter()
+        format.numberStyle = .none
+        let formatter = DefaultValueFormatter(formatter: format)
+        pieChartData.setValueFormatter(formatter)
+        
+        pieChartView.data = pieChartData
+        pieChartView.drawEntryLabelsEnabled = false
+        pieChartView.drawHoleEnabled = false
+        
+        let legend = pieChartView.legend
+        legend.horizontalAlignment = .right
+        legend.verticalAlignment = .top
+        legend.orientation = .vertical
+        legend.font = .systemFont(ofSize: 11.0)
+        legend.xEntrySpace = 0
+        legend.yEntrySpace = 8
+        
+    }
+    
+    private func pieChartColorGenerator(dataPoints:[String])->[UIColor]{
+        var colors: [UIColor] = []
+        for index in 0..<dataPoints.count{
+            if dataPoints[index] == Utils.phyNeedName{
+                colors.append(phyColor)
+            }else if dataPoints[index] == Utils.safetyNeedName{
+                colors.append(safetyColor)
+            }else if dataPoints[index] == Utils.loveBelongingNeedName{
+                colors.append(loveColor)
+            }else if dataPoints[index] == Utils.esteemNeedName{
+                colors.append(esteemColor)
+            }else if dataPoints[index] == Utils.selfActualNeedName{
+                colors.append(selfActualColor)
+            }
+        }
+        return colors
+    }
+    
+    private func createMaslowPyramidView(){
         let width: CGFloat = 55.0
         let height: CGFloat = 80.0
         
@@ -128,98 +209,40 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         let phyTap = UITapGestureRecognizer(target: self, action: #selector(self.handlePhyTap(_:)))
         physiologicalView.addGestureRecognizer(phyTap)
         physiologicalView.isUserInteractionEnabled = true
-        phyPopTip.show(text: "Physiological needs", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[5].frame)
+        phyPopTip.show(text: Utils.phyNeedName, direction: .none, maxWidth: 200, in: backView, from: backView.subviews[5].frame)
         phyPopTip.bubbleColor = phyColor
         
         let safetyTap = UITapGestureRecognizer(target: self, action: #selector(self.handleSafetyTap(_:)))
         safetyView.addGestureRecognizer(safetyTap)
         safetyView.isUserInteractionEnabled = true
-        safetyPopTip.show(text: "Satefy needs", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[4].frame)
+        safetyPopTip.show(text: Utils.safetyNeedName, direction: .none, maxWidth: 200, in: backView, from: backView.subviews[4].frame)
         safetyPopTip.bubbleColor = safetyColor
         
         let loveTap = UITapGestureRecognizer(target: self, action: #selector(self.handleLoveTap(_:)))
         loveBelongingView.addGestureRecognizer(loveTap)
         loveBelongingView.isUserInteractionEnabled = true
-        loveBelongingPopTip.show(text: "Love & Belonging", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[3].frame)
+        loveBelongingPopTip.show(text: Utils.loveBelongingNeedName, direction: .none, maxWidth: 200, in: backView, from: backView.subviews[3].frame)
         loveBelongingPopTip.bubbleColor = loveColor
         
         let esteemTap = UITapGestureRecognizer(target: self, action: #selector(self.handleEsteemTap(_:)))
         esteemView.addGestureRecognizer(esteemTap)
         esteemView.isUserInteractionEnabled = true
-        esteemPopTip.show(text: "Esteem", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[2].frame)
+        esteemPopTip.show(text: Utils.esteemNeedName, direction: .none, maxWidth: 200, in: backView, from: backView.subviews[2].frame)
         esteemPopTip.bubbleColor = esteemColor
         
         let selfActualizationTap = UITapGestureRecognizer(target: self, action: #selector(self.handleSelfActualizationTap(_:)))
         selfActualizationView.addGestureRecognizer(selfActualizationTap)
         selfActualizationView.isUserInteractionEnabled = true
-        selfActualizationPopTip.show(text: "Self-Actualization", direction: .none, maxWidth: 200, in: backView, from: backView.subviews[1].frame)
+        selfActualizationPopTip.show(text: Utils.selfActualNeedName, direction: .none, maxWidth: 200, in: backView, from: backView.subviews[1].frame)
         selfActualizationPopTip.bubbleColor = selfActualColor
-        
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.coachMarksController.stop(immediately: true)
-    }
-    
-    @IBAction func downloadPressed(_ sender: UIBarButtonItem) {
-        let image = pieChartView.getChartImage(transparent: false)
-        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
-    }
-    
-    @IBAction func flipPressed(_ sender: UIBarButtonItem) {
-        flashCard.flip()
-        if flashCard.showFront{
-            displayInstruction()
-        }
-    }
-    
-    private func customizeChart(dataPoints: [String], values: [Int]) {
-        
-        var dataEntries: [ChartDataEntry] = []
-        for i in 0..<dataPoints.count {
-            let dataEntry = PieChartDataEntry(value: Double(values[i]), label: dataPoints[i], data: dataPoints[i] as AnyObject)
-            dataEntries.append(dataEntry)
-        }
-        let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: nil)
-        pieChartDataSet.colors = colorsOfCharts(dataPoints: dataPoints)
-        
-        let pieChartData = PieChartData(dataSet: pieChartDataSet)
-        let format = NumberFormatter()
-        format.numberStyle = .none
-        let formatter = DefaultValueFormatter(formatter: format)
-        pieChartData.setValueFormatter(formatter)
-        
-        pieChartView.data = pieChartData
-        pieChartView.drawEntryLabelsEnabled = false
-        pieChartView.drawHoleEnabled = false
-        
-        let l = pieChartView.legend
-        l.horizontalAlignment = .right
-        l.verticalAlignment = .top
-        l.orientation = .vertical
-        l.font = .systemFont(ofSize: 11.0)
-        l.xEntrySpace = 20
-        l.yEntrySpace = 8
-        
-    }
-    
-    private func colorsOfCharts(dataPoints:[String])->[UIColor]{
-        var colors: [UIColor] = []
-        for index in 0..<dataPoints.count{
-            if dataPoints[index] == "physiological"{
-                colors.append(phyColor)
-            }else if dataPoints[index] == "safety"{
-                colors.append(safetyColor)
-            }else if dataPoints[index] == "love&belonging"{
-                colors.append(loveColor)
-            }else if dataPoints[index] == "esteem"{
-                colors.append(esteemColor)
-            }else if dataPoints[index] == "self-actualization"{
-                colors.append(selfActualColor)
-            }
-        }
-        return colors
+    private func configureFlashCard(){
+        flashCard.duration = 2.0
+        flashCard.flipAnimation = .flipFromLeft
+        flashCard.frontView = frontView
+        flashCard.backView = backView
+        flashCard.layer.cornerRadius = 25
     }
     
     private func displayInstruction(){

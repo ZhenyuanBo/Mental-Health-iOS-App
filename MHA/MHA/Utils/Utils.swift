@@ -23,7 +23,7 @@ class Utils{
                                   5:"May", 6:"Jun", 7:"Jul",
                                   8:"Aug", 9: "Sept", 10: "Oct", 11: "Nov", 12: "Dec"]
     
-    //MARK: - Maslow Need Category Data
+    //MARK: - Maslow Need Label
     public static let needTypeList = ["air","water","food","clothing",
                                       "shelter","sleep","reproduction",
                                       "personal_security","employment",
@@ -39,7 +39,14 @@ class Utils{
     public static let esteemNeeds = ["respect","self_esteem","status","recognition", "strength","freedom"]
     public static let selfActualNeeds  = ["self_actualization"]
     
+    public static let phyNeedName = "Physiological"
+    public static let safetyNeedName = "Safety"
+    public static let loveBelongingNeedName = "Love&Belonging"
+    public static let esteemNeedName = "Esteem"
+    public static let selfActualNeedName = "Self-actualization"
     
+    
+    //MARK: - Maslow Need Data
     public static let phyCategoryIndexMap = ["reproduction": 0, "air": 1, "shelter": 2,
                                              "sleep": 3, "water": 4, "food": 5, "clothing": 6]
     public static let safetyIndexMap = ["personal_security":0, "employment":1,
@@ -49,20 +56,15 @@ class Utils{
     public static let selfActualIndexMap = ["self_actualization":0]
     
     
-    public static let needColourMap = [phyNeeds: "#a20a0a", safetyNeeds: "#db6400", loveNeeds: "#ffa62b", esteemNeeds: "#03c4a1", selfActualNeeds: "#005086"]
-    
-    
-    //MARK: - Maslow Hierarchy Base Colour
-    
-    public static let baseColour = "#7e7474"
-    
     //MARK: - Maslow Need Colours
+    public static let baseColour = "#7e7474"
     public static let phyNeedColoursList = ["#E97452","#D65D42",
                                             "#C34632","#B12E21","#9E1711","#8B0001","#4B0A0E"]
     public static let safetyNeedColoursList = ["#FDB777", "#FDA766", "#FD9346", "#FD7F2C", "#FF6200"]
     public static let loveNeedColoursList = ["#FFF192", "#FFEA61", "#FFDD3C", "#FFD400"]
     public static let esteemNeedColoursList = ["#B7FFBF","#95F985","#4DED30","#26D701","#00C301", "#00AB08"]
     public static let selfActualNeedColoursList = ["#00008b"]
+    public static let needColourMap = [phyNeeds: "#a20a0a", safetyNeeds: "#db6400", loveNeeds: "#ffa62b", esteemNeeds: "#03c4a1", selfActualNeeds: "#005086"]
     
     //MARK: - Calendar Event Colours
     public static let eventColours = ["#9ad3bc","#fd8c04", "#9088d4", "#f3bad6", "#9ddfd3",

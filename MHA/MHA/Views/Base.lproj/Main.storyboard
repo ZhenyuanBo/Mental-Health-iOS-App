@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="i9T-Gf-lNy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="i9T-Gf-lNy">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -926,8 +926,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j0G-KR-wnL">
                                                 <rect key="frame" x="-5" y="8" width="384" height="29.5"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="25"/>
-                                                <color key="textColor" red="0.0" green="0.4315754175" blue="0.67348533870000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kwS-HX-TCA" customClass="PieChartView" customModule="Charts">
@@ -972,6 +971,11 @@
                                     <action selector="downloadPressed:" destination="tpP-MW-a8o" id="3iQ-c5-y60"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem title="instruction" image="info.circle" catalog="system" id="gYG-Y4-bPL">
+                                <connections>
+                                    <action selector="instructionPressed:" destination="tpP-MW-a8o" id="dK5-94-o7Z"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
@@ -980,6 +984,7 @@
                         <outlet property="flashCard" destination="2mv-ep-Qkn" id="FSF-Gq-nQI"/>
                         <outlet property="flipButton" destination="N34-QB-Jmp" id="eLq-D2-oLj"/>
                         <outlet property="frontView" destination="4Rs-ho-LWL" id="ofG-fR-Vbv"/>
+                        <outlet property="instructionButton" destination="gYG-Y4-bPL" id="nra-iR-l9N"/>
                         <outlet property="pieChartTitle" destination="j0G-KR-wnL" id="B1u-LJ-gIb"/>
                         <outlet property="pieChartView" destination="kwS-HX-TCA" id="K5V-z8-LLR"/>
                         <segue destination="c5w-ks-mN0" kind="show" identifier="ResultToStats" id="fHz-dO-hM7"/>
@@ -1132,6 +1137,7 @@
         <image name="chart.pie.fill" catalog="system" width="128" height="121"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="goforward" catalog="system" width="121" height="128"/>
+        <image name="info.circle" catalog="system" width="128" height="121"/>
         <image name="note.text" catalog="system" width="128" height="106"/>
         <image name="square.and.arrow.down" catalog="system" width="121" height="128"/>
         <image name="textfield" width="298" height="93"/>
