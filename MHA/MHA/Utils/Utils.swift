@@ -76,6 +76,7 @@ class Utils{
     public static let resultsInstructionMsg = "1. Tap on each level tag to view activity progression.\n2. Tap inside each level to view detailed data"
     public static let activityDefaultMsg = "Please compose your activity here..."
     public static let needSelectInstructionMsg = "1. Select needs that activity has fulfilled\n 2. Click on the selected need if you want to deselect it"
+    public static let pieChartTitle = "Daily Activity Distribution"
     
     //MARK: - App Themes
     public static let themes:[String: ThemeProtocol] = [
@@ -319,3 +320,28 @@ func configureFlashCard(flashCard: FlashCardView, front: UIView, back: UIView){
     flashCard.layer.cornerRadius = 25
 }
 
+
+//MARK: - String Utils
+extension StringProtocol {
+    func index<S: StringProtocol>(of string: S, options: String.CompareOptions = []) -> Index? {
+        range(of: string, options: options)?.lowerBound
+    }
+    func endIndex<S: StringProtocol>(of string: S, options: String.CompareOptions = []) -> Index? {
+        range(of: string, options: options)?.upperBound
+    }
+    func indices<S: StringProtocol>(of string: S, options: String.CompareOptions = []) -> [Index] {
+        ranges(of: string, options: options).map(\.lowerBound)
+    }
+    func ranges<S: StringProtocol>(of string: S, options: String.CompareOptions = []) -> [Range<Index>] {
+        var result: [Range<Index>] = []
+        var startIndex = self.startIndex
+        while startIndex < endIndex,
+            let range = self[startIndex...]
+                .range(of: string, options: options) {
+                result.append(range)
+                startIndex = range.lowerBound < range.upperBound ? range.upperBound :
+                    index(range.lowerBound, offsetBy: 1, limitedBy: endIndex) ?? endIndex
+        }
+        return result
+    }
+}

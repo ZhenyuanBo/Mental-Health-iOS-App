@@ -171,6 +171,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
             dailyActivityMap[selectedCategory!]! += 1
         }else{
             sender.setTitleColor(.white, for: .normal)
+            selectedNeeds = selectedNeeds.replacingOccurrences(of: selectedCategory!, with: "")
             dailyActivityMap[selectedCategory!]! -= 1
         }
     }

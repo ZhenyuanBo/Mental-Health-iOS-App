@@ -10,7 +10,6 @@
 		1696A593ED4E9B3BEBE7919D /* Pods_MHA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D2A40651A2509AE142A443 /* Pods_MHA.framework */; };
 		6E0EF681255C3D7A00939B0B /* DailyNeedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0EF680255C3D7A00939B0B /* DailyNeedData.swift */; };
 		6E0EF686255C830000939B0B /* DailyActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0EF685255C830000939B0B /* DailyActivity.swift */; };
-		6E0EF6BA255DA3A700939B0B /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0EF6B9255DA3A600939B0B /* ResultsViewController.swift */; };
 		6E0EF6C1255DAD3600939B0B /* DailyActivityData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0EF6C0255DAD3600939B0B /* DailyActivityData.swift */; };
 		6E0EF6F2255EED1C00939B0B /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0EF6F1255EED1C00939B0B /* CalendarViewController.swift */; };
 		6E0EF6F7255EED9600939B0B /* DatePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0EF6F6255EED9600939B0B /* DatePickerController.swift */; };
@@ -53,6 +52,7 @@
 		6E4308D8257AA89300EA4754 /* ThemeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4308D7257AA89300EA4754 /* ThemeProtocol.swift */; };
 		6E4308DD257AAB9C00EA4754 /* LightTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4308DC257AAB9C00EA4754 /* LightTheme.swift */; };
 		6E4308E6257C49DC00EA4754 /* CustomTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4308E5257C49DB00EA4754 /* CustomTabViewController.swift */; };
+		6E6A198F258D15F1002573A1 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6A198E258D15F1002573A1 /* ResultsViewController.swift */; };
 		6E78E950255A2F4700A61966 /* UserInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E78E94F255A2F4700A61966 /* UserInputViewController.swift */; };
 		6E78E973255A4BD200A61966 /* FlashCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E78E972255A4BD200A61966 /* FlashCardView.swift */; };
 		6E78E988255B359600A61966 /* DailyNeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E78E987255B359600A61966 /* DailyNeed.swift */; };
@@ -87,7 +87,6 @@
 		57D2A40651A2509AE142A443 /* Pods_MHA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MHA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E0EF680255C3D7A00939B0B /* DailyNeedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNeedData.swift; sourceTree = "<group>"; };
 		6E0EF685255C830000939B0B /* DailyActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyActivity.swift; sourceTree = "<group>"; };
-		6E0EF6B9255DA3A600939B0B /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		6E0EF6C0255DAD3600939B0B /* DailyActivityData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyActivityData.swift; sourceTree = "<group>"; };
 		6E0EF6F1255EED1C00939B0B /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		6E0EF6F6255EED9600939B0B /* DatePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerController.swift; sourceTree = "<group>"; };
@@ -136,6 +135,7 @@
 		6E4308D7257AA89300EA4754 /* ThemeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeProtocol.swift; sourceTree = "<group>"; };
 		6E4308DC257AAB9C00EA4754 /* LightTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightTheme.swift; sourceTree = "<group>"; };
 		6E4308E5257C49DB00EA4754 /* CustomTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabViewController.swift; sourceTree = "<group>"; };
+		6E6A198E258D15F1002573A1 /* ResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		6E78E94F255A2F4700A61966 /* UserInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputViewController.swift; sourceTree = "<group>"; };
 		6E78E972255A4BD200A61966 /* FlashCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardView.swift; sourceTree = "<group>"; };
 		6E78E987255B359600A61966 /* DailyNeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNeed.swift; sourceTree = "<group>"; };
@@ -243,10 +243,10 @@
 				6E184DBF2550F9790066EBC1 /* SignInViewController.swift */,
 				6E78E94F255A2F4700A61966 /* UserInputViewController.swift */,
 				6E26884B25618F5200C45D21 /* ActivityTimePicker.swift */,
-				6E0EF6B9255DA3A600939B0B /* ResultsViewController.swift */,
 				6E26887B2564B35900C45D21 /* SelfActualizationView.swift */,
 				6E43087F2577099F00EA4754 /* SettingTableViewController.swift */,
 				6E430896257A973000EA4754 /* ThemesViewController.swift */,
+				6E6A198E258D15F1002573A1 /* ResultsViewController.swift */,
 				6E26886E2564A83B00C45D21 /* EsteemView.swift */,
 				6E26888E2564C87200C45D21 /* LoveView.swift */,
 				6E2688BF25672E9000C45D21 /* NeedDetailViewController.swift */,
@@ -573,6 +573,7 @@
 				6E2688742564B29D00C45D21 /* PhysiologicalView.swift in Sources */,
 				6E4308C9257AA30600EA4754 /* LemonTheme.swift in Sources */,
 				6E0EF6F2255EED1C00939B0B /* CalendarViewController.swift in Sources */,
+				6E6A198F258D15F1002573A1 /* ResultsViewController.swift in Sources */,
 				6E43088F2578021D00EA4754 /* LogOutTableViewCell.swift in Sources */,
 				6E3B859F2557A9EC009996FF /* Activity.swift in Sources */,
 				6E4308E6257C49DC00EA4754 /* CustomTabViewController.swift in Sources */,
@@ -610,7 +611,6 @@
 				6E0EF681255C3D7A00939B0B /* DailyNeedData.swift in Sources */,
 				6E43089E257A988900EA4754 /* Theme.swift in Sources */,
 				6E2688652564A2F300C45D21 /* SafetyView.swift in Sources */,
-				6E0EF6BA255DA3A700939B0B /* ResultsViewController.swift in Sources */,
 				6E4308DD257AAB9C00EA4754 /* LightTheme.swift in Sources */,
 				6E4308D3257AA3F200EA4754 /* WinterBarnTheme.swift in Sources */,
 			);

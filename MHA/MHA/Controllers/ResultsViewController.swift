@@ -58,7 +58,8 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         instructionButton.isEnabled = false
         instructionButton.tintColor = .gray
         
-        pieChartTitle.text = "Activity Distribution"
+        pieChartTitle.text = Utils.pieChartTitle
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,7 +72,7 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
             loadAppTheme(withEmail: currentThemeOwner, view: view)
         }
         
-        self.coachMarksController.start(in: .viewController(self))
+//        self.coachMarksController.start(in: .viewController(self))
         
         configureFlashCard(flashCard: flashCard, front: frontView, back: backView)
     
