@@ -56,7 +56,7 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         self.coachMarksController.delegate = self
         
         instructionButton.isEnabled = false
-        instructionButton.tintColor = .clear
+        instructionButton.tintColor = .gray
         
         pieChartTitle.text = "Activity Distribution"
     }
@@ -103,10 +103,10 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
             instructionButton.tintColor = .systemBlue
             
             downloadButton.isEnabled = false
-            downloadButton.tintColor = .clear
+            downloadButton.tintColor = .gray
         }else{
             instructionButton.isEnabled = false
-            instructionButton.tintColor = .clear
+            instructionButton.tintColor = .gray
             
             downloadButton.isEnabled = true
             downloadButton.tintColor = .systemBlue

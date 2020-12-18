@@ -61,7 +61,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
         }
         
         instructionButton.isEnabled = false
-        instructionButton.tintColor = .clear
+        instructionButton.tintColor = .gray
         
         self.view.addGestureRecognizer(leftSwipeGestureRecognizer)
         self.view.addGestureRecognizer(rightSwipeGestureRecognizer)
@@ -134,16 +134,16 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
             instructionButton.tintColor = .systemBlue
             
             trashButton.isEnabled = false
-            trashButton.tintColor = .clear
+            trashButton.tintColor = .gray
             
             saveButton.isEnabled = false
-            saveButton.tintColor = .clear
+            saveButton.tintColor = .gray
             
             addButton.isEnabled = false
-            addButton.tintColor = .clear
+            addButton.tintColor = .gray
         }else{
             instructionButton.isEnabled = false
-            instructionButton.tintColor = .clear
+            instructionButton.tintColor = .gray
             
             trashButton.isEnabled = true
             trashButton.tintColor = .systemBlue
