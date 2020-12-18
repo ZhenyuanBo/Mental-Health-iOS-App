@@ -26,9 +26,12 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     @IBOutlet weak var frontView: UIView!
     @IBOutlet weak var flashCard: FlashCardView!
     
-    //MARK: - User Input Outlet
     @IBOutlet weak var activityText: UITextView!
     @IBOutlet weak var flipButton: UIBarButtonItem!
+    @IBOutlet weak var trashButton: UIBarButtonItem!
+    @IBOutlet weak var instructionButton: UIBarButtonItem!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var addButton: UIBarButtonItem!
     
     private var dailyActivityMap:[String:Int] = [:]
     private var selectedNeeds: String = ""
@@ -56,6 +59,10 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
         for need in Utils.needTypeList{
             dailyActivityMap[need] = 0
         }
+        
+        instructionButton.isEnabled = false
+        instructionButton.tintColor = .clear
+        
         self.view.addGestureRecognizer(leftSwipeGestureRecognizer)
         self.view.addGestureRecognizer(rightSwipeGestureRecognizer)
         activityText.delegate = self
@@ -92,16 +99,12 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
             populateSelectedNeed(activityID: safeActivityID)
         }
         
-        flashCard.duration = 2.0
-        flashCard.flipAnimation = .flipFromLeft
-        flashCard.frontView = frontView
-        flashCard.backView = backView
-        activityText.font = .systemFont(ofSize: 18)
-        
         frontView.layer.cornerRadius = 25
         backView.layer.cornerRadius = 25
-        flashCard.layer.cornerRadius = 25
+
+        configureFlashCard(flashCard: flashCard, front: frontView, back: backView)
         
+        activityText.font = .systemFont(ofSize: 18)
         frontView.backgroundColor = hexStringToUIColor(hex: "#98acf8")
         
     }
@@ -124,6 +127,31 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     //MARK: - Button Actions
     @IBAction func flipPressed(_ sender: UIBarButtonItem) {
         flashCard.flip()
+        if flashCard.showFront{
+            instructionButton.isEnabled = true
+            instructionButton.tintColor = .systemBlue
+            
+            trashButton.isEnabled = false
+            trashButton.tintColor = .clear
+            
+            saveButton.isEnabled = false
+            saveButton.tintColor = .clear
+            
+            addButton.isEnabled = false
+            addButton.tintColor = .clear
+        }else{
+            instructionButton.isEnabled = false
+            instructionButton.tintColor = .clear
+            
+            trashButton.isEnabled = true
+            trashButton.tintColor = .systemBlue
+            
+            saveButton.isEnabled = true
+            saveButton.tintColor = .systemBlue
+            
+            addButton.isEnabled = true
+            addButton.tintColor = .systemBlue
+        }
     }
     
     @IBAction func needButtonPressed(_ sender: UIButton) {
@@ -213,6 +241,10 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
         selectedNeeds = ""
     }
     
+    @IBAction func instructionPressed(_ sender: UIBarButtonItem) {
+        displayInstruction()
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Utils.userInputReportSegue{
             let destinationVC = segue.destination as! ResultsViewController
@@ -237,7 +269,6 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     }
     
     private func saveActivity(startTime: String, endTime: String){
-        print("save activity now...")
         do{
             try self.realm.write{
                 let newActivity = Activity()
@@ -380,8 +411,12 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     }
     
     private func setTextViewPlaceHolder(){
-        activityText.text = "Please compose your activity here..."
+        activityText.text = Utils.activityDefaultMsg
         activityText.textColor = UIColor.lightGray
+    }
+    
+    private func displayInstruction(){
+        showInstructionDialog(VC: self, message: Utils.needSelectInstructionMsg)
     }
     
     //MARK: - Swipe Functionality

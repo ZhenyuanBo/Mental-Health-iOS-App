@@ -866,15 +866,24 @@
                                     <action selector="flipPressed:" destination="0vO-9G-NZj" id="hfN-6f-7FP"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem title="Instruction" image="info.circle" catalog="system" id="9cw-5F-Utk">
+                                <connections>
+                                    <action selector="instructionPressed:" destination="0vO-9G-NZj" id="6Ka-VN-oYD"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="activityText" destination="oVl-mn-enA" id="5Sp-BD-280"/>
+                        <outlet property="addButton" destination="1lz-1d-gIY" id="lQ6-Nt-ya3"/>
                         <outlet property="backView" destination="kxb-hy-A1R" id="bid-ox-H0Y"/>
                         <outlet property="flashCard" destination="Tq3-c0-sIc" id="Na9-5y-AJJ"/>
                         <outlet property="flipButton" destination="uiq-ic-Uth" id="Ab6-ql-Qmv"/>
                         <outlet property="frontView" destination="yeQ-34-FDr" id="djs-NM-jBm"/>
+                        <outlet property="instructionButton" destination="9cw-5F-Utk" id="Cu4-CW-wY3"/>
+                        <outlet property="saveButton" destination="u1B-yY-VaW" id="sSq-YF-e2X"/>
+                        <outlet property="trashButton" destination="mVT-8l-hcn" id="XKI-DB-7n9"/>
                         <segue destination="grp-0z-snX" kind="unwind" identifier="unwindToResults" unwindAction="unwindToResults:" id="jWa-sp-cyw"/>
                         <segue destination="grp-0z-snX" kind="unwind" identifier="unwindToCalendar" unwindAction="unwindToCalendar:" id="tQB-Wv-qJf"/>
                     </connections>

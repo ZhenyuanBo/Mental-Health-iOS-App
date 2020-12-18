@@ -74,6 +74,8 @@ class Utils{
     //MARK: - Messages
     public static let saveNoteAlertMsg = "Have you saved your current note?"
     public static let resultsInstructionMsg = "1. Tap on each level tag to view activity progression.\n2. Tap inside each level to view detailed data"
+    public static let activityDefaultMsg = "Please compose your activity here..."
+    public static let needSelectInstructionMsg = "1. Select needs that activity has fulfilled\n 2. Click on the selected need if you want to deselect it"
     
     //MARK: - App Themes
     public static let themes:[String: ThemeProtocol] = [
@@ -306,5 +308,14 @@ func showInstructionDialog(VC: UIViewController, message: String){
     buttonAppearance.buttonColor = hexStringToUIColor(hex: "#61b15a")
     
     VC.present(popup, animated: true, completion: nil)
+}
+
+//MARK: - configure flashcard
+func configureFlashCard(flashCard: FlashCardView, front: UIView, back: UIView){
+    flashCard.duration = 2.0
+    flashCard.flipAnimation = .flipFromLeft
+    flashCard.frontView = front
+    flashCard.backView = back
+    flashCard.layer.cornerRadius = 25
 }
 

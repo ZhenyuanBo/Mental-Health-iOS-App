@@ -62,8 +62,8 @@
             filePath = "MHA/Controllers/ResultsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -142,8 +142,8 @@
             filePath = "MHA/Controllers/UserInputViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "242"
-            endingLineNumber = "242"
+            startingLineNumber = "273"
+            endingLineNumber = "273"
             landmarkName = "saveActivity(startTime:endTime:)"
             landmarkType = "7">
             <Locations>
@@ -190,8 +190,8 @@
             filePath = "MHA/Controllers/UserInputViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "244"
-            endingLineNumber = "244"
+            startingLineNumber = "275"
+            endingLineNumber = "275"
             landmarkName = "saveActivity(startTime:endTime:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -206,8 +206,8 @@
             filePath = "MHA/Controllers/UserInputViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "245"
-            endingLineNumber = "245"
+            startingLineNumber = "276"
+            endingLineNumber = "276"
             landmarkName = "saveActivity(startTime:endTime:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -222,8 +222,8 @@
             filePath = "MHA/Controllers/UserInputViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "258"
-            endingLineNumber = "258"
+            startingLineNumber = "289"
+            endingLineNumber = "289"
             landmarkName = "UserInputViewController"
             landmarkType = "3">
          </BreakpointContent>

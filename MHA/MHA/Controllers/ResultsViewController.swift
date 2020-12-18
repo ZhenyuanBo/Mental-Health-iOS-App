@@ -37,9 +37,7 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     @IBOutlet weak var frontView: UIView!
     
     @IBOutlet weak var flipButton: UIBarButtonItem!
-    
     @IBOutlet weak var downloadButton: UIBarButtonItem!
-    
     @IBOutlet weak var instructionButton: UIBarButtonItem!
     
     var selectedDate:Date = Date()
@@ -75,8 +73,8 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         
         self.coachMarksController.start(in: .viewController(self))
         
-        configureFlashCard()
-        
+        configureFlashCard(flashCard: flashCard, front: frontView, back: backView)
+    
         //create pie chart
         preparePieChart()
         
@@ -107,7 +105,6 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
             instructionButton.isEnabled = false
             instructionButton.tintColor = .clear
         }
-//        self.navigationItem.rightBarButtonItem = self.instructionButton
 //        if flashCard.showFront{
 //            displayInstruction()
 //        }
@@ -257,15 +254,7 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         selfActualizationPopTip.show(text: Utils.selfActualNeedName, direction: .none, maxWidth: 200, in: backView, from: backView.subviews[1].frame)
         selfActualizationPopTip.bubbleColor = selfActualColor
     }
-    
-    private func configureFlashCard(){
-        flashCard.duration = 2.0
-        flashCard.flipAnimation = .flipFromLeft
-        flashCard.frontView = frontView
-        flashCard.backView = backView
-        flashCard.layer.cornerRadius = 25
-    }
-    
+
     private func displayInstruction(){
         showInstructionDialog(VC: self, message: Utils.resultsInstructionMsg)
     }
