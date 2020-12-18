@@ -119,6 +119,8 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     
     override func viewWillDisappear(_ animated: Bool) {
         selectedNeeds = ""
+        selectedStartTime = ""
+        selectedEndTime = ""
         for need in dailyActivityMap.keys{
             dailyActivityMap[need] = 0
         }
