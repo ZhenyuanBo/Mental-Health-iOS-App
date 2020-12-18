@@ -101,13 +101,16 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         if flashCard.showFront{
             instructionButton.isEnabled = true
             instructionButton.tintColor = .systemBlue
+            
+            downloadButton.isEnabled = false
+            downloadButton.tintColor = .clear
         }else{
             instructionButton.isEnabled = false
             instructionButton.tintColor = .clear
+            
+            downloadButton.isEnabled = true
+            downloadButton.tintColor = .systemBlue
         }
-//        if flashCard.showFront{
-//            displayInstruction()
-//        }
     }
     
     @IBAction func instructionPressed(_ sender: UIBarButtonItem) {
