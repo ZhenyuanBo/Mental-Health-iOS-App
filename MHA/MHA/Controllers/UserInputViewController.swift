@@ -114,6 +114,13 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
         return false
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        selectedNeeds = ""
+        for need in dailyActivityMap.keys{
+            dailyActivityMap[need] = 0
+        }
+    }
+    
     //MARK: - Button Actions
     @IBAction func flipPressed(_ sender: UIBarButtonItem) {
         flashCard.flip()
@@ -203,6 +210,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     @IBAction func addPressed(_ sender: UIBarButtonItem) {
         alertMessageCreator()
         setTextViewPlaceHolder()
+        selectedNeeds = ""
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -272,6 +280,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
             try self.realm.write{
                 let newActivityNeed = ActivityNeed()
                 selectedNeeds = selectedNeeds.trimmingCharacters(in: .whitespacesAndNewlines)
+                print(selectedNeeds)
                 newActivityNeed.selectedNeeds = selectedNeeds
                 newActivityNeed.activityID = activityID!
                 realm.add(newActivityNeed, update: .modified)

@@ -79,6 +79,7 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         
         //create pie chart
         preparePieChart()
+        
         //create maslow pyramid view
         createMaslowPyramidView()
     }
@@ -86,6 +87,10 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.coachMarksController.stop(immediately: true)
+        
+        for need in activityNeed.keys{
+            activityNeed[need] = 0
+        }
     }
     
     @IBAction func downloadPressed(_ sender: UIBarButtonItem) {
@@ -95,8 +100,13 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     @IBAction func flipPressed(_ sender: UIBarButtonItem) {
         flashCard.flip()
-        instructionButton.isEnabled = true
-        instructionButton.tintColor = .systemBlue
+        if flashCard.showFront{
+            instructionButton.isEnabled = true
+            instructionButton.tintColor = .systemBlue
+        }else{
+            instructionButton.isEnabled = false
+            instructionButton.tintColor = .clear
+        }
 //        self.navigationItem.rightBarButtonItem = self.instructionButton
 //        if flashCard.showFront{
 //            displayInstruction()
@@ -109,6 +119,7 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     private func preparePieChart(){
         let decodedData = loadDailyActivityResult(date: selectedDate)
+        print("Decoded Data: \(decodedData)")
         if let safeDecodedData = decodedData{
             for needType in Utils.needTypeList{
                 if safeDecodedData[needType] != 0 {
@@ -125,7 +136,17 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
                     }
                 }
             }
-            drawPieChart(dataPoints: Array(activityNeed.keys), values: Array(activityNeed.values))
+            var finalActivityNeed:[String:Int] = [:]
+            for need in activityNeed.keys{
+                if activityNeed[need] != 0{
+                    finalActivityNeed[need] = activityNeed[need]
+                }
+            }
+            if finalActivityNeed.keys.isEmpty{
+                pieChartView.data = nil
+            }else{
+                drawPieChart(dataPoints: Array(finalActivityNeed.keys), values: Array(finalActivityNeed.values))
+            }
         }else{
             pieChartView.data = nil
         }
