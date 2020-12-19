@@ -130,29 +130,11 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     @IBAction func flipPressed(_ sender: UIBarButtonItem) {
         flashCard.flip()
         if flashCard.showFront{
-            instructionButton.isEnabled = true
-            instructionButton.tintColor = .systemBlue
+            configureBarButtonItem()
+            PopUp.allowDisplayInstructionDialog(VC: self, message: Utils.needSelectInstructionMsg)
             
-            trashButton.isEnabled = false
-            trashButton.tintColor = .gray
-            
-            saveButton.isEnabled = false
-            saveButton.tintColor = .gray
-            
-            addButton.isEnabled = false
-            addButton.tintColor = .gray
         }else{
-            instructionButton.isEnabled = false
-            instructionButton.tintColor = .gray
-            
-            trashButton.isEnabled = true
-            trashButton.tintColor = .systemBlue
-            
-            saveButton.isEnabled = true
-            saveButton.tintColor = .systemBlue
-            
-            addButton.isEnabled = true
-            addButton.tintColor = .systemBlue
+            configureBarButtonItem()
         }
     }
     
@@ -172,7 +154,9 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
         }else{
             sender.setTitleColor(.white, for: .normal)
             selectedNeeds = selectedNeeds.replacingOccurrences(of: selectedCategory!, with: "")
-            dailyActivityMap[selectedCategory!]! -= 1
+            if dailyActivityMap[selectedCategory!]!>0{
+                dailyActivityMap[selectedCategory!]! -= 1
+            }
         }
     }
     
@@ -386,6 +370,34 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
         }
     }
     
+    private func configureBarButtonItem(){
+        if flashCard.showFront{
+            instructionButton.isEnabled = true
+            instructionButton.tintColor = .systemBlue
+            
+            trashButton.isEnabled = false
+            trashButton.tintColor = .gray
+            
+            saveButton.isEnabled = false
+            saveButton.tintColor = .gray
+            
+            addButton.isEnabled = false
+            addButton.tintColor = .gray
+        }else{
+            instructionButton.isEnabled = false
+            instructionButton.tintColor = .gray
+            
+            trashButton.isEnabled = true
+            trashButton.tintColor = .systemBlue
+            
+            saveButton.isEnabled = true
+            saveButton.tintColor = .systemBlue
+            
+            addButton.isEnabled = true
+            addButton.tintColor = .systemBlue
+        }
+    }
+    
     private func isNeedNumActivityMapEmpty(needNumActivityMap: [String:Int]) -> Bool{
         for key in needNumActivityMap.keys{
             if (needNumActivityMap[key] != 0){
@@ -419,7 +431,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     }
     
     private func displayInstruction(){
-        showInstructionDialog(VC: self, message: Utils.needSelectInstructionMsg)
+        PopUp.buildInstructionDialog(VC: self, message: Utils.needSelectInstructionMsg)
     }
     
     //MARK: - Swipe Functionality

@@ -76,7 +76,7 @@ class Utils{
     public static let resultsInstructionMsg = "1. Tap on each level tag to view activity progression.\n2. Tap inside each level to view detailed data"
     public static let activityDefaultMsg = "Please compose your activity here..."
     public static let needSelectInstructionMsg = "1. Select needs that activity has fulfilled\n 2. Click on the selected need if you want to deselect it"
-    public static let pieChartTitle = "Daily Activity Distribution"
+    public static let pieChartTitle = "Daily Activity Overview"
     
     //MARK: - App Themes
     public static let themes:[String: ThemeProtocol] = [
@@ -274,42 +274,93 @@ func loadAppTheme(withEmail email: String, view: UIView){
 }
 
 //MARK: - Instruction Pop-up Dialog
-func showInstructionDialog(VC: UIViewController, message: String){
-
-    let title = "Instruction"
-
-    let popup = PopupDialog(title: title, message: message, buttonAlignment: .vertical)
-
-    let understandButton = DefaultButton(title: "Start", dismissOnTap: true) {}
-    popup.addButtons([understandButton])
+struct PopUp{
     
-    let dialogAppearance = PopupDialogDefaultView.appearance()
-
-    dialogAppearance.backgroundColor      = .white
-    dialogAppearance.titleFont            = .boldSystemFont(ofSize: 30)
-    dialogAppearance.titleColor           = UIColor(white: 0.4, alpha: 1)
-    dialogAppearance.titleTextAlignment   = .center
-    dialogAppearance.messageFont          = .systemFont(ofSize: 20)
-    dialogAppearance.messageColor         = UIColor(white: 0.6, alpha: 1)
-    dialogAppearance.messageTextAlignment = .left
+    static let db = Firestore.firestore()
+    static let collectionName = "instruction"
+    static let settingOwner = "sender"
+    static let showInstruction = "showInstruction"
     
-    let containerAppearance = PopupDialogContainerView.appearance()
-
-    containerAppearance.cornerRadius    = 10
-    containerAppearance.shadowEnabled   = true
-    containerAppearance.shadowColor     = .black
-    containerAppearance.shadowOpacity   = 0.6
-    containerAppearance.shadowRadius    = 20
-    containerAppearance.shadowOffset    = CGSize(width: 0, height: 8)
-
-    let buttonAppearance = DefaultButton.appearance()
-
-    buttonAppearance.titleFont      = .systemFont(ofSize: 25)
-    buttonAppearance.titleColor     =  .black
-    buttonAppearance.buttonColor = hexStringToUIColor(hex: "#61b15a")
+    static func allowDisplayInstructionDialog(VC: UIViewController, message: String){
+        if let currentUser = Auth.auth().currentUser?.email{
+            db.collection(collectionName).whereField(settingOwner, isEqualTo: currentUser).getDocuments {(querySnapshot, error) in
+                if let e = error{
+                    print("Error with retrieving instruction-dialog setting, \(e)")
+                }else{
+                    if let snapshotDocuments = querySnapshot?.documents{
+                        if snapshotDocuments.count<1{
+                            PopUp.buildInstructionDialog(VC: VC, message: message)
+                        }
+                    }
+                }
+            }
+        }
+    }
     
-    VC.present(popup, animated: true, completion: nil)
+    static func buildInstructionDialog(VC: UIViewController, message: String){
+        
+        let popup = PopupDialog(title: "Instruction", message: message, buttonAlignment: .vertical)
+        
+        let understandButton = DefaultButton(title: "Start", dismissOnTap: true) {}
+        let understandDoNotShowButton =
+            DestructiveButton(title: "Do Not Show Again!", dismissOnTap: true){
+                if let currentUser = Auth.auth().currentUser?.email{
+                    db.collection(collectionName).whereField("sender", isEqualTo: currentUser).getDocuments {(querySnapshot, error) in
+                        if let e = error{
+                            print("Error with retrieving instruction-dialog setting, \(e)")
+                        }else{
+                            if let snapshotDocuments = querySnapshot?.documents{
+                                if snapshotDocuments.count<1{
+                                    db.collection(collectionName).addDocument(
+                                        data:[settingOwner: currentUser,
+                                              showInstruction: false]) { (error) in
+                                        if let e = error{
+                                            print("There was an issue saving show-instruction property to firestore, \(e)")
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        popup.addButtons([understandButton, understandDoNotShowButton])
+        
+        let dialogAppearance = PopupDialogDefaultView.appearance()
+        
+        dialogAppearance.backgroundColor      = .white
+        dialogAppearance.titleFont            = .boldSystemFont(ofSize: 30)
+        dialogAppearance.titleColor           = UIColor(white: 0.4, alpha: 1)
+        dialogAppearance.titleTextAlignment   = .center
+        dialogAppearance.messageFont          = .systemFont(ofSize: 20)
+        dialogAppearance.messageColor         = UIColor(white: 0.6, alpha: 1)
+        dialogAppearance.messageTextAlignment = .left
+        
+        let containerAppearance = PopupDialogContainerView.appearance()
+        
+        containerAppearance.cornerRadius    = 10
+        containerAppearance.shadowEnabled   = true
+        containerAppearance.shadowColor     = .black
+        containerAppearance.shadowOpacity   = 0.6
+        containerAppearance.shadowRadius    = 20
+        containerAppearance.shadowOffset    = CGSize(width: 0, height: 8)
+        
+        let defaultButtonAppearance = DefaultButton.appearance()
+        
+        defaultButtonAppearance.titleFont      = .systemFont(ofSize: 25)
+        defaultButtonAppearance.titleColor     =  .black
+        defaultButtonAppearance.buttonColor = hexStringToUIColor(hex: "#61b15a")
+        
+        let destructiveButtonAppearance = DestructiveButton.appearance()
+        destructiveButtonAppearance.titleFont = .systemFont(ofSize: 25)
+        destructiveButtonAppearance.titleColor = .white
+        destructiveButtonAppearance.buttonColor = UIColor(red: 1, green: 0.2196078431, blue: 0.137254902, alpha: 1)
+        
+        VC.present(popup, animated: true, completion: nil)
+    }
 }
+
+
 
 //MARK: - configure flashcard
 func configureFlashCard(flashCard: FlashCardView, front: UIView, back: UIView){
@@ -336,11 +387,11 @@ extension StringProtocol {
         var result: [Range<Index>] = []
         var startIndex = self.startIndex
         while startIndex < endIndex,
-            let range = self[startIndex...]
+              let range = self[startIndex...]
                 .range(of: string, options: options) {
-                result.append(range)
-                startIndex = range.lowerBound < range.upperBound ? range.upperBound :
-                    index(range.lowerBound, offsetBy: 1, limitedBy: endIndex) ?? endIndex
+            result.append(range)
+            startIndex = range.lowerBound < range.upperBound ? range.upperBound :
+                index(range.lowerBound, offsetBy: 1, limitedBy: endIndex) ?? endIndex
         }
         return result
     }

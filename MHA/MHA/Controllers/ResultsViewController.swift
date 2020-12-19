@@ -100,17 +100,10 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     @IBAction func flipPressed(_ sender: UIBarButtonItem) {
         flashCard.flip()
         if flashCard.showFront{
-            instructionButton.isEnabled = true
-            instructionButton.tintColor = .systemBlue
-            
-            downloadButton.isEnabled = false
-            downloadButton.tintColor = .gray
+            configureBarButtonItem()
+            PopUp.allowDisplayInstructionDialog(VC:self, message: Utils.resultsInstructionMsg)
         }else{
-            instructionButton.isEnabled = false
-            instructionButton.tintColor = .gray
-            
-            downloadButton.isEnabled = true
-            downloadButton.tintColor = .systemBlue
+            configureBarButtonItem()
         }
     }
     
@@ -120,10 +113,10 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     private func preparePieChart(){
         let decodedData = loadDailyActivityResult(date: selectedDate)
-        print("Decoded Data: \(decodedData)")
+//        print("Decoded Data: \(decodedData)")/
         if let safeDecodedData = decodedData{
             for needType in Utils.needTypeList{
-                if safeDecodedData[needType] != 0 {
+                if safeDecodedData[needType] > 0 {
                     if Utils.phyNeeds.contains(needType){
                         activityNeed[Utils.phyNeedName]! += safeDecodedData[needType]
                     }else if Utils.safetyNeeds.contains(needType){
@@ -260,7 +253,23 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     }
 
     private func displayInstruction(){
-        showInstructionDialog(VC: self, message: Utils.resultsInstructionMsg)
+        PopUp.buildInstructionDialog(VC: self, message: Utils.resultsInstructionMsg)
+    }
+    
+    private func configureBarButtonItem(){
+        if flashCard.showFront{
+            instructionButton.isEnabled = true
+            instructionButton.tintColor = .systemBlue
+            
+            downloadButton.isEnabled = false
+            downloadButton.tintColor = .gray
+        }else{
+            instructionButton.isEnabled = false
+            instructionButton.tintColor = .gray
+            
+            downloadButton.isEnabled = true
+            downloadButton.tintColor = .systemBlue
+        }
     }
     
     
