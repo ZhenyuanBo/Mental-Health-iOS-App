@@ -24,11 +24,10 @@ class SignInViewController: UIViewController {
         if let email = emailTextField.text, let password = pwdTextField.text{
             Auth.auth().signIn(withEmail: email, password: password) { (authResult,  error) in
                 if let e = error{
-                    print(e)
+                    print(e, to: &Log.log)
                 }else{
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
-
                     (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
                 }
             }

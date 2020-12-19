@@ -121,7 +121,7 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
                 event.endDate = endDate!
 
                 event.text = key
-                event.color = hexStringToUIColor(hex: value[2])
+                event.color = Utils.hexStringToUIColor(hex: value[2])
                 
                 if #available(iOS 12.0, *) {
                     if traitCollection.userInterfaceStyle == .dark {

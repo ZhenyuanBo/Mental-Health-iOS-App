@@ -38,7 +38,7 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        decodedData = loadDailyActivityResult(date: selectedDate)
+        decodedData = Utils.loadDailyActivityResult(date: selectedDate)
         
         flashCard.duration = 2.0
         flashCard.flipAnimation = .flipFromLeft
@@ -89,7 +89,7 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
             }
             let lineChartDataSet = LineChartDataSet(entries: dataEntries, label: category)
             lineChartDataSet.valueFont = UIFont(name: "HelveticaNeue-Light", size: 20) ?? UIFont.systemFont(ofSize: 20)
-            lineChartDataSet.colors = [hexStringToUIColor(hex: lineChartColours[Int(arc4random_uniform(UInt32(lineChartColours.count)))])]
+            lineChartDataSet.colors = [Utils.hexStringToUIColor(hex: lineChartColours[Int(arc4random_uniform(UInt32(lineChartColours.count)))])]
             datasets.append(lineChartDataSet)
         }
         
@@ -141,84 +141,84 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
     
     private func populateCategoryValue(){
         switch needCategoryLevel {
-        case Utils.phyNeedName:
+        case Utils.PHY_NEED_NAME:
             if let safeDecodedData = decodedData{
                 categoryValue = [Int](repeating: 0, count: 7)
-                for needType in Utils.phyNeeds{
+                for needType in Utils.PHY_NEEDS{
                     if safeDecodedData[needType] != 0{
-                        let index = Utils.phyCategoryIndexMap[needType]
+                        let index = Utils.PHY_INDEX_MAP[needType]
                         categoryValue[index!] = safeDecodedData[needType]
                     }
                 }
                 sortedCategoryValue = categoryValue
                 sortedCategoryValue.sort(){$0>$1}
                 startIndex = 6
-                categories = Utils.phyNeeds
-                coloursList = Utils.phyNeedColoursList
-                chartDescription = Utils.phyNeedName
+                categories = Utils.PHY_NEEDS
+                coloursList = Utils.PHY_NEED_COLOUR_LIST
+                chartDescription = Utils.PHY_NEED_NAME
             }
-        case Utils.safetyNeedName:
+        case Utils.SAFETY_NEED_NAME:
             if let safeDecodedData = decodedData{
                 categoryValue = [Int](repeating: 0, count: 5)
-                for needType in Utils.safetyNeeds{
+                for needType in Utils.SAFETY_NEEDS{
                     if safeDecodedData[needType] != 0{
-                        let index = Utils.safetyIndexMap[needType]
+                        let index = Utils.SAFETY_INDEX_MAP[needType]
                         categoryValue[index!] = safeDecodedData[needType]
                     }
                 }
                 sortedCategoryValue = categoryValue
                 sortedCategoryValue.sort(){$0>$1}
                 startIndex = 4
-                categories = Utils.safetyNeeds
-                coloursList = Utils.safetyNeedColoursList
-                chartDescription = Utils.safetyNeedName
+                categories = Utils.SAFETY_NEEDS
+                coloursList = Utils.SAFETY_NEED_COLOUR_LIST
+                chartDescription = Utils.SAFETY_NEED_NAME
             }
-        case Utils.loveBelongingNeedName:
+        case Utils.LOVE_BELONGING_NEED_NAME:
             if let safeDecodedData = decodedData{
                 categoryValue = [Int](repeating: 0, count: 4)
-                for needType in Utils.loveNeeds{
+                for needType in Utils.LOVE_NEEDS{
                     if safeDecodedData[needType] != 0{
-                        let index = Utils.loveIndexMap[needType]
+                        let index = Utils.LOVE_INDEX_MAP[needType]
                         categoryValue[index!] = safeDecodedData[needType]
                     }
                 }
                 sortedCategoryValue = categoryValue
                 sortedCategoryValue.sort(){$0>$1}
                 startIndex = 3
-                categories = Utils.loveNeeds
-                coloursList = Utils.loveNeedColoursList
-                chartDescription = Utils.loveBelongingNeedName
+                categories = Utils.LOVE_NEEDS
+                coloursList = Utils.LOVE_NEED_COLOUR_LIST
+                chartDescription = Utils.LOVE_BELONGING_NEED_NAME
             }
-        case Utils.esteemNeedName:
+        case Utils.ESTEEM_NEED_NAME:
             if let safeDecodedData = decodedData{
                 categoryValue = [Int](repeating: 0, count: 6)
-                for needType in Utils.esteemNeeds{
+                for needType in Utils.ESTEEM_NEEDS{
                     if safeDecodedData[needType] != 0{
-                        let index = Utils.esteemIndexMap[needType]
+                        let index = Utils.ESTEEM_INDEX_MAP[needType]
                         categoryValue[index!] = safeDecodedData[needType]
                     }
                 }
                 sortedCategoryValue = categoryValue
                 sortedCategoryValue.sort(){$0>$1}
                 startIndex = 5
-                categories = Utils.esteemNeeds
-                coloursList = Utils.esteemNeedColoursList
-                chartDescription = Utils.esteemNeedName
+                categories = Utils.ESTEEM_NEEDS
+                coloursList = Utils.ESTEEM_NEED_COLOUR_LIST
+                chartDescription = Utils.ESTEEM_NEED_NAME
             }
-        case Utils.selfActualNeedName:
+        case Utils.SELF_ACTUAL_NEED_NAME:
             if let safeDecodedData = decodedData{
                 categoryValue = [Int](repeating: 0, count: 1)
-                let needType = Utils.selfActualNeeds[0]
+                let needType = Utils.SELF_ACTUAL_NEEDS[0]
                 if safeDecodedData[needType] != 0{
-                    let index = Utils.selfActualIndexMap[needType]
+                    let index = Utils.SELF_ACTUAL_INDEX_MAP[needType]
                     categoryValue[index!] = safeDecodedData[needType]
                 }
                 sortedCategoryValue = categoryValue
                 sortedCategoryValue.sort(){$0>$1}
                 startIndex = 0
-                categories = Utils.selfActualNeeds
-                coloursList = Utils.selfActualNeedColoursList
-                chartDescription = Utils.selfActualNeedName
+                categories = Utils.SELF_ACTUAL_NEEDS
+                coloursList = Utils.SELF_ACTUAL_NEED_COLOUR_LIST
+                chartDescription = Utils.SELF_ACTUAL_NEED_NAME
             }
         default:
             fatalError("There is no such need category, \(needCategoryLevel)")
@@ -232,10 +232,10 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
         
         for value in sortedCategoryValue{
             if value == prevMax{
-                sortedColours.append(hexStringToUIColor(hex: coloursList[i]))
+                sortedColours.append(Utils.hexStringToUIColor(hex: coloursList[i]))
             }else{
                 i = i-1
-                sortedColours.append(hexStringToUIColor(hex: coloursList[i]))
+                sortedColours.append(Utils.hexStringToUIColor(hex: coloursList[i]))
                 self.sortedCategoryValue.removeFirst()
                 prevMax = sortedCategoryValue.max()
             }
@@ -258,7 +258,7 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
             var categoryValues:[Int] = []
             for date in dates{
                 let dateObj = Date.getDate(dateStr: date)
-                let decodedData = loadDailyActivityResult(date: dateObj!)
+                let decodedData = Utils.loadDailyActivityResult(date: dateObj!)
                 if let safeDecodedData = decodedData{
                     categoryValues.append(safeDecodedData[category])
                 }else{

@@ -17,9 +17,9 @@ class LoveView: UIView {
      
         self.backgroundColor = .white
         
-        let decodedData = loadDailyActivityResult(date: date)
+        let decodedData = Utils.loadDailyActivityResult(date: date)
         if let safeDecodedData = decodedData{
-            for needType in Utils.loveNeeds{
+            for needType in Utils.LOVE_NEEDS{
                 if safeDecodedData[needType] != 0{
                     activityList.append(safeDecodedData[needType])
                 }
@@ -46,7 +46,7 @@ class LoveView: UIView {
     override func draw(_ rect: CGRect) {
         self.createLoveLevel()
         
-        hexStringToUIColor(hex: Utils.baseColour).setFill()
+        Utils.hexStringToUIColor(hex: Utils.BASE_COLOUR).setFill()
         path.fill()
         
         if activityList.count>0{
@@ -70,20 +70,20 @@ class LoveView: UIView {
             var j = 3
             for i in 0..<activityList.count{
                 if i==0{
-                    currColour = hexStringToUIColor(hex: Utils.loveNeedColoursList[j]).cgColor
+                    currColour = Utils.hexStringToUIColor(hex: Utils.LOVE_NEED_COLOUR_LIST[j]).cgColor
                     colors.append(currColour)
                 }else if activityList[i] != activityList[i-1]{
                     j -= 1
-                    currColour = hexStringToUIColor(hex: Utils.loveNeedColoursList[j]).cgColor
+                    currColour = Utils.hexStringToUIColor(hex: Utils.LOVE_NEED_COLOUR_LIST[j]).cgColor
                     colors.append(currColour)
                 }else if activityList[i] == activityList[i-1]{
-                    currColour = hexStringToUIColor(hex: Utils.loveNeedColoursList[j]).cgColor
+                    currColour = Utils.hexStringToUIColor(hex: Utils.LOVE_NEED_COLOUR_LIST[j]).cgColor
                     colors.append(currColour)
                 }
             }
             
             if activityList.count < 4{
-                colors.append(hexStringToUIColor(hex: Utils.baseColour).cgColor)
+                colors.append(Utils.hexStringToUIColor(hex: Utils.BASE_COLOUR).cgColor)
             }
             
             gradient.colors = colors

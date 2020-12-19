@@ -17,9 +17,9 @@ class PhysiologicalView: UIView {
 
         self.backgroundColor = .white
         
-        let decodedData = loadDailyActivityResult(date: date)
+        let decodedData = Utils.loadDailyActivityResult(date: date)
         if let safeDecodedData = decodedData{
-            for needType in Utils.phyNeeds{
+            for needType in Utils.PHY_NEEDS{
                 if safeDecodedData[needType] != 0{
                     activityList.append(safeDecodedData[needType])
                 }
@@ -47,7 +47,7 @@ class PhysiologicalView: UIView {
         
         self.createPhysiologicalLevel()
         
-        hexStringToUIColor(hex: Utils.baseColour).setFill()
+        Utils.hexStringToUIColor(hex: Utils.BASE_COLOUR).setFill()
         path.fill()
 
         if activityList.count>0{
@@ -77,20 +77,20 @@ class PhysiologicalView: UIView {
             var j = 6
             for i in 0..<activityList.count{
                 if i==0{
-                    currColour = hexStringToUIColor(hex: Utils.phyNeedColoursList[j]).cgColor
+                    currColour = Utils.hexStringToUIColor(hex: Utils.PHY_NEED_COLOUR_LIST[j]).cgColor
                     colors.append(currColour)
                 }else if activityList[i] != activityList[i-1]{
                     j -= 1
-                    currColour = hexStringToUIColor(hex: Utils.phyNeedColoursList[j]).cgColor
+                    currColour = Utils.hexStringToUIColor(hex: Utils.PHY_NEED_COLOUR_LIST[j]).cgColor
                     colors.append(currColour)
                 }else if activityList[i] == activityList[i-1]{
-                    currColour = hexStringToUIColor(hex: Utils.phyNeedColoursList[j]).cgColor
+                    currColour = Utils.hexStringToUIColor(hex: Utils.PHY_NEED_COLOUR_LIST[j]).cgColor
                     colors.append(currColour)
                 }
             }
             
             if activityList.count < 7{
-                colors.append(hexStringToUIColor(hex: Utils.baseColour).cgColor)
+                colors.append(Utils.hexStringToUIColor(hex: Utils.BASE_COLOUR).cgColor)
             }
             
             gradient.colors = colors

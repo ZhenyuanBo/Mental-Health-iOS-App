@@ -10,7 +10,6 @@ import AMPopTip
 import RealmSwift
 import Firebase
 import FirebaseFirestore
-import Instructions
 import PopupDialog
 
 class ResultsViewController: UIViewController, UIPopoverPresentationControllerDelegate{
@@ -23,11 +22,11 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     let esteemPopTip = PopTip()
     let selfActualizationPopTip = PopTip()
     
-    let phyColor = hexStringToUIColor(hex: Utils.needColourMap[Utils.phyNeeds]!)
-    let safetyColor = hexStringToUIColor(hex: Utils.needColourMap[Utils.safetyNeeds]!)
-    let loveColor = hexStringToUIColor(hex: Utils.needColourMap[Utils.loveNeeds]!)
-    let esteemColor = hexStringToUIColor(hex: Utils.needColourMap[Utils.esteemNeeds]!)
-    let selfActualColor = hexStringToUIColor(hex: Utils.needColourMap[Utils.selfActualNeeds]!)
+    let phyColor = Utils.hexStringToUIColor(hex: Utils.NEED_COLOUR_MAP[Utils.PHY_NEEDS]!)
+    let safetyColor = Utils.hexStringToUIColor(hex: Utils.NEED_COLOUR_MAP[Utils.SAFETY_NEEDS]!)
+    let loveColor = Utils.hexStringToUIColor(hex: Utils.NEED_COLOUR_MAP[Utils.LOVE_NEEDS]!)
+    let esteemColor = Utils.hexStringToUIColor(hex: Utils.NEED_COLOUR_MAP[Utils.ESTEEM_NEEDS]!)
+    let selfActualColor = Utils.hexStringToUIColor(hex: Utils.NEED_COLOUR_MAP[Utils.SELF_ACTUAL_NEEDS]!)
     
     @IBOutlet weak var pieChartTitle: UILabel!
     @IBOutlet weak var pieChartView: PieChartView!
@@ -43,22 +42,17 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     var selectedDate:Date = Date()
     
     private var currSelectedNeedLevel: String = ""
-    private var activityNeed = [Utils.phyNeedName: 0, Utils.safetyNeedName: 0, Utils.loveBelongingNeedName: 0, Utils.esteemNeedName: 0, Utils.selfActualNeedName: 0]
+    private var activityNeed = [Utils.PHY_NEED_NAME: 0, Utils.SAFETY_NEED_NAME: 0, Utils.LOVE_BELONGING_NEED_NAME: 0, Utils.ESTEEM_NEED_NAME: 0, Utils.SELF_ACTUAL_NEED_NAME: 0]
     
     @IBAction func unwindToResults(_ unwindSegue: UIStoryboardSegue) {}
-    
-    let coachMarksController = CoachMarksController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.coachMarksController.dataSource = self
-        self.coachMarksController.delegate = self
-        
         instructionButton.isEnabled = false
         instructionButton.tintColor = .gray
         
-        pieChartTitle.text = Utils.pieChartTitle
+        pieChartTitle.text = Utils.PIE_CHART_TITLE
         
     }
     
@@ -69,7 +63,7 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         backView.layer.cornerRadius = 25
         
         if let currentThemeOwner = Auth.auth().currentUser?.email{
-            loadAppTheme(withEmail: currentThemeOwner, view: view)
+            Utils.loadAppTheme(withEmail: currentThemeOwner, view: view)
         }
         
         configureFlashCard(flashCard: flashCard, front: frontView, back: backView)
@@ -97,7 +91,7 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         flashCard.flip()
         if flashCard.showFront{
             configureBarButtonItem()
-            PopUp.allowDisplayInstructionDialog(VC:self, message: Utils.resultsInstructionMsg)
+            PopUp.allowDisplayInstructionDialog(VC:self, message: Utils.RESULTS_INSTRUCTION_MSG)
         }else{
             configureBarButtonItem()
         }
@@ -108,21 +102,21 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     }
     
     private func preparePieChart(){
-        let decodedData = loadDailyActivityResult(date: selectedDate)
+        let decodedData = Utils.loadDailyActivityResult(date: selectedDate)
 //        print("Decoded Data: \(decodedData)")/
         if let safeDecodedData = decodedData{
-            for needType in Utils.needTypeList{
+            for needType in Utils.NEED_TYPE_LIST{
                 if safeDecodedData[needType] > 0 {
-                    if Utils.phyNeeds.contains(needType){
-                        activityNeed[Utils.phyNeedName]! += safeDecodedData[needType]
-                    }else if Utils.safetyNeeds.contains(needType){
-                        activityNeed[Utils.safetyNeedName]! += safeDecodedData[needType]
-                    }else if Utils.loveNeeds.contains(needType){
-                        activityNeed[Utils.loveBelongingNeedName]! += safeDecodedData[needType]
-                    }else if Utils.esteemNeeds.contains(needType){
-                        activityNeed[Utils.esteemNeedName]! += safeDecodedData[needType]
-                    }else if Utils.selfActualNeeds.contains(needType){
-                        activityNeed[Utils.selfActualNeedName]! += safeDecodedData[needType]
+                    if Utils.PHY_NEEDS.contains(needType){
+                        activityNeed[Utils.PHY_NEED_NAME]! += safeDecodedData[needType]
+                    }else if Utils.SAFETY_NEEDS.contains(needType){
+                        activityNeed[Utils.SAFETY_NEED_NAME]! += safeDecodedData[needType]
+                    }else if Utils.LOVE_NEEDS.contains(needType){
+                        activityNeed[Utils.LOVE_BELONGING_NEED_NAME]! += safeDecodedData[needType]
+                    }else if Utils.ESTEEM_NEEDS.contains(needType){
+                        activityNeed[Utils.ESTEEM_NEED_NAME]! += safeDecodedData[needType]
+                    }else if Utils.SELF_ACTUAL_NEEDS.contains(needType){
+                        activityNeed[Utils.SELF_ACTUAL_NEED_NAME]! += safeDecodedData[needType]
                     }
                 }
             }
@@ -175,15 +169,15 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     private func pieChartColorGenerator(dataPoints:[String])->[UIColor]{
         var colors: [UIColor] = []
         for index in 0..<dataPoints.count{
-            if dataPoints[index] == Utils.phyNeedName{
+            if dataPoints[index] == Utils.PHY_NEED_NAME{
                 colors.append(phyColor)
-            }else if dataPoints[index] == Utils.safetyNeedName{
+            }else if dataPoints[index] == Utils.SAFETY_NEED_NAME{
                 colors.append(safetyColor)
-            }else if dataPoints[index] == Utils.loveBelongingNeedName{
+            }else if dataPoints[index] == Utils.LOVE_BELONGING_NEED_NAME{
                 colors.append(loveColor)
-            }else if dataPoints[index] == Utils.esteemNeedName{
+            }else if dataPoints[index] == Utils.ESTEEM_NEED_NAME{
                 colors.append(esteemColor)
-            }else if dataPoints[index] == Utils.selfActualNeedName{
+            }else if dataPoints[index] == Utils.SELF_ACTUAL_NEED_NAME{
                 colors.append(selfActualColor)
             }
         }
@@ -220,36 +214,36 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         let phyTap = UITapGestureRecognizer(target: self, action: #selector(self.handlePhyTap(_:)))
         physiologicalView.addGestureRecognizer(phyTap)
         physiologicalView.isUserInteractionEnabled = true
-        phyPopTip.show(text: Utils.phyNeedName, direction: .none, maxWidth: 200, in: backView, from: backView.subviews[5].frame)
+        phyPopTip.show(text: Utils.PHY_NEED_NAME, direction: .none, maxWidth: 200, in: backView, from: backView.subviews[5].frame)
         phyPopTip.bubbleColor = phyColor
         
         let safetyTap = UITapGestureRecognizer(target: self, action: #selector(self.handleSafetyTap(_:)))
         safetyView.addGestureRecognizer(safetyTap)
         safetyView.isUserInteractionEnabled = true
-        safetyPopTip.show(text: Utils.safetyNeedName, direction: .none, maxWidth: 200, in: backView, from: backView.subviews[4].frame)
+        safetyPopTip.show(text: Utils.SAFETY_NEED_NAME, direction: .none, maxWidth: 200, in: backView, from: backView.subviews[4].frame)
         safetyPopTip.bubbleColor = safetyColor
         
         let loveTap = UITapGestureRecognizer(target: self, action: #selector(self.handleLoveTap(_:)))
         loveBelongingView.addGestureRecognizer(loveTap)
         loveBelongingView.isUserInteractionEnabled = true
-        loveBelongingPopTip.show(text: Utils.loveBelongingNeedName, direction: .none, maxWidth: 200, in: backView, from: backView.subviews[3].frame)
+        loveBelongingPopTip.show(text: Utils.LOVE_BELONGING_NEED_NAME, direction: .none, maxWidth: 200, in: backView, from: backView.subviews[3].frame)
         loveBelongingPopTip.bubbleColor = loveColor
         
         let esteemTap = UITapGestureRecognizer(target: self, action: #selector(self.handleEsteemTap(_:)))
         esteemView.addGestureRecognizer(esteemTap)
         esteemView.isUserInteractionEnabled = true
-        esteemPopTip.show(text: Utils.esteemNeedName, direction: .none, maxWidth: 200, in: backView, from: backView.subviews[2].frame)
+        esteemPopTip.show(text: Utils.ESTEEM_NEED_NAME, direction: .none, maxWidth: 200, in: backView, from: backView.subviews[2].frame)
         esteemPopTip.bubbleColor = esteemColor
         
         let selfActualizationTap = UITapGestureRecognizer(target: self, action: #selector(self.handleSelfActualizationTap(_:)))
         selfActualizationView.addGestureRecognizer(selfActualizationTap)
         selfActualizationView.isUserInteractionEnabled = true
-        selfActualizationPopTip.show(text: Utils.selfActualNeedName, direction: .none, maxWidth: 200, in: backView, from: backView.subviews[1].frame)
+        selfActualizationPopTip.show(text: Utils.SELF_ACTUAL_NEED_NAME, direction: .none, maxWidth: 200, in: backView, from: backView.subviews[1].frame)
         selfActualizationPopTip.bubbleColor = selfActualColor
     }
 
     private func displayInstruction(){
-        PopUp.buildInstructionDialog(VC: self, message: Utils.resultsInstructionMsg)
+        PopUp.buildInstructionDialog(VC: self, message: Utils.RESULTS_INSTRUCTION_MSG)
     }
     
     private func configureBarButtonItem(){
@@ -271,37 +265,37 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     //MARK: - Handle Tap
     @objc func handlePhyTap(_ sender: UITapGestureRecognizer) {
-        currSelectedNeedLevel = Utils.phyNeedName
+        currSelectedNeedLevel = Utils.PHY_NEED_NAME
         DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
-            self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
+            self.performSegue(withIdentifier: Utils.RESULTS_STATS_SEGUE, sender: self)
         })
     }
     
     @objc func handleSafetyTap(_ sender: UITapGestureRecognizer){
-        currSelectedNeedLevel = Utils.safetyNeedName
+        currSelectedNeedLevel = Utils.SAFETY_NEED_NAME
         DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
-            self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
+            self.performSegue(withIdentifier: Utils.RESULTS_STATS_SEGUE, sender: self)
         })
     }
     
     @objc func handleLoveTap(_ sender: UITapGestureRecognizer){
-        currSelectedNeedLevel = Utils.loveBelongingNeedName
+        currSelectedNeedLevel = Utils.LOVE_BELONGING_NEED_NAME
         DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
-            self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
+            self.performSegue(withIdentifier: Utils.RESULTS_STATS_SEGUE, sender: self)
         })
     }
     
     @objc func handleEsteemTap(_ sender: UITapGestureRecognizer){
-        currSelectedNeedLevel = Utils.esteemNeedName
+        currSelectedNeedLevel = Utils.ESTEEM_NEED_NAME
         DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
-            self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
+            self.performSegue(withIdentifier: Utils.RESULTS_STATS_SEGUE, sender: self)
         })
     }
     
     @objc func handleSelfActualizationTap(_ sender: UITapGestureRecognizer){
-        currSelectedNeedLevel = Utils.selfActualNeedName
+        currSelectedNeedLevel = Utils.SELF_ACTUAL_NEED_NAME
         DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
-            self.performSegue(withIdentifier: Utils.resultStatsSegue, sender: self)
+            self.performSegue(withIdentifier: Utils.RESULTS_STATS_SEGUE, sender: self)
         })
     }
     

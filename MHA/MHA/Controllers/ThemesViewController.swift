@@ -47,7 +47,7 @@ class ThemesViewController: UITableViewController {
             if let themeOwner = Auth.auth().currentUser?.email{
                 db.collection(Utils.FStore.collectionName).whereField(Utils.FStore.themeOwner, isEqualTo: themeOwner).getDocuments { (querySnapshot, error) in
                     if let e = error{
-                        print("Error with retrieving current theme, \(e)")
+                        print("Error with retrieving current theme, \(e)", to: &Log.log)
                     }else{
                         if let snapshotDocuments = querySnapshot?.documents{
                             if snapshotDocuments.count<1{
@@ -55,7 +55,7 @@ class ThemesViewController: UITableViewController {
                                     data:[Utils.FStore.themeOwner: themeOwner,
                                           Utils.FStore.selectedTheme: selectedTheme]) { (error) in
                                     if let e = error{
-                                        print("There was an issue saving selected theme to firestore, \(e)")
+                                        print("There was an issue saving selected theme to firestore, \(e)", to: &Log.log)
                                     }
                                 }
                             }else{

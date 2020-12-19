@@ -79,11 +79,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Instructions.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-MHA-MHAUITests.xcscheme</key>
 		<dict>
 			<key>isShown</key>

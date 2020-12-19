@@ -17,9 +17,9 @@ class SelfActualizationView: UIView {
         
         self.backgroundColor = .white
         
-        let decodedData = loadDailyActivityResult(date: date)
+        let decodedData = Utils.loadDailyActivityResult(date: date)
         if let safeDecodedData = decodedData{
-            for needType in Utils.selfActualNeeds{
+            for needType in Utils.SELF_ACTUAL_NEEDS{
                 if safeDecodedData[needType] != 0{
                     activityList.append(safeDecodedData[needType])
                 }
@@ -43,9 +43,9 @@ class SelfActualizationView: UIView {
         self.createSelfActualizationLevel()
         
         if activityList.count>0{
-            hexStringToUIColor(hex: Utils.selfActualNeedColoursList[0]).setFill()
+            Utils.hexStringToUIColor(hex: Utils.SELF_ACTUAL_NEED_COLOUR_LIST[0]).setFill()
         }else{
-            hexStringToUIColor(hex: Utils.baseColour).setFill()
+            Utils.hexStringToUIColor(hex: Utils.BASE_COLOUR).setFill()
         }
         path.fill()
         

@@ -56,7 +56,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        for need in Utils.needTypeList{
+        for need in Utils.NEED_TYPE_LIST{
             dailyActivityMap[need] = 0
         }
         
@@ -71,7 +71,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     override func viewWillAppear(_ animated: Bool) {
 
         if let currentThemeOwner = Auth.auth().currentUser?.email{
-            loadAppTheme(withEmail: currentThemeOwner, view: view)
+            Utils.loadAppTheme(withEmail: currentThemeOwner, view: view)
         }
         
         title = setTitle(date: selectedDate)
@@ -105,7 +105,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
         configureFlashCard(flashCard: flashCard, front: frontView, back: backView)
         
         activityText.font = .systemFont(ofSize: 18)
-        frontView.backgroundColor = hexStringToUIColor(hex: "#98acf8")
+        frontView.backgroundColor = Utils.hexStringToUIColor(hex: "#98acf8")
         
     }
     
@@ -131,7 +131,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
         flashCard.flip()
         if flashCard.showFront{
             configureBarButtonItem()
-            PopUp.allowDisplayInstructionDialog(VC: self, message: Utils.needSelectInstructionMsg)
+            PopUp.allowDisplayInstructionDialog(VC: self, message: Utils.NEED_SELECT_INSTRUCTION_MSG)
             
         }else{
             configureBarButtonItem()
@@ -182,7 +182,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
                     do{
                         let decodedData = try decoder.decode(DailyActivityData.self, from: jsonData)
                         var newData:[String:Int] = [:]
-                        for need in Utils.needTypeList{
+                        for need in Utils.NEED_TYPE_LIST{
                             if selectedNeedsToDeleteArray.contains(need){
                                 newData[need] = decodedData[need]-1
                             }else{
@@ -203,17 +203,17 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
                                         activityText.text = ""
                                     }
                                 }catch{
-                                    print("Error saving modified daily activity object, \(error)")
+                                    print("Error saving modified daily activity object, \(error)", to: &Log.log)
                                 }
                             }
                         }
                     }catch{
-                        print("Error retrieving decoded need DailyActivity data, \(error)")
+                        print("Error retrieving decoded need DailyActivity data, \(error)", to: &Log.log)
                     }
                 }
             }
         }else{
-            print("No such activity with ID: \(activityID!) to be deleted")
+            print("No such activity with ID: \(activityID!) to be deleted", to: &Log.log)
         }
     }
     
@@ -233,7 +233,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Utils.userInputReportSegue{
+        if segue.identifier == Utils.USER_INPUT_REPORT_SEGUE{
             let destinationVC = segue.destination as! ResultsViewController
             destinationVC.selectedDate = selectedDate
         }
@@ -249,7 +249,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     //MARK: - Data Manipulation Methods
     private func setTitle(date: Date)->String{
         let month = date.dateFormatter(format: "MM")
-        let monthName = Utils.monthMap[Int(month)!]!
+        let monthName = Utils.MONTH_MAP[Int(month)!]!
         let dateNumber = date.dateFormatter(format: "d")
         let navBartitle = "\(monthName) \(dateNumber)"
         return navBartitle
@@ -264,13 +264,13 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
                 newActivity.activityID = activityID!
                 newActivity.startTime = startTime
                 newActivity.endTime = endTime
-                newActivity.colour = Utils.eventColours[Int(arc4random_uniform(UInt32(Utils.eventColours.count)))]
+                newActivity.colour = Utils.EVENT_COLOUR_LIST[Int(arc4random_uniform(UInt32(Utils.EVENT_COLOUR_LIST.count)))]
                 realm.add(newActivity, update: .modified)
             }
             saveDailyActivityMap(date: selectedDate)
             saveSelectedNeeds()
         }catch{
-            print("Error saving new category-mapping, \(error)")
+            print("Error saving new category-mapping, \(error)", to: &Log.log)
         }
     }
     
@@ -286,7 +286,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
                             realm.add(newDailyActivity, update: .modified)
                         }
                     }catch{
-                        print("Error saving new activity-category mapping, \(error)")
+                        print("Error saving new activity-category mapping, \(error)", to: &Log.log)
                     }
                 }
             }
@@ -304,7 +304,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
                 realm.add(newActivityNeed, update: .modified)
             }
         }catch{
-            print("Error saving new selected needs, \(error)")
+            print("Error saving new selected needs, \(error)", to: &Log.log)
         }
     }
     
@@ -324,9 +324,9 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     }
     
     private func populateDailyActivityMap(date: Date){
-        let decodedNeedActivityData = loadDailyActivityResult(date: date)
+        let decodedNeedActivityData = Utils.loadDailyActivityResult(date: date)
         if let safeDecodedNeedActivityData = decodedNeedActivityData{
-            for needType in Utils.needTypeList{
+            for needType in Utils.NEED_TYPE_LIST{
                 dailyActivityMap[needType] = safeDecodedNeedActivityData[needType]
             }
         }
@@ -409,7 +409,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     
     private func alertMessageCreator(){
         let alert : UIAlertController?
-        let alertTitle = Utils.saveNoteAlertMsg
+        let alertTitle = Utils.SAVE_NOTE_ALERT_MSG
         
         alert = UIAlertController(title: alertTitle, message: "", preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Yes", style: .default) {(action) in
@@ -426,12 +426,12 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     }
     
     private func setTextViewPlaceHolder(){
-        activityText.text = Utils.activityDefaultMsg
+        activityText.text = Utils.ACTIVITY_DEFAULT_MSG
         activityText.textColor = UIColor.lightGray
     }
     
     private func displayInstruction(){
-        PopUp.buildInstructionDialog(VC: self, message: Utils.needSelectInstructionMsg)
+        PopUp.buildInstructionDialog(VC: self, message: Utils.NEED_SELECT_INSTRUCTION_MSG)
     }
     
     //MARK: - Swipe Functionality

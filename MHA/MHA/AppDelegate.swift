@@ -22,6 +22,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         Firestore.firestore()
         
+        let fm = FileManager.default
+        let log = fm.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("MHA_Log.txt")
+        
+        print(log)
+        
         do{
             let _ = try Realm()
         }catch{

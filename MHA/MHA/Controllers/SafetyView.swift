@@ -17,9 +17,9 @@ class SafetyView: UIView {
      
         self.backgroundColor = .white
         
-        let decodedData = loadDailyActivityResult(date: date)
+        let decodedData = Utils.loadDailyActivityResult(date: date)
         if let safeDecodedData = decodedData{
-            for needType in Utils.safetyNeeds{
+            for needType in Utils.SAFETY_NEEDS{
                 if safeDecodedData[needType] != 0{
                     activityList.append(safeDecodedData[needType])
                 }
@@ -46,7 +46,7 @@ class SafetyView: UIView {
     override func draw(_ rect: CGRect) {
         self.createSafeNeedsView()
         
-        hexStringToUIColor(hex: Utils.baseColour).setFill()
+        Utils.hexStringToUIColor(hex: Utils.BASE_COLOUR).setFill()
         path.fill()
         
         if activityList.count>0{
@@ -72,20 +72,20 @@ class SafetyView: UIView {
             var j = 4
             for i in 0..<activityList.count{
                 if i==0{
-                    currColour = hexStringToUIColor(hex: Utils.safetyNeedColoursList[j]).cgColor
+                    currColour = Utils.hexStringToUIColor(hex: Utils.SAFETY_NEED_COLOUR_LIST[j]).cgColor
                     colors.append(currColour)
                 }else if activityList[i] != activityList[i-1]{
                     j -= 1
-                    currColour = hexStringToUIColor(hex: Utils.safetyNeedColoursList[j]).cgColor
+                    currColour = Utils.hexStringToUIColor(hex: Utils.SAFETY_NEED_COLOUR_LIST[j]).cgColor
                     colors.append(currColour)
                 }else if activityList[i] == activityList[i-1]{
-                    currColour = hexStringToUIColor(hex: Utils.safetyNeedColoursList[j]).cgColor
+                    currColour = Utils.hexStringToUIColor(hex: Utils.SAFETY_NEED_COLOUR_LIST[j]).cgColor
                     colors.append(currColour)
                 }
             }
             
             if activityList.count < 5{
-                colors.append(hexStringToUIColor(hex: Utils.baseColour).cgColor)
+                colors.append(Utils.hexStringToUIColor(hex: Utils.BASE_COLOUR).cgColor)
             }
             
             gradient.colors = colors

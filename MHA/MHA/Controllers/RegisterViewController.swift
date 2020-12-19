@@ -23,11 +23,10 @@ class RegisterViewController: UIViewController {
         if let email = emailTextField.text, let password = pwdTextField.text{
             Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
                 if let e = error{
-                    print("Failed to create user!, \(e)")
+                    print("Failed to create user!, \(e)", to: &Log.log)
                 }else{
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
-
                     (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
                 }
             }
