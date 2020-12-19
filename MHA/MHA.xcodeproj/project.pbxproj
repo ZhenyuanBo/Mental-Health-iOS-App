@@ -53,6 +53,7 @@
 		6E4308DD257AAB9C00EA4754 /* LightTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4308DC257AAB9C00EA4754 /* LightTheme.swift */; };
 		6E4308E6257C49DC00EA4754 /* CustomTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4308E5257C49DB00EA4754 /* CustomTabViewController.swift */; };
 		6E6A198F258D15F1002573A1 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6A198E258D15F1002573A1 /* ResultsViewController.swift */; };
+		6E6A1994258D8679002573A1 /* ResultsViewController_backup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6A1993258D8679002573A1 /* ResultsViewController_backup.swift */; };
 		6E78E950255A2F4700A61966 /* UserInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E78E94F255A2F4700A61966 /* UserInputViewController.swift */; };
 		6E78E973255A4BD200A61966 /* FlashCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E78E972255A4BD200A61966 /* FlashCardView.swift */; };
 		6E78E988255B359600A61966 /* DailyNeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E78E987255B359600A61966 /* DailyNeed.swift */; };
@@ -136,6 +137,7 @@
 		6E4308DC257AAB9C00EA4754 /* LightTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightTheme.swift; sourceTree = "<group>"; };
 		6E4308E5257C49DB00EA4754 /* CustomTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabViewController.swift; sourceTree = "<group>"; };
 		6E6A198E258D15F1002573A1 /* ResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
+		6E6A1993258D8679002573A1 /* ResultsViewController_backup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsViewController_backup.swift; sourceTree = "<group>"; };
 		6E78E94F255A2F4700A61966 /* UserInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputViewController.swift; sourceTree = "<group>"; };
 		6E78E972255A4BD200A61966 /* FlashCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardView.swift; sourceTree = "<group>"; };
 		6E78E987255B359600A61966 /* DailyNeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNeed.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 				6E43087F2577099F00EA4754 /* SettingTableViewController.swift */,
 				6E430896257A973000EA4754 /* ThemesViewController.swift */,
 				6E6A198E258D15F1002573A1 /* ResultsViewController.swift */,
+				6E6A1993258D8679002573A1 /* ResultsViewController_backup.swift */,
 				6E26886E2564A83B00C45D21 /* EsteemView.swift */,
 				6E26888E2564C87200C45D21 /* LoveView.swift */,
 				6E2688BF25672E9000C45D21 /* NeedDetailViewController.swift */,
@@ -581,6 +584,7 @@
 				6E0EF6C1255DAD3600939B0B /* DailyActivityData.swift in Sources */,
 				6E43088A2577FE8300EA4754 /* ThemeTableViewCell.swift in Sources */,
 				6E4308CE257AA35800EA4754 /* RomanticTheme.swift in Sources */,
+				6E6A1994258D8679002573A1 /* ResultsViewController_backup.swift in Sources */,
 				6E184DC02550F9790066EBC1 /* SignInViewController.swift in Sources */,
 				6E26884C25618F5200C45D21 /* ActivityTimePicker.swift in Sources */,
 				6E4308C4257AA2A800EA4754 /* TropicalTheme.swift in Sources */,

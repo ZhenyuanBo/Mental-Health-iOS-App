@@ -72,6 +72,8 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
             loadAppTheme(withEmail: currentThemeOwner, view: view)
         }
         
+//        self.coachMarksController.start(in: .viewController(self))
+        
         configureFlashCard(flashCard: flashCard, front: frontView, back: backView)
     
         //create pie chart
@@ -83,6 +85,8 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        self.coachMarksController.stop(immediately: true)
+        
         for need in activityNeed.keys{
             activityNeed[need] = 0
         }
@@ -311,3 +315,37 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         destinationVC.selectedDate = selectedDate
     }
 }
+
+extension ResultsViewController: CoachMarksControllerDelegate, CoachMarksControllerDataSource{
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkViewsAt index: Int, madeFrom coachMark: CoachMark) -> (bodyView: (UIView & CoachMarkBodyView), arrowView: (UIView & CoachMarkArrowView)?) {
+        let coachViews = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
+        switch index {
+        case 0:
+            coachViews.bodyView.hintLabel.text = "Flip card"
+            coachViews.bodyView.nextLabel.text = "next"
+        case 1:
+            coachViews.bodyView.hintLabel.text = "Download as an image"
+            coachViews.bodyView.nextLabel.text = "next"
+        default: break
+        }
+        return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
+    }
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkAt index: Int) -> CoachMark {
+        switch index {
+        case 0:
+            let viewFlip = flipButton.value(forKey: "view") as! UIView
+            return coachMarksController.helper.makeCoachMark(for: viewFlip)
+        case 1:
+            let viewDownload = downloadButton.value(forKey: "view") as! UIView
+            return coachMarksController.helper.makeCoachMark(for: viewDownload)
+        default: return coachMarksController.helper.makeCoachMark()
+        }
+    }
+    
+    func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
+        return 2
+    }
+    
+}
+
