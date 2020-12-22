@@ -33,7 +33,7 @@ class SelfActualizationView: UIView {
     
     func createSelfActualizationLevel() {
         path = UIBezierPath()
-        path.move(to: CGPoint(x: self.frame.width/2, y: 0.0))
+        path.move(to: CGPoint(x: 0.0, y: 0.0))
         path.addLine(to: CGPoint(x: 0.0, y: self.frame.size.height))
         path.addLine(to: CGPoint(x: self.frame.size.width, y: self.frame.size.height))
         path.close()

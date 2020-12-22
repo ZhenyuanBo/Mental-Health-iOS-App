@@ -12,12 +12,24 @@ class SignInViewController: UIViewController {
     let db = Firestore.firestore()
     
     @IBOutlet weak var emailTextField: UITextField!
-    
     @IBOutlet weak var pwdTextField: UITextField!
+    @IBOutlet weak var forgotPasswordButton: UIButton!
+    @IBOutlet weak var signInButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         pwdTextField.isSecureTextEntry = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        forgotPasswordButton.setTitle("Forgotten Password?", for: .normal)
+        forgotPasswordButton.backgroundColor = Utils.hexStringToUIColor(hex:"#0E49B5")
+        forgotPasswordButton.setTitleColor(.white, for: .normal)
+        forgotPasswordButton.layer.cornerRadius = 10
+        
+        signInButton.backgroundColor = Utils.hexStringToUIColor(hex:"#0E49B5")
+        signInButton.setTitleColor(.white, for: .normal)
+        signInButton.layer.cornerRadius = 10
     }
     
     @IBAction func signinPressed(_ sender: UIButton) {
@@ -25,6 +37,7 @@ class SignInViewController: UIViewController {
             Auth.auth().signIn(withEmail: email, password: password) { (authResult,  error) in
                 if let e = error{
                     print(e, to: &Log.log)
+                    self.showPopup(isSuccess: false, errorCode: 1)
                 }else{
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
@@ -32,6 +45,36 @@ class SignInViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    @IBAction func forgotPasswordPressed(_ sender: UIButton) {
+        if let email = emailTextField.text{
+            Auth.auth().sendPasswordReset(withEmail: email) { error in
+                if let e = error{
+                    print(e, to: &Log.log)
+                    self.showPopup(isSuccess: false, errorCode: 2)
+                }else{
+                    self.showPopup(isSuccess: true)
+                }
+            }
+        }
+    }
+    
+    private func showPopup(isSuccess: Bool, errorCode: Int? = nil) {
+        var errorMsg = ""
+        var successMsg = ""
+        if !isSuccess{
+            if errorCode == 1{
+                errorMsg = "Your credential is incorrect. Please try again."
+            }else if errorCode == 2{
+                errorMsg = "Password reset link fails to be sent to your inbox. Please try again later."
+            }
+        }else{
+            successMsg = "A password reset link has been sent to your inbox. Please follow steps in there to reset it."
+        }
+        let alert = UIAlertController(title: isSuccess ? "Success": "Error", message: isSuccess ? successMsg: errorMsg, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK!", style: UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
 }

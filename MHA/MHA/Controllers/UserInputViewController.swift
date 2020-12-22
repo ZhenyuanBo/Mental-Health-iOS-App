@@ -102,7 +102,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
         frontView.layer.cornerRadius = 25
         backView.layer.cornerRadius = 25
 
-        configureFlashCard(flashCard: flashCard, front: frontView, back: backView)
+        Utils.configureFlashCard(flashCard: flashCard, front: frontView, back: backView)
         
         activityText.font = .systemFont(ofSize: 18)
         frontView.backgroundColor = Utils.hexStringToUIColor(hex: "#98acf8")

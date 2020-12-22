@@ -35,10 +35,10 @@ class EsteemView: UIView {
     
     func createEsteemLevel() {
         path = UIBezierPath()
-        path.move(to: CGPoint(x: self.frame.width/5, y: 0.0))
+        path.move(to: CGPoint(x: 0.0, y: 0.0))
         path.addLine(to: CGPoint(x: 0.0, y: self.frame.size.height))
         path.addLine(to: CGPoint(x: self.frame.size.width, y: self.frame.size.height))
-        path.addLine(to: CGPoint(x: self.frame.size.width*4/5, y: 0.0))
+        path.addLine(to: CGPoint(x: self.frame.size.width*0.6, y: 0.0))
         path.close()
     }
     

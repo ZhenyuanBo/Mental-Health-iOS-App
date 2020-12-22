@@ -66,7 +66,7 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
             Utils.loadAppTheme(withEmail: currentThemeOwner, view: view)
         }
         
-        configureFlashCard(flashCard: flashCard, front: frontView, back: backView)
+        Utils.configureFlashCard(flashCard: flashCard, front: frontView, back: backView)
     
         //create pie chart
         preparePieChart()
@@ -194,15 +194,15 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         pyramidTitle.text = "Maslow's Hierarchy of Needs"
         pyramidTitle.font = pyramidTitle.font.withSize(20)
         
-        let selfActualizationView = SelfActualizationView(frame: CGRect(x: 155,
+        let selfActualizationView = SelfActualizationView(frame: CGRect(x: 50,
                                                                         y: 100,
-                                                                        width: width,
+                                                                        width: width+10,
                                                                         height: height), date: selectedDate)
         
-        let esteemView = EsteemView(frame: CGRect(x: 135, y:190, width: width+40, height: height), date: selectedDate)
-        let loveBelongingView = LoveView(frame: CGRect(x: 95, y: 280, width: width+120, height: height), date: selectedDate)
-        let safetyView = SafetyView(frame: CGRect(x:52, y: 370, width: width + 210, height: height), date: selectedDate)
-        let physiologicalView = PhysiologicalView(frame: CGRect(x: 20, y: 460, width: width + 280, height: height), date: selectedDate)
+        let esteemView = EsteemView(frame: CGRect(x: 50, y:190, width: width+70, height: height), date: selectedDate)
+        let loveBelongingView = LoveView(frame: CGRect(x: 50, y: 280, width: width+132, height: height), date: selectedDate)
+        let safetyView = SafetyView(frame: CGRect(x: 50, y: 370, width: width + 190, height: height), date: selectedDate)
+        let physiologicalView = PhysiologicalView(frame: CGRect(x: 50, y: 460, width: width + 250, height: height), date: selectedDate)
         
         backView.addSubview(pyramidTitle)
         backView.addSubview(selfActualizationView)
