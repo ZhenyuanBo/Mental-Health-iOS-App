@@ -17,14 +17,15 @@ class RegisterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         pwdTextField.isSecureTextEntry = true
+//        view.backgroundColor = Utils.hexStringToUIColor(hex:"#a7c5eb")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         alreadyMemberButton.setTitle("Already have an account? Sign In", for: .normal)
-        alreadyMemberButton.setTitleColor(Utils.hexStringToUIColor(hex:"#0E49B5"), for: .normal)
+        alreadyMemberButton.setTitleColor(Utils.hexStringToUIColor(hex:"#ff8585"), for: .normal)
         alreadyMemberButton.layer.cornerRadius = 10
         
-        registerButton.backgroundColor = Utils.hexStringToUIColor(hex:"#0E49B5")
+        registerButton.backgroundColor = Utils.hexStringToUIColor(hex:"#ff8585")
         registerButton.setTitleColor(.white, for: .normal)
         registerButton.layer.cornerRadius = 10
     }

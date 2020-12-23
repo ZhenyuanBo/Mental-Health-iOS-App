@@ -16,12 +16,23 @@ class SignInViewController: UIViewController {
     @IBOutlet weak var forgotPasswordButton: UIButton!
     @IBOutlet weak var signInButton: UIButton!
     
+    @IBOutlet weak var backgroundView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         pwdTextField.isSecureTextEntry = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        pwdTextField.backgroundColor = Utils.hexStringToUIColor(hex:"#0E49B5")
+        pwdTextField.attributedPlaceholder = NSAttributedString(string: "Password",
+                                     attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        
+        emailTextField.backgroundColor = Utils.hexStringToUIColor(hex:"#0E49B5")
+        emailTextField.attributedPlaceholder = NSAttributedString(string: "Email",
+                                     attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        
         forgotPasswordButton.setTitle("Forgotten Password?", for: .normal)
         forgotPasswordButton.backgroundColor = Utils.hexStringToUIColor(hex:"#0E49B5")
         forgotPasswordButton.setTitleColor(.white, for: .normal)
@@ -30,6 +41,9 @@ class SignInViewController: UIViewController {
         signInButton.backgroundColor = Utils.hexStringToUIColor(hex:"#0E49B5")
         signInButton.setTitleColor(.white, for: .normal)
         signInButton.layer.cornerRadius = 10
+
+        backgroundView.alpha = 0.4
+        
     }
     
     @IBAction func signinPressed(_ sender: UIButton) {

@@ -26,6 +26,9 @@ class WelcomeViewController: UIViewController {
         
         signinButton.backgroundColor = Utils.hexStringToUIColor(hex:"#0E49B5")
         registerButton.backgroundColor = Utils.hexStringToUIColor(hex:"#0E49B5")
+        
+        signinButton.layer.cornerRadius = 10
+        registerButton.layer.cornerRadius = 10
     }
 }
 
