@@ -36,7 +36,7 @@ class RegisterViewController: UIViewController {
         alreadyMemberButton.backgroundColor = Utils.hexStringToUIColor(hex:"#ff4646")
         alreadyMemberButton.layer.cornerRadius = 10
         
-        registerButton.backgroundColor = Utils.hexStringToUIColor(hex:"#5aa469")
+        registerButton.backgroundColor = Utils.hexStringToUIColor(hex:"#f6830f")
         registerButton.setTitleColor(.white, for: .normal)
         registerButton.titleLabel?.font = .boldSystemFont(ofSize: 25)
         registerButton.layer.cornerRadius = 10

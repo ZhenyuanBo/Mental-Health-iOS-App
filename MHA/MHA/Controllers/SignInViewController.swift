@@ -39,7 +39,7 @@ class SignInViewController: UIViewController {
         forgotPasswordButton.titleLabel?.font = .boldSystemFont(ofSize: 25)
         forgotPasswordButton.layer.cornerRadius = 10
         
-        signInButton.backgroundColor = Utils.hexStringToUIColor(hex:"#5aa469")
+        signInButton.backgroundColor = Utils.hexStringToUIColor(hex:"#16a596")
         signInButton.setTitleColor(.white, for: .normal)
         signInButton.titleLabel?.font = .boldSystemFont(ofSize: 25)
         signInButton.layer.cornerRadius = 10
