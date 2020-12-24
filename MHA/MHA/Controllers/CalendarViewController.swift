@@ -1,5 +1,5 @@
 /*
- Author: Zhenyuan Bo
+ Author: Zhenyuan Bo & Anqi Luo
  File Description: presents the calendar view
  Date: Nov 23, 2020
  */

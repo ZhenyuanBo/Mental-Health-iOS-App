@@ -1,5 +1,5 @@
 /*
- Author: Zhenyuan Bo
+ Author: Zhenyuan Bo & Anqi Luo
  File Description: presents the signin view
  Date: Nov 23, 2020
  */
@@ -15,7 +15,6 @@ class SignInViewController: UIViewController {
     @IBOutlet weak var pwdTextField: UITextField!
     @IBOutlet weak var forgotPasswordButton: UIButton!
     @IBOutlet weak var signInButton: UIButton!
-    
     @IBOutlet weak var backgroundView: UIImageView!
     
     override func viewDidLoad() {
@@ -25,24 +24,18 @@ class SignInViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        pwdTextField.backgroundColor = Utils.hexStringToUIColor(hex:"#0E49B5")
-        pwdTextField.attributedPlaceholder = NSAttributedString(string: "Password",
-                                     attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        Utils.buildCredField(emailField: emailTextField, pwdField: pwdTextField)
         
-        emailTextField.backgroundColor = Utils.hexStringToUIColor(hex:"#0E49B5")
-        emailTextField.attributedPlaceholder = NSAttributedString(string: "Email",
-                                     attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-        
-        forgotPasswordButton.setTitle("Forgot Password?", for: .normal)
-        forgotPasswordButton.backgroundColor = Utils.hexStringToUIColor(hex:"#ff4646")
+        forgotPasswordButton.setTitle(Utils.FORGOT_PWD_BUTTON_TITLE, for: .normal)
+        forgotPasswordButton.backgroundColor = Utils.hexStringToUIColor(hex: Utils.HELP_BUTTON_COLOUR)
         forgotPasswordButton.setTitleColor(.white, for: .normal)
-        forgotPasswordButton.titleLabel?.font = .boldSystemFont(ofSize: 25)
-        forgotPasswordButton.layer.cornerRadius = 10
+        forgotPasswordButton.titleLabel?.font = .boldSystemFont(ofSize: Utils.BUTTON_TITLE_FONT)
+        forgotPasswordButton.layer.cornerRadius = Utils.BUTTON_CORNER_RADIUS
         
-        signInButton.backgroundColor = Utils.hexStringToUIColor(hex:"#16a596")
+        signInButton.backgroundColor = Utils.hexStringToUIColor(hex: Utils.SIGN_IN_BUTTON_COLOUR)
         signInButton.setTitleColor(.white, for: .normal)
-        signInButton.titleLabel?.font = .boldSystemFont(ofSize: 25)
-        signInButton.layer.cornerRadius = 10
+        signInButton.titleLabel?.font = .boldSystemFont(ofSize: Utils.BUTTON_TITLE_FONT)
+        signInButton.layer.cornerRadius = Utils.BUTTON_CORNER_RADIUS
 
         backgroundView.alpha = 0.15
         

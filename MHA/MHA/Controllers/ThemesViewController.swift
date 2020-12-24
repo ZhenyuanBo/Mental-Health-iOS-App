@@ -1,5 +1,5 @@
 /*
- Author: Zhenyuan Bo
+ Author: Zhenyuan Bo & Anqi Luo
  File Description: MHA App's Themes Configuration
  Date: Dec 4, 2020
  */

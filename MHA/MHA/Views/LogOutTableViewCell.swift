@@ -1,5 +1,5 @@
 /*
- Author: Zhenyuan Bo
+ Author: Zhenyuan Bo & Anqi Luo
  File Description: creates logout table cell
  Date: Dec 1, 2020
  */

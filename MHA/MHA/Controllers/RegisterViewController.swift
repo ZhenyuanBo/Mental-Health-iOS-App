@@ -1,5 +1,5 @@
 /*
- Author: Zhenyuan Bo
+ Author: Zhenyuan Bo & Anqi Luo
  File Description: presents the register view
  Date: Nov 23, 2020
  */
@@ -22,24 +22,18 @@ class RegisterViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        pwdTextField.backgroundColor = Utils.hexStringToUIColor(hex:"#0E49B5")
-        pwdTextField.attributedPlaceholder = NSAttributedString(string: "Password",
-                                     attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        Utils.buildCredField(emailField: emailTextField, pwdField: pwdTextField)
         
-        emailTextField.backgroundColor = Utils.hexStringToUIColor(hex:"#0E49B5")
-        emailTextField.attributedPlaceholder = NSAttributedString(string: "Email",
-                                     attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-        
-        alreadyMemberButton.setTitle("Already have an account? Sign In", for: .normal)
+        alreadyMemberButton.setTitle(Utils.ALREADY_MEMBER_BUTTON_TITLE, for: .normal)
         alreadyMemberButton.setTitleColor(.white, for: .normal)
-        alreadyMemberButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
-        alreadyMemberButton.backgroundColor = Utils.hexStringToUIColor(hex:"#ff4646")
-        alreadyMemberButton.layer.cornerRadius = 10
+        alreadyMemberButton.titleLabel?.font = .boldSystemFont(ofSize: Utils.ALREADY_MEMBER_BUTTON_TITLE_FONT)
+        alreadyMemberButton.backgroundColor = Utils.hexStringToUIColor(hex: Utils.HELP_BUTTON_COLOUR)
+        alreadyMemberButton.layer.cornerRadius = Utils.BUTTON_CORNER_RADIUS
         
-        registerButton.backgroundColor = Utils.hexStringToUIColor(hex:"#f6830f")
+        registerButton.backgroundColor = Utils.hexStringToUIColor(hex: Utils.REGISTER_BUTTON_COLOUR)
         registerButton.setTitleColor(.white, for: .normal)
-        registerButton.titleLabel?.font = .boldSystemFont(ofSize: 25)
-        registerButton.layer.cornerRadius = 10
+        registerButton.titleLabel?.font = .boldSystemFont(ofSize: Utils.BUTTON_TITLE_FONT)
+        registerButton.layer.cornerRadius = Utils.BUTTON_CORNER_RADIUS
         
         backgroundView.alpha = 0.15
     }

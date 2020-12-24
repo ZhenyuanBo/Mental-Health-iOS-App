@@ -1,5 +1,5 @@
 /*
- Author: Zhenyuan Bo
+ Author: Zhenyuan Bo & Anqi Luo
  File Description: Custom Tab Bar Controller
  Date: Dec 5, 2020
  */

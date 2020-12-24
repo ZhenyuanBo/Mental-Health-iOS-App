@@ -103,13 +103,26 @@ class Utils{
     //MARK: - Sign In / Register View
     public static let SIGN_IN_BUTTON_TITLE = "Sign In"
     public static let REGISTER_BUTTON_TITLE = "Register"
-    
+    public static let FORGOT_PWD_BUTTON_TITLE = "Forgot Password?"
+    public static let ALREADY_MEMBER_BUTTON_TITLE = "Already have an account? Sign In"
+
     public static let NAV_BAR_COLOUR = "#c6ebc9"
     public static let SIGN_IN_BUTTON_COLOUR = "#16a596"
     public static let REGISTER_BUTTON_COLOUR = "#f6830f"
+    public static let HELP_BUTTON_COLOUR = "#ff4646"
     
-    public static let SIGN_IN_BUTTON_TITLE_FONT = CGFloat(25.0)
-    public static let REGISTER_BUTTON_TITLE_FONT = CGFloat(25.0)
+    public static let BUTTON_TITLE_FONT = CGFloat(25.0)
+    public static let BUTTON_CORNER_RADIUS = CGFloat(10.0)
+    public static let ALREADY_MEMBER_BUTTON_TITLE_FONT = CGFloat(20.0)
+    
+    public static func buildCredField(emailField: UITextField, pwdField: UITextField){
+        emailField.backgroundColor = Utils.hexStringToUIColor(hex:"#0E49B5")
+        emailField.attributedPlaceholder = NSAttributedString(string: "Email",
+                                     attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        pwdField.backgroundColor = Utils.hexStringToUIColor(hex:"#0E49B5")
+        pwdField.attributedPlaceholder = NSAttributedString(string: "Password",
+                                     attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+    }
     
     
     //MARK: - Hex to UIColor

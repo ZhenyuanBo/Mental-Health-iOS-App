@@ -1,5 +1,5 @@
 /*
- Author: Zhenyuan Bo
+ Author: Zhenyuan Bo & Anqi Luo
  File Description: Catch All Error Messages in the Log File
  Date: Dec 18, 2020
  */

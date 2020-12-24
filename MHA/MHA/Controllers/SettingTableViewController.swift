@@ -1,5 +1,5 @@
 /*
- Author: Zhenyuan Bo
+ Author: Zhenyuan Bo & Anqi Luo
  File Description: MHA App's Setting Configuration
  Date: Dec 1, 2020
  */

@@ -1,5 +1,5 @@
 /*
- Author: Zhenyuan Bo
+ Author: Zhenyuan Bo & Anqi Luo
  File Description: presents the detailed stats view for each Maslow hierarchy level
  Date: Nov 23, 2020
  */
