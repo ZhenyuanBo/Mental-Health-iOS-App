@@ -13,6 +13,7 @@ class WelcomeViewController: UIViewController {
     
     @IBOutlet weak var registerButton: UIButton!
     
+    @IBOutlet weak var welcomeCover: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -24,11 +25,16 @@ class WelcomeViewController: UIViewController {
         signinButton.setTitleColor(.white, for: .normal)
         registerButton.setTitleColor(.white, for: .normal)
         
-        signinButton.backgroundColor = Utils.hexStringToUIColor(hex:"#0E49B5")
-        registerButton.backgroundColor = Utils.hexStringToUIColor(hex:"#0E49B5")
+        signinButton.backgroundColor = Utils.hexStringToUIColor(hex:"#16a596")
+        registerButton.backgroundColor = Utils.hexStringToUIColor(hex:"#583d72")
         
         signinButton.layer.cornerRadius = 10
         registerButton.layer.cornerRadius = 10
+        
+        signinButton.titleLabel?.font = .boldSystemFont(ofSize: 25)
+        registerButton.titleLabel?.font = .boldSystemFont(ofSize: 25)
+        
+        welcomeCover.alpha = 0.2
     }
 }
 

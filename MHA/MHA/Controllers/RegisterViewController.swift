@@ -13,21 +13,35 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var pwdTextField: UITextField!
     @IBOutlet weak var alreadyMemberButton: UIButton!
     @IBOutlet weak var registerButton: UIButton!
+    @IBOutlet weak var backgroundView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         pwdTextField.isSecureTextEntry = true
-//        view.backgroundColor = Utils.hexStringToUIColor(hex:"#a7c5eb")
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        pwdTextField.backgroundColor = Utils.hexStringToUIColor(hex:"#0E49B5")
+        pwdTextField.attributedPlaceholder = NSAttributedString(string: "Password",
+                                     attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        
+        emailTextField.backgroundColor = Utils.hexStringToUIColor(hex:"#0E49B5")
+        emailTextField.attributedPlaceholder = NSAttributedString(string: "Email",
+                                     attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        
         alreadyMemberButton.setTitle("Already have an account? Sign In", for: .normal)
-        alreadyMemberButton.setTitleColor(Utils.hexStringToUIColor(hex:"#ff8585"), for: .normal)
+        alreadyMemberButton.setTitleColor(.white, for: .normal)
+        alreadyMemberButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        alreadyMemberButton.backgroundColor = Utils.hexStringToUIColor(hex:"#ff4646")
         alreadyMemberButton.layer.cornerRadius = 10
         
-        registerButton.backgroundColor = Utils.hexStringToUIColor(hex:"#ff8585")
+        registerButton.backgroundColor = Utils.hexStringToUIColor(hex:"#5aa469")
         registerButton.setTitleColor(.white, for: .normal)
+        registerButton.titleLabel?.font = .boldSystemFont(ofSize: 25)
         registerButton.layer.cornerRadius = 10
+        
+        backgroundView.alpha = 0.15
     }
     
     @IBAction func alreadyMemberButtonPressed(_ sender: UIButton) {

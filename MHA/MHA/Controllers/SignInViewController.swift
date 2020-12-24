@@ -34,15 +34,17 @@ class SignInViewController: UIViewController {
                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         
         forgotPasswordButton.setTitle("Forgotten Password?", for: .normal)
-        forgotPasswordButton.backgroundColor = Utils.hexStringToUIColor(hex:"#0E49B5")
+        forgotPasswordButton.backgroundColor = Utils.hexStringToUIColor(hex:"#ff4646")
         forgotPasswordButton.setTitleColor(.white, for: .normal)
+        forgotPasswordButton.titleLabel?.font = .boldSystemFont(ofSize: 25)
         forgotPasswordButton.layer.cornerRadius = 10
         
-        signInButton.backgroundColor = Utils.hexStringToUIColor(hex:"#0E49B5")
+        signInButton.backgroundColor = Utils.hexStringToUIColor(hex:"#5aa469")
         signInButton.setTitleColor(.white, for: .normal)
+        signInButton.titleLabel?.font = .boldSystemFont(ofSize: 25)
         signInButton.layer.cornerRadius = 10
 
-        backgroundView.alpha = 0.4
+        backgroundView.alpha = 0.15
         
     }
     

@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "maslow_climb.jpg",
+      "filename" : "mountain_climb.jpeg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "maslow_climb@2x.jpg",
+      "filename" : "mountain_climb@2x.jpeg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "maslow_climb@3x.jpg",
+      "filename" : "mountain_climb@3x.jpeg",
       "idiom" : "universal",
       "scale" : "3x"
     }
