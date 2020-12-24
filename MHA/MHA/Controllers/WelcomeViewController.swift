@@ -29,8 +29,8 @@ class WelcomeViewController: UIViewController {
         signinButton.layer.cornerRadius = 10
         registerButton.layer.cornerRadius = 10
         
-        signinButton.titleLabel?.font = .boldSystemFont(ofSize: Utils.SIGN_IN_BUTTON_TITLE_FONT)
-        registerButton.titleLabel?.font = .boldSystemFont(ofSize: Utils.REGISTER_BUTTON_TITLE_FONT)
+        signinButton.titleLabel?.font = .boldSystemFont(ofSize: Utils.BUTTON_TITLE_FONT)
+        registerButton.titleLabel?.font = .boldSystemFont(ofSize: Utils.BUTTON_TITLE_FONT)
         
         welcomeCover.alpha = 0.2
     }

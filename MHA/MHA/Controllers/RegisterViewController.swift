@@ -39,7 +39,7 @@ class RegisterViewController: UIViewController {
     }
     
     @IBAction func alreadyMemberButtonPressed(_ sender: UIButton) {
-        performSegue(withIdentifier: "registerToSignIn", sender: self)
+        performSegue(withIdentifier: Utils.REGISTER_SIGNIN_SEGUE, sender: self)
     }
     
     @IBAction func registerPressed(_ sender: UIButton) {

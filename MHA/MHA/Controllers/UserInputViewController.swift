@@ -308,7 +308,8 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     
     private func cleanPyramidMapData(){
         for innerView in backView.subviews as [UIView]{
-            if let needButton = innerView as? UIButton {                            needButton.setTitleColor(.white, for: .normal)
+            if let needButton = innerView as? UIButton {
+                needButton.setTitleColor(.white, for: .normal)
             }
         }
     }

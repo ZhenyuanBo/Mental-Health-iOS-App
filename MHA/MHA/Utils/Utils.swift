@@ -11,6 +11,7 @@ class Utils{
     //MARK: - Segue Identifiers
     public static let USER_INPUT_REPORT_SEGUE = "UserInputToResult"
     public static let RESULTS_STATS_SEGUE = "ResultToStats"
+    public static let REGISTER_SIGNIN_SEGUE = "registerToSignIn"
     
     
     //MARK: - Month
