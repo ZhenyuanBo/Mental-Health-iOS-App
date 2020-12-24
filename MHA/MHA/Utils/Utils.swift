@@ -166,7 +166,7 @@ class Utils{
         let db = Firestore.firestore()
         db.collection(Utils.FStore.collectionName).whereField(Utils.FStore.themeOwner, isEqualTo: email).getDocuments { (querySnapshot, error) in
             if let e = error{
-                print("There was an issue with retrieving current theme, \(e)")
+                print("There was an issue with retrieving current theme, \(e)", to: &Log.log)
             }else{
                 if let snapshotDocuments = querySnapshot?.documents{
                     let data = snapshotDocuments.first?.data()

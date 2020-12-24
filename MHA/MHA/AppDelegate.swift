@@ -12,8 +12,6 @@ import RealmSwift
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         //locaiton of Realm file
@@ -25,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let fm = FileManager.default
         let log = fm.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("MHA_Log.txt")
         
-        print(log)
+        print("Log File: \(log)")
         
         do{
             let _ = try Realm()

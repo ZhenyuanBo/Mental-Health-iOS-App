@@ -70,9 +70,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     
     override func viewWillAppear(_ animated: Bool) {
 
-        if let currentThemeOwner = Auth.auth().currentUser?.email{
-            Utils.loadAppTheme(withEmail: currentThemeOwner, view: view)
-        }
+        view.backgroundColor = Theme.current.background
         
         title = setTitle(date: selectedDate)
         

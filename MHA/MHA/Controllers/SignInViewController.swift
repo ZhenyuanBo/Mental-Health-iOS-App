@@ -50,14 +50,27 @@ class SignInViewController: UIViewController {
     
     @IBAction func signinPressed(_ sender: UIButton) {
         if let email = emailTextField.text, let password = pwdTextField.text{
-            Auth.auth().signIn(withEmail: email, password: password) { (authResult,  error) in
+            Auth.auth().signIn(withEmail: email, password: password) {(authResult,  error) in
                 if let e = error{
                     print(e, to: &Log.log)
                     self.showPopup(isSuccess: false, errorCode: 1)
                 }else{
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
-                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
+                    self.db.collection(Utils.FStore.collectionName).whereField(Utils.FStore.themeOwner, isEqualTo: email).getDocuments { (querySnapshot, error) in
+                        if let e = error{
+                            print("There was an issue with retrieving current theme, \(e)", to: &Log.log)
+                        }else{
+                            if let snapshotDocuments = querySnapshot?.documents{
+                                let data = snapshotDocuments.first?.data()
+                                if let selectedTheme = data?[Utils.FStore.selectedTheme] as? String{
+                                    Theme.current = Utils.themes[selectedTheme]!
+                                    Utils.loadAppTheme(withEmail: email, view: self.view);
+                                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                    let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
+                                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

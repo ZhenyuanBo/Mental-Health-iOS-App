@@ -44,6 +44,7 @@ class ThemesViewController: UITableViewController {
         if let cell = tableView.cellForRow(at: indexPath) {
             cell.accessoryType = .checkmark
             let selectedTheme = Array(Utils.themes.keys).sorted(by: <)[indexPath.row]
+            Theme.current = Utils.themes[selectedTheme]!
             if let themeOwner = Auth.auth().currentUser?.email{
                 db.collection(Utils.FStore.collectionName).whereField(Utils.FStore.themeOwner, isEqualTo: themeOwner).getDocuments { (querySnapshot, error) in
                     if let e = error{

@@ -61,10 +61,8 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         
         frontView.layer.cornerRadius = 25
         backView.layer.cornerRadius = 25
-        
-        if let currentThemeOwner = Auth.auth().currentUser?.email{
-            Utils.loadAppTheme(withEmail: currentThemeOwner, view: view)
-        }
+            
+        view.backgroundColor = Theme.current.background
         
         Utils.configureFlashCard(flashCard: flashCard, front: frontView, back: backView)
     
