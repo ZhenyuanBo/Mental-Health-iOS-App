@@ -14,7 +14,6 @@ class Utils{
     
     
     //MARK: - Month
-    
     public static let MONTH_MAP = [1:"Jan", 2: "Feb", 3: "Mar", 4:"Apr",
                                    5:"May", 6:"Jun", 7:"Jul",
                                    8:"Aug", 9: "Sept", 10: "Oct", 11: "Nov", 12: "Dec"]
@@ -70,6 +69,9 @@ class Utils{
     //MARK: - Messages
     public static let SAVE_NOTE_ALERT_MSG = "Have you saved your current note?"
     public static let RESULTS_INSTRUCTION_MSG = "1. Tap on each level tag to view activity progression.\n2. Tap inside each level to view detailed data"
+    public static let SIGN_IN_ERROR_MSG = "Your credential is incorrect. Please try again."
+    public static let PWD_RESET_ERROR_MSG = "Password reset link fails to be sent to your inbox. Please try again later."
+    public static let PWD_RESET_SUCCESS_MSG = "A password reset link has been sent to your inbox. Please follow steps in there to reset it."
     public static let ACTIVITY_DEFAULT_MSG = "Please compose your activity here..."
     public static let NEED_SELECT_INSTRUCTION_MSG = "1. Select needs that activity has fulfilled\n 2. Click on the selected need if you want to deselect it"
     public static let PIE_CHART_TITLE = "Daily Activity Overview"
@@ -97,6 +99,18 @@ class Utils{
         static let themeOwner = "sender"
         static let selectedTheme = "selectedTheme"
     }
+    
+    //MARK: - Sign In / Register View
+    public static let SIGN_IN_BUTTON_TITLE = "Sign In"
+    public static let REGISTER_BUTTON_TITLE = "Register"
+    
+    public static let NAV_BAR_COLOUR = "#c6ebc9"
+    public static let SIGN_IN_BUTTON_COLOUR = "#16a596"
+    public static let REGISTER_BUTTON_COLOUR = "#f6830f"
+    
+    public static let SIGN_IN_BUTTON_TITLE_FONT = CGFloat(25.0)
+    public static let REGISTER_BUTTON_TITLE_FONT = CGFloat(25.0)
+    
     
     //MARK: - Hex to UIColor
     static func hexStringToUIColor (hex:String) -> UIColor {
@@ -159,26 +173,6 @@ class Utils{
             }
         }
         return nil
-    }
-    
-    //MARK: - Load Current Theme
-    static func loadAppTheme(withEmail email: String, view: UIView){
-        let db = Firestore.firestore()
-        db.collection(Utils.FStore.collectionName).whereField(Utils.FStore.themeOwner, isEqualTo: email).getDocuments { (querySnapshot, error) in
-            if let e = error{
-                print("There was an issue with retrieving current theme, \(e)", to: &Log.log)
-            }else{
-                if let snapshotDocuments = querySnapshot?.documents{
-                    let data = snapshotDocuments.first?.data()
-                    if let selectedTheme = data?[Utils.FStore.selectedTheme] as? String{
-                        DispatchQueue.main.async {
-                            Theme.current = Utils.themes[selectedTheme]!
-                            view.backgroundColor = Theme.current.background
-                        }
-                    }
-                }
-            }
-        }
     }
     
     //MARK: - configure flashcard

@@ -33,7 +33,7 @@ class SignInViewController: UIViewController {
         emailTextField.attributedPlaceholder = NSAttributedString(string: "Email",
                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         
-        forgotPasswordButton.setTitle("Forgotten Password?", for: .normal)
+        forgotPasswordButton.setTitle("Forgot Password?", for: .normal)
         forgotPasswordButton.backgroundColor = Utils.hexStringToUIColor(hex:"#ff4646")
         forgotPasswordButton.setTitleColor(.white, for: .normal)
         forgotPasswordButton.titleLabel?.font = .boldSystemFont(ofSize: 25)
@@ -63,7 +63,6 @@ class SignInViewController: UIViewController {
                                 let data = snapshotDocuments.first?.data()
                                 if let selectedTheme = data?[Utils.FStore.selectedTheme] as? String{
                                     Theme.current = Utils.themes[selectedTheme]!
-                                    Utils.loadAppTheme(withEmail: email, view: self.view);
                                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                                     let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
                                     (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
@@ -94,12 +93,12 @@ class SignInViewController: UIViewController {
         var successMsg = ""
         if !isSuccess{
             if errorCode == 1{
-                errorMsg = "Your credential is incorrect. Please try again."
+                errorMsg = Utils.SIGN_IN_ERROR_MSG
             }else if errorCode == 2{
-                errorMsg = "Password reset link fails to be sent to your inbox. Please try again later."
+                errorMsg = Utils.PWD_RESET_ERROR_MSG
             }
         }else{
-            successMsg = "A password reset link has been sent to your inbox. Please follow steps in there to reset it."
+            successMsg = Utils.PWD_RESET_SUCCESS_MSG
         }
         let alert = UIAlertController(title: isSuccess ? "Success": "Error", message: isSuccess ? successMsg: errorMsg, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK!", style: UIAlertAction.Style.default, handler: nil))
