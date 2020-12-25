@@ -1,5 +1,5 @@
 /*
- Author: Zhenyuan Bo
+ Author: Zhenyuan Bo & Anqi Luo
  File Description: presents the welcome view
  Date: Nov 23, 2020
  */
@@ -26,8 +26,8 @@ class WelcomeViewController: UIViewController {
         signinButton.backgroundColor = Utils.hexStringToUIColor(hex:Utils.SIGN_IN_BUTTON_COLOUR)
         registerButton.backgroundColor = Utils.hexStringToUIColor(hex:Utils.REGISTER_BUTTON_COLOUR)
         
-        signinButton.layer.cornerRadius = 10
-        registerButton.layer.cornerRadius = 10
+        signinButton.layer.cornerRadius = Utils.BUTTON_CORNER_RADIUS
+        registerButton.layer.cornerRadius = Utils.BUTTON_CORNER_RADIUS
         
         signinButton.titleLabel?.font = .boldSystemFont(ofSize: Utils.BUTTON_TITLE_FONT)
         registerButton.titleLabel?.font = .boldSystemFont(ofSize: Utils.BUTTON_TITLE_FONT)

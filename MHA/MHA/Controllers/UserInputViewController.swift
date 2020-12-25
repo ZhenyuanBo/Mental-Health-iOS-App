@@ -21,6 +21,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     var selectedDate: Date = Date()
     var selectedStartTime: String = ""
     var selectedEndTime: String = ""
+    var hasTextModified: Bool = false
     
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var frontView: UIView!
@@ -51,6 +52,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
                 selectedStartTime = safeStartTime
                 selectedEndTime = safeEndTime
             }
+            hasTextModified = false
         }
     }
     
@@ -74,18 +76,20 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
         
         title = setTitle(date: selectedDate)
         
-        if let safeActivityText = savedActivityText{
-            activityText.text = safeActivityText
-            if safeActivityText != ""{
-                activityID = loadActivityID(activityText: safeActivityText)
-                activityText.textColor = UIColor.black
-            }else{
+        if !hasTextModified{
+            if let safeActivityText = savedActivityText{
+                activityText.text = safeActivityText
+                if safeActivityText != ""{
+                    activityID = loadActivityID(activityText: safeActivityText)
+                    activityText.textColor = UIColor.black
+                }else{
+                    activityID = UUID.init().uuidString
+                    setTextViewPlaceHolder()
+                }
+            }else if activityText.text.isEmpty{
                 activityID = UUID.init().uuidString
                 setTextViewPlaceHolder()
             }
-        }else if activityText.text.isEmpty{
-            activityID = UUID.init().uuidString
-            setTextViewPlaceHolder()
         }
         
         populateDailyActivityMap(date: selectedDate)
@@ -121,6 +125,11 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
         selectedEndTime = ""
         for need in dailyActivityMap.keys{
             dailyActivityMap[need] = 0
+        }
+        if let safeActivityText = savedActivityText{
+            if safeActivityText != activityText.text{
+                hasTextModified = true
+            }
         }
     }
     
@@ -222,7 +231,6 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     
     @IBAction func addPressed(_ sender: UIBarButtonItem) {
         alertMessageCreator()
-        setTextViewPlaceHolder()
         selectedNeeds = ""
     }
     
@@ -296,7 +304,6 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
             try self.realm.write{
                 let newActivityNeed = ActivityNeed()
                 selectedNeeds = selectedNeeds.trimmingCharacters(in: .whitespacesAndNewlines)
-                print(selectedNeeds)
                 newActivityNeed.selectedNeeds = selectedNeeds
                 newActivityNeed.activityID = activityID!
                 realm.add(newActivityNeed, update: .modified)
@@ -414,6 +421,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
         let saveAction = UIAlertAction(title: "Yes", style: .default) {(action) in
             self.activityText.text = ""
             self.activityID = UUID.init().uuidString
+            self.setTextViewPlaceHolder()
             self.cleanPyramidMapData()
         }
         let newAction = UIAlertAction(title: "No", style: .default) {(action) in

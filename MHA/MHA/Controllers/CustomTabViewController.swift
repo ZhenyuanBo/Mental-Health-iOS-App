@@ -30,6 +30,7 @@ class CustomTabViewController: UITabBarController, UITabBarControllerDelegate{
                 if userInputVC.selectedDate != safeSelectedDate{
                     userInputVC.savedActivityText = nil
                     userInputVC.activityText.text = nil
+                    userInputVC.hasTextModified = false
                 }
                 userInputVC.selectedDate = safeSelectedDate
             }
