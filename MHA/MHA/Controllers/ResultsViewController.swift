@@ -158,9 +158,9 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         legend.horizontalAlignment = .right
         legend.verticalAlignment = .top
         legend.orientation = .vertical
-        legend.font = .systemFont(ofSize: 13.0)
+        legend.font = .systemFont(ofSize: 11.0)
         legend.xEntrySpace = 0
-        legend.yEntrySpace = 10
+        legend.yEntrySpace = 8
         
     }
     

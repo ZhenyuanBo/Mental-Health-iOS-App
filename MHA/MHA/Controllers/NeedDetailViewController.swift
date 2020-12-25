@@ -92,6 +92,7 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
             lineChartDataSet.valueFont = UIFont(name: "HelveticaNeue-Light", size: 20) ?? UIFont.systemFont(ofSize: 20)
             let colour = Utils.hexStringToUIColor(hex: lineChartColours[colourPos])
             lineChartDataSet.colors = [colour]
+            lineChartDataSet.lineWidth = 5.0
             datasets.append(lineChartDataSet)
             colourPos += 1
         }
@@ -103,6 +104,7 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
         lineChartView.data?.setValueFormatter(formatter)
         
         lineChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: dataPoints)
+        lineChartView.highlightPerTapEnabled = true
         lineChartView.xAxis.labelRotationAngle = -45
         lineChartView.xAxis.labelFont = .systemFont(ofSize: 12.0)
         
