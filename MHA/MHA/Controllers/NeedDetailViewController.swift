@@ -25,7 +25,7 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
     var chartDescription: String = ""
     var sortedColours:[UIColor] = []
     var categoryColours:[UIColor] = [UIColor.white, UIColor.white, UIColor.white, UIColor.white, UIColor.white, UIColor.white, UIColor.white]
-    var lineChartColours: [String] = ["#583d72", "#db6400", "#db6400", "#fd3a69", "#61b15a", "#af6b58", "#16a596"]
+    var lineChartColours: [String] = ["#54e346", "#db6400", "#65d6ce", "#ff4646", "#532e1c", "#fecd1a", "#f09ae9"]
     
     var categoryValue: [Int] = []
     var sortedCategoryValue:[Int] = []
@@ -81,6 +81,7 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
     
     private func drawLineChart(dataPoints: [String], categoryTrendValues: [String:[Int]]){
         var datasets:[LineChartDataSet] = []
+        var colourPos = 0
         for category in categoryTrendValues.keys{
             var dataEntries: [ChartDataEntry] = []
             for i in 0..<dataPoints.count {
@@ -89,11 +90,10 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
             }
             let lineChartDataSet = LineChartDataSet(entries: dataEntries, label: category)
             lineChartDataSet.valueFont = UIFont(name: "HelveticaNeue-Light", size: 20) ?? UIFont.systemFont(ofSize: 20)
-            let randomPos = Int(arc4random_uniform(UInt32(lineChartColours.count)))
-            let colour = Utils.hexStringToUIColor(hex: lineChartColours[randomPos])
-//            lineChartColours.remove(at: randomPos)
+            let colour = Utils.hexStringToUIColor(hex: lineChartColours[colourPos])
             lineChartDataSet.colors = [colour]
             datasets.append(lineChartDataSet)
+            colourPos += 1
         }
         
         let lineChartData = LineChartData(dataSets: datasets)
@@ -103,6 +103,8 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
         lineChartView.data?.setValueFormatter(formatter)
         
         lineChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: dataPoints)
+        lineChartView.xAxis.labelRotationAngle = -45
+        lineChartView.xAxis.labelFont = .systemFont(ofSize: 12.0)
         
         let legend = lineChartView.legend
         legend.horizontalAlignment = .left
@@ -279,19 +281,6 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
             categoryTrendData[category] = categoryValues
         }
     }
-    
-//    private func generateRandomColours(maxNumber: Int, listSize: Int)->[UIColor]{
-//        var randomColours = [UIColor]()
-//        while randomColours.count < listSize {
-//            let randomNumber = Int(arc4random_uniform(UInt32(maxNumber+1)))
-//            let colour = Utils.hexStringToUIColor(hex: lineChartColours[randomNumber])
-//            if !randomColours.contains(colour){
-//                randomColours.append(colour)
-//            }
-//        }
-//        return randomColours
-//    }
-    
     //    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
     //        let selectedCategory = Array(categoryTrendData.keys)[highlight.dataSetIndex]
     //        let marker = ChartMarker()
