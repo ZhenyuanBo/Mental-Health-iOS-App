@@ -25,7 +25,7 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
     var chartDescription: String = ""
     var sortedColours:[UIColor] = []
     var categoryColours:[UIColor] = [UIColor.white, UIColor.white, UIColor.white, UIColor.white, UIColor.white, UIColor.white, UIColor.white]
-    let lineChartColours: [String] = ["#583d72", "#db6400", "#db6400", "#fd3a69", "#61b15a", "#af6b58", "#16a596"]
+    var lineChartColours: [String] = ["#583d72", "#db6400", "#db6400", "#fd3a69", "#61b15a", "#af6b58", "#16a596"]
     
     var categoryValue: [Int] = []
     var sortedCategoryValue:[Int] = []
@@ -89,7 +89,10 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
             }
             let lineChartDataSet = LineChartDataSet(entries: dataEntries, label: category)
             lineChartDataSet.valueFont = UIFont(name: "HelveticaNeue-Light", size: 20) ?? UIFont.systemFont(ofSize: 20)
-            lineChartDataSet.colors = [Utils.hexStringToUIColor(hex: lineChartColours[Int(arc4random_uniform(UInt32(lineChartColours.count)))])]
+            let randomPos = Int(arc4random_uniform(UInt32(lineChartColours.count)))
+            let colour = Utils.hexStringToUIColor(hex: lineChartColours[randomPos])
+//            lineChartColours.remove(at: randomPos)
+            lineChartDataSet.colors = [colour]
             datasets.append(lineChartDataSet)
         }
         
@@ -100,6 +103,14 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
         lineChartView.data?.setValueFormatter(formatter)
         
         lineChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: dataPoints)
+        
+        let legend = lineChartView.legend
+        legend.horizontalAlignment = .left
+        legend.verticalAlignment = .bottom
+        legend.orientation = .horizontal
+        legend.font = .systemFont(ofSize: 15.0)
+        legend.xEntrySpace = 10
+        legend.yEntrySpace = 0
     }
     
     private func drawBarChart(dataPoints: [String], values: [Int]) {
@@ -269,12 +280,24 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
         }
     }
     
-    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        let selectedCategory = Array(categoryTrendData.keys)[highlight.dataSetIndex]
-        let marker = ChartMarker()
-        marker.setSelectedCategory(selectedCategory: selectedCategory)
-        lineChartView.marker = marker
-    }
+//    private func generateRandomColours(maxNumber: Int, listSize: Int)->[UIColor]{
+//        var randomColours = [UIColor]()
+//        while randomColours.count < listSize {
+//            let randomNumber = Int(arc4random_uniform(UInt32(maxNumber+1)))
+//            let colour = Utils.hexStringToUIColor(hex: lineChartColours[randomNumber])
+//            if !randomColours.contains(colour){
+//                randomColours.append(colour)
+//            }
+//        }
+//        return randomColours
+//    }
+    
+    //    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+    //        let selectedCategory = Array(categoryTrendData.keys)[highlight.dataSetIndex]
+    //        let marker = ChartMarker()
+    //        marker.setSelectedCategory(selectedCategory: selectedCategory)
+    //        lineChartView.marker = marker
+    //    }
 }
 
 //MARK: - Format chart data value to integer
