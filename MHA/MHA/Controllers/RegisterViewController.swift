@@ -46,7 +46,19 @@ class RegisterViewController: UIViewController {
         if let email = emailTextField.text, let password = pwdTextField.text{
             Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
                 if let e = error{
+                    var errorCode = 0
+                    if let errCode = AuthErrorCode(rawValue: error!._code) {
+                        switch errCode {
+                        case .emailAlreadyInUse:
+                            errorCode = 4
+                        case .weakPassword:
+                            errorCode = 5
+                        default:
+                            errorCode = 7
+                        }
+                    }
                     print("Failed to create user!, \(e)", to: &Log.log)
+                    LogInUtils.showPopup(isSuccess: false, errorCode: errorCode, vc: self)
                 }else{
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")

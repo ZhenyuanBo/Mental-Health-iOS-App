@@ -1,3 +1,9 @@
+/*
+ Author: Zhenyuan Bo & Anqi Luo
+ File Description: Custom Extra Functionality for Date
+ Date: Nov 23, 2020
+ */
+
 import UIKit
 import Foundation
 

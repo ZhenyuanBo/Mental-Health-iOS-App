@@ -1,3 +1,9 @@
+/*
+ Author: Zhenyuan Bo & Anqi Luo
+ File Description: App Utility File
+ Date: Nov 23, 2020
+ */
+
 import UIKit
 import Foundation
 import DateToolsSwift
@@ -70,9 +76,6 @@ class Utils{
     //MARK: - Messages
     public static let SAVE_NOTE_ALERT_MSG = "Have you saved your current note?"
     public static let RESULTS_INSTRUCTION_MSG = "1. Tap on each level tag to view activity progression.\n2. Tap inside each level to view detailed data"
-    public static let SIGN_IN_ERROR_MSG = "Your credential is incorrect. Please try again."
-    public static let PWD_RESET_ERROR_MSG = "Password reset link fails to be sent to your inbox. Please try again later."
-    public static let PWD_RESET_SUCCESS_MSG = "A password reset link has been sent to your inbox. Please follow steps in there to reset it."
     public static let ACTIVITY_DEFAULT_MSG = "Please compose your activity here..."
     public static let NEED_SELECT_INSTRUCTION_MSG = "1. Select needs that activity has fulfilled\n 2. Click on the selected need if you want to deselect it"
     public static let PIE_CHART_TITLE = "Daily Activity Overview"

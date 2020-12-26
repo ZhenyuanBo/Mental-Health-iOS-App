@@ -54,17 +54,12 @@ class SignInViewController: UIViewController {
                             errorCode = 2
                         case .userNotFound:
                             errorCode = 3
-                        case .emailAlreadyInUse:
-                            errorCode = 4
-                        case .weakPassword:
-                            errorCode = 5
                         default:
                             errorCode = 6
                         }
-                        }
-                    print(e, to: &Log.log)
-                    self.showPopup(isSuccess: false, errorCode: errorCode)
-
+                    }
+                    print("Fail to sign in \(e)", to: &Log.log)
+                    LogInUtils.showPopup(isSuccess: false, errorCode: errorCode, vc: self)
                 }else{
                     self.db.collection(Utils.FStore.collectionName).whereField(Utils.FStore.themeOwner, isEqualTo: email).getDocuments { (querySnapshot, error) in
                         if let e = error{
@@ -91,39 +86,12 @@ class SignInViewController: UIViewController {
             Auth.auth().sendPasswordReset(withEmail: email) { error in
                 if let e = error{
                     print(e, to: &Log.log)
-                    self.showPopup(isSuccess: false, errorCode: 2)
+                    LogInUtils.showPopup(isSuccess: false, errorCode: 8, vc: self)
                 }else{
-                    self.showPopup(isSuccess: true)
+                    LogInUtils.showPopup(isSuccess: true)
                 }
             }
         }
-    }
-    
-    private func showPopup(isSuccess: Bool, errorCode: Int? = nil) {
-        var errorMsg = ""
-        var successMsg = ""
-        if !isSuccess{
-            if errorCode == 1{
-                errorMsg = LogInUtils.ERROR_WRONG_PASSWORD_MSG
-            }else if errorCode == 2{
-                errorMsg = LogInUtils.ERROR_INVALID_EMAIL_MSG
-            }else if errorCode == 3{
-                errorMsg = LogInUtils.ERROR_USER_NOT_FOUND_MSG
-            }else if errorCode == 4{
-                errorMsg = LogInUtils.ERROR_EMAIL_IN_USE_MSG
-            }else if errorCode == 5{
-                errorMsg = LogInUtils.ERROR_WEAK_PASSWORD_MSG
-            }else if errorCode == 6{
-                errorMsg = LogInUtils.ERROR_GENERAL_MSG
-            }else{
-                errorMsg = Utils.PWD_RESET_ERROR_MSG
-            }
-        }else{
-            successMsg = Utils.PWD_RESET_SUCCESS_MSG
-        }
-        let alert = UIAlertController(title: isSuccess ? "Success": "Error", message: isSuccess ? successMsg: errorMsg, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK!", style: UIAlertAction.Style.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
     }
     
 }

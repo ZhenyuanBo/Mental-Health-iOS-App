@@ -1,9 +1,9 @@
-//
-//  PopUp.swift
-//  MHA
-//
-//  Created by Zhenyuan Bo on 2020-12-19.
-//
+/*
+ Author: Zhenyuan Bo & Anqi Luo
+ File Description: Popup Window
+ Date: Nov 23, 2020
+ */
+
 import UIKit
 import Foundation
 import Firebase
