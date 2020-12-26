@@ -45,8 +45,26 @@ class SignInViewController: UIViewController {
         if let email = emailTextField.text, let password = pwdTextField.text{
             Auth.auth().signIn(withEmail: email, password: password) {(authResult,  error) in
                 if let e = error{
+                    var errorCode = 0
+                    if let errCode = AuthErrorCode(rawValue: error!._code) {
+                        switch errCode {
+                        case .wrongPassword:
+                            errorCode = 1
+                        case .invalidEmail:
+                            errorCode = 2
+                        case .userNotFound:
+                            errorCode = 3
+                        case .emailAlreadyInUse:
+                            errorCode = 4
+                        case .weakPassword:
+                            errorCode = 5
+                        default:
+                            errorCode = 6
+                        }
+                        }
                     print(e, to: &Log.log)
-                    self.showPopup(isSuccess: false, errorCode: 1)
+                    self.showPopup(isSuccess: false, errorCode: errorCode)
+
                 }else{
                     self.db.collection(Utils.FStore.collectionName).whereField(Utils.FStore.themeOwner, isEqualTo: email).getDocuments { (querySnapshot, error) in
                         if let e = error{
@@ -86,8 +104,18 @@ class SignInViewController: UIViewController {
         var successMsg = ""
         if !isSuccess{
             if errorCode == 1{
-                errorMsg = Utils.SIGN_IN_ERROR_MSG
+                errorMsg = LogInUtils.ERROR_WRONG_PASSWORD_MSG
             }else if errorCode == 2{
+                errorMsg = LogInUtils.ERROR_INVALID_EMAIL_MSG
+            }else if errorCode == 3{
+                errorMsg = LogInUtils.ERROR_USER_NOT_FOUND_MSG
+            }else if errorCode == 4{
+                errorMsg = LogInUtils.ERROR_EMAIL_IN_USE_MSG
+            }else if errorCode == 5{
+                errorMsg = LogInUtils.ERROR_WEAK_PASSWORD_MSG
+            }else if errorCode == 6{
+                errorMsg = LogInUtils.ERROR_GENERAL_MSG
+            }else{
                 errorMsg = Utils.PWD_RESET_ERROR_MSG
             }
         }else{

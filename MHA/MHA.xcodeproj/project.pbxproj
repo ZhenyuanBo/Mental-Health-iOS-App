@@ -51,6 +51,7 @@
 		6E4308D8257AA89300EA4754 /* ThemeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4308D7257AA89300EA4754 /* ThemeProtocol.swift */; };
 		6E4308DD257AAB9C00EA4754 /* LightTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4308DC257AAB9C00EA4754 /* LightTheme.swift */; };
 		6E4308E6257C49DC00EA4754 /* CustomTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4308E5257C49DB00EA4754 /* CustomTabViewController.swift */; };
+		6E493D032597AABC00B4BEA2 /* LogInUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E493D022597AABC00B4BEA2 /* LogInUtils.swift */; };
 		6E500788258E648E00D9742B /* PopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E500787258E648E00D9742B /* PopUp.swift */; };
 		6E50079A258E688B00D9742B /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E500799258E688B00D9742B /* Date.swift */; };
 		6E50079F258E693200D9742B /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E50079E258E693200D9742B /* UIViewController.swift */; };
@@ -142,6 +143,7 @@
 		6E4308D7257AA89300EA4754 /* ThemeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeProtocol.swift; sourceTree = "<group>"; };
 		6E4308DC257AAB9C00EA4754 /* LightTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightTheme.swift; sourceTree = "<group>"; };
 		6E4308E5257C49DB00EA4754 /* CustomTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabViewController.swift; sourceTree = "<group>"; };
+		6E493D022597AABC00B4BEA2 /* LogInUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInUtils.swift; sourceTree = "<group>"; };
 		6E500787258E648E00D9742B /* PopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUp.swift; sourceTree = "<group>"; };
 		6E500799258E688B00D9742B /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		6E50079E258E693200D9742B /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 			isa = PBXGroup;
 			children = (
 				6EF7BE2B25547CD400280738 /* Utils.swift */,
+				6E493D022597AABC00B4BEA2 /* LogInUtils.swift */,
 				6E50079E258E693200D9742B /* UIViewController.swift */,
 				6E500799258E688B00D9742B /* Date.swift */,
 				6E500787258E648E00D9742B /* PopUp.swift */,
@@ -599,6 +602,7 @@
 				6E0EF6F2255EED1C00939B0B /* CalendarViewController.swift in Sources */,
 				6E6A198F258D15F1002573A1 /* ResultsViewController.swift in Sources */,
 				6E43088F2578021D00EA4754 /* LogOutTableViewCell.swift in Sources */,
+				6E493D032597AABC00B4BEA2 /* LogInUtils.swift in Sources */,
 				6E3B859F2557A9EC009996FF /* Activity.swift in Sources */,
 				6E4308E6257C49DC00EA4754 /* CustomTabViewController.swift in Sources */,
 				6E26888F2564C87200C45D21 /* LoveView.swift in Sources */,
