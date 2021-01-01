@@ -14,7 +14,7 @@ class LogInUtils{
         let ERROR_WRONG_PASSWORD_MSG = "Password is incorrect. Please try again."
         let ERROR_INVALID_EMAIL_MSG = "Email is incorrect. Please try again."
         let ERROR_USER_NOT_FOUND_MSG = "Email entered is not found. Please use a saved email account to sign in."
-        let ERROR_EMAIL_IN_USE_MSG = "Email you are trying to register is already in use. Please try a different to register your account."
+        let ERROR_EMAIL_IN_USE_MSG = "Email you are trying to register is already in use. Please try a different email to register your account."
         let ERROR_WEAK_PASSWORD_MSG = "Password you entered is weak (less than 6 characters). Please provide a strong one to register your account."
         let ERROR_SIGN_IN_MSG = "Your credential is incorrect. Please try again."
         let ERROR_REGISTER_MSG = "Fail to register this account. Please try again."
@@ -47,7 +47,10 @@ class LogInUtils{
         }
         
         let alert = UIAlertController(title: isSuccess ? "Success": "Error", message: isSuccess ? successMsg: errorMsg, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "Understand!", style: UIAlertAction.Style.default, handler: nil))
+//        let understandAction = UIAlertAction(title: "Understand!", style: .default) { (action) in
+//            vc.read
+//        }
+        alert.addAction(UIAlertAction(title: "Okay", style: UIAlertAction.Style.default, handler: nil))
         
         vc!.present(alert, animated: true, completion: nil)
     }

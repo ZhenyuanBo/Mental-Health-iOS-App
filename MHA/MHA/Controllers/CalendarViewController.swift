@@ -24,7 +24,7 @@ class CalendarViewController: DayViewController, DatePickerControllerDelegate {
     
     lazy var customCalendar: Calendar = {
         let customNSCalendar = NSCalendar(identifier: NSCalendar.Identifier.gregorian)!
-        customNSCalendar.timeZone = TimeZone(abbreviation: "EST")!
+        customNSCalendar.timeZone = TimeZone(abbreviation: TimeZone.current.abbreviation() ?? "UTC")!
         let calendar = customNSCalendar as Calendar
         return calendar
     }()

@@ -53,7 +53,7 @@ struct PopUp{
         
         let popup = PopupDialog(title: "Instruction", message: message, buttonAlignment: .vertical)
         
-        let understandButton = DefaultButton(title: "Start", dismissOnTap: true) {}
+        let understandButton = DefaultButton(title: "Okay", dismissOnTap: true) {}
         let understandDoNotShowButton =
             DestructiveButton(title: "Do Not Show Again!", dismissOnTap: true){
                 if let currentUser = Auth.auth().currentUser?.email{

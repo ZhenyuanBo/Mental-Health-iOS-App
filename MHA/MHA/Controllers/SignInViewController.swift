@@ -50,6 +50,7 @@ class SignInViewController: UIViewController {
                         switch errCode {
                         case .wrongPassword:
                             errorCode = 1
+                            self.pwdTextField.text = ""
                         case .invalidEmail:
                             errorCode = 2
                         case .userNotFound:
