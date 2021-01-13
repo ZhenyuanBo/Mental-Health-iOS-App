@@ -51,11 +51,15 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let navBarLeftButtonPopTipView = SwiftPopTipView(message: "View report on hierarchy of needs")
-        navBarLeftButtonPopTipView.presentPointingAtBarButtonItem(flipButton!, animated: true)
-        
-        instructionButton.isEnabled = false
-        instructionButton.tintColor = .gray
+        let flipButtonPopTipView = SwiftPopTipView(message: "View daily activity report")
+        flipButtonPopTipView.presentAnimatedPointingAtBarButtonItem(flipButton, autodismissAtTime: 2.0)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            let downloadButtonPopTipView = SwiftPopTipView(message: "Download chart as an image")
+            downloadButtonPopTipView.presentAnimatedPointingAtBarButtonItem(self.downloadButton, autodismissAtTime: 2.0)
+        }
+
+        downloadButton.isEnabled = false
+        downloadButton.tintColor = .gray
         
         pieChartTitle.text = Utils.PIE_CHART_TITLE
         
@@ -63,6 +67,8 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        PopUp.allowDisplayInstructionDialog(VC:self, message: Utils.RESULTS_INSTRUCTION_MSG)
         
         frontView.layer.cornerRadius = 25
         backView.layer.cornerRadius = 25
@@ -92,12 +98,7 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     @IBAction func flipPressed(_ sender: UIBarButtonItem) {
         flashCard.flip()
-        if flashCard.showFront{
-            configureBarButtonItem()
-            PopUp.allowDisplayInstructionDialog(VC:self, message: Utils.RESULTS_INSTRUCTION_MSG)
-        }else{
-            configureBarButtonItem()
-        }
+        configureBarButtonItem()
     }
     
     @IBAction func instructionPressed(_ sender: UIBarButtonItem) {
@@ -159,6 +160,10 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         pieChartView.drawEntryLabelsEnabled = false
         pieChartView.drawHoleEnabled = false
         
+        pieChartView.chartDescription?.text = "# of activities performed for each category";
+        pieChartView.chartDescription?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.semibold)
+        pieChartView.chartDescription?.position = CGPoint(x: 350, y: 485)
+        
         let legend = pieChartView.legend
         legend.horizontalAlignment = .right
         legend.verticalAlignment = .top
@@ -207,41 +212,41 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
         let safetyView = SafetyView(frame: CGRect(x: 50, y: 370, width: width + 190, height: height), date: selectedDate)
         let physiologicalView = PhysiologicalView(frame: CGRect(x: 50, y: 460, width: width + 250, height: height), date: selectedDate)
         
-        backView.addSubview(pyramidTitle)
-        backView.addSubview(selfActualizationView)
-        backView.addSubview(esteemView)
-        backView.addSubview(loveBelongingView)
-        backView.addSubview(safetyView)
-        backView.addSubview(physiologicalView)
+        frontView.addSubview(pyramidTitle)
+        frontView.addSubview(selfActualizationView)
+        frontView.addSubview(esteemView)
+        frontView.addSubview(loveBelongingView)
+        frontView.addSubview(safetyView)
+        frontView.addSubview(physiologicalView)
         
         let phyTap = UITapGestureRecognizer(target: self, action: #selector(self.handlePhyTap(_:)))
         physiologicalView.addGestureRecognizer(phyTap)
         physiologicalView.isUserInteractionEnabled = true
-        phyPopTip.show(text: Utils.PHY_NEED_NAME, direction: .none, maxWidth: 200, in: backView, from: backView.subviews[5].frame)
+        phyPopTip.show(text: Utils.PHY_NEED_NAME, direction: .none, maxWidth: 200, in: frontView, from: frontView.subviews[5].frame)
         phyPopTip.bubbleColor = phyColor
         
         let safetyTap = UITapGestureRecognizer(target: self, action: #selector(self.handleSafetyTap(_:)))
         safetyView.addGestureRecognizer(safetyTap)
         safetyView.isUserInteractionEnabled = true
-        safetyPopTip.show(text: Utils.SAFETY_NEED_NAME, direction: .none, maxWidth: 200, in: backView, from: backView.subviews[4].frame)
+        safetyPopTip.show(text: Utils.SAFETY_NEED_NAME, direction: .none, maxWidth: 200, in: frontView, from: frontView.subviews[4].frame)
         safetyPopTip.bubbleColor = safetyColor
         
         let loveTap = UITapGestureRecognizer(target: self, action: #selector(self.handleLoveTap(_:)))
         loveBelongingView.addGestureRecognizer(loveTap)
         loveBelongingView.isUserInteractionEnabled = true
-        loveBelongingPopTip.show(text: Utils.LOVE_BELONGING_NEED_NAME, direction: .none, maxWidth: 200, in: backView, from: backView.subviews[3].frame)
+        loveBelongingPopTip.show(text: Utils.LOVE_BELONGING_NEED_NAME, direction: .none, maxWidth: 200, in: frontView, from: frontView.subviews[3].frame)
         loveBelongingPopTip.bubbleColor = loveColor
         
         let esteemTap = UITapGestureRecognizer(target: self, action: #selector(self.handleEsteemTap(_:)))
         esteemView.addGestureRecognizer(esteemTap)
         esteemView.isUserInteractionEnabled = true
-        esteemPopTip.show(text: Utils.ESTEEM_NEED_NAME, direction: .none, maxWidth: 200, in: backView, from: backView.subviews[2].frame)
+        esteemPopTip.show(text: Utils.ESTEEM_NEED_NAME, direction: .none, maxWidth: 200, in: frontView, from: frontView.subviews[2].frame)
         esteemPopTip.bubbleColor = esteemColor
         
         let selfActualizationTap = UITapGestureRecognizer(target: self, action: #selector(self.handleSelfActualizationTap(_:)))
         selfActualizationView.addGestureRecognizer(selfActualizationTap)
         selfActualizationView.isUserInteractionEnabled = true
-        selfActualizationPopTip.show(text: Utils.SELF_ACTUAL_NEED_NAME, direction: .none, maxWidth: 200, in: backView, from: backView.subviews[1].frame)
+        selfActualizationPopTip.show(text: Utils.SELF_ACTUAL_NEED_NAME, direction: .none, maxWidth: 200, in: frontView, from: frontView.subviews[1].frame)
         selfActualizationPopTip.bubbleColor = selfActualColor
     }
 
@@ -251,17 +256,18 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     private func configureBarButtonItem(){
         if flashCard.showFront{
-            instructionButton.isEnabled = true
-            instructionButton.tintColor = .systemBlue
-            
-            downloadButton.isEnabled = false
-            downloadButton.tintColor = .gray
-        }else{
             instructionButton.isEnabled = false
             instructionButton.tintColor = .gray
             
             downloadButton.isEnabled = true
             downloadButton.tintColor = .systemBlue
+
+        }else{
+            instructionButton.isEnabled = true
+            instructionButton.tintColor = .systemBlue
+            
+            downloadButton.isEnabled = false
+            downloadButton.tintColor = .gray
         }
     }
     

@@ -78,7 +78,7 @@ struct PopUp{
                                                   noteInstruction: true,
                                                   resultsInstruction: false]) { (error) in
                                             if let e = error{
-                                                print("There was an issue saving reuslts-instruction property to firestore, \(e)")
+                                                print("There was an issue saving results-instruction property to firestore, \(e)")
                                             }
                                         }
                                     }

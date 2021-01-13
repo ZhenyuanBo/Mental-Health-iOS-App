@@ -75,6 +75,7 @@ class Utils{
     
     //MARK: - Messages
     public static let SAVE_NOTE_ALERT_MSG = "Have you saved your current note?"
+    public static let SAVE_NOTE_NEED_REMINDER_MSG = "Please select need(s) before saving this activity!"
     public static let RESULTS_INSTRUCTION_MSG = "1. Tap on each level tag to view activity progression.\n2. Tap inside each level to view detailed data"
     public static let ACTIVITY_DEFAULT_MSG = "Please compose your activity here..."
     public static let NEED_SELECT_INSTRUCTION_MSG = "1. Select needs that activity has fulfilled\n 2. Click on the selected need if you want to deselect it"

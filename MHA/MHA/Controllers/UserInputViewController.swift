@@ -22,6 +22,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     var selectedStartTime: String = ""
     var selectedEndTime: String = ""
     var hasTextModified: Bool = false
+    var hasNeedButtonPressed: Bool = false
     
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var frontView: UIView!
@@ -146,6 +147,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     }
     
     @IBAction func needButtonPressed(_ sender: UIButton) {
+        hasNeedButtonPressed = true
         var selectedCategory = sender.titleLabel?.text
         if selectedCategory! == "personal security"{
             selectedCategory = "personal_security"
@@ -226,11 +228,15 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     
     
     @IBAction func savePressed(_ sender: UIBarButtonItem) {
-        showTimePicker()
+        if(!hasNeedButtonPressed){
+            alertMessageCreator(alertTitle: Utils.SAVE_NOTE_NEED_REMINDER_MSG)
+        }else{
+            showTimePicker()
+        }
     }
     
     @IBAction func addPressed(_ sender: UIBarButtonItem) {
-        alertMessageCreator()
+        alertMessageCreator(alertTitle: Utils.SAVE_NOTE_ALERT_MSG)
         selectedNeeds = ""
     }
     
@@ -413,23 +419,28 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
         return true
     }
     
-    private func alertMessageCreator(){
+    private func alertMessageCreator(alertTitle: String){
         let alert : UIAlertController?
-        let alertTitle = Utils.SAVE_NOTE_ALERT_MSG
-        
-        alert = UIAlertController(title: alertTitle, message: "", preferredStyle: .alert)
-        let saveAction = UIAlertAction(title: "Yes", style: .default) {(action) in
-            self.activityText.text = ""
-            self.activityID = UUID.init().uuidString
-            self.setTextViewPlaceHolder()
-            self.cleanPyramidMapData()
+        if(alertTitle == Utils.SAVE_NOTE_ALERT_MSG){
+            alert = UIAlertController(title: alertTitle, message: "", preferredStyle: .alert)
+            let saveAction = UIAlertAction(title: "Yes", style: .default) {(action) in
+                self.activityText.text = ""
+                self.activityID = UUID.init().uuidString
+                self.setTextViewPlaceHolder()
+                self.cleanPyramidMapData()
+            }
+            let newAction = UIAlertAction(title: "No", style: .default) {(action) in
+                self.showTimePicker()
+            }
+            alert!.addAction(saveAction)
+            alert!.addAction(newAction)
+            present(alert!, animated: true, completion: nil)
+        }else if(alertTitle == Utils.SAVE_NOTE_NEED_REMINDER_MSG){
+            alert = UIAlertController(title: alertTitle, message: "", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Okay", style: .default) {_ in }
+            alert!.addAction(action)
+            present(alert!, animated: true, completion: nil)
         }
-        let newAction = UIAlertAction(title: "No", style: .default) {(action) in
-            self.showTimePicker()
-        }
-        alert!.addAction(saveAction)
-        alert!.addAction(newAction)
-        present(alert!, animated: true, completion: nil)
     }
     
     private func setTextViewPlaceHolder(){
