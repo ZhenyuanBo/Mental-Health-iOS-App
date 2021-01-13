@@ -226,7 +226,6 @@ PODS:
   - Charts/Core (3.6.0)
   - DateToolsSwift (5.0.0)
   - DynamicBlurView (4.1.0)
-  - EasyTipView (2.1.0)
   - Firebase/Auth (6.34.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 6.9.2)
@@ -322,7 +321,6 @@ DEPENDENCIES:
   - AMPopTip
   - CalendarKit
   - Charts
-  - EasyTipView (~> 2.1.0)
   - Firebase/Auth
   - Firebase/Firestore
   - PopupDialog (~> 1.1)
@@ -337,7 +335,6 @@ SPEC REPOS:
     - Charts
     - DateToolsSwift
     - DynamicBlurView
-    - EasyTipView
     - Firebase
     - FirebaseAuth
     - FirebaseCore
@@ -363,7 +360,6 @@ SPEC CHECKSUMS:
   Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
   DateToolsSwift: 4207ada6ad615d8dc076323d27037c94916dbfa6
   DynamicBlurView: 58e18fae80bb614e34681a4486870e7d257b62e8
-  EasyTipView: a92b6edc377b81c5ac18e9fd35d5ee78e9409488
   Firebase: c23a36d9e4cdf7877dfcba8dd0c58add66358999
   FirebaseAuth: c92d49ada7948d1a23466e3db17bc4c2039dddc3
   FirebaseCore: d3a978a3cfa3240bf7e4ba7d137fdf5b22b628ec
@@ -381,6 +377,6 @@ SPEC CHECKSUMS:
   Realm: 784ca1da1453e31a9c9adc14445421a81f316119
   RealmSwift: cc52fe0dcea56387274dff36e19219e055a3bb84
 
-PODFILE CHECKSUM: 31057407c07e13ecaf7ac6e32154e732d75faacb
+PODFILE CHECKSUM: 1bb2319127a51a6eafd0dcfc7ad2598bb7c0d6f5
 
 COCOAPODS: 1.10.0
