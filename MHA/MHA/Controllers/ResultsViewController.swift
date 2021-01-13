@@ -16,6 +16,8 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     let realm = try! Realm()
     
+    var roundRectButtonPopTipView: SwiftPopTipView?
+    
     let phyPopTip = PopTip()
     let safetyPopTip = PopTip()
     let loveBelongingPopTip = PopTip()
@@ -48,6 +50,9 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let navBarLeftButtonPopTipView = SwiftPopTipView(message: "View report on hierarchy of needs")
+        navBarLeftButtonPopTipView.presentPointingAtBarButtonItem(flipButton!, animated: true)
         
         instructionButton.isEnabled = false
         instructionButton.tintColor = .gray

@@ -184,7 +184,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="1t1-wm-1Ed">
-                        <barButtonItem key="rightBarButtonItem" title="Flip Button" image="goforward" catalog="system" id="Syu-9v-cR6">
+                        <barButtonItem key="rightBarButtonItem" title="Last 7-day Trend" id="Syu-9v-cR6">
                             <connections>
                                 <action selector="flipPressed:" destination="c5w-ks-mN0" id="52e-is-WcL"/>
                             </connections>
@@ -927,7 +927,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="IvZ-24-tcS">
                         <rightBarButtonItems>
-                            <barButtonItem title="Item" image="goforward" catalog="system" id="N34-QB-Jmp">
+                            <barButtonItem title="Item" image="arrow.right.circle" catalog="system" id="N34-QB-Jmp">
                                 <connections>
                                     <action selector="flipPressed:" destination="tpP-MW-a8o" id="h5K-Ut-d6x"/>
                                 </connections>
@@ -1102,6 +1102,7 @@
         <segue reference="Gss-vH-loc"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="arrow.right.circle" catalog="system" width="128" height="121"/>
         <image name="calendar" catalog="system" width="128" height="106"/>
         <image name="chart.pie.fill" catalog="system" width="128" height="121"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
