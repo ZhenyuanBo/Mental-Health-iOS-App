@@ -59,6 +59,10 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let flipButtonPopTipView = SwiftPopTipView(message: "Select need category")
+        flipButtonPopTipView.presentAnimatedPointingAtBarButtonItem(flipButton!, autodismissAtTime: 3.0)
+        
         for need in Utils.NEED_TYPE_LIST{
             dailyActivityMap[need] = 0
         }
@@ -76,6 +80,8 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
         view.backgroundColor = Theme.current.background
         
         title = setTitle(date: selectedDate)
+//        let attributes = [NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Light", size: 17)!]
+//        UINavigationBar.appearance().titleTextAttributes = attributes
         
         if !hasTextModified{
             if let safeActivityText = savedActivityText{
@@ -124,6 +130,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
         selectedNeeds = ""
         selectedStartTime = ""
         selectedEndTime = ""
+        hasNeedButtonPressed = false
         for need in dailyActivityMap.keys{
             dailyActivityMap[need] = 0
         }
@@ -229,7 +236,13 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     
     @IBAction func savePressed(_ sender: UIBarButtonItem) {
         if(!hasNeedButtonPressed){
-            alertMessageCreator(alertTitle: Utils.SAVE_NOTE_NEED_REMINDER_MSG)
+            if let safeActivityText = savedActivityText{
+                if safeActivityText != activityText.text{
+                    alertMessageCreator(alertTitle: Utils.SAVE_NOTE_NEED_MODIFY_REMINDER)
+                }
+            }else{
+                alertMessageCreator(alertTitle: Utils.SAVE_NOTE_NEED_CREATE_REMINDER)
+            }
         }else{
             showTimePicker()
         }
@@ -435,10 +448,19 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
             alert!.addAction(saveAction)
             alert!.addAction(newAction)
             present(alert!, animated: true, completion: nil)
-        }else if(alertTitle == Utils.SAVE_NOTE_NEED_REMINDER_MSG){
+        }else if(alertTitle == Utils.SAVE_NOTE_NEED_CREATE_REMINDER){
             alert = UIAlertController(title: alertTitle, message: "", preferredStyle: .alert)
             let action = UIAlertAction(title: "Okay", style: .default) {_ in }
             alert!.addAction(action)
+            present(alert!, animated: true, completion: nil)
+        }else if(alertTitle == Utils.SAVE_NOTE_NEED_MODIFY_REMINDER){
+            alert = UIAlertController(title: alertTitle, message: "", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Okay", style: .default) {_ in }
+            let discardAction = UIAlertAction(title: "Discard", style: .default) { (action) in
+                self.showTimePicker()
+            }
+            alert!.addAction(action)
+            alert!.addAction(discardAction)
             present(alert!, animated: true, completion: nil)
         }
     }

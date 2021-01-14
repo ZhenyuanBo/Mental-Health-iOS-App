@@ -16,7 +16,7 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     let realm = try! Realm()
     
-    var roundRectButtonPopTipView: SwiftPopTipView?
+//    var roundRectButtonPopTipView: SwiftPopTipView?
     
     let phyPopTip = PopTip()
     let safetyPopTip = PopTip()
@@ -50,12 +50,12 @@ class ResultsViewController: UIViewController, UIPopoverPresentationControllerDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let flipButtonPopTipView = SwiftPopTipView(message: "View daily activity report")
-        flipButtonPopTipView.presentAnimatedPointingAtBarButtonItem(flipButton, autodismissAtTime: 2.0)
+        flipButtonPopTipView.presentAnimatedPointingAtBarButtonItem(flipButton!, autodismissAtTime: 2.0)
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             let downloadButtonPopTipView = SwiftPopTipView(message: "Download chart as an image")
-            downloadButtonPopTipView.presentAnimatedPointingAtBarButtonItem(self.downloadButton, autodismissAtTime: 2.0)
+            downloadButtonPopTipView.presentAnimatedPointingAtBarButtonItem(self.downloadButton!, autodismissAtTime: 2.0)
         }
 
         downloadButton.isEnabled = false

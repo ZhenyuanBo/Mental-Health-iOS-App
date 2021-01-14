@@ -61,6 +61,7 @@
 		6E5007C2259177E200D9742B /* YouthfulandFunTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5007C1259177E200D9742B /* YouthfulandFunTheme.swift */; };
 		6E5007CA2591844300D9742B /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5007C92591844300D9742B /* CustomNavigationController.swift */; };
 		6E52000025AEA64A000331DF /* SwiftPopTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E52FFFF25AEA64A000331DF /* SwiftPopTipView.swift */; };
+		6E52002425AFD1C6000331DF /* ReportCentreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E52002325AFD1C5000331DF /* ReportCentreViewController.swift */; };
 		6E6A198F258D15F1002573A1 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6A198E258D15F1002573A1 /* ResultsViewController.swift */; };
 		6E6A19BB258D8ECB002573A1 /* SystemLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6A19BA258D8ECB002573A1 /* SystemLog.swift */; };
 		6E78E950255A2F4700A61966 /* UserInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E78E94F255A2F4700A61966 /* UserInputViewController.swift */; };
@@ -153,6 +154,7 @@
 		6E5007BC2591771600D9742B /* StylishandSophisticatedTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StylishandSophisticatedTheme.swift; sourceTree = "<group>"; };
 		6E5007C1259177E200D9742B /* YouthfulandFunTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouthfulandFunTheme.swift; sourceTree = "<group>"; };
 		6E5007C92591844300D9742B /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
+		6E52002325AFD1C5000331DF /* ReportCentreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportCentreViewController.swift; sourceTree = "<group>"; };
 		6E52FFFF25AEA64A000331DF /* SwiftPopTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftPopTipView.swift; sourceTree = "<group>"; };
 		6E6A198E258D15F1002573A1 /* ResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		6E6A19BA258D8ECB002573A1 /* SystemLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemLog.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 			isa = PBXGroup;
 			children = (
 				6E184D842550F7890066EBC1 /* WelcomeViewController.swift */,
+				6E52002325AFD1C5000331DF /* ReportCentreViewController.swift */,
 				6E5007C92591844300D9742B /* CustomNavigationController.swift */,
 				6E4308E5257C49DB00EA4754 /* CustomTabViewController.swift */,
 				6E0EF6F1255EED1C00939B0B /* CalendarViewController.swift */,
@@ -642,6 +645,7 @@
 				6E26886F2564A83B00C45D21 /* EsteemView.swift in Sources */,
 				6EF7BE2C25547CD400280738 /* Utils.swift in Sources */,
 				6E0EF686255C830000939B0B /* DailyActivity.swift in Sources */,
+				6E52002425AFD1C6000331DF /* ReportCentreViewController.swift in Sources */,
 				6E2688C025672E9000C45D21 /* NeedDetailViewController.swift in Sources */,
 				6E4308BA257A9B1D00EA4754 /* EarthyGreensTheme.swift in Sources */,
 				6E5007C2259177E200D9742B /* YouthfulandFunTheme.swift in Sources */,

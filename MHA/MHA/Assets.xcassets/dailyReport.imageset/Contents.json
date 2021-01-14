@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "yourself.jpg",
+      "filename" : "dailyReport.jpeg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "yourself@2x.jpg",
+      "filename" : "dailyReport@2x.jpeg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "yourself@3x.jpg",
+      "filename" : "dailyReport@3x.jpeg",
       "idiom" : "universal",
       "scale" : "3x"
     }

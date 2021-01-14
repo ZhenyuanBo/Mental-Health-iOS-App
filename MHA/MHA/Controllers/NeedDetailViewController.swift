@@ -9,6 +9,8 @@ import Charts
 
 class NeedDetailViewController: UIViewController, ChartViewDelegate{
     
+    var roundRectButtonPopTipView: SwiftPopTipView?
+    
     @IBOutlet weak var flashCard: FlashCardView!
     
     @IBOutlet weak var frontView: UIView!
@@ -16,6 +18,8 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
     @IBOutlet weak var barChartView: BarChartView!
     @IBOutlet weak var lineChartView: LineChartView!
     
+    
+    @IBOutlet weak var needFlipButton: UIBarButtonItem!
     
     var needCategoryLevel: String = ""
     var selectedDate:Date = Date()
@@ -37,6 +41,9 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+//        let needFlipButtonPopTipView = SwiftPopTipView(message: "View last 7-day report")
+//        needFlipButtonPopTipView.presentAnimatedPointingAtBarButtonItem(needFlipButton!, autodismissAtTime: 2.0)
         
         decodedData = Utils.loadDailyActivityResult(date: selectedDate)
         
@@ -56,6 +63,8 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+//        let needFlipButtonPopTipView = SwiftPopTipView(message: "View last 7-day report")
+//        needFlipButtonPopTipView.presentAnimatedPointingAtBarButtonItem(needFlipButton!, autodismissAtTime: 2.0)
     }
     
     @IBAction func flipPressed(_ sender: UIBarButtonItem) {
