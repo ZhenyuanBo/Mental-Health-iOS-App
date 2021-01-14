@@ -115,17 +115,17 @@
             <objects>
                 <viewController hidesBottomBarWhenPushed="YES" id="c5w-ks-mN0" customClass="NeedDetailViewController" customModule="MHA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Jg9-R9-mn7">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vza-az-eVi" customClass="FlashCardView" customModule="MHA" customModuleProvider="target">
-                                <rect key="frame" x="20" y="20" width="374" height="753"/>
+                                <rect key="frame" x="20" y="108" width="374" height="719"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zcd-R3-x1E" userLabel="BackView">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="753"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="719"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CAc-oc-hC4" customClass="LineChartView" customModule="Charts">
-                                                <rect key="frame" x="8" y="6" width="358" height="741"/>
+                                                <rect key="frame" x="8" y="6" width="358" height="707"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </view>
                                         </subviews>
@@ -138,10 +138,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cE4-7X-7ox" userLabel="FrontView">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="753"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="719"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dOz-ZB-vVe" customClass="BarChartView" customModule="Charts">
-                                                <rect key="frame" x="8" y="8" width="358" height="737"/>
+                                                <rect key="frame" x="8" y="8" width="358" height="703"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </view>
                                         </subviews>
@@ -184,7 +184,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="1t1-wm-1Ed">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="arrow.triangle.2.circlepath" catalog="system" id="Syu-9v-cR6">
+                        <barButtonItem key="rightBarButtonItem" title="Last 7-day" id="Syu-9v-cR6">
                             <connections>
                                 <action selector="flipPressed:" destination="c5w-ks-mN0" id="52e-is-WcL"/>
                             </connections>
@@ -196,12 +196,12 @@
                         <outlet property="flashCard" destination="vza-az-eVi" id="MfM-mz-yzk"/>
                         <outlet property="frontView" destination="cE4-7X-7ox" id="Cx7-O2-xIx"/>
                         <outlet property="lineChartView" destination="CAc-oc-hC4" id="ka8-sO-9CK"/>
-                        <outlet property="needFlipButton" destination="Syu-9v-cR6" id="dbN-Xb-0sJ"/>
+                        <outlet property="needFlipButton" destination="Syu-9v-cR6" id="N2i-7B-g7p"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1IE-Xa-K8B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5029" y="-852"/>
+            <point key="canvasLocation" x="4361" y="-835"/>
         </scene>
         <!--Welcome View Controller-->
         <scene sceneID="nve-d1-xyl">
@@ -819,7 +819,7 @@
                         </leftBarButtonItems>
                         <rightBarButtonItems>
                             <barButtonItem id="zaq-PF-Evf"/>
-                            <barButtonItem title="Flip" image="goforward" catalog="system" id="uiq-ic-Uth">
+                            <barButtonItem title="Select need" id="uiq-ic-Uth">
                                 <connections>
                                     <action selector="flipPressed:" destination="0vO-9G-NZj" id="hfN-6f-7FP"/>
                                 </connections>
@@ -871,54 +871,29 @@
             </objects>
             <point key="canvasLocation" x="4557.971014492754" y="950.89285714285711"/>
         </scene>
-        <!--Report Centre View Controller-->
-        <scene sceneID="Ng4-DU-ZAK">
-            <objects>
-                <viewController id="fYB-pL-R9H" customClass="ReportCentreViewController" customModule="MHA" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="cDh-hU-orN">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="dailyReport" translatesAutoresizingMaskIntoConstraints="NO" id="miD-Wa-Mx2">
-                                <rect key="frame" x="20" y="127" width="374" height="221"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="DJs-hV-yvB"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="bsz-PW-rnF"/>
-                    <connections>
-                        <outlet property="dailyReportImg" destination="miD-Wa-Mx2" id="s5L-6S-mum"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Nzi-dQ-Edk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3147.826086956522" y="-852.45535714285711"/>
-        </scene>
         <!--Results View Controller-->
         <scene sceneID="5FM-86-JjT">
             <objects>
                 <viewController id="tpP-MW-a8o" customClass="ResultsViewController" customModule="MHA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FQs-4K-puT">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2mv-ep-Qkn" userLabel="Flash Card" customClass="FlashCardView" customModule="MHA" customModuleProvider="target">
-                                <rect key="frame" x="20" y="76" width="374" height="766"/>
+                                <rect key="frame" x="20" y="120" width="374" height="673"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="23c-b8-Lpg" userLabel="BackView">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="673"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j0G-KR-wnL">
-                                                <rect key="frame" x="-5" y="0.0" width="384" height="51"/>
+                                                <rect key="frame" x="-5" y="8" width="384" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kwS-HX-TCA" customClass="PieChartView" customModule="Charts">
-                                                <rect key="frame" x="0.0" y="78" width="374" height="547"/>
+                                                <rect key="frame" x="0.0" y="48" width="374" height="577"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </view>
@@ -926,7 +901,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Rs-ho-LWL" userLabel="FrontView">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="766"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="673"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
@@ -953,7 +928,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="IvZ-24-tcS">
                         <rightBarButtonItems>
-                            <barButtonItem title="Item" image="goforward" catalog="system" id="N34-QB-Jmp">
+                            <barButtonItem title="Graph" id="N34-QB-Jmp">
                                 <connections>
                                     <action selector="flipPressed:" destination="tpP-MW-a8o" id="h5K-Ut-d6x"/>
                                 </connections>
@@ -984,7 +959,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y00-8J-toE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4000" y="-852"/>
+            <point key="canvasLocation" x="3496" y="-835"/>
         </scene>
         <!--Activity Time Picker-->
         <scene sceneID="ToL-Jk-Szz">
@@ -1097,12 +1072,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="fYB-pL-R9H" kind="relationship" relationship="rootViewController" id="vc6-iI-fAw"/>
+                        <segue destination="tpP-MW-a8o" kind="relationship" relationship="rootViewController" id="TIt-db-et2"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lat-sF-WMX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2249" y="-852"/>
+            <point key="canvasLocation" x="2657.971014492754" y="-835.04464285714278"/>
         </scene>
         <!--Setting-->
         <scene sceneID="wFO-1U-hFd">
@@ -1128,12 +1103,9 @@
         <segue reference="Gss-vH-loc"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="arrow.triangle.2.circlepath" catalog="system" width="128" height="101"/>
         <image name="calendar" catalog="system" width="128" height="106"/>
         <image name="chart.pie.fill" catalog="system" width="128" height="121"/>
-        <image name="dailyReport" width="185" height="104"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
-        <image name="goforward" catalog="system" width="121" height="128"/>
         <image name="info.circle" catalog="system" width="128" height="121"/>
         <image name="mountain_climb" width="320" height="213"/>
         <image name="note.text" catalog="system" width="128" height="106"/>

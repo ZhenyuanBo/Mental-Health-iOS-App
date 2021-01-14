@@ -18,7 +18,6 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
     @IBOutlet weak var barChartView: BarChartView!
     @IBOutlet weak var lineChartView: LineChartView!
     
-    
     @IBOutlet weak var needFlipButton: UIBarButtonItem!
     
     var needCategoryLevel: String = ""
@@ -42,9 +41,6 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        let needFlipButtonPopTipView = SwiftPopTipView(message: "View last 7-day report")
-//        needFlipButtonPopTipView.presentAnimatedPointingAtBarButtonItem(needFlipButton!, autodismissAtTime: 2.0)
-        
         decodedData = Utils.loadDailyActivityResult(date: selectedDate)
         
         flashCard.duration = 2.0
@@ -63,12 +59,15 @@ class NeedDetailViewController: UIViewController, ChartViewDelegate{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        let needFlipButtonPopTipView = SwiftPopTipView(message: "View last 7-day report")
-//        needFlipButtonPopTipView.presentAnimatedPointingAtBarButtonItem(needFlipButton!, autodismissAtTime: 2.0)
     }
     
     @IBAction func flipPressed(_ sender: UIBarButtonItem) {
         flashCard.flip()
+        if flashCard.showFront{
+            needFlipButton.title = "Current day"
+        }else{
+            needFlipButton.title = "Last 7-day"
+        }
     }
     
     private func buildBarChart(){

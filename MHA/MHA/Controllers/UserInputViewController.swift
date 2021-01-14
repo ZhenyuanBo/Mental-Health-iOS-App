@@ -60,9 +60,6 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let flipButtonPopTipView = SwiftPopTipView(message: "Select need category")
-        flipButtonPopTipView.presentAnimatedPointingAtBarButtonItem(flipButton!, autodismissAtTime: 3.0)
-        
         for need in Utils.NEED_TYPE_LIST{
             dailyActivityMap[need] = 0
         }
@@ -78,11 +75,8 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     override func viewWillAppear(_ animated: Bool) {
 
         view.backgroundColor = Theme.current.background
-        
         title = setTitle(date: selectedDate)
-//        let attributes = [NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Light", size: 17)!]
-//        UINavigationBar.appearance().titleTextAttributes = attributes
-        
+
         if !hasTextModified{
             if let safeActivityText = savedActivityText{
                 activityText.text = safeActivityText
@@ -147,9 +141,10 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
         if flashCard.showFront{
             configureBarButtonItem()
             PopUp.allowDisplayInstructionDialog(VC: self, message: Utils.NEED_SELECT_INSTRUCTION_MSG)
-            
+            flipButton.title = "Activity"
         }else{
             configureBarButtonItem()
+            flipButton.title = "Select need"
         }
     }
     
