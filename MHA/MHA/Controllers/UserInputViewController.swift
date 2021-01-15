@@ -23,6 +23,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     var selectedEndTime: String = ""
     var hasTextModified: Bool = false
     var hasNeedButtonPressed: Bool = false
+    var hasActivitySaved: Bool = false
     
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var frontView: UIView!
@@ -125,6 +126,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
         selectedStartTime = ""
         selectedEndTime = ""
         hasNeedButtonPressed = false
+        hasActivitySaved = false
         for need in dailyActivityMap.keys{
             dailyActivityMap[need] = 0
         }
@@ -234,6 +236,8 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
             if let safeActivityText = savedActivityText{
                 if safeActivityText != activityText.text{
                     alertMessageCreator(alertTitle: Utils.SAVE_NOTE_NEED_MODIFY_REMINDER)
+                }else{
+                    showTimePicker()
                 }
             }else{
                 alertMessageCreator(alertTitle: Utils.SAVE_NOTE_NEED_CREATE_REMINDER)
@@ -244,8 +248,25 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     }
     
     @IBAction func addPressed(_ sender: UIBarButtonItem) {
-        alertMessageCreator(alertTitle: Utils.SAVE_NOTE_ALERT_MSG)
-        selectedNeeds = ""
+        var canCreateNewActivity: Bool = false
+        
+        if let safeActivityText = savedActivityText{
+            if safeActivityText != activityText.text && !hasActivitySaved{
+                alertMessageCreator(alertTitle: Utils.SAVE_NOTE_ALERT_MSG)
+            }else{
+                canCreateNewActivity = true
+            }
+        }else if(!hasActivitySaved){
+            alertMessageCreator(alertTitle: Utils.SAVE_NOTE_ALERT_MSG)
+        }
+        
+        if(canCreateNewActivity){
+            selectedNeeds = ""
+            activityText.text = ""
+            activityID = UUID.init().uuidString
+            setTextViewPlaceHolder()
+            cleanPyramidMapData()
+        }
     }
     
     @IBAction func instructionPressed(_ sender: UIBarButtonItem) {
@@ -289,6 +310,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
             }
             saveDailyActivityMap(date: selectedDate)
             saveSelectedNeeds()
+            hasActivitySaved = true
         }catch{
             print("Error saving new category-mapping, \(error)", to: &Log.log)
         }
@@ -431,17 +453,8 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
         let alert : UIAlertController?
         if(alertTitle == Utils.SAVE_NOTE_ALERT_MSG){
             alert = UIAlertController(title: alertTitle, message: "", preferredStyle: .alert)
-            let saveAction = UIAlertAction(title: "Yes", style: .default) {(action) in
-                self.activityText.text = ""
-                self.activityID = UUID.init().uuidString
-                self.setTextViewPlaceHolder()
-                self.cleanPyramidMapData()
-            }
-            let newAction = UIAlertAction(title: "No", style: .default) {(action) in
-                self.showTimePicker()
-            }
-            alert!.addAction(saveAction)
-            alert!.addAction(newAction)
+            let action = UIAlertAction(title: "Okay", style: .default) {_ in }
+            alert!.addAction(action)
             present(alert!, animated: true, completion: nil)
         }else if(alertTitle == Utils.SAVE_NOTE_NEED_CREATE_REMINDER){
             alert = UIAlertController(title: alertTitle, message: "", preferredStyle: .alert)
