@@ -71,7 +71,31 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
         self.view.addGestureRecognizer(leftSwipeGestureRecognizer)
         self.view.addGestureRecognizer(rightSwipeGestureRecognizer)
         activityText.delegate = self
+        
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        
     }
+    
+    @objc func adjustForKeyboard(notification: Notification) {
+        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+
+        let keyboardScreenEndFrame = keyboardValue.cgRectValue
+        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
+
+        if notification.name == UIResponder.keyboardWillHideNotification {
+            activityText.contentInset = .zero
+        } else {
+            activityText.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height - view.safeAreaInsets.bottom, right: 0)
+        }
+
+        activityText.scrollIndicatorInsets = activityText.contentInset
+        
+        let selectedRange = activityText.selectedRange
+        activityText.scrollRangeToVisible(selectedRange)
+    }
+
     
     override func viewWillAppear(_ animated: Bool) {
 
@@ -135,6 +159,7 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
                 hasTextModified = true
             }
         }
+        NotificationCenter.default.removeObserver(self)
     }
     
     //MARK: - Button Actions
@@ -248,24 +273,16 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     }
     
     @IBAction func addPressed(_ sender: UIBarButtonItem) {
-        var canCreateNewActivity: Bool = false
-        
         if let safeActivityText = savedActivityText{
             if safeActivityText != activityText.text && !hasActivitySaved{
                 alertMessageCreator(alertTitle: Utils.SAVE_NOTE_ALERT_MSG)
             }else{
-                canCreateNewActivity = true
+                prepareNewActivity()
             }
         }else if(!hasActivitySaved){
             alertMessageCreator(alertTitle: Utils.SAVE_NOTE_ALERT_MSG)
-        }
-        
-        if(canCreateNewActivity){
-            selectedNeeds = ""
-            activityText.text = ""
-            activityID = UUID.init().uuidString
-            setTextViewPlaceHolder()
-            cleanPyramidMapData()
+        }else{
+            prepareNewActivity()
         }
     }
     
@@ -281,13 +298,27 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
+        print("text view did begin editing ... ")
         if activityText.textColor == UIColor.lightGray{
             activityText.text = nil
             activityText.textColor = UIColor.black
         }
     }
     
+    func textViewDidEndEditing(_ textView: UITextView) {
+        print("text view did end editing ...")
+    }
+    
+    
     //MARK: - Data Manipulation Methods
+    private func prepareNewActivity(){
+        selectedNeeds = ""
+        activityText.text = ""
+        activityID = UUID.init().uuidString
+        setTextViewPlaceHolder()
+        cleanPyramidMapData()
+    }
+    
     private func setTitle(date: Date)->String{
         let month = date.dateFormatter(format: "MM")
         let monthName = Utils.MONTH_MAP[Int(month)!]!
@@ -453,8 +484,12 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
         let alert : UIAlertController?
         if(alertTitle == Utils.SAVE_NOTE_ALERT_MSG){
             alert = UIAlertController(title: alertTitle, message: "", preferredStyle: .alert)
-            let action = UIAlertAction(title: "Okay", style: .default) {_ in }
-            alert!.addAction(action)
+            let okayAction = UIAlertAction(title: "Okay", style: .default) {_ in }
+            let discardSaveAction = UIAlertAction(title: "Discard Save", style: .default) { (action) in
+                self.prepareNewActivity()
+            }
+            alert!.addAction(okayAction)
+            alert!.addAction(discardSaveAction)
             present(alert!, animated: true, completion: nil)
         }else if(alertTitle == Utils.SAVE_NOTE_NEED_CREATE_REMINDER){
             alert = UIAlertController(title: alertTitle, message: "", preferredStyle: .alert)
