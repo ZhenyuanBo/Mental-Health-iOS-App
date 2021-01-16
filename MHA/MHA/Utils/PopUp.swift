@@ -22,7 +22,7 @@ struct PopUp{
         if let currentUser = Auth.auth().currentUser?.email{
             db.collection(collectionName).whereField(settingOwner, isEqualTo: currentUser).getDocuments {(querySnapshot, error) in
                 if let e = error{
-                    print("Error with retrieving instruction-dialog setting, \(e)")
+                    print("Error with retrieving instruction-dialog setting, \(e)", to: &Log.log)
                 }else{
                     if let snapshotDocuments = querySnapshot?.documents{
                         if snapshotDocuments.count<1{
@@ -69,7 +69,7 @@ struct PopUp{
                                                   noteInstruction: false,
                                                   resultsInstruction: true]) { (error) in
                                             if let e = error{
-                                                print("There was an issue saving note-instruction property to firestore, \(e)")
+                                                print("There was an issue saving note-instruction property to firestore, \(e)", to: &Log.log)
                                             }
                                         }
                                     }else if message == Utils.RESULTS_INSTRUCTION_MSG{
@@ -78,7 +78,7 @@ struct PopUp{
                                                   noteInstruction: true,
                                                   resultsInstruction: false]) { (error) in
                                             if let e = error{
-                                                print("There was an issue saving results-instruction property to firestore, \(e)")
+                                                print("There was an issue saving results-instruction property to firestore, \(e)", to: &Log.log)
                                             }
                                         }
                                     }

@@ -170,7 +170,7 @@ class Utils{
                 let decodedData = try decoder.decode(DailyNeedData.self, from: jsonData)
                 return decodedData
             }catch{
-                print("Fail to decode need-selection data, \(error)")
+                print("Fail to decode need-selection data, \(error)", to: &Log.log)
             }
         }
         return nil
@@ -188,7 +188,7 @@ class Utils{
                 let decodedData = try decoder.decode(DailyActivityData.self, from: jsonData)
                 return decodedData
             }catch{
-                print("Error retrieving decoded need result data, \(error)")
+                print("Error retrieving decoded need result data, \(error)", to: &Log.log)
             }
         }
         return nil
