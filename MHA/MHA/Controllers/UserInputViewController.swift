@@ -298,18 +298,12 @@ class UserInputViewController: UIViewController, UITabBarControllerDelegate, UIT
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        print("text view did begin editing ... ")
         if activityText.textColor == UIColor.lightGray{
             activityText.text = nil
             activityText.textColor = UIColor.black
         }
     }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        print("text view did end editing ...")
-    }
-    
-    
+
     //MARK: - Data Manipulation Methods
     private func prepareNewActivity(){
         selectedNeeds = ""
